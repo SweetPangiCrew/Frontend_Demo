@@ -8,7 +8,7 @@ public class JSONWriter : MonoBehaviour
 {
     private Luna luna;
     public void SaveToJson(){
-        NPCData data = new NPCData();
+        LunaData data = new LunaData();
         data.name = luna._name;
         data.location = luna._location;
 
