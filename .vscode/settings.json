@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Frontend-Demo.sln"
+    "dotnet.defaultSolution": "Frontend_Demo.sln"
 }
