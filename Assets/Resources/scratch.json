@@ -1,0 +1,124 @@
+{
+  "vision_r": 8,
+  "att_bandwidth": 8,
+  "retention": 8,
+  "curr_time": "February 13, 2023, 00:00:40",
+  "curr_address": "the Ville:Isabella Rodriguez's apartment:main room",
+  "daily_plan_req": "Maria Lopez spends at least 3 hours a day Twitch streaming or gaming.",
+  "name": "Maria Lopez",
+  "first_name": "Maria",
+  "last_name": "Lopez",
+  "age": 21,
+  "innate": "energetic, enthusiastic, inquisitive",
+  "learned": "Maria Lopez is a student at Oak Hill College studying physics and a part time Twitch game streamer who loves to connect with people and explore new ideas.",
+  "currently": "Maria Lopez is working on her physics degree and streaming games on Twitch to make some extra money. She visits Hobbs Cafe for studying and eating just about everyday.",
+  "lifestyle": "Maria Lopez goes to bed around 2am, awakes up around 9am, eats dinner around 6pm. She likes to hang out at Hobbs Cafe if it's before 6pm.",
+  "living_area": "the Ville:Dorm for Oak Hill College:Maria Lopez's room",
+  "concept_forget": 100,
+  "daily_reflection_time": 180,
+  "daily_reflection_size": 5,
+  "overlap_reflect_th": 4,
+  "kw_strg_event_reflect_th": 10,
+  "kw_strg_thought_reflect_th": 9,
+  "recency_w": 1,
+  "relevance_w": 1,
+  "importance_w": 1,
+  "recency_decay": 0.99,
+  "importance_trigger_max": 150,
+  "importance_trigger_curr": 145,
+  "importance_ele_n": 1,
+  "thought_count": 5,
+  "daily_req": [],
+  "f_daily_schedule": [],
+  "f_daily_schedule_hourly_org": [],
+  "act_address": "<persona> Isabella Rodriguez",
+  "act_start_time": "February 13, 2023, 00:00:00",
+  "act_duration": 11,
+  "act_description": "conversing about two friends, Maria Lopez and Isabella Rodriguez, catching up and discussing the planning of a Valentine's Day party at Hobbs Cafe",
+  "act_pronunciatio": "\ud83d\udcac",
+  "act_event": [
+    "Maria Lopez",
+    "chat with",
+    "Isabella Rodriguez"
+  ],
+  "act_obj_description": null,
+  "act_obj_pronunciatio": null,
+  "act_obj_event": [
+    null,
+    null,
+    null
+  ],
+  "chatting_with": "Isabella Rodriguez",
+  "chat": [
+    [
+      "Maria Lopez",
+      "Hey Isabella! Long time no see. How have you been?"
+    ],
+    [
+      "Isabella Rodriguez",
+      "Hey Maria! I've been good, thanks for asking. How about you?"
+    ],
+    [
+      "Maria Lopez",
+      "I've been great! I just wanted to catch up with you and see how you've been."
+    ],
+    [
+      "Isabella Rodriguez",
+      "I've actually been busy planning a Valentine's Day party at Hobbs Cafe. I'm really excited about it!"
+    ],
+    [
+      "Maria Lopez",
+      "That sounds awesome! Do you need any help with the party planning?"
+    ],
+    [
+      "Isabella Rodriguez",
+      "Thank you so much, Maria! That's really kind of you. I would appreciate any help you could offer. Do you have any ideas for decorations or activities?"
+    ],
+    [
+      "Maria Lopez",
+      "I have a few ideas for decorations. How about creating a photo booth area with Valentine's Day props and setting up a playlist of romantic songs? For activities, we could have a Valentine's Day trivia game or organize a speed dating event. What do you think?"
+    ],
+    [
+      "Isabella Rodriguez",
+      "Those are fantastic ideas, Maria! I love the photo booth and romantic songs suggestions. Speed dating sounds like a lot of fun too. Let's definitely include that as one of the activities. Thank you so much for your help!"
+    ],
+    [
+      "Maria Lopez",
+      "I'm glad you liked the ideas! Should we start brainstorming some more details, like the venue and the date?"
+    ],
+    [
+      "Isabella Rodriguez",
+      "Yes, let's start brainstorming those details. I was thinking of having the party at Hobbs Cafe on February 14th, 2023 from 5pm to 7pm. What do you think?"
+    ],
+    [
+      "Maria Lopez",
+      "That sounds like a perfect plan! February 14th from 5pm to 7pm at Hobbs Cafe works great for the Valentine's Day party."
+    ],
+    [
+      "Isabella Rodriguez",
+      "We should start making a list of the supplies we'll need for the party. Can you help me with that?"
+    ],
+    [
+      "Maria Lopez",
+      "Sure, I can definitely help with making a list of supplies for the party. What do you think we'll need?"
+    ],
+    [
+      "Isabella Rodriguez",
+      "We'll need decorations like Valentine's Day props for the photo booth area, as well as a playlist of romantic songs. For activities, we can include the Valentine's Day trivia game and speed dating. Can you help me come up with more ideas?"
+    ],
+    [
+      "Maria Lopez",
+      "Sure, I can help you come up with more ideas. How about having a Valentine's Day-themed dessert bar with heart-shaped cookies and chocolates? We could also set up a DIY Valentine's Day card-making station."
+    ],
+    [
+      "Isabella Rodriguez",
+      "Those are fantastic ideas, Maria! I love the photo booth and romantic songs suggestions. Speed dating sounds like a lot of fun too. Let's definitely include that as one of the activities. Thank you so much for your help!"
+    ]
+  ],
+  "chatting_with_buffer": {
+    "Isabella Rodriguez": 800
+  },
+  "chatting_end_time": "February 13, 2023, 00:11:00",
+  "act_path_set": false,
+  "planned_path": []
+}

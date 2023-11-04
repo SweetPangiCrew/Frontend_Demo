@@ -1,4 +1,4 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -16,4 +16,4 @@ public class JSONWriter : MonoBehaviour
         File.WriteAllText(Application.dataPath+"/LunaDataFile.json",json);
         Debug.Log("Succeed!");
     }
-}
+}*/

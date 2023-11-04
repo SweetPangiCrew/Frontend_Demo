@@ -1,4 +1,4 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -79,4 +79,4 @@ public class Luna : MonoBehaviour // later, it will be global NPC Controller
         Debug.Log("name: " + _name + ", location: " + _location);
         Debug.Log("Saved JSON data to: " + filePath);
     }
-}
+}*/

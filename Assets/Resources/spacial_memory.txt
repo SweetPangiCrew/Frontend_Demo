@@ -1,0 +1,20 @@
+{
+    "theVille": {
+        
+        "HobbsCafe": 
+        {
+            "cafe": ["refrigerator", "cafe customer seating", "cooking area", "kitchen sink", "behind the cafe counter", "piano"]
+        },
+
+        "IsabellaRodriguezApartment": 
+        {
+            "mainroom": ["bed", "desk", "refrigerator", "closet", "shelf"], 
+            "bathroom": ["shower", "bathroom sink", "toilet"]
+        },
+
+        "TheRoseAndCrownPub": 
+        {
+            "pub": ["shelf", "refrigerator", "bar customer seating", "behind the bar counter", "kitchen sink", "cooking area", "microphone"]
+        }
+    }
+}
