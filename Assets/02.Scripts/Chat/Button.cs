@@ -18,10 +18,11 @@ public class Button : MonoBehaviour
 
     public void ShowChatScreen()
     {
-        int index = gameObject.GetComponent<NPCchat>().screenIndex;
-        Debug.Log(index);
+        NPCchat npcChat = gameObject.GetComponent<NPCchat>();
+        int index = npcChat.screenIndex;
         ChatSystem chatSystem = GameObject.Find("ChatSystem").GetComponent<ChatSystem>();
-        //chatSystem.chatScreen[index].GetComponent<GameObject>().SetActive(true);
+        chatSystem.ResetChatNum(index);
+        npcChat.chatNum.text = chatSystem.chatList[index].newChatNum.ToString();
         chatScreen = GameObject.Find("ChatScreen").transform.GetChild(index).gameObject;
         chatScreen.SetActive(true);
         

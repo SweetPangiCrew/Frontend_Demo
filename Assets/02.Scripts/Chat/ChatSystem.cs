@@ -28,14 +28,13 @@ public class ChatSystem : MonoBehaviour
 
 
     [System.Serializable]
-    public struct ChatBuffer
+    public struct ChatList
     {
-        public Image chatImage;
-        public Scratch myScratch;
+        public string chattingWith;
+        public int newChatNum;
     }
 
-    public List<ChatBuffer> chatBuffer = new List<ChatBuffer>();
-    public int chatCount=0;
+    public List<ChatList> chatList = new List<ChatList>();
 
     //scratch.json 파일 불러오기
     [System.Serializable]
@@ -58,6 +57,8 @@ public class ChatSystem : MonoBehaviour
     {
         if (isChatting == 1)
         {
+            Debug.Log(isChatting);
+            _textScratch = Resources.Load<TextAsset>("scratch");
             myScratch = JsonConvert.DeserializeObject<Scratch>(_textScratch.text);
             Conversation();
             isChatting = 0;
@@ -65,23 +66,25 @@ public class ChatSystem : MonoBehaviour
         if (npcChat != null && index > npcChat.Count - 1)
         {
             CancelInvoke("PrintChat");
-            //CancelInvoke("UpdateChatList");
-            isChatting = 2;
+            if (isChatting == 0)
+                isChatting = 2;
+            else
+                isChatting = 1;
         }
             
 
         if(isChatting == 2)
         {
-            //GameObject.Find("JSONReader").GetComponent<JSONReader>()._textScratch = Resources.Load<TextAsset>("scratch(1)");
+            Debug.Log(isChatting);
             _textScratch = Resources.Load<TextAsset>("scratch_2");
             myScratch = JsonConvert.DeserializeObject<Scratch>(_textScratch.text);
             Conversation();
-            isChatting = 0;
+            isChatting = 3;
         }
         if (npcChat != null && index > npcChat.Count - 1)
         {
             CancelInvoke("PrintChat");
-            //CancelInvoke("UpdateChatList");
+            isChatting = 1;
         }
             
     }
@@ -91,18 +94,43 @@ public class ChatSystem : MonoBehaviour
         index = 0;
         npcChat = myScratch.chat;
 
-        //카톡창 미리보기 생성
-        ChatBuffer chatList = new ChatBuffer();
-        chatScript = Instantiate(chatImage).GetComponent<NPCchat>();
-        chatScript.transform.SetParent(contentRect.transform, false);
-        chatScript.screenIndex = screenIndex++;
+        ChatList newChat = new ChatList();
 
-        //카톡 대화창 생성
-        chatScreenScript = Instantiate(chatScript.chatScreen).GetComponent<ChatScreen>();
-        chatScreenScript.transform.SetParent(screenRect.transform, false);
+        //기존에 대화한 기록이 있을 때 이전 것에 이어서 생성
+        if (chatList.FindIndex(item => item.chattingWith.Equals(myScratch.name + ", " + myScratch.chatting_with)) != -1)
+        {
+            //카톡창 미리보기 불러오기
+            chatScript = contentRect.transform.GetChild(chatList.FindIndex(item => item.chattingWith.Equals(myScratch.name + ", " + myScratch.chatting_with))).GetComponent<NPCchat>();
+            
+            //카톡 대화창 불러오기
+            chatScreenScript = GameObject.Find("ChatScreen").transform.GetChild(chatScript.screenIndex).gameObject.GetComponent<ChatScreen>();
+        }
+        else if (chatList.FindIndex(item => item.chattingWith.Equals(myScratch.chatting_with + ", " + myScratch.name)) != -1)
+        {
+            //카톡창 미리보기 불러오기
+            chatScript = contentRect.transform.GetChild(chatList.FindIndex(item => item.chattingWith.Equals(myScratch.chatting_with + ", " + myScratch.name))).GetComponent<NPCchat>();
+
+            //카톡 대화창 불러오기
+            chatScreenScript = GameObject.Find("ChatScreen").transform.GetChild(chatScript.screenIndex).gameObject.GetComponent<ChatScreen>();
+        }
+        //기존에 대화 내역이 없을 때 새로운 대화창 생성
+        else
+        {
+            //카톡창 미리보기 생성
+            chatScript = Instantiate(chatImage).GetComponent<NPCchat>();
+            chatScript.transform.SetParent(contentRect.transform, false);
+            chatScript.screenIndex = screenIndex++;
+
+            //카톡 대화창 생성
+            chatScreenScript = Instantiate(chatScript.chatScreen).GetComponent<ChatScreen>();
+            chatScreenScript.transform.SetParent(screenRect.transform, false);
+
+            newChat.chattingWith = myScratch.name + ", " + myScratch.chatting_with;
+            chatList.Add(newChat);
+        }
 
         InvokeRepeating("PrintChat", 0, 3.0f);
-        //PrintChatList();
+
     }
     void PrintChat()
     {
@@ -116,79 +144,46 @@ public class ChatSystem : MonoBehaviour
         //카톡창 미리보기 업데이트
         chatScript.chattingWith.text = myScratch.name + ", " + myScratch.chatting_with;
         chatScript.chat.text = npcChat[index][1];
-        chatScript.chatNum.text = (index + 1).ToString();
+
+        ChatList newChatNum = chatList[chatScript.screenIndex];
+        newChatNum.newChatNum += 1;
+        chatList[chatScript.screenIndex] = newChatNum;
+        chatScript.chatNum.text = chatList[chatScript.screenIndex].newChatNum.ToString();
 
         //카톡 대화 생성
-        Debug.Log("current:"+currentChatNPC.name);
-        Debug.Log(chatScript.chattingWith.text.Split(',')[0]);
-        //Debug.Log(string.Equals(currentChatNPC.name, chatScript.chattingWith.text.Split(',')[0].ToString()));
         if (string.Equals(currentChatNPC.name, chatScript.chattingWith.text.Split(',')[0]))
         {
             ChatArea chatArea = Instantiate(chatScript.yellowArea).GetComponent<ChatArea>();
             chatArea.transform.SetParent(chatScreenScript.chatSreenContent.transform);
-            chatArea.chattingRect.sizeDelta = new Vector2(250, chatArea.chattingRect.sizeDelta.y);
+            chatArea.transform.localScale = new Vector3(1, 1, 1);
+            chatArea.chattingRect.sizeDelta = new Vector2(400, chatArea.chattingRect.sizeDelta.y);
+            chatArea.name.text = currentChatNPC.name;
             chatArea.text.text = npcChat[index][1];
-            LayoutRebuilder.ForceRebuildLayoutImmediate(chatScript.yellowArea.GetComponent<RectTransform>());
+            LayoutRebuilder.ForceRebuildLayoutImmediate(contentRect);
         }
         else
         {
             ChatArea chatArea = Instantiate(chatScript.whiteArea).GetComponent<ChatArea>();
             chatArea.transform.SetParent(chatScreenScript.chatSreenContent.transform);
+            chatArea.transform.localScale = new Vector3(1, 1, 1);
+            chatArea.chattingRect.sizeDelta = new Vector2(400, chatArea.chattingRect.sizeDelta.y);
+            chatArea.name.text = currentChatNPC.name;
             chatArea.text.text = npcChat[index][1];
+            LayoutRebuilder.ForceRebuildLayoutImmediate(contentRect);
         }
         index++;
     }
 
-    //말풍선 생성
-/*    void PrintChat()
-    {
-        currentChatNPC = GameObject.Find(npcChat[index][0]);
-        currentChatNPC.GetComponentInChildren<Image>(true).gameObject.SetActive(true);
-        currentChatNPC.GetComponentInChildren<TextMeshProUGUI>().text = npcChat[index][1];
-
-        Invoke("SetActiveFalse", delayTime);
-        //index++;
-    }*/
     void SetActiveFalse()
     {
         currentChatNPC.GetComponentInChildren<Image>(true).gameObject.SetActive(false);
     }
 
-    //카톡창 미리보기 생성
-/*    void PrintChatList()
+    public void ResetChatNum(int screenIndex)
     {
-        ChatBuffer chatList = new ChatBuffer();
-        chatScript = Instantiate(chatImage).GetComponent<NPCchat>();
-        chatScript.transform.SetParent(contentRect.transform, false);
-        InvokeRepeating("UpdateChatList", delayTime, delayTime);
-
-    }
-    void UpdateChatList()
-    {
-        Debug.Log(index);
-        chatScript.chattingWith.text = myScratch.name + " ," + myScratch.chatting_with;
-        chatScript.chat.text = npcChat[index][1];
-        chatScript.chatNum.text = (index + 1).ToString();
-        index++;
-    }*/
-
-    void ChatListUI()
-    {
-        ChatBuffer chatList = new ChatBuffer();
-        Image newChatImage = chatImage;
-
-        if (chatBuffer.Count != 0)
-        {
-            newChatImage = Instantiate(chatImage);
-            newChatImage.rectTransform.position = new Vector2(chatBuffer[-1].chatImage.rectTransform.position.x, chatBuffer[-1].chatImage.rectTransform.position.y - 130.0f);
-        }
-        newChatImage.transform.Find("ChattingWith").gameObject.GetComponent<TextMeshProUGUI>().text = npcChat[0][0] + ", " + npcChat[1][0];
-        newChatImage.transform.Find("Chat").gameObject.GetComponent<TextMeshProUGUI>().text = npcChat[index][1];
-        newChatImage.transform.Find("ChatNum").GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = (index + 1).ToString();
-
-        chatList.chatImage = newChatImage;
-        chatList.myScratch = myScratch;
-        chatBuffer.Add(chatList);
+        ChatList resetChatNum = chatList[screenIndex];
+        resetChatNum.newChatNum = 0;
+        chatList[screenIndex] = resetChatNum;
     }
 
 }

@@ -6,6 +6,7 @@ using TMPro;
 
 public class ChatArea : MonoBehaviour
 {
+    public TextMeshProUGUI name;
     public TextMeshProUGUI text;
     public RectTransform chattingRect;
 }

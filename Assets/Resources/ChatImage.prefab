@@ -369,7 +369,7 @@ MonoBehaviour:
   chatNum: {fileID: 2003327681881095930}
   chatScreen: {fileID: 1274626629585642369, guid: f1376599f1a6a5946b36242f8a15ca43, type: 3}
   chatScreenContent: {fileID: 0}
-  yellowArea: {fileID: 3300674046842145296, guid: e087eb128f59a564494042b774586723, type: 3}
+  yellowArea: {fileID: 4272658695985511075, guid: e087eb128f59a564494042b774586723, type: 3}
   whiteArea: {fileID: 7784755664803367783, guid: 2d18ce2a8a3e67e41a991f045fa9ae86, type: 3}
   screenIndex: 0
 --- !u!114 &8016235802119979451
