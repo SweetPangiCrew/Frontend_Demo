@@ -7740,6 +7740,64 @@ MonoBehaviour:
   m_Area: 0
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff
+--- !u!1 &202175238
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 202175240}
+  - component: {fileID: 202175239}
+  - component: {fileID: 202175241}
+  m_Layer: 0
+  m_Name: GetMovementInfoFromURL
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &202175239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 202175238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5bf251ef08a847a79dd66e6ca6c6d73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &202175240
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 202175238}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.3341043, y: -0.9719128, z: 0.11483978}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &202175241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 202175238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22aa299732a564cbcaa5231ba46cbcba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentMovementInfo: []
 --- !u!1 &285963413
 GameObject:
   m_ObjectHideFlags: 0
@@ -8620,10 +8678,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e991103cc5e46ce4eb5e065b6c22b6cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _LunaWaypoints: []
   _name: 
   _location: {x: 0, y: 0, z: 0}
   detectionRadius: 0.3
-  detectedTiles: []
+  _detectedObject: []
 --- !u!114 &1196075336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16247,7 +16306,7 @@ Tilemap:
       m_AnimatedSprites:
       - {fileID: -2969016694365801900, guid: 20d6cce5c7ac33b4e97f0f98a09aa347, type: 3}
       - {fileID: 1955328530927145255, guid: 20d6cce5c7ac33b4e97f0f98a09aa347, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -12, y: -7, z: 0}
