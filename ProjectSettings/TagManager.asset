@@ -14,7 +14,7 @@ TagManager:
   - UI
   - Object
   - InteractableObject
-  - 
+  - Player
   - 
   - 
   - 
@@ -44,4 +44,7 @@ TagManager:
     locked: 0
   - name: Block Objects
     uniqueID: 4015619429
+    locked: 0
+  - name: Player
+    uniqueID: 2519258377
     locked: 0
