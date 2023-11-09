@@ -13,7 +13,7 @@ namespace NPCServer
         private string pronunciatio;
         private string description;
         private List<string> chat;
-
+        
         public string Name
         {
             get { return name; }
@@ -44,6 +44,19 @@ namespace NPCServer
             set { chat = value; }
         }
         // END: ed8c6549bwf9
+        
+        //ToString Method
+        public override string ToString()
+        {
+            string str = "";
+            str += "name : " + name + "\n";
+            str += "act_address : " + act_address + "\n";
+            str += "pronunciatio : " + pronunciatio + "\n";
+            str += "description : " + description + "\n";
+            str += "chat : " + chat.ToString() + "\n";
+            return str;
+        }
+        
 
         public Persona(string name, string act_address, string pronunciatio, string description, List<string> chat)
         {
@@ -55,38 +68,7 @@ namespace NPCServer
         }
     }
 }
-    //     private string name;
-    //     private string act_address;
-    //     private string pronunciatio;
-    //     private string description;
-    //     private List<string> chat;
-
-    //     public Persona(string name, string act_address, string pronunciatio, string description, List<string> chat)
-    //      {
-    //     this.name = name;
-    //     this.act_address = act_address;
-    //     this.pronunciatio = pronunciatio;
-    //     this.description = description;
-    //     this.chat = chat;
-    //     }
-    // }
-
-
-    // [System.Serializable]
-    // public class PersonaList
-    // {
-    //     public Persona[] persona;
-
-    //     public PersonaList(Persona[] persona)
-    //     {
-    //         this.persona = persona;
-    //     }
-
-
-    
-    // }
-    
-
+   
     
 
 
