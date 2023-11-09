@@ -8678,11 +8678,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e991103cc5e46ce4eb5e065b6c22b6cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _LunaWaypoints: []
   _name: 
   _location: {x: 0, y: 0, z: 0}
   detectionRadius: 0.3
-  _detectedObject: []
+  detectedTiles: []
 --- !u!114 &1196075336
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -3,12 +3,13 @@
     using UnityEngine;
     using Newtonsoft.Json;
 
-
     public class JSONReader : MonoBehaviour
     {
-
         public TextAsset _textPersona;
         public TextAsset _textSpacialMemory;
+
+        // persona.json 파일 읽어오기
+
 
         [System.Serializable]
         public class Persona
@@ -17,7 +18,7 @@
             public string act_address;
             public string pronunciatio;
             public string description;
-            public List<string> chat;
+            public string chat;
         }
 
         [System.Serializable]
@@ -25,7 +26,7 @@
         {
             public Persona[] persona;
         }
-        
+
         public PersonaList myPersonaList = new PersonaList();
 
 
@@ -95,6 +96,4 @@
                 }
         }
 
-}
-
-
+    }
