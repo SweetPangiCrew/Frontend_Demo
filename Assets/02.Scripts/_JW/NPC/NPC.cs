@@ -10,7 +10,7 @@ using System.Net;
 using NPCServer;
 using System.Linq;
 
-public class Luna : MonoBehaviour // later, it will be global NPC Controller
+public class NPC : MonoBehaviour // later, it will be global NPC Controller
 {
     // Persona
     public Persona persona;
@@ -39,21 +39,20 @@ public class Luna : MonoBehaviour // later, it will be global NPC Controller
 
     void Start()
     {
-        //_LunaData = new LunaData();
+        // Nav Mesh Agent
         agent = GetComponent<NavMeshAgent>();
 
-        // Luna Persona
-        persona = new Persona(this.name,"garden","walking","luna is walking",null);
+        // Persona
+        //persona = new Persona(this.name,"garden","walking","luna is walking",null);
         
-        // Luna Perceive
+        // Perceive
         _perceive = new Perceive()
         {
             perceived_info = new List<PerceivedInfo>(),
         };
 
-        
         Move();
-        InvokeRepeating("SaveToJson", 0f, 5f);
+        InvokeRepeating("SaveToJson", 0f,2f);
     }
 
     void Update()
@@ -70,7 +69,6 @@ public class Luna : MonoBehaviour // later, it will be global NPC Controller
                 _isWaiting = false;
                 _waitCounter = 0f;
                 Move();
-                Debug.Log("Move");
             }
         }
         else
@@ -108,7 +106,6 @@ public class Luna : MonoBehaviour // later, it will be global NPC Controller
     public void Perceive()
     {
         // update NPC name and location
-        //_name = this.name;
         _location = this.GetComponent<Transform>().position;
         //_detectedObject = new List<GameObject>();
 
@@ -139,10 +136,10 @@ public class Luna : MonoBehaviour // later, it will be global NPC Controller
     }
     #endregion
 
+    #region ADDRESS
     // perceive the location of NPC
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(other.gameObject.tag);
         if (other.gameObject.layer.Equals("Address"))  
         {
             Debug.Log(other.gameObject.tag);   
@@ -150,6 +147,7 @@ public class Luna : MonoBehaviour // later, it will be global NPC Controller
             //_location = other.gameObject.tag.ToString();
         }
     }
+    #endregion
 
     #region MOVE
     public void Move()
@@ -167,42 +165,89 @@ public class Luna : MonoBehaviour // later, it will be global NPC Controller
     #region SAVE JSON
     public void SaveToJson()
     {
-        // Check if a PerceivedInfo entry with the same persona already exists
-        PerceivedInfo existingInfo = _perceive.perceived_info.FirstOrDefault(info => info.persona == this.gameObject.name);
+        /*
+        // Deserialize existing data from the JSON file
+        existingInfo = JsonConvert.DeserializeObject<Perceive>(PerceiveJSONFile.text);
 
-        if (existingInfo != null)
+        // Find the index of the existing PerceivedInfo with the same persona
+        int existingIndex = existingInfo.perceived_info.FindIndex(info => info.persona == gameObject.name);
+
+        if (existingIndex != -1)
         {
-            // Update existing entry
-            existingInfo.curr_address = _location.ToString();
+            // Persona exists, update curr_address
+            existingInfo.perceived_info[existingIndex].curr_address = _location.ToString();
             
         }
         else
         {
+            // Persona doesn't exist, add a new PerceivedInfo
             _perceivedInfo = new PerceivedInfo
             {
-                persona = this.gameObject.name,
+                persona = gameObject.name,
                 curr_address = _location.ToString(),
                 perceived_tiles = new List<PerceivedTile>(),
             };
 
-            
-            _perceive.perceived_info.Add(_perceivedInfo);
-        }
+            existingInfo.perceived_info.Add(_perceivedInfo);
+        }*/
+        // Persona doesn't exist, add a new PerceivedInfo
+        _perceivedInfo = new PerceivedInfo
+        {
+            persona = gameObject.name,
+            curr_address = _location.ToString(),
+            perceived_tiles = new List<PerceivedTile>(),
+        };
 
+        //existingInfo.perceived_info.Add(_perceivedInfo);
 
+        // Combine NPC's data with existing data
+        //_perceive.perceived_info.AddRange();
 
         // Convert LunaData to JSON
-        //string jsonData = JsonUtility.ToJson(_LunaData);
-        string PerceiveData = JsonConvert.SerializeObject(_perceive, Formatting.Indented);
+        //string PerceiveData = JsonConvert.SerializeObject(_perceive, Formatting.Indented);
+
+        // Save the JSON data to a file
+        //string filePath = Application.dataPath + "/LunaPerceiveFile.json";
+        //File.WriteAllText(filePath, PerceiveData);
+        //Debug.Log("JSON written");
+
+
+/*
+        // Deserialize existing data from the JSON file
+        existingInfo = JsonConvert.DeserializeObject<Perceive>(PerceiveJSONFile.text);
+
+        // Find the index of the existing PerceivedInfo with the same persona
+        int existingIndex = existingInfo.perceived_info.FindIndex(info => info.persona == gameObject.name);
+
+        Debug.Log(existingInfo.perceived_info[existingIndex].persona);
+
+        if (existingIndex != -1)
+        {
+            // Persona exists, update curr_address
+            existingInfo.perceived_info[existingIndex].curr_address = _location.ToString();
+        }
+        else
+        {
+            // Persona doesn't exist, add a new PerceivedInfo
+            _perceivedInfo = new PerceivedInfo
+            {
+                persona = gameObject.name,
+                curr_address = _location.ToString(),
+                perceived_tiles = new List<PerceivedTile>(),
+            };
+
+            existingInfo.perceived_info.Add(_perceivedInfo);
+        }
+
+        // Convert LunaData to JSON
+        string PerceiveData = JsonConvert.SerializeObject(existingInfo, Formatting.Indented);
+
         // Save the JSON data to a file (you can specify the path)
         string filePath = Application.dataPath + "/LunaPerceiveFile.json";
         File.WriteAllText(filePath, PerceiveData);
         Debug.Log("JSON written");
-        // Debug.Log("name: " + _name + ", location: " + _location);
-        // Debug.Log("Saved JSON data to: " + filePath);
-        //foreach (GameObject objects in _LunaData.detectedObject)
-        //    Debug.Log("Luna found " + objects.name);
-
+*/
     }
+
     #endregion
 }

@@ -2,7 +2,12 @@
   "perceived_info": [
     {
       "persona": "Luna",
-      "curr_address": "(-8.40, 2.30, -0.58)",
+      "curr_address": "(0.00, 0.00, 0.00)",
+      "perceived_tiles": []
+    },
+    {
+      "persona": "Maria Lopez",
+      "curr_address": "(2.71, 5.64, -0.58)",
       "perceived_tiles": []
     }
   ]
