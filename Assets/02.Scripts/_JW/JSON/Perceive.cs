@@ -21,9 +21,8 @@ public class PerceivedInfo
 [SerializeField]
 public class PerceivedTile
 {
-    public double dist;    
+    public float dist;    
     public List<string> @event;
- 
 }
 
 public class Perceive
