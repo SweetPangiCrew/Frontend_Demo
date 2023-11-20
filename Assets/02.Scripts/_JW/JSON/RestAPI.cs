@@ -10,7 +10,7 @@ public class RestAPI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     { StartCoroutine(GetMovementCoroutine(0));
-      StartCoroutine(PostPerceiveCoroutine());
+      //StartCoroutine(PostPerceiveCoroutine());
     }
 
     private IEnumerator GetMovementCoroutine(int step)

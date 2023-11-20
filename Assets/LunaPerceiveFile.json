@@ -2,7 +2,7 @@
   "perceived_info": [
     {
       "persona": "Luna",
-      "curr_address": "Luna's house",
+      "curr_address": "garden",
       "perceived_tiles": [
         {
           "dist": 0.0,
@@ -26,7 +26,7 @@
     },
     {
       "persona": "Maria Lopez",
-      "curr_address": "garden",
+      "curr_address": "",
       "perceived_tiles": [
         {
           "dist": 0.0,
