@@ -1,0 +1,52 @@
+{
+  "perceived_info": [
+    {
+      "persona": "Luna",
+      "curr_address": "Luna's house",
+      "perceived_tiles": [
+        {
+          "dist": 0.0,
+          "event": [
+            "Luna",
+            "null",
+            "null",
+            "null"
+          ]
+        },
+        {
+          "dist": 8.743117,
+          "event": [
+            "Maria Lopez",
+            "null",
+            "null",
+            "null"
+          ]
+        }
+      ]
+    },
+    {
+      "persona": "Maria Lopez",
+      "curr_address": "garden",
+      "perceived_tiles": [
+        {
+          "dist": 0.0,
+          "event": [
+            "Maria Lopez",
+            "null",
+            "null",
+            "null"
+          ]
+        },
+        {
+          "dist": 8.743117,
+          "event": [
+            "Luna",
+            "null",
+            "null",
+            "null"
+          ]
+        }
+      ]
+    }
+  ]
+}

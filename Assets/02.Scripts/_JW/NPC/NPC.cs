@@ -7,9 +7,14 @@ using UnityEngine.AI;
 using NavMeshPlus.Extensions;
 using Panda.Examples.Move;
 using System.Net;
+using NPCServer;
+using System.Linq;
 
-public class Luna : MonoBehaviour // later, it will be global NPC Controller
+public class NPC : MonoBehaviour // later, it will be global NPC Controller
 {
+    // Persona
+    public Persona persona;
+
     // Move
     public Transform[] _LunaWaypoints;
     private int _currentWaypointIndex = 0;
@@ -19,22 +24,34 @@ public class Luna : MonoBehaviour // later, it will be global NPC Controller
     private bool _isWaiting = false;
 
     // Perceive
-    private LunaData _LunaData;
+    public Perceive _perceive;
+    public PerceivedInfo _perceivedInfo;
+
     public string _name;
-    public Vector3 _location;
+    public Vector2 _location;
+    public string _locationName;
     public float detectionRadius = 0.65f;
-    public List<GameObject> _detectedObject;
+    public List<GameObject> _detectedObject = null;
+    Vector2 direction;
+    Vector3 rayOrigin;
 
     // Interact
     private bool isInteracting = false;
+    public GameObject ChatBufferButton;
 
     void Start()
     {
-        _LunaData = new LunaData();
+        // Nav Mesh Agent
         agent = GetComponent<NavMeshAgent>();
+        
+        // Perceive
+        _perceive = new Perceive()
+        {
+            perceived_info = new List<PerceivedInfo>(),
+        };
 
         Move();
-        InvokeRepeating("SaveToJson", 0f, 10f);
+ 
     }
 
     void Update()
@@ -51,7 +68,6 @@ public class Luna : MonoBehaviour // later, it will be global NPC Controller
                 _isWaiting = false;
                 _waitCounter = 0f;
                 Move();
-                Debug.Log("Move");
             }
         }
         else
@@ -66,15 +82,12 @@ public class Luna : MonoBehaviour // later, it will be global NPC Controller
         Perceive();
     }
 
-    /* 해야 될 거 
-     * 1. perceive가 끝나면 Interact 
-     * 2. Interact가 끝나면 다음 waypoint로 이동 
-     */
-
+    #region INTERACT
     public void Interact()
     {
         if (!isInteracting) // Luna is interacting with NPC
         { 
+
         }
         else // End Interacting
         {
@@ -86,40 +99,44 @@ public class Luna : MonoBehaviour // later, it will be global NPC Controller
 
         }
     }
+    #endregion
 
     #region PERCEIVE
     public void Perceive()
     {
         // update NPC name and location
-        _name = this.name;
         _location = this.GetComponent<Transform>().position;
-        _detectedObject = new List<GameObject>();
+        //_detectedObject = new List<GameObject>();
 
         // NPC perceive
         for (int i = 0; i < 10; i++)
         {
             float angle = i * 36.0f;
-            Vector3 direction = Quaternion.Euler(0, 0, angle) * Vector2.up;
-            Vector3 rayOrigin = _location + direction * detectionRadius;
-            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, direction, detectionRadius, LayerMask.GetMask("InteractableObject"));
-            Debug.DrawRay(rayOrigin, direction * detectionRadius, Color.green);
 
-            if (hit.collider != null)
+            // Initialize rayOrigin and direction based on NPC position and angle
+            direction = Quaternion.Euler(1, 1, angle) * Vector2.up;
+            rayOrigin = _location + direction * detectionRadius;
+
+
+            RaycastHit2D ObjectHit = Physics2D.Raycast(rayOrigin, direction, detectionRadius, LayerMask.GetMask("InteractableObject"));
+            Debug.DrawRay(rayOrigin, direction * detectionRadius, Color.red);
+
+            if (ObjectHit.collider != null && ObjectHit.collider.CompareTag("NPC"))
             {
-                _detectedObject.Add(hit.collider.gameObject);
+                if(!_detectedObject.Contains(ObjectHit.collider.gameObject))
+                    _detectedObject.Add(ObjectHit.collider.gameObject);  
 
-                foreach (GameObject _object in _detectedObject)
-                {
-                    if (_object.CompareTag("NPC"))
-                    {
-                        agent.isStopped = true;
+                //agent.isStopped = true;
+                
+                //ChatBufferButton.SetActive(true);                      
 
-                        // Interact
-                        //Interact();
-                    }
-                }
-            }
+                // Interact
+                
+                
+            }          
+
         }
+
     }
     #endregion
 
@@ -136,34 +153,5 @@ public class Luna : MonoBehaviour // later, it will be global NPC Controller
     }
     #endregion
 
-    #region SAVE JSON
-    public void SaveToJson()
-    {
-        _LunaData.name = this.name;
-        _LunaData.location = this.transform.position;
-        _LunaData.detectedObject = this._detectedObject;
 
-        foreach (GameObject objects in _LunaData.detectedObject)
-        {
-            if (objects.CompareTag("NPC"))
-            {
-                _LunaData.NPC_Name = objects.name;
-                _LunaData.NPC_Location = objects.GetComponent<Transform>().position;
-            }
-        }
-
-        // Convert LunaData to JSON
-        string jsonData = JsonUtility.ToJson(_LunaData);
-
-        // Save the JSON data to a file (you can specify the path)
-        string filePath = Application.dataPath + "/LunaDataFile.json";
-        File.WriteAllText(filePath, jsonData);
-
-        // Debug.Log("name: " + _name + ", location: " + _location);
-        // Debug.Log("Saved JSON data to: " + filePath);
-        foreach (GameObject objects in _LunaData.detectedObject)
-            Debug.Log("Luna found " + objects.name);
-
-    }
-    #endregion
 }
