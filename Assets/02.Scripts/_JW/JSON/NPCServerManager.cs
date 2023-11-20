@@ -7,6 +7,9 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System.Text;
 
+using System.IO;
+
+
 namespace NPCServer{
 public class NPCServerManager : HttpServerBase
 {
@@ -96,42 +99,47 @@ public class NPCServerManager : HttpServerBase
         Action<Result> onSucceed = null, Action<Result> onFailed = null, Action<Result> onNetworkFailed = null)
     {
         // 로그인 URL을 조합
-        string url = GameURL.NPCServer.Server_URL + GameURL.NPCServer.getNPCMovement+simName+"/"+step;
+        string url = GameURL.NPCServer.Server_URL + GameURL.NPCServer.postNPCPercention +simName+"/"+step+"/";
 
         // Newtonsoft.Json 패키지를 이용한 Json생성
         JObject jobj = new JObject();
-        //jobj["perceived_info"]
+        
+        
+        string jsonFilePath = Path.Combine(Application.dataPath, "PercevieAPI.json");
+        string jsonFileContent = File.ReadAllText(jsonFilePath);
+
+        jobj = JObject.Parse(jsonFileContent);
         
         // 성공했을때 콜백
         // 새로운 유저 정보를 세팅함 로그인 요청을했고 성공했다면 항상 업데이트 되도록 할려고 이쪽에 정의함
         Action<Result> updateMPerceiveInfoAction = (result) =>
         {
             // Newtonsoft.Json 패키지를 이용한 Json Parsing
-            var resultData = JObject.Parse(result.Json)["persona"]; 
+          //  var resultData = JObject.Parse(result.Json)["persona"]; 
             
           //  Debug.Log(result);
             
-            //resutlData 순회하면서 각각의 정보를 가져옴
-            // List<string> personas = new List<string>();
-            //
-            //
-            // foreach (JProperty property in resultData)
-            // {
-            //        
-            // }
-            //
-            //
-            // for(int i=0; i< personas.Count; i++)
-            // {
-            //     Persona newMovementInfo = new Persona(personas[i], act_address[i], pronunciatio[i], description[i], chats[i]);
-            //     CurrentMovementInfo.Add(newMovementInfo);
-            //     Debug.Log(newMovementInfo.ToString());
-            // }
+           // resutlData 순회하면서 각각의 정보를 가져옴
+             //List<string> personas = new List<string>();
+            
+            Debug.Log("Post 완료:"+ result.Json);
+             // foreach (JProperty property in resultData)
+             // {
+             //        
+             // }
+            
+            
+             // for(int i=0; i< personas.Count; i++)
+             // {
+             //     Persona newMovementInfo = new Persona(personas[i], act_address[i], pronunciatio[i], description[i], chats[i]);
+             //     CurrentMovementInfo.Add(newMovementInfo);
+             //     Debug.Log(newMovementInfo.ToString());
+             // }
             
             
         };
 
-       // onSucceed += updateMovementInfoAction;
+        onSucceed += updateMPerceiveInfoAction;
 
         return StartCoroutine(SendRequestCor(url, SendType.POST, jobj, onSucceed, onFailed, onNetworkFailed));
     }

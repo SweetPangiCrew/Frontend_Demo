@@ -10,13 +10,20 @@ public class RestAPI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(GetMovementCoroutine());
+        //    StartCoroutine(GetMovementCoroutine());
+      StartCoroutine(PostPerceiveCoroutine());
     }
 
     private IEnumerator GetMovementCoroutine()
     {
         yield return NPCServerManager.Instance.GetMovement("test4", 1);
     }
+    
+    private IEnumerator PostPerceiveCoroutine()
+    {
+        yield return NPCServerManager.Instance.PostPerceive("test6", 1);
+    }
+
 
     // Update is called once per frame
     void Update()
