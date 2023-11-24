@@ -87,12 +87,12 @@ public class HttpServerBase : MonoBehaviour
                 res = new Result(req.downloadHandler.text, false, true, "InProgress");
                 return res;
             case UnityWebRequest.Result.Success:
+                Debug.Log("Result"+req.downloadHandler.text);
                 JObject jobj = JObject.Parse(req.downloadHandler.text);
 
-                 Debug.Log("Result"+req.downloadHandler.text);
-
+                
                 // 서버측에서 "code"데이터가 0이 아니면 전부 실패 케이스로 쓰기로 했다.
-                bool isSuccess = true; //int.Parse(jobj["code"].ToString()) == 0 ? true : false;
+                bool isSuccess = int.Parse(jobj["meta"]["code"].ToString()) == 0 ? true : false;
 
                
                 // 성공

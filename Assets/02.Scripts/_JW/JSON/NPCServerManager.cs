@@ -39,6 +39,17 @@ public class NPCServerManager : HttpServerBase
             Destroy(gameObject);
     }
 
+    public IEnumerator GetMovementCoroutine(int step)
+    {
+        yield return GetMovement("test4", step);
+    }
+    
+    public IEnumerator PostPerceiveCoroutine(string data, int step)
+    {
+        yield return PostPerceive(data, "test6", step);
+    }
+
+    
     // ReSharper disable Unity.PerformanceAnalysis
     public Coroutine GetMovement(string simName, int step,
         Action<Result> onSucceed = null, Action<Result> onFailed = null, Action<Result> onNetworkFailed = null)
@@ -95,7 +106,7 @@ public class NPCServerManager : HttpServerBase
         return StartCoroutine(SendRequestCor(url, SendType.GET, jobj, onSucceed, onFailed, onNetworkFailed));
     }
     
-     public Coroutine PostPerceive(string simName, int step, 
+     public Coroutine PostPerceive(string data, string simName, int step, 
         Action<Result> onSucceed = null, Action<Result> onFailed = null, Action<Result> onNetworkFailed = null)
     {
         // 로그인 URL을 조합
@@ -127,15 +138,7 @@ public class NPCServerManager : HttpServerBase
              // {
              //        
              // }
-            
-            
-             // for(int i=0; i< personas.Count; i++)
-             // {
-             //     Persona newMovementInfo = new Persona(personas[i], act_address[i], pronunciatio[i], description[i], chats[i]);
-             //     CurrentMovementInfo.Add(newMovementInfo);
-             //     Debug.Log(newMovementInfo.ToString());
-             // }
-            
+             
             
         };
 

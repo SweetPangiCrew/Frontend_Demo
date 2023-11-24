@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
 using System.IO;
+using NPCServer;
 
 public class NPCData : MonoBehaviour
 {
@@ -10,19 +11,23 @@ public class NPCData : MonoBehaviour
     private TextAsset PerceiveJSONFile;
     private Perceive existingInfo;
     public List<NPC> NPC;
+    private int step;
 
     void Start()
     {
         existingInfo = JsonConvert.DeserializeObject<Perceive>(PerceiveJSONFile.text);
         StartCoroutine(InvokePerceive());
+        step = 0;
     }
 
     private IEnumerator InvokePerceive()
     {
         while (true)
         {
+            //조건 두개를 만족해야 함 1. 시간 제한 2. 이전 스텝의 GetMovementInfo를 받은 후에
             yield return new WaitForSeconds(3f);
             SaveJsonFile();
+            step++;
         }
     }
 
@@ -83,6 +88,9 @@ public class NPCData : MonoBehaviour
 
         // Convert LunaData to JSON
         string PerceiveData = JsonConvert.SerializeObject(existingInfo, Formatting.Indented);
+        
+        //recall Perceive Post API
+        StartCoroutine( NPCServerManager.Instance.PostPerceiveCoroutine(PerceiveData,step));
 
         // Save the JSON data to a file
         string filePath = Application.dataPath + "/LunaPerceiveFile.json";
