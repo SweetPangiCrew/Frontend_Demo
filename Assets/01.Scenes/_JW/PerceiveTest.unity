@@ -9660,7 +9660,7 @@ GameObject:
   - component: {fileID: 1196075336}
   - component: {fileID: 1196075335}
   m_Layer: 7
-  m_Name: Luna
+  m_Name: Isabella Rodriguez
   m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9798,6 +9798,7 @@ MonoBehaviour:
   - {fileID: 285963414}
   - {fileID: 1273955232}
   - {fileID: 1556507135}
+  agent: {fileID: 0}
   _name: 
   _location: {x: 0, y: 0}
   _locationName: 
@@ -12930,6 +12931,7 @@ MonoBehaviour:
   - {fileID: 285963414}
   - {fileID: 1273955232}
   - {fileID: 1556507135}
+  agent: {fileID: 0}
   _name: 
   _location: {x: 0, y: 0}
   _locationName: 

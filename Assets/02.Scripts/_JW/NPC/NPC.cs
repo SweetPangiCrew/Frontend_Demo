@@ -19,7 +19,7 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
     public Transform[] _LunaWaypoints;
     private int _currentWaypointIndex = 0;
     private float _waitTime = 3f;
-    private NavMeshAgent agent;
+    public NavMeshAgent agent;
     private float _waitCounter = 0f;
     private bool _isWaiting = false;
 
