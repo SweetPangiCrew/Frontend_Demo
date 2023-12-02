@@ -15,6 +15,7 @@ public class RestAPI : MonoBehaviour
         //NPCServerManager의 OnSucceed, OnFailed, OnNetworkFailed를 통해 결과값을 받아올 수 있음
         //OnSucceed에서 다음 스텝의 perceive를 호출 가능하다는 status로 바꿔야할 듯 
        StartCoroutine( NPCServerManager.Instance.GetMovementCoroutine(0));
+       StartCoroutine( NPCServerManager.Instance.GetServerTimeCoroutine());
      // StartCoroutine( NPCServerManager.Instance.PostPerceiveCoroutine(,0));
 
     }

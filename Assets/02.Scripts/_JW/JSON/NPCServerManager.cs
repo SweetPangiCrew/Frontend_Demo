@@ -48,7 +48,37 @@ public class NPCServerManager : HttpServerBase
     {
         yield return PostPerceive(data, "test6", step);
     }
+    
+    public IEnumerator GetServerTimeCoroutine()
+    {
+        yield return GetServerTime();
+    }
+    
+    public Coroutine GetServerTime(
+        Action<Result> onSucceed = null, Action<Result> onFailed = null, Action<Result> onNetworkFailed = null)
+    {
+        // 로그인 URL을 조합
+        string url = GameURL.NPCServer.Server_URL + GameURL.NPCServer.getServerTime;
 
+        // Newtonsoft.Json 패키지를 이용한 Json생성
+        JObject jobj = new JObject();
+        
+        // 성공했을때 콜백
+        // 새로운 유저 정보를 세팅함 로그인 요청을했고 성공했다면 항상 업데이트 되도록 할려고 이쪽에 정의함
+        Action<Result> updateServerTimeInfoAction = (result) =>
+        {
+            // Newtonsoft.Json 패키지를 이용한 Json Parsing
+            var resultData = JObject.Parse(result.Json)["serverTime"]; 
+            
+            Debug.Log("서버시간"+resultData);
+            
+            
+        };
+
+        onSucceed += updateServerTimeInfoAction;
+
+        return StartCoroutine(SendRequestCor(url, SendType.GET, jobj, onSucceed, onFailed, onNetworkFailed));
+    }
     
     // ReSharper disable Unity.PerformanceAnalysis
     public Coroutine GetMovement(string simName, int step,
