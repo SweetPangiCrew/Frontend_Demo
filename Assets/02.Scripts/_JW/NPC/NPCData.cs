@@ -11,7 +11,12 @@ public class NPCData : MonoBehaviour
     private TextAsset PerceiveJSONFile;
     private Perceive existingInfo;
     public List<NPC> NPC;
+    
+    // Get Movement
     private int step;
+    private string personaTag;
+    private string value; 
+
 
     void Start()
     {
@@ -27,9 +32,62 @@ public class NPCData : MonoBehaviour
             //조건 두개를 만족해야 함 1. 시간 제한 2. 이전 스텝의 GetMovementInfo를 받은 후에
             yield return new WaitForSeconds(3f);
             SaveJsonFile();
+            GetMovement();
             step++;
         }
     }
+
+      private void GetMovement()
+    {
+        StartCoroutine(NPCServerManager.Instance.GetMovementCoroutine(0));
+
+        foreach(var movementInfo in NPCServerManager.Instance.CurrentMovementInfo)
+        {
+            foreach(var perceivedInfo in existingInfo.perceived_info)
+            {
+                int npcIndex = FindNPCIndex(perceivedInfo.persona);
+
+                if(movementInfo.Name == perceivedInfo.persona) // same persona
+                {
+                    Debug.Log("succeess!!!!!!!!!!!");
+                    int index = movementInfo.ActAddress.IndexOf('>');
+
+                    if (index != -1) // <persona> exist
+                    {
+                        value = movementInfo.ActAddress.Substring(index + 1);  // name
+
+                        for(int i = 0; i < perceivedInfo.perceived_tiles.Count; i++)
+                        {
+                            if(perceivedInfo.perceived_tiles[i].@event[0] == value)
+                            {
+                                NPC[npcIndex].agent.isStopped = true;
+                                Debug.Log("succeess!!!!!!!!!!!");
+
+                            }
+                        }
+
+
+                    }
+                    else // <persona> not exists
+                    {
+                        foreach(var npc in NPC)
+                        {
+                            if(npc._name == value)
+                            {
+                                
+                            }
+                        }
+                    }
+                }
+
+            }    
+
+            
+        }
+    }
+
+
+
 
     public void SaveJsonFile()
     {
@@ -39,9 +97,9 @@ public class NPCData : MonoBehaviour
         }
         else
         {
-            foreach (var info in existingInfo.perceived_info)
+            foreach (var perceivedInfo in existingInfo.perceived_info)
             {
-                int npcIndex = FindNPCIndex(info.persona);
+                int npcIndex = FindNPCIndex(perceivedInfo.persona);
 
                 if (npcIndex != -1)
                 {

@@ -2,10 +2,10 @@
   "perceived_info": [
     {
       "persona": "Luna",
-      "curr_address": "Luna's house",
+      "curr_address": "garden",
       "perceived_tiles": [
         {
-          "dist": 7.272631,
+          "dist": 1.12433648,
           "event": [
             "Maria Lopez",
             "null",
@@ -26,12 +26,12 @@
     },
     {
       "persona": "Maria Lopez",
-      "curr_address": "garden",
+      "curr_address": "",
       "perceived_tiles": [
         {
-          "dist": 7.272631,
+          "dist": 1.11997378,
           "event": [
-            "Luna",
+            "Isabella Rodriguez",
             "null",
             "null",
             "null"
