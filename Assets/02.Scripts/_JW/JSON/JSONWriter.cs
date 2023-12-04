@@ -8,7 +8,7 @@ public class JSONWriter : MonoBehaviour
 {
     private NPC luna;
     public void SaveToJson(){
-        NPCData data = new NPCData();
+        GameManager data = new GameManager();
         data.name = luna._name;
 
         string json = JsonUtility.ToJson(data, true);

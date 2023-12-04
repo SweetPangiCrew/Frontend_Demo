@@ -109,9 +109,9 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
         //_detectedObject = new List<GameObject>();
 
         // NPC perceive
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 36; i++)
         {
-            float angle = i * 36.0f;
+            float angle = i * 10.0f;
 
             // Initialize rayOrigin and direction based on NPC position and angle
             direction = Quaternion.Euler(1, 1, angle) * Vector2.up;
