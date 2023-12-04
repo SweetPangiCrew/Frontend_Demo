@@ -49,6 +49,7 @@ public class NPCData : MonoBehaviour
 
                 if(movementInfo.Name == perceivedInfo.persona) // same persona
                 {
+                    Debug.Log("succeess!!!!!!!!!!!");
                     int index = movementInfo.ActAddress.IndexOf('>');
 
                     if (index != -1) // <persona> exist

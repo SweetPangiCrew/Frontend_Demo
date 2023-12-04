@@ -92,8 +92,8 @@ public class HttpServerBase : MonoBehaviour
 
                 
                 // 서버측에서 "code"데이터가 0이 아니면 전부 실패 케이스로 쓰기로 했다.
-                bool isSuccess = int.Parse(jobj["meta"]["code"].ToString()) == 0 ? true : false;
-
+                //bool isSuccess = int.Parse(jobj["meta"]["code"].ToString()) == 0 ? true : false;
+                bool isSuccess = true;
                
                 // 성공
                 if (isSuccess)
