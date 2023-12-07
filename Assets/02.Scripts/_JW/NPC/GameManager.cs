@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System.IO;
 using NPCServer;
 using TMPro;
+using UnityEditor;
 
 public class GameManager : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class GameManager : MonoBehaviour
     public GameObject IsabellaDialoguePanel;
     public GameObject MariaDialoguePanel;
     
+    public ChatSystem chatSystem;
     private bool isStartConversation = true;
     void Start()
     {
@@ -67,9 +69,10 @@ public class GameManager : MonoBehaviour
                     // if <persona> tag exists -> start conversation
                     if (index != -1) // <persona> exists
                     {
-                        NPCName = movementInfo.ActAddress.Substring(index + 2);  
-                        //dialogueManager.GenerateData(NPCName, movementInfo.Chat);
-                        
+                        NPCName = movementInfo.ActAddress.Substring(index + 2);
+                       
+                        dialogueManager.GenerateData(NPCName, movementInfo.Chat);
+
                         // meets NPC -> Stop
                         for(int i = 0; i < perceivedInfo.perceived_tiles.Count; i++)
                         {
@@ -121,9 +124,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
      void Conversation(string NPCname, TextMeshProUGUI dialogueText, ref int dialogueIndex)
     {
-        dialogueText.text = dialogueManager.GetDialogue(NPCname, dialogueIndex);
+        //dialogueText.text = dialogueManager.GetDialogue(NPCname, dialogueIndex);
 
         if (dialogueText.text == null)
         {
@@ -198,7 +202,7 @@ public class GameManager : MonoBehaviour
         string PerceiveData = JsonConvert.SerializeObject(existingInfo, Formatting.Indented);
         
         //recall Perceive Post API
-        StartCoroutine( NPCServerManager.Instance.PostPerceiveCoroutine(PerceiveData,step));
+        StartCoroutine(NPCServerManager.Instance.PostPerceiveCoroutine(PerceiveData,step));
 
         // Save the JSON data to a file
         string filePath = "Assets/01.Scenes/_JW/NPCPerceive/NPCPerceiveSaveFile" + step + ".json";

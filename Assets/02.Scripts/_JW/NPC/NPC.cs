@@ -82,6 +82,7 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
         Perceive();
     }
 
+/*
     #region INTERACT
     public void Interact()
     {
@@ -100,13 +101,12 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
         }
     }
     #endregion
-
+*/
     #region PERCEIVE
     public void Perceive()
     {
         // update NPC name and location
         _location = this.GetComponent<Transform>().position;
-        //_detectedObject = new List<GameObject>();
 
         // NPC perceive
         for (int i = 0; i < 36; i++)
@@ -117,26 +117,10 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
             direction = Quaternion.Euler(1, 1, angle) * Vector2.up;
             rayOrigin = _location + direction * detectionRadius;
 
-
             RaycastHit2D ObjectHit = Physics2D.Raycast(rayOrigin, direction, detectionRadius, LayerMask.GetMask("InteractableObject"));
-            Debug.DrawRay(rayOrigin, direction * detectionRadius, Color.red);
-
-            if (ObjectHit.collider != null && ObjectHit.collider.CompareTag("NPC"))
-            {
-                if(!_detectedObject.Contains(ObjectHit.collider.gameObject))
-                    _detectedObject.Add(ObjectHit.collider.gameObject);  
-
-                //agent.isStopped = true;
-                
-                //ChatBufferButton.SetActive(true);                      
-
-                // Interact
-                
-                
-            }          
-
+            Debug.DrawRay(rayOrigin, direction * detectionRadius, Color.red);                
+               
         }
-
     }
     #endregion
 
@@ -148,6 +132,7 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
         Transform nextWaypoint = _LunaWaypoints[_currentWaypointIndex];
         agent.SetDestination(nextWaypoint.position);
         _currentWaypointIndex = (_currentWaypointIndex + 1) % _LunaWaypoints.Length;
+        
         // Resume NPC movement
         agent.isStopped = false;
     }
