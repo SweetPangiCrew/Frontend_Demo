@@ -4,14 +4,30 @@
       "persona": "Isabella Rodriguez",
       "curr_address": "",
       "perceived_tiles": [
-     
+        {
+          "dist": 1.67822087,
+          "event": [
+            "Maria Lopez",
+            "null",
+            "null",
+            "null"
+          ]
+        }
       ]
     },
     {
       "persona": "Maria Lopez",
       "curr_address": "",
       "perceived_tiles": [
-  
+        {
+          "dist": 1.67822087,
+          "event": [
+            "Isabella Rodriguez",
+            "null",
+            "null",
+            "null"
+          ]
+        }
       ]
     }
   ]

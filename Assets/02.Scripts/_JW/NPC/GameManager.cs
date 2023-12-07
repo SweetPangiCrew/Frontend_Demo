@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 using System.IO;
 using NPCServer;
 using TMPro;
-using UnityEditor;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,7 +13,10 @@ public class GameManager : MonoBehaviour
     private TextAsset PerceiveJSONFile;
     private Perceive existingInfo;
     public List<NPC> NPC;
-    
+
+
+    private string filePath;
+
     // Get Movement
     private int step;
     public string NPCName; 
@@ -26,23 +29,38 @@ public class GameManager : MonoBehaviour
     public DialogueManager dialogueManager;
     public GameObject IsabellaDialoguePanel;
     public GameObject MariaDialoguePanel;
-    
-    public ChatSystem chatSystem;
+
     private bool isStartConversation = true;
+
     void Start()
     {
-        existingInfo = JsonConvert.DeserializeObject<Perceive>(PerceiveJSONFile.text);
+        filePath = "Assets/NPCPerceiveFile.json";
+        LoadExistingInfo(filePath);
+
         StartCoroutine(InvokePerceive());
         step = 0;
         IsabellaDialoguePanel.SetActive(false);
         MariaDialoguePanel.SetActive(false);
     }
 
+    private void LoadExistingInfo(string filePath)
+    {
+        try
+        {
+            string json = File.ReadAllText(filePath);
+            existingInfo = JsonConvert.DeserializeObject<Perceive>(json);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Failed to load existingInfo from {filePath}. Error: {e.Message}");
+           
+        }
+    }
+
     private IEnumerator InvokePerceive()
     {
         while (true)
         {
-            //조건 두개를 만족해야 함 1. 시간 제한 2. 이전 스텝의 GetMovementInfo를 받은 후에
             yield return new WaitForSeconds(3f);
             SaveJsonFile();
             GetMovement();
@@ -50,7 +68,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-      private void GetMovement()
+    private void GetMovement()
     {
         // get movement api 
         StartCoroutine(NPCServerManager.Instance.GetMovementCoroutine(0));
@@ -58,7 +76,7 @@ public class GameManager : MonoBehaviour
         // read get movement
         foreach(var movementInfo in NPCServerManager.Instance.CurrentMovementInfo)
         {
-            foreach(var perceivedInfo in existingInfo.perceived_info)
+            foreach (var perceivedInfo in existingInfo.perceived_info)
             {
                 int npcIndex = FindNPCIndex(perceivedInfo.persona);
 
@@ -70,8 +88,9 @@ public class GameManager : MonoBehaviour
                     if (index != -1) // <persona> exists
                     {
                         NPCName = movementInfo.ActAddress.Substring(index + 2);
-                       
-                        dialogueManager.GenerateData(NPCName, movementInfo.Chat);
+
+                        string speaker = movementInfo.Chat[0];
+                        string dialogue = movementInfo.Chat[1];
 
                         // meets NPC -> Stop
                         for(int i = 0; i < perceivedInfo.perceived_tiles.Count; i++)
@@ -83,31 +102,16 @@ public class GameManager : MonoBehaviour
                                     if(NPC[j].gameObject.name.ToString() == NPCName)
                                     {
                                         NPC[npcIndex].agent.isStopped = true;
-                                        NPC[j].agent.isStopped = true;                            
+                                        NPC[j].agent.isStopped = true;
+
+                                        if (!dialogueManager.isChatting)
+                                        {
+                                            dialogueManager.StartDialogue(speaker, dialogue);
+                                        }                                    
                                     }
                                 }
                             }
                         }
-
-
-                        // start conversation with <persona> NPC Name            
-
-                        /*
-                        if (NPCName == "Isabella Rodriguez")
-                        {
-                            IsabellaDialoguePanel.SetActive(true);
-                            MariaDialoguePanel.SetActive(false);
-                            Conversation(NPCName, IsabellaDialogueText, ref IsabellaDialogueIndex);
-                        }
-                        else if (NPCName == "Maria Lopez")
-                        {
-                            IsabellaDialoguePanel.SetActive(false);
-                            MariaDialoguePanel.SetActive(true);
-                            Conversation(NPCName, MariaDialogueText, ref MariaDialogueIndex);
-                        }*/
-
-                        ChatSystem.isChatting = 1;
-
                     }
                     else // <persona> not exists
                     {
@@ -124,24 +128,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
-     void Conversation(string NPCname, TextMeshProUGUI dialogueText, ref int dialogueIndex)
-    {
-        //dialogueText.text = dialogueManager.GetDialogue(NPCname, dialogueIndex);
-
-        if (dialogueText.text == null)
-        {
-            dialogueIndex = 1;
-            isStartConversation = true;
-            IsabellaDialoguePanel.SetActive(false);
-            MariaDialoguePanel.SetActive(false);
-        }
-        else
-        {
-            dialogueIndex++ ;
-        }
-
-    }
 
     public void SaveJsonFile()
     {
@@ -164,7 +150,7 @@ public class GameManager : MonoBehaviour
                     {
                         if (NPC[npcIndex]._detectedObject[k].CompareTag("NPC"))
                         {
-                            while (existingInfo.perceived_info[npcIndex].perceived_tiles.Count <= k)
+                            while(existingInfo.perceived_info[npcIndex].perceived_tiles.Count < k)
                             {
                                 existingInfo.perceived_info[npcIndex].perceived_tiles.Add(new PerceivedTile());
                             }
@@ -205,7 +191,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(NPCServerManager.Instance.PostPerceiveCoroutine(PerceiveData,step));
 
         // Save the JSON data to a file
-        string filePath = "Assets/01.Scenes/_JW/NPCPerceive/NPCPerceiveSaveFile" + step + ".json";
+        //string filePath = "Assets/NPCPerceiveFile.json";
         File.WriteAllText(filePath, PerceiveData);
     }
 

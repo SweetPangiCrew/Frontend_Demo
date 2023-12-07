@@ -118,7 +118,18 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
             rayOrigin = _location + direction * detectionRadius;
 
             RaycastHit2D ObjectHit = Physics2D.Raycast(rayOrigin, direction, detectionRadius, LayerMask.GetMask("InteractableObject"));
-            Debug.DrawRay(rayOrigin, direction * detectionRadius, Color.red);                
+            Debug.DrawRay(rayOrigin, direction * detectionRadius, Color.red);   
+            
+            if(ObjectHit.collider != null)
+            {
+                GameObject detectedObject = ObjectHit.collider.gameObject;
+
+                // Check if the object is not already in the list before adding
+                if (!_detectedObject.Contains(detectedObject))
+                {
+                    _detectedObject.Add(detectedObject);
+                }
+            }
                
         }
     }

@@ -2,52 +2,80 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class DialogueManager : MonoBehaviour
 {
     [SerializeField]
-    public class Dialogue
-    {
-        public string speaker;
-        public string dialogue;
+    private Speaker[] speakers;
 
-        public Dialogue(string speaker, string dialogue)
+    [SerializeField]
+    private DialogueData[] dialogues;
+
+    public bool isAutoStart = true;
+    public bool isChatting = false;
+    public bool isFirst = true;
+    public int currentDialogueIndex = -1;
+
+    private void Setup()
+    {
+        for(int i = 0; i < speakers.Length; i++)
         {
-            this.speaker = speaker;
-            this.dialogue = dialogue;
+            SetActiveObjects(speakers[i], false);
         }
     }
 
-    Dictionary<string, List<Dialogue>> dialogueData;
-    GameManager manager;
-
-    void Awake()
+    private void SetActiveObjects(Speaker speaker, bool visible)
     {
-        dialogueData = new Dictionary<string, List<Dialogue>>();
+        speaker.imageDialogue.gameObject.SetActive(visible);
+        speaker.textDialogue.gameObject.SetActive(visible);
     }
 
-    public void GenerateData(string NPCName, List<string> dialogueList)
+    public void StartDialogue(string speaker, string dialogue)
     {
-        if (!dialogueData.ContainsKey(NPCName))
-        {
-            List<Dialogue> dialogues = new List<Dialogue>();
-
-            foreach(var dialogueInfo in dialogueList)
-            {
-                //Dialogue dialogue = new Dialogue(dialogueInfo[0], dialogueInfo[1]);
-                //dialogues.Add(dialogue);
-            }
-        
-            
-        }
+        StartCoroutine(UpdateDialogue(speaker,dialogue));
+        isChatting = true;
     }
-    
-    /*
-    public string GetDialogue(string NPCname, int dialogueIndex)
+
+    IEnumerator UpdateDialogue(string speaker, string dialogue)
     {
-        if(dialogueIndex == dialogueData[NPCname].Count)
-            return null; // there is no setences left
-        else
-            return dialogueData[NPCname][dialogueIndex];
-    }*/
+        // Display speaker's name
+        //speakerText.text = speaker;
+
+        // Split dialogue into sentences (assuming each dialogue is a separate sentence)
+       // string[] sentences = dialogueDataList[currentDialogueIndex].dialogue.Split('\n');
+
+        //// Display each sentence with a delay
+        //foreach (string sentence in sentences)
+        //{
+        //   // dialogueText.text = ""; // Clear previous text
+
+        //    foreach (char letter in sentence)
+        //    {
+        //        //dialogueText.text += letter;
+        //        yield return null; // Wait for a frame before showing the next letter
+        //    }
+
+        yield return new WaitForSeconds(1f); // Wait for 1 second before showing the next sentence
+        //}
+
+        // Clear dialogue after it's finished
+        //dialogue.text = "";
+        isChatting = false;
+    }
+}
+
+[SerializeField]
+public struct Speaker
+{
+    public Image imageDialogue;
+    public TextMeshProUGUI textDialogue;
+}
+
+[SerializeField]
+public struct DialogueData
+{
+    public string dialogue;
+
 }
