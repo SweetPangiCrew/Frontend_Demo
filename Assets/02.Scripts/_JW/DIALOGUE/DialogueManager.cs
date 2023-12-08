@@ -4,19 +4,23 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Runtime.CompilerServices;
 
 public class DialogueManager : MonoBehaviour
 {
-    [SerializeField]
-    private Speaker[] speakers;
+    
+    public Speaker[] speakers;
 
-    [SerializeField]
-    private DialogueData[] dialogues;
+    public List<DialogueData> dialogues;
 
-    public bool isAutoStart = true;
+    private bool isAutoStart = true;
+    private bool isFirst = true;
+
     public bool isChatting = false;
-    public bool isFirst = true;
-    public int currentDialogueIndex = -1;
+
+
+    private int currentDialogueIndex = -1;
+    private int currentSpeakerIndex = 0;
 
     private void Setup()
     {
@@ -26,54 +30,71 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@mOUSE!!!!!!!!!!!!!!!!!!1");
+            if (dialogues.Count > currentDialogueIndex + 1)
+            {
+                SetNextDialogue();
+            }
+            else
+            {
+                for (int i = 0; i < speakers.Length; i++)
+                {
+                    //SetActiveObjects(speakers[i], false);
+                    isChatting = false;
+                }
+
+            }
+        }
+    }
+
     private void SetActiveObjects(Speaker speaker, bool visible)
     {
         speaker.imageDialogue.gameObject.SetActive(visible);
         speaker.textDialogue.gameObject.SetActive(visible);
     }
 
-    public void StartDialogue(string speaker, string dialogue)
+    public void UpdateDialogue()
     {
-        StartCoroutine(UpdateDialogue(speaker,dialogue));
         isChatting = true;
+        
+        if (isFirst)
+        {
+            //Setup();
+
+            if (isAutoStart) SetNextDialogue();
+
+            isFirst = false;
+        }
+
+        
+        
+
     }
 
-    IEnumerator UpdateDialogue(string speaker, string dialogue)
+    private void SetNextDialogue()
     {
-        // Display speaker's name
-        //speakerText.text = speaker;
+        //SetActiveObjects(speakers[currentSpeakerIndex], false);
+        currentDialogueIndex++;
+        //currentSpeakerIndex = dialogues[currentDialogueIndex].speakerIndex;
 
-        // Split dialogue into sentences (assuming each dialogue is a separate sentence)
-       // string[] sentences = dialogueDataList[currentDialogueIndex].dialogue.Split('\n');
-
-        //// Display each sentence with a delay
-        //foreach (string sentence in sentences)
-        //{
-        //   // dialogueText.text = ""; // Clear previous text
-
-        //    foreach (char letter in sentence)
-        //    {
-        //        //dialogueText.text += letter;
-        //        yield return null; // Wait for a frame before showing the next letter
-        //    }
-
-        yield return new WaitForSeconds(1f); // Wait for 1 second before showing the next sentence
-        //}
-
-        // Clear dialogue after it's finished
-        //dialogue.text = "";
-        isChatting = false;
+        //SetActiveObjects(speakers[currentDialogueIndex], true);
+        speakers[0].textDialogue.text = dialogues[currentDialogueIndex].dialogue;
     }
+
 }
 
-[SerializeField]
+[System.Serializable]
 public struct Speaker
 {
     public Image imageDialogue;
     public TextMeshProUGUI textDialogue;
 }
 
-[SerializeField]
+[System.Serializable]
 public struct DialogueData
 {
     public string dialogue;

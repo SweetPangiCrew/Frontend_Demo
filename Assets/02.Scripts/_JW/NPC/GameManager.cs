@@ -6,6 +6,8 @@ using System.IO;
 using NPCServer;
 using TMPro;
 using System;
+using Panda.Examples.PlayTag;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
@@ -22,15 +24,8 @@ public class GameManager : MonoBehaviour
     public string NPCName; 
 
     // Chat 
-    public TextMeshProUGUI IsabellaDialogueText;
-    public TextMeshProUGUI MariaDialogueText;
-    public int IsabellaDialogueIndex = 1;
-    public int MariaDialogueIndex = 1;
     public DialogueManager dialogueManager;
-    public GameObject IsabellaDialoguePanel;
-    public GameObject MariaDialoguePanel;
 
-    private bool isStartConversation = true;
 
     void Start()
     {
@@ -38,9 +33,7 @@ public class GameManager : MonoBehaviour
         LoadExistingInfo(filePath);
 
         StartCoroutine(InvokePerceive());
-        step = 0;
-        IsabellaDialoguePanel.SetActive(false);
-        MariaDialoguePanel.SetActive(false);
+        step = 0;;
     }
 
     private void LoadExistingInfo(string filePath)
@@ -76,24 +69,24 @@ public class GameManager : MonoBehaviour
         // read get movement
         foreach(var movementInfo in NPCServerManager.Instance.CurrentMovementInfo)
         {
+            
             foreach (var perceivedInfo in existingInfo.perceived_info)
             {
                 int npcIndex = FindNPCIndex(perceivedInfo.persona);
 
                 if(movementInfo.Name == perceivedInfo.persona) // same persona
                 {
+                    
                     int index = movementInfo.ActAddress.IndexOf('>');
                     
                     // if <persona> tag exists -> start conversation
-                    if (index != -1) // <persona> exists
+                    if (index != -1) // <persona> existss
                     {
                         NPCName = movementInfo.ActAddress.Substring(index + 2);
 
-                        string speaker = movementInfo.Chat[0];
-                        string dialogue = movementInfo.Chat[1];
 
                         // meets NPC -> Stop
-                        for(int i = 0; i < perceivedInfo.perceived_tiles.Count; i++)
+                        for (int i = 0; i < perceivedInfo.perceived_tiles.Count; i++)
                         {
                             if(perceivedInfo.perceived_tiles[i].@event[0] == NPCName)
                             {
@@ -106,8 +99,27 @@ public class GameManager : MonoBehaviour
 
                                         if (!dialogueManager.isChatting)
                                         {
-                                            dialogueManager.StartDialogue(speaker, dialogue);
-                                        }                                    
+                                            for (int k = 0; k < movementInfo.Chat.Count; k++)
+                                            {
+                                                var chat = movementInfo.Chat[k];
+                                                string speaker = chat[0].ToString();
+                                                string dialogue = chat[1].ToString();
+
+                                                if (dialogueManager.dialogues.Count <= k)
+                                                {
+
+                                                    dialogueManager.dialogues.Add(new DialogueData { dialogue = dialogue });
+                                                }
+
+
+                                                //yield return new WaitUntil(()=>dialogueManager.UpdateDialogue());
+
+
+                                            }
+                                        }
+                              
+
+
                                     }
                                 }
                             }
