@@ -8,7 +8,7 @@ using UnityEngine.Networking;
 using System.Text;
 
 using System.IO;
-
+using System.Linq;
 
 namespace NPCServer{
 public class NPCServerManager : HttpServerBase
@@ -19,7 +19,7 @@ public class NPCServerManager : HttpServerBase
     private List<Persona> currentMovementInfo;
 
 
-    #region 프로퍼티
+    #region ?�로?�티
     public List<Persona> CurrentMovementInfo { get => currentMovementInfo;
         set
         {
@@ -57,20 +57,20 @@ public class NPCServerManager : HttpServerBase
     public Coroutine GetServerTime(
         Action<Result> onSucceed = null, Action<Result> onFailed = null, Action<Result> onNetworkFailed = null)
     {
-        // 로그인 URL을 조합
+        // 로그??URL??조합
         string url = GameURL.NPCServer.Server_URL + GameURL.NPCServer.getServerTime;
 
-        // Newtonsoft.Json 패키지를 이용한 Json생성
+        // Newtonsoft.Json ?�키지�??�용??Json?�성
         JObject jobj = new JObject();
         
-        // 성공했을때 콜백
-        // 새로운 유저 정보를 세팅함 로그인 요청을했고 성공했다면 항상 업데이트 되도록 할려고 이쪽에 정의함
+        // ?�공?�을??콜백
+        // ?�로???��? ?�보�??�팅??로그???�청?�했�??�공?�다�???�� ?�데?�트 ?�도�??�려�??�쪽???�의??
         Action<Result> updateServerTimeInfoAction = (result) =>
         {
-            // Newtonsoft.Json 패키지를 이용한 Json Parsing
+            // Newtonsoft.Json ?�키지�??�용??Json Parsing
             var resultData = JObject.Parse(result.Json)["serverTime"]; 
             
-            Debug.Log("서버시간"+resultData);
+            Debug.Log("?�버?�간"+resultData);
             
             
         };
@@ -84,22 +84,22 @@ public class NPCServerManager : HttpServerBase
     public Coroutine GetMovement(string simName, int step,
         Action<Result> onSucceed = null, Action<Result> onFailed = null, Action<Result> onNetworkFailed = null)
     {
-        // 로그인 URL을 조합
+        // 로그??URL??조합
         string url = GameURL.NPCServer.Server_URL + GameURL.NPCServer.getNPCMovement+simName+"/"+step;
 
-        // Newtonsoft.Json 패키지를 이용한 Json생성
+        // Newtonsoft.Json ?�키지�??�용??Json?�성
         JObject jobj = new JObject();
         
-        // 성공했을때 콜백
-        // 새로운 유저 정보를 세팅함 로그인 요청을했고 성공했다면 항상 업데이트 되도록 할려고 이쪽에 정의함
+        // ?�공?�을??콜백
+        // ?�로???��? ?�보�??�팅??로그???�청?�했�??�공?�다�???�� ?�데?�트 ?�도�??�려�??�쪽???�의??
         Action<Result> updateMovementInfoAction = (result) =>
         {
-            // Newtonsoft.Json 패키지를 이용한 Json Parsing
+            // Newtonsoft.Json ?�키지�??�용??Json Parsing
             var resultData = JObject.Parse(result.Json)["persona"]; 
             
           //  Debug.Log(result);
             
-            //resutlData 순회하면서 각각의 정보를 가져옴
+            //resutlData ?�회?�면??각각???�보�?가?�옴
             List<string> personas = new List<string>();
             List<string> act_address   = new List<string>();
             List<string> pronunciatio  = new List<string>();
@@ -116,14 +116,16 @@ public class NPCServerManager : HttpServerBase
                     
                     foreach (var chatlist in property.Value["chat"])
                     {
-                        chats.Add(chatlist.ToObject<List<string>>());
-                    }
+                        var chatEntry = chatlist.Select(item => item.ToString()).ToList();
+                        chats.Add(chatEntry);
+                    //chats.Add(chatlist.ToObject<List<string>>());
+                }
             }
 
 
             for(int i=0; i< personas.Count; i++)
             {
-                Persona newMovementInfo = new Persona(personas[i], act_address[i], pronunciatio[i], description[i], chats[i]);
+                Persona newMovementInfo = new Persona(personas[i], act_address[i], pronunciatio[i], description[i], chats);
                 CurrentMovementInfo.Add(newMovementInfo);
                 Debug.Log(newMovementInfo.ToString());
             }
@@ -139,10 +141,10 @@ public class NPCServerManager : HttpServerBase
      public Coroutine PostPerceive(string data, string simName, int step, 
         Action<Result> onSucceed = null, Action<Result> onFailed = null, Action<Result> onNetworkFailed = null)
     {
-        // 로그인 URL을 조합
+        // 로그??URL??조합
         string url = GameURL.NPCServer.Server_URL + GameURL.NPCServer.postNPCPercention +simName+"/"+step+"/";
 
-        // Newtonsoft.Json 패키지를 이용한 Json생성
+        // Newtonsoft.Json ?�키지�??�용??Json?�성
         JObject jobj = new JObject();
         
         
@@ -151,19 +153,19 @@ public class NPCServerManager : HttpServerBase
 
         jobj = JObject.Parse(jsonFileContent);
         
-        // 성공했을때 콜백
-        // 새로운 유저 정보를 세팅함 로그인 요청을했고 성공했다면 항상 업데이트 되도록 할려고 이쪽에 정의함
+        // ?�공?�을??콜백
+        // ?�로???��? ?�보�??�팅??로그???�청?�했�??�공?�다�???�� ?�데?�트 ?�도�??�려�??�쪽???�의??
         Action<Result> updateMPerceiveInfoAction = (result) =>
         {
-            // Newtonsoft.Json 패키지를 이용한 Json Parsing
+            // Newtonsoft.Json ?�키지�??�용??Json Parsing
           //  var resultData = JObject.Parse(result.Json)["persona"]; 
             
           //  Debug.Log(result);
             
-           // resutlData 순회하면서 각각의 정보를 가져옴
+           // resutlData ?�회?�면??각각???�보�?가?�옴
              //List<string> personas = new List<string>();
             
-            Debug.Log("Post 완료:"+ result.Json);
+            Debug.Log("Post ?�료:"+ result.Json);
              // foreach (JProperty property in resultData)
              // {
              //        

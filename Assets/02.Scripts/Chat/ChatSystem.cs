@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 public class ChatSystem : MonoBehaviour
 {
-    public int isChatting = 0;
+    public static int isChatting = 0;
     public int index;
     public float delayTime = 2.0f;
 
@@ -36,7 +36,7 @@ public class ChatSystem : MonoBehaviour
 
     public List<ChatList> chatList = new List<ChatList>();
 
-    //scratch.json ÆÄÀÏ ºÒ·¯¿À±â
+    //scratch.json 
     [System.Serializable]
     public class Scratch
     {
@@ -49,7 +49,7 @@ public class ChatSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        isChatting = 1;
+        //isChatting = 1;
     }
 
     // Update is called once per frame
@@ -96,32 +96,32 @@ public class ChatSystem : MonoBehaviour
 
         ChatList newChat = new ChatList();
 
-        //±âÁ¸¿¡ ´ëÈ­ÇÑ ±â·ÏÀÌ ÀÖÀ» ¶§ ÀÌÀü °Í¿¡ ÀÌ¾î¼­ »ý¼º
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Í¿ï¿½ ï¿½Ì¾î¼­ ï¿½ï¿½ï¿½ï¿½
         if (chatList.FindIndex(item => item.chattingWith.Equals(myScratch.name + ", " + myScratch.chatting_with)) != -1)
         {
-            //Ä«ÅåÃ¢ ¹Ì¸®º¸±â ºÒ·¯¿À±â
+            //Ä«ï¿½ï¿½Ã¢ ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½
             chatScript = contentRect.transform.GetChild(chatList.FindIndex(item => item.chattingWith.Equals(myScratch.name + ", " + myScratch.chatting_with))).GetComponent<NPCchat>();
             
-            //Ä«Åå ´ëÈ­Ã¢ ºÒ·¯¿À±â
+            //Ä«ï¿½ï¿½ ï¿½ï¿½È­Ã¢ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½
             chatScreenScript = GameObject.Find("ChatScreen").transform.GetChild(chatScript.screenIndex).gameObject.GetComponent<ChatScreen>();
         }
         else if (chatList.FindIndex(item => item.chattingWith.Equals(myScratch.chatting_with + ", " + myScratch.name)) != -1)
         {
-            //Ä«ÅåÃ¢ ¹Ì¸®º¸±â ºÒ·¯¿À±â
+            //Ä«ï¿½ï¿½Ã¢ ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½
             chatScript = contentRect.transform.GetChild(chatList.FindIndex(item => item.chattingWith.Equals(myScratch.chatting_with + ", " + myScratch.name))).GetComponent<NPCchat>();
 
-            //Ä«Åå ´ëÈ­Ã¢ ºÒ·¯¿À±â
+            //Ä«ï¿½ï¿½ ï¿½ï¿½È­Ã¢ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½
             chatScreenScript = GameObject.Find("ChatScreen").transform.GetChild(chatScript.screenIndex).gameObject.GetComponent<ChatScreen>();
         }
-        //±âÁ¸¿¡ ´ëÈ­ ³»¿ªÀÌ ¾øÀ» ¶§ »õ·Î¿î ´ëÈ­Ã¢ »ý¼º
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½È­Ã¢ ï¿½ï¿½ï¿½ï¿½
         else
         {
-            //Ä«ÅåÃ¢ ¹Ì¸®º¸±â »ý¼º
+            //Ä«ï¿½ï¿½Ã¢ ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             chatScript = Instantiate(chatImage).GetComponent<NPCchat>();
             chatScript.transform.SetParent(contentRect.transform, false);
             chatScript.screenIndex = screenIndex++;
 
-            //Ä«Åå ´ëÈ­Ã¢ »ý¼º
+            //Ä«ï¿½ï¿½ ï¿½ï¿½È­Ã¢ ï¿½ï¿½ï¿½ï¿½
             chatScreenScript = Instantiate(chatScript.chatScreen).GetComponent<ChatScreen>();
             chatScreenScript.transform.SetParent(screenRect.transform, false);
 
@@ -134,14 +134,14 @@ public class ChatSystem : MonoBehaviour
     }
     void PrintChat()
     {
-        //¸»Ç³¼± »ý¼º
+        //ï¿½ï¿½Ç³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         currentChatNPC = GameObject.Find(npcChat[index][0]);
         currentChatNPC.GetComponentInChildren<Image>(true).gameObject.SetActive(true);
         currentChatNPC.GetComponentInChildren<TextMeshProUGUI>().text = npcChat[index][1];
 
         Invoke("SetActiveFalse", 2.0f);
 
-        //Ä«ÅåÃ¢ ¹Ì¸®º¸±â ¾÷µ¥ÀÌÆ®
+        //Ä«ï¿½ï¿½Ã¢ ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
         chatScript.chattingWith.text = myScratch.name + ", " + myScratch.chatting_with;
         chatScript.chat.text = npcChat[index][1];
 
@@ -150,7 +150,7 @@ public class ChatSystem : MonoBehaviour
         chatList[chatScript.screenIndex] = newChatNum;
         chatScript.chatNum.text = chatList[chatScript.screenIndex].newChatNum.ToString();
 
-        //Ä«Åå ´ëÈ­ »ý¼º
+        //Ä«ï¿½ï¿½ ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½
         if (string.Equals(currentChatNPC.name, chatScript.chattingWith.text.Split(',')[0]))
         {
             ChatArea chatArea = Instantiate(chatScript.yellowArea).GetComponent<ChatArea>();

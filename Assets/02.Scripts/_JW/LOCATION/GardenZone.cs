@@ -15,7 +15,7 @@ public class GardenZone : MonoBehaviour
 
 
     private List<Vector2> NPCPosition = new List<Vector2>();
-    public NPCData _NPCData;
+    public GameManager _NPCData;
  
 
     void Update()
