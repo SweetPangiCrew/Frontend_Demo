@@ -12,7 +12,7 @@ namespace NPCServer
         private string act_address;
         private string pronunciatio;
         private string description;
-        private List<string> chat;
+        private List<List<string>> chat;
         
         public string Name
         {
@@ -38,7 +38,7 @@ namespace NPCServer
             set { description = value; }
         }
 
-        public List<string> Chat
+        public List<List<string>> Chat
         {
             get { return chat; }
             set { chat = value; }
@@ -53,12 +53,18 @@ namespace NPCServer
             str += "act_address : " + act_address + "\n";
             str += "pronunciatio : " + pronunciatio + "\n";
             str += "description : " + description + "\n";
-            str += "chat : " + chat.ToString() + "\n";
+
+            str += "chat : \n";
+            foreach (var chatEntry in chat)
+            {
+                str += string.Join(", ", chatEntry) + "\n";
+            }
+
             return str;
         }
         
 
-        public Persona(string name, string act_address, string pronunciatio, string description, List<string> chat)
+        public Persona(string name, string act_address, string pronunciatio, string description, List<List<string>> chat)
         {
             this.name = name;
             this.act_address = act_address;

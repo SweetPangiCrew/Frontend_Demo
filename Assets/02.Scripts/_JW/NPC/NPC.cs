@@ -19,7 +19,7 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
     public Transform[] _LunaWaypoints;
     private int _currentWaypointIndex = 0;
     private float _waitTime = 3f;
-    private NavMeshAgent agent;
+    public NavMeshAgent agent;
     private float _waitCounter = 0f;
     private bool _isWaiting = false;
 
@@ -82,6 +82,7 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
         Perceive();
     }
 
+/*
     #region INTERACT
     public void Interact()
     {
@@ -100,43 +101,37 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
         }
     }
     #endregion
-
+*/
     #region PERCEIVE
     public void Perceive()
     {
         // update NPC name and location
         _location = this.GetComponent<Transform>().position;
-        //_detectedObject = new List<GameObject>();
 
         // NPC perceive
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 36; i++)
         {
-            float angle = i * 36.0f;
+            float angle = i * 10.0f;
 
             // Initialize rayOrigin and direction based on NPC position and angle
             direction = Quaternion.Euler(1, 1, angle) * Vector2.up;
             rayOrigin = _location + direction * detectionRadius;
 
-
             RaycastHit2D ObjectHit = Physics2D.Raycast(rayOrigin, direction, detectionRadius, LayerMask.GetMask("InteractableObject"));
-            Debug.DrawRay(rayOrigin, direction * detectionRadius, Color.red);
-
-            if (ObjectHit.collider != null && ObjectHit.collider.CompareTag("NPC"))
+            Debug.DrawRay(rayOrigin, direction * detectionRadius, Color.red);   
+            
+            if(ObjectHit.collider != null)
             {
-                if(!_detectedObject.Contains(ObjectHit.collider.gameObject))
-                    _detectedObject.Add(ObjectHit.collider.gameObject);  
+                GameObject detectedObject = ObjectHit.collider.gameObject;
 
-                //agent.isStopped = true;
-                
-                //ChatBufferButton.SetActive(true);                      
-
-                // Interact
-                
-                
-            }          
-
+                // Check if the object is not already in the list before adding
+                if (!_detectedObject.Contains(detectedObject))
+                {
+                    _detectedObject.Add(detectedObject);
+                }
+            }
+               
         }
-
     }
     #endregion
 
@@ -148,6 +143,7 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
         Transform nextWaypoint = _LunaWaypoints[_currentWaypointIndex];
         agent.SetDestination(nextWaypoint.position);
         _currentWaypointIndex = (_currentWaypointIndex + 1) % _LunaWaypoints.Length;
+        
         // Resume NPC movement
         agent.isStopped = false;
     }
