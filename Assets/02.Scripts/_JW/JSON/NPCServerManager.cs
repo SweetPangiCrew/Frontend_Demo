@@ -19,7 +19,7 @@ public class NPCServerManager : HttpServerBase
     private List<Persona> currentMovementInfo;
 
 
-    #region ?�로?�티
+    #region ?�로?�티
     public List<Persona> CurrentMovementInfo { get => currentMovementInfo;
         set
         {
@@ -49,6 +49,11 @@ public class NPCServerManager : HttpServerBase
         yield return PostPerceive(data, "test6", step);
     }
     
+    public IEnumerator PostGameStartoroutine(string simCode, string gameName)
+    {
+        yield return PostGameStart(simCode, gameName);
+    }
+    
     public IEnumerator GetServerTimeCoroutine()
     {
         yield return GetServerTime();
@@ -60,17 +65,17 @@ public class NPCServerManager : HttpServerBase
         // 로그??URL??조합
         string url = GameURL.NPCServer.Server_URL + GameURL.NPCServer.getServerTime;
 
-        // Newtonsoft.Json ?�키지�??�용??Json?�성
+        // Newtonsoft.Json ?�키지�??�용??Json?�성
         JObject jobj = new JObject();
         
-        // ?�공?�을??콜백
-        // ?�로???��? ?�보�??�팅??로그???�청?�했�??�공?�다�???�� ?�데?�트 ?�도�??�려�??�쪽???�의??
+        // ?�공?�을??콜백
+        // ?�로???��? ?�보�??�팅??로그???�청?�했�??�공?�다�???�� ?�데?�트 ?�도�??�려�??�쪽???�의??
         Action<Result> updateServerTimeInfoAction = (result) =>
         {
-            // Newtonsoft.Json ?�키지�??�용??Json Parsing
+            // Newtonsoft.Json ?�키지�??�용??Json Parsing
             var resultData = JObject.Parse(result.Json)["serverTime"]; 
             
-            Debug.Log("?�버?�간"+resultData);
+            Debug.Log("?�버?�간"+resultData);
             
             
         };
@@ -87,19 +92,19 @@ public class NPCServerManager : HttpServerBase
         // 로그??URL??조합
         string url = GameURL.NPCServer.Server_URL + GameURL.NPCServer.getNPCMovement+simName+"/"+step;
 
-        // Newtonsoft.Json ?�키지�??�용??Json?�성
+        // Newtonsoft.Json ?�키지�??�용??Json?�성
         JObject jobj = new JObject();
         
-        // ?�공?�을??콜백
-        // ?�로???��? ?�보�??�팅??로그???�청?�했�??�공?�다�???�� ?�데?�트 ?�도�??�려�??�쪽???�의??
+        // ?�공?�을??콜백
+        // ?�로???��? ?�보�??�팅??로그???�청?�했�??�공?�다�???�� ?�데?�트 ?�도�??�려�??�쪽???�의??
         Action<Result> updateMovementInfoAction = (result) =>
         {
-            // Newtonsoft.Json ?�키지�??�용??Json Parsing
+            // Newtonsoft.Json ?�키지�??�용??Json Parsing
             var resultData = JObject.Parse(result.Json)["persona"]; 
             
           //  Debug.Log(result);
             
-            //resutlData ?�회?�면??각각???�보�?가?�옴
+            //resutlData ?�회?�면??각각???�보�?가?�옴
             List<string> personas = new List<string>();
             List<string> act_address   = new List<string>();
             List<string> pronunciatio  = new List<string>();
@@ -144,28 +149,31 @@ public class NPCServerManager : HttpServerBase
         // 로그??URL??조합
         string url = GameURL.NPCServer.Server_URL + GameURL.NPCServer.postNPCPercention +simName+"/"+step+"/";
 
-        // Newtonsoft.Json ?�키지�??�용??Json?�성
+        // Newtonsoft.Json ?�키지�??�용??Json?�성
         JObject jobj = new JObject();
         
         
-        string jsonFilePath = Path.Combine(Application.dataPath, "PercevieAPI.json");
+       //현재 로컬 파일로 부르는 중..? daa 쓸 필요 없나?  
+       string jsonFilePath = Path.Combine(Application.dataPath, "PercevieAPI.json");
         string jsonFileContent = File.ReadAllText(jsonFilePath);
-
+       // string jsonFileContent = data;
+       
+       
         jobj = JObject.Parse(jsonFileContent);
         
-        // ?�공?�을??콜백
-        // ?�로???��? ?�보�??�팅??로그???�청?�했�??�공?�다�???�� ?�데?�트 ?�도�??�려�??�쪽???�의??
+        // ?�공?�을??콜백
+        // ?�로???��? ?�보�??�팅??로그???�청?�했�??�공?�다�???�� ?�데?�트 ?�도�??�려�??�쪽???�의??
         Action<Result> updateMPerceiveInfoAction = (result) =>
         {
-            // Newtonsoft.Json ?�키지�??�용??Json Parsing
+            // Newtonsoft.Json ?�키지�??�용??Json Parsing
           //  var resultData = JObject.Parse(result.Json)["persona"]; 
             
           //  Debug.Log(result);
             
-           // resutlData ?�회?�면??각각???�보�?가?�옴
+           // resutlData ?�회?�면??각각???�보�?가?�옴
              //List<string> personas = new List<string>();
             
-            Debug.Log("Post ?�료:"+ result.Json);
+            Debug.Log("Post ?�료:"+ result.Json);
              // foreach (JProperty property in resultData)
              // {
              //        
@@ -178,6 +186,42 @@ public class NPCServerManager : HttpServerBase
 
         return StartCoroutine(SendRequestCor(url, SendType.POST, jobj, onSucceed, onFailed, onNetworkFailed));
     }
+     
+     public Coroutine PostGameStart(string simCode, string gameName,
+         Action<Result> onSucceed = null, Action<Result> onFailed = null, Action<Result> onNetworkFailed = null)
+     {
+         string url = GameURL.NPCServer.Server_URL +"gamestart/";
+
+      
+         JObject jobj = new JObject();
+
+
+         jobj["sim_code"] = simCode;
+         jobj["game_name"] = gameName;
+        
+        
+         //call back
+         Action<Result> updateStartInfoAction = (result) =>
+         {
+             // Newtonsoft.Json / Json Parsing
+             //  var resultData = JObject.Parse(result.Json)["persona"]; 
+            
+             //  Debug.Log(result);
+            
+          
+             Debug.Log("Post :"+ result.Json);
+             // foreach (JProperty property in resultData)
+             // {
+             //        
+             // }
+             
+            
+         };
+
+         onSucceed += updateStartInfoAction;
+
+         return StartCoroutine(SendRequestCor(url, SendType.POST, jobj, onSucceed, onFailed, onNetworkFailed));
+     }
     
 }
 }

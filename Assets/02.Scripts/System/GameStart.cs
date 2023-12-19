@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using System.Collections;
+using NPCServer;
 
 public class GameStart : MonoBehaviour
 {
@@ -33,6 +34,7 @@ public class GameStart : MonoBehaviour
     }
     public void gameStart()
     {
-        Debug.Log(GameManager.Instance.simCode + GameManager.Instance.gameName);
+        StartCoroutine( NPCServerManager.Instance.PostGameStartoroutine(GameManager.Instance.simCode,GameManager.Instance.gameName));
+      //  Debug.Log(+ );
     }
 }

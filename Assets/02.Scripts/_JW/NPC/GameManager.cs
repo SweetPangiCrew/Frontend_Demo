@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
         LoadExistingInfo(filePath);
 
         StartCoroutine(InvokePerceive());
-        step = 0;;
+        step = 0;
     }
 
     private void LoadExistingInfo(string filePath)
