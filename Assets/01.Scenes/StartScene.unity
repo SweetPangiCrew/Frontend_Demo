@@ -207,7 +207,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 178709032}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 178709034}
+        m_TargetAssemblyTypeName: GameStart, Assembly-CSharp
+        m_MethodName: gameStart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &178709032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,8 +270,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47de73118a0e4454e9daa5c8529fd4dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseInput: {fileID: 0}
-  nameInput: {fileID: 0}
+  baseInput: {fileID: 726776806}
+  nameInput: {fileID: 1772150288}
 --- !u!1 &299182807
 GameObject:
   m_ObjectHideFlags: 0
@@ -624,6 +636,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 726776804}
   m_CullTransparentMesh: 1
+--- !u!1 &849387846
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 849387848}
+  - component: {fileID: 849387847}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &849387847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 849387846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2de031d7b6bdb0f4194195778de39e7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PerceiveJSONFile: {fileID: 0}
+  NPC: []
+  simCode: 
+  gameName: 
+  NPCName: 
+  dialogueManager: {fileID: 0}
+--- !u!4 &849387848
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 849387846}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 976.251, y: 251.95253, z: -3.2555335}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &939543307
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,6 +11,20 @@ using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
+    
+    public static GameManager Instance { get; private set; }
+    
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+            Destroy(gameObject);
+    }
+
     [SerializeField]
     private TextAsset PerceiveJSONFile;
     private Perceive existingInfo;
@@ -21,6 +35,8 @@ public class GameManager : MonoBehaviour
 
     // Get Movement
     private int step;
+    public string simCode; 
+    public string gameName; 
     public string NPCName; 
 
     // Chat 
