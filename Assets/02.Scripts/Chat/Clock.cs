@@ -6,6 +6,9 @@ using TMPro;
 
 public class Clock : MonoBehaviour
 {
+    public RectTransform hand;
+    public float rotate;
+
     public TextMeshProUGUI timeText;
     public bool timerOn;
     public float time;
@@ -23,6 +26,7 @@ public class Clock : MonoBehaviour
     {
         time = 0;
         timerOn = true;
+        rotate = 0;
         days = new string[] {"월", "화", "수", "목", "금", "토", "일"};
         day = 0;
         date = 1;
@@ -38,6 +42,11 @@ public class Clock : MonoBehaviour
             min = ((int)time * 60) / 60 % 60;    //minute
             hour = ((int)time * 60) / 3600;   //hour
 
+            //아날로그 시계 바늘
+            rotate = (hour * 30 + (min * 0.5f)) % 360; 
+            hand.rotation = Quaternion.Euler(0, 0, -rotate);
+
+            //하루가 지나면 날짜 넘어가기
             if(hour >= 24)
             {
                 ChangeDate();
@@ -68,6 +77,7 @@ public class Clock : MonoBehaviour
     public void ChangeDate()
     {
         time = 0;
+        rotate = 0;
         day = (day + 1) % 7; 
         date++;
     }
