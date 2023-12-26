@@ -12,6 +12,7 @@ public class Clock : MonoBehaviour
     public TextMeshProUGUI timeText;
     public bool timerOn;
     public float time;
+    public float sec;
     public float min;
     public float hour;
     public string AmPm;
@@ -20,6 +21,8 @@ public class Clock : MonoBehaviour
     string[] days;
     public int day;
     public int date;
+
+    public string curr_time;
 
     // Start is called before the first frame update
     void Start()
@@ -38,16 +41,18 @@ public class Clock : MonoBehaviour
     {
         if (timerOn)
         {
-            time += Time.deltaTime; //second
-            min = ((int)time * 60) / 60 % 60;    //minute
-            hour = ((int)time * 60) / 3600;   //hour
+            time += Time.deltaTime; 
+            sec = ((int)time * 108) % 60;   //second
+            min = ((int)time * 108) / 60 % 60;    //minute
+            hour = (8 + (((int)time * 108) / 3600)) % 24;   //hour (8am ~ 2am)
+            curr_time = "February " + date.ToString() + ", 2023, " + hour.ToString() + ":" + min.ToString() + ":" + sec.ToString();
 
             //아날로그 시계 바늘
             rotate = (hour * 30 + (min * 0.5f)) % 360; 
             hand.rotation = Quaternion.Euler(0, 0, -rotate);
 
-            //하루가 지나면 날짜 넘어가기
-            if(hour >= 24)
+            //새벽 2시에 날짜 넘어가기
+            if(hour == 2)
             {
                 ChangeDate();
             }
@@ -71,6 +76,7 @@ public class Clock : MonoBehaviour
             // 10분마다 시간 텍스트 변경
             timeText.text = hour.ToString() + " : " + ((int)(min / 10)).ToString() + "0" + " " + AmPm;
             dateText.text = days[day] + ". " + date.ToString();
+            GetCurrentTime();
         }
     }
     
@@ -90,5 +96,11 @@ public class Clock : MonoBehaviour
     public void ResumeTimer()
     {
         timerOn = true;
+    }
+
+    void GetCurrentTime()
+    {
+        // ex) feburary 13, 2023, 17:20:14
+        Debug.Log(curr_time);
     }
 }
