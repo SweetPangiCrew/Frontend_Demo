@@ -7875,7 +7875,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 0.864625}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -8156,7 +8156,7 @@ RectTransform:
   - {fileID: 297159490}
   - {fileID: 1377444945}
   m_Father: {fileID: 1710812985}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -8180,12 +8180,14 @@ MonoBehaviour:
   timeText: {fileID: 1377444946}
   timerOn: 0
   time: 0
+  sec: 0
   min: 0
   hour: 0
   AmPm: 
   dateText: {fileID: 297159491}
   day: 0
   date: 0
+  curr_time: 
 --- !u!114 &232655341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8860,7 +8862,7 @@ RectTransform:
   m_Children:
   - {fileID: 2053834367}
   m_Father: {fileID: 1710812985}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -10926,7 +10928,7 @@ RectTransform:
   - {fileID: 1835918486}
   - {fileID: 2088691796}
   m_Father: {fileID: 1710812985}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -14681,7 +14683,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 70.82167}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1458993040
@@ -15524,9 +15526,9 @@ RectTransform:
   - {fileID: 600577956}
   - {fileID: 797881264}
   - {fileID: 2083892151}
-  - {fileID: 1159756435}
   - {fileID: 232655339}
   - {fileID: 375814133}
+  - {fileID: 1159756435}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -15564,7 +15566,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a25f6f2f52de16640ad845702d68c20d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _perceive: {fileID: 0}
+  _perceive: {fileID: 4900000, guid: 765d591de2de4cd4a96738b7713deac5, type: 3}
 --- !u!4 &1722611055
 Transform:
   m_ObjectHideFlags: 0
@@ -20487,7 +20489,7 @@ Tilemap:
       m_AnimatedSprites:
       - {fileID: -2969016694365801900, guid: 20d6cce5c7ac33b4e97f0f98a09aa347, type: 3}
       - {fileID: 1955328530927145255, guid: 20d6cce5c7ac33b4e97f0f98a09aa347, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -13, y: -6, z: 0}
@@ -20495,7 +20497,7 @@ Tilemap:
       m_AnimatedSprites:
       - {fileID: -2969016694365801900, guid: 20d6cce5c7ac33b4e97f0f98a09aa347, type: 3}
       - {fileID: 1955328530927145255, guid: 20d6cce5c7ac33b4e97f0f98a09aa347, type: 3}
-      m_AnimationSpeed: 3
+      m_AnimationSpeed: 3.0000002
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -12, y: -6, z: 0}
@@ -22819,7 +22821,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 129499865}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.864625
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
