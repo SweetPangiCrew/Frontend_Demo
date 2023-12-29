@@ -4,10 +4,8 @@ using UnityEngine;
 using Newtonsoft.Json;
 using System.IO;
 using NPCServer;
-using TMPro;
 using System;
-using Panda.Examples.PlayTag;
-using System.Linq;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -40,7 +38,8 @@ public class GameManager : MonoBehaviour
     public string NPCName; 
 
     // Chat 
-    public DialogueManager dialogueManager;
+    public ChatManager chatManager;
+    private int speakerIndex;
 
 
     void Start()
@@ -113,7 +112,7 @@ public class GameManager : MonoBehaviour
                                         NPC[npcIndex].agent.isStopped = true;
                                         NPC[j].agent.isStopped = true;
 
-                                        if (!dialogueManager.isChatting)
+                                        if (!chatManager.isChatting)
                                         {
                                             for (int k = 0; k < movementInfo.Chat.Count; k++)
                                             {
@@ -121,10 +120,22 @@ public class GameManager : MonoBehaviour
                                                 string speaker = chat[0].ToString();
                                                 string dialogue = chat[1].ToString();
 
-                                                if (dialogueManager.dialogues.Count <= k)
+                                                if (chatManager.dialogues.Count <= k)
                                                 {
+                                                    if (k % 2 == 0)
+                                                        speakerIndex = 1;
+                                                    else                                                   
+                                                        speakerIndex = 0;
+                                                
+                                                    chatManager.dialogues.Add(new DialogueData { 
+                                                        dialogue = dialogue,
+                                                        name = speaker,
+                                                        speakerIndex = speakerIndex
+                                                        });
 
-                                                    dialogueManager.dialogues.Add(new DialogueData { dialogue = dialogue });
+                                                    chatManager.isFirst = true;
+
+
                                                 }
 
 
