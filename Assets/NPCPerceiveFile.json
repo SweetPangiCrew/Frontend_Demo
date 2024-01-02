@@ -2,7 +2,7 @@
   "perceived_info": [
     {
       "persona": "Isabella Rodriguez",
-      "curr_address": "",
+      "curr_address": "garden",
       "perceived_tiles": [
         {
           "dist": 1.58977878,
@@ -17,7 +17,7 @@
     },
     {
       "persona": "Maria Lopez",
-      "curr_address": "",
+      "curr_address": "garden",
       "perceived_tiles": [
         {
           "dist": 1.58977878,
