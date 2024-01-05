@@ -12,8 +12,6 @@ public class ChatManager : MonoBehaviour
     public RectTransform ContentRect;
     public Scrollbar scrollBar;
 
-    AreaScript LastArea;
-
     [SerializeField]
     public Speaker[] speakers;
 
@@ -47,7 +45,7 @@ public class ChatManager : MonoBehaviour
         while (dialogues.Count > currentDialogueIndex + 1)
         {
             SetNextDialogue();
-            yield return new WaitForSeconds(1); // 1초 대기
+            yield return new WaitForSeconds(2); // 1초 대기
         }
 
         // 대화가 끝난 후 처리
@@ -69,22 +67,35 @@ public class ChatManager : MonoBehaviour
 
     private void SetNextDialogue()
     {
+        SetActiveObjects(speakers[currentSpeakerIndex], false);
+
         currentDialogueIndex++;
-        
         currentSpeakerIndex = dialogues[currentDialogueIndex].speakerIndex;
 
+        // Kakao Talk Dialogue
         GameObject TextClone = Instantiate(speakers[currentSpeakerIndex].textArea, ContentRect);
-
         AreaScript Area = TextClone.GetComponent<AreaScript>();
 
         Area.TextRect.GetComponent<TextMeshProUGUI>().text = dialogues[currentDialogueIndex].dialogue;
         Area.NameText.text = dialogues[currentDialogueIndex].name;
 
+        // Speech Bubble Dialogue
+        SetActiveObjects(speakers[currentSpeakerIndex], true);
         speakers[currentSpeakerIndex].dialogueText.text = dialogues[currentDialogueIndex].dialogue;
 
         scrollBar.value = 0;
     }
 
+    private void SetActiveObjects(Speaker speaker, bool visible)
+    {
+        speaker.dialougeImage.gameObject.SetActive(visible);
+        speaker.dialogueText.gameObject.SetActive(visible);
+    }
+
+    public void SetIsChatting(bool _isChatting)
+    {
+        isChatting = _isChatting;
+    }
 }
 
 
