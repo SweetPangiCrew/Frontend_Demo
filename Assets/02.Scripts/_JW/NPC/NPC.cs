@@ -39,6 +39,10 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
     private bool isInteracting = false;
     public GameObject ChatBufferButton;
 
+    // Canvas
+    public GameObject IconBubble;
+    public GameObject SpeechBubble;
+
     void Start()
     {
         // Nav Mesh Agent
