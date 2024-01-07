@@ -45,7 +45,7 @@ public class Clock : MonoBehaviour
             sec = ((int)time * 108) % 60;   //second
             min = ((int)time * 108) / 60 % 60;    //minute
             hour = (8 + (((int)time * 108) / 3600)) % 24;   //hour (8am ~ 2am)
-            curr_time = "February " + date.ToString() + ", 2023, " + hour.ToString() + ":" + min.ToString() + ":" + sec.ToString();
+            curr_time = "August " + date.ToString() + ", 2023, " + hour.ToString() + ":" + min.ToString() + ":" + sec.ToString();
 
             //아날로그 시계 바늘
             rotate = (hour * 30 + (min * 0.5f)) % 360; 
@@ -75,7 +75,7 @@ public class Clock : MonoBehaviour
 
             // 10분마다 시간 텍스트 변경
             timeText.text = hour.ToString() + " : " + ((int)(min / 10)).ToString() + "0" + " " + AmPm;
-            dateText.text = days[day] + ". " + date.ToString();
+            dateText.text = "8월 " + date.ToString() + "일. " + days[day];
             GetCurrentTime();
         }
     }
