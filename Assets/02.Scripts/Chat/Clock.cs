@@ -30,10 +30,10 @@ public class Clock : MonoBehaviour
         time = 0;
         timerOn = true;
         rotate = 0;
-        days = new string[] {"¿ù", "È­", "¼ö", "¸ñ", "±İ", "Åä", "ÀÏ"};
+        days = new string[] { "ì›”", "í™”", "ìˆ˜", "ëª©", "ê¸ˆ", "í† ", "ì¼" };
         day = 0;
         date = 1;
-        
+
     }
 
     // Update is called once per frame
@@ -41,50 +41,50 @@ public class Clock : MonoBehaviour
     {
         if (timerOn)
         {
-            time += Time.deltaTime; 
+            time += Time.deltaTime;
             sec = ((int)time * 108) % 60;   //second
             min = ((int)time * 108) / 60 % 60;    //minute
             hour = (8 + (((int)time * 108) / 3600)) % 24;   //hour (8am ~ 2am)
             curr_time = "August " + date.ToString() + ", 2023, " + hour.ToString() + ":" + min.ToString() + ":" + sec.ToString();
 
-            //¾Æ³¯·Î±× ½Ã°è ¹Ù´Ã
-            rotate = (hour * 30 + (min * 0.5f)) % 360; 
+            //ì•„ë‚ ë¡œê·¸ ì‹œê³„ ë°”ëŠ˜
+            rotate = (hour * 30 + (min * 0.5f)) % 360;
             hand.rotation = Quaternion.Euler(0, 0, -rotate);
 
-            //»õº® 2½Ã¿¡ ³¯Â¥ ³Ñ¾î°¡±â
-            if(hour == 2)
+            //ìƒˆë²½ 2ì‹œì— ë‚ ì§œ ë„˜ì–´ê°€ê¸°
+            if (hour == 2)
             {
                 ChangeDate();
             }
-            
-            //¿ÀÀü ¿ÀÈÄ ±¸ºĞ
-            if(hour < 12)
+
+            //ì˜¤ì „ ì˜¤í›„ êµ¬ë¶„
+            if (hour < 12)
             {
-                AmPm = "¿ÀÀü";
+                AmPm = "ì˜¤ì „";
             }
             else
             {
-                AmPm = "¿ÀÈÄ";
+                AmPm = "ì˜¤í›„";
             }
 
             hour %= 12;
-            if(hour == 0)   // 00½Ã¸¦ 12½Ã·Î Ç¥½Ã
+            if (hour == 0)   // 00ì‹œë¥¼ 12ì‹œë¡œ í‘œì‹œ
             {
                 hour = 12;
             }
 
-            // 10ºĞ¸¶´Ù ½Ã°£ ÅØ½ºÆ® º¯°æ
+            // 10ë¶„ë§ˆë‹¤ ì‹œê°„ í…ìŠ¤íŠ¸ ë³€ê²½
             timeText.text = hour.ToString() + " : " + ((int)(min / 10)).ToString() + "0" + " " + AmPm;
-            dateText.text = "8¿ù " + date.ToString() + "ÀÏ. " + days[day];
+            dateText.text = "8ì›” " + date.ToString() + "ì¼. " + days[day];
             GetCurrentTime();
         }
     }
-    
+
     public void ChangeDate()
     {
         time = 0;
         rotate = 0;
-        day = (day + 1) % 7; 
+        day = (day + 1) % 7;
         date++;
     }
 
@@ -98,7 +98,7 @@ public class Clock : MonoBehaviour
         timerOn = true;
     }
 
-    void GetCurrentTime()
+    public void GetCurrentTime()
     {
         // ex) feburary 13, 2023, 17:20:14
         Debug.Log(curr_time);

@@ -8132,7 +8132,7 @@ GameObject:
   - component: {fileID: 232655339}
   - component: {fileID: 232655342}
   - component: {fileID: 232655341}
-  - component: {fileID: 232655340}
+  - component: {fileID: 232655343}
   m_Layer: 5
   m_Name: Clock
   m_TagString: Untagged
@@ -8163,31 +8163,6 @@ RectTransform:
   m_AnchoredPosition: {x: -220, y: -80}
   m_SizeDelta: {x: 400, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &232655340
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 232655338}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41acecee0fb56284c8722f3156467d70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hand: {fileID: 1587375930}
-  rotate: 0
-  timeText: {fileID: 1377444946}
-  timerOn: 0
-  time: 0
-  sec: 0
-  min: 0
-  hour: 0
-  AmPm: 
-  dateText: {fileID: 297159491}
-  day: 0
-  date: 0
-  curr_time: 
 --- !u!114 &232655341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8226,6 +8201,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 232655338}
   m_CullTransparentMesh: 1
+--- !u!114 &232655343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 232655338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ea939cbe4a8e854ebb03288ec880f1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hand: {fileID: 1587375930}
+  rotate: 0
+  timeText: {fileID: 1377444946}
+  timerOn: 0
+  time: 0
+  sec: 0
+  min: 0
+  hour: 0
+  AmPm: 
+  dateText: {fileID: 297159491}
+  day: 0
+  date: 0
+  curr_time: 
 --- !u!1 &285963413
 GameObject:
   m_ObjectHideFlags: 0
@@ -8913,7 +8913,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 232655340}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Clock, Assembly-CSharp
         m_MethodName: StopTimer
         m_Mode: 1
@@ -20483,7 +20483,7 @@ Tilemap:
       m_AnimatedSprites:
       - {fileID: -2969016694365801900, guid: 20d6cce5c7ac33b4e97f0f98a09aa347, type: 3}
       - {fileID: 1955328530927145255, guid: 20d6cce5c7ac33b4e97f0f98a09aa347, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -12, y: -7, z: 0}
