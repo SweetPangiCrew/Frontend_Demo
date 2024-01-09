@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System.IO;
 using NPCServer;
 using System;
+using System.Linq;
 
 
 public class GameManager : MonoBehaviour
@@ -26,9 +27,12 @@ public class GameManager : MonoBehaviour
     private TextAsset PerceiveJSONFile;
     private Perceive existingInfo;
     public List<NPC> NPC;
-
-
+    
     private string filePath;
+    
+    //timer
+    private DateTime curr_time;
+    private int stepTime = 18; // 게임 시간으로 18분 마다 스텝이 업데이트 됨.
 
     // Get Movement
     private int step;
@@ -44,7 +48,7 @@ public class GameManager : MonoBehaviour
     {
         filePath = "Assets/NPCPerceiveFile.json";
         LoadExistingInfo(filePath);
-
+       
         StartCoroutine(InvokePerceive());
         step = 0;
     }
@@ -65,12 +69,27 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator InvokePerceive()
     {
+        int lasttime = curr_time.Hour * 60 + curr_time.Minute;
+        
         while (true)
         {
-            yield return new WaitForSeconds(3f);
-            SaveJsonFile();
-            GetMovement();
-            step++;
+            curr_time = Clock.Instance.GetCurrentTime();
+
+            int minute = curr_time.Hour * 60 + curr_time.Minute; 
+            
+            
+            if (minute - lasttime >= stepTime )
+            {
+                lasttime = minute;
+                Debug.Log("time :" + curr_time.ToString());
+                SaveJsonFile();
+                GetMovement();
+                step++;
+            }
+            yield return new WaitForSeconds(1f); //10초를 18로 나눴을 때 0.55556이라 0.5씩 반복하면 1분 단위 게임 시간을 모두 체크함.
+           
+            
+            
         }
     }
 
