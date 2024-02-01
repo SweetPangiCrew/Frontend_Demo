@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using NPCServer;
+using TMPro;
 using UnityEngine.SceneManagement;
 
 public class GameStart : MonoBehaviour
