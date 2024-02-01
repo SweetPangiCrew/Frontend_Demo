@@ -18,15 +18,20 @@ public class NPCServerManager : HttpServerBase
     [SerializeField]
     private List<Persona> currentMovementInfo;
 
-
-    #region ?„ë¡œ?¼í‹°
+    private bool _serverOpened = false;
+    private bool _perceived = false;
+    private bool _getReaction = false;
+    
+    public bool serverOpened { get => _serverOpened; set { _serverOpened = value;  } }
+    public bool perceived { get => _perceived; set => _perceived = value; }
+    public bool getReaction { get => _getReaction; set => _getReaction = value; }
+    
     public List<Persona> CurrentMovementInfo { get => currentMovementInfo;
         set
         {
             currentMovementInfo = value;
         }
     }
-    #endregion
 
     private void Awake()
     {
@@ -39,14 +44,21 @@ public class NPCServerManager : HttpServerBase
             Destroy(gameObject);
     }
 
-    public IEnumerator GetMovementCoroutine(int step)
+   
+    public IEnumerator GetMovementCoroutine(string simName,int step)
     {
-        yield return GetMovement("test4", step);
+        yield return GetMovement(simName, step);
     }
     
-    public IEnumerator PostPerceiveCoroutine(string data, int step)
+    public IEnumerator PostPerceiveCoroutine(string data,string simName, int step)
     {
-        yield return PostPerceive(data, "test6", step);
+        yield return PostPerceive(data, simName, step);
+    }
+    
+    public void gameStart()
+    {   
+        StartCoroutine( PostGameStartoroutine(Database.Instance.simCode,Database.Instance.gameName));
+
     }
     
     public IEnumerator GetServerTimeCoroutine()
@@ -60,17 +72,17 @@ public class NPCServerManager : HttpServerBase
         // ë¡œê·¸??URL??ì¡°í•©
         string url = GameURL.NPCServer.Server_URL + GameURL.NPCServer.getServerTime;
 
-        // Newtonsoft.Json ?¨í‚¤ì§€ë¥??´ìš©??Json?ì„±
+        // Newtonsoft.Json ?ï¿½í‚¤ì§€ï¿½??ï¿½ìš©??Json?ï¿½ì„±
         JObject jobj = new JObject();
         
-        // ?±ê³µ?ˆì„??ì½œë°±
-        // ?ˆë¡œ??? ì? ?•ë³´ë¥??¸íŒ…??ë¡œê·¸???”ì²­?„í–ˆê³??±ê³µ?ˆë‹¤ë©???ƒ ?…ë°?´íŠ¸ ?˜ë„ë¡?? ë ¤ê³??´ìª½???•ì˜??
+        // ?ï¿½ê³µ?ï¿½ì„??ì½œë°±
+        // ?ï¿½ë¡œ???ï¿½ï¿½? ?ï¿½ë³´ï¿½??ï¿½íŒ…??ë¡œê·¸???ï¿½ì²­?ï¿½í–ˆï¿½??ï¿½ê³µ?ï¿½ë‹¤ï¿½???ï¿½ï¿½ ?ï¿½ë°?ï¿½íŠ¸ ?ï¿½ë„ï¿½??ï¿½ë ¤ï¿½??ï¿½ìª½???ï¿½ì˜??
         Action<Result> updateServerTimeInfoAction = (result) =>
         {
-            // Newtonsoft.Json ?¨í‚¤ì§€ë¥??´ìš©??Json Parsing
+            // Newtonsoft.Json ?ï¿½í‚¤ì§€ï¿½??ï¿½ìš©??Json Parsing
             var resultData = JObject.Parse(result.Json)["serverTime"]; 
             
-            Debug.Log("?œë²„?œê°„"+resultData);
+            Debug.Log("ì„œë²„ ì‹œê°„"+resultData);
             
             
         };
@@ -84,22 +96,20 @@ public class NPCServerManager : HttpServerBase
     public Coroutine GetMovement(string simName, int step,
         Action<Result> onSucceed = null, Action<Result> onFailed = null, Action<Result> onNetworkFailed = null)
     {
-        // ë¡œê·¸??URL??ì¡°í•©
+
         string url = GameURL.NPCServer.Server_URL + GameURL.NPCServer.getNPCMovement+simName+"/"+step;
 
-        // Newtonsoft.Json ?¨í‚¤ì§€ë¥??´ìš©??Json?ì„±
+        // Newtonsoft.Json 
         JObject jobj = new JObject();
         
-        // ?±ê³µ?ˆì„??ì½œë°±
-        // ?ˆë¡œ??? ì? ?•ë³´ë¥??¸íŒ…??ë¡œê·¸???”ì²­?„í–ˆê³??±ê³µ?ˆë‹¤ë©???ƒ ?…ë°?´íŠ¸ ?˜ë„ë¡?? ë ¤ê³??´ìª½???•ì˜??
+
         Action<Result> updateMovementInfoAction = (result) =>
         {
-            // Newtonsoft.Json ?¨í‚¤ì§€ë¥??´ìš©??Json Parsing
+            // Newtonsoft.Json Json Parsing
             var resultData = JObject.Parse(result.Json)["persona"]; 
             
           //  Debug.Log(result);
             
-            //resutlData ?œíšŒ?˜ë©´??ê°ê°???•ë³´ë¥?ê°€?¸ì˜´
             List<string> personas = new List<string>();
             List<string> act_address   = new List<string>();
             List<string> pronunciatio  = new List<string>();
@@ -127,6 +137,7 @@ public class NPCServerManager : HttpServerBase
             {
                 Persona newMovementInfo = new Persona(personas[i], act_address[i], pronunciatio[i], description[i], chats);
                 CurrentMovementInfo.Add(newMovementInfo);
+                _getReaction = true;
                 Debug.Log(newMovementInfo.ToString());
             }
             
@@ -144,7 +155,7 @@ public class NPCServerManager : HttpServerBase
         // ë¡œê·¸??URL??ì¡°í•©
         string url = GameURL.NPCServer.Server_URL + GameURL.NPCServer.postNPCPercention +simName+"/"+step+"/";
 
-        // Newtonsoft.Json ?¨í‚¤ì§€ë¥??´ìš©??Json?ì„±
+        // Newtonsoft.Json ?ï¿½í‚¤ì§€ï¿½??ï¿½ìš©??Json?ï¿½ì„±
         JObject jobj = new JObject();
         
         
@@ -153,31 +164,48 @@ public class NPCServerManager : HttpServerBase
 
         jobj = JObject.Parse(jsonFileContent);
         
-        // ?±ê³µ?ˆì„??ì½œë°±
-        // ?ˆë¡œ??? ì? ?•ë³´ë¥??¸íŒ…??ë¡œê·¸???”ì²­?„í–ˆê³??±ê³µ?ˆë‹¤ë©???ƒ ?…ë°?´íŠ¸ ?˜ë„ë¡?? ë ¤ê³??´ìª½???•ì˜??
+
         Action<Result> updateMPerceiveInfoAction = (result) =>
         {
-            // Newtonsoft.Json ?¨í‚¤ì§€ë¥??´ìš©??Json Parsing
-          //  var resultData = JObject.Parse(result.Json)["persona"]; 
-            
-          //  Debug.Log(result);
-            
-           // resutlData ?œíšŒ?˜ë©´??ê°ê°???•ë³´ë¥?ê°€?¸ì˜´
-             //List<string> personas = new List<string>();
-            
-            Debug.Log("Post ?„ë£Œ:"+ result.Json);
-             // foreach (JProperty property in resultData)
-             // {
-             //        
-             // }
-             
-            
+            Debug.Log("Post :"+ result.Json);
+            _perceived = true;
+
+
         };
 
         onSucceed += updateMPerceiveInfoAction;
 
         return StartCoroutine(SendRequestCor(url, SendType.POST, jobj, onSucceed, onFailed, onNetworkFailed));
     }
+     
+     public Coroutine PostGameStart(string simCode, string gameName,
+         Action<Result> onSucceed = null, Action<Result> onFailed = null, Action<Result> onNetworkFailed = null)
+     {
+         string url = GameURL.NPCServer.Server_URL +"gamestart/";
+
+      
+         JObject jobj = new JObject();
+
+
+         jobj["sim_code"] = simCode;
+         jobj["game_name"] = gameName;
+        
+        
+         //call back
+         Action<Result> updateStartInfoAction = (result) =>
+         {
+             // Newtonsoft.Json / Json Parsing
+             //  var resultData = JObject.Parse(result.Json)["persona"]; 
+             _serverOpened = true;
+             //  Debug.Log(result);
+             Debug.Log("Post :"+ result.Json);
+            
+         };
+
+         onSucceed += updateStartInfoAction;
+
+         return StartCoroutine(SendRequestCor(url, SendType.POST, jobj, onSucceed, onFailed, onNetworkFailed));
+     }
     
 }
 }

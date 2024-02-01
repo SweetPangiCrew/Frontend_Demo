@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
 
     // Get Movement
     private int step;
+   // public string simCode; 
+    public string gameName; 
     public string NPCName; 
 
     // Chat 
@@ -31,9 +33,12 @@ public class GameManager : MonoBehaviour
     {
         filePath = "Assets/NPCPerceiveFile.json";
         LoadExistingInfo(filePath);
-
+        //simCode는 게임 베이스, 지금 당장은 필요 없음. 
+       // simCode = Database.Instance.simCode;
+        gameName = Database.Instance.gameName; 
+        step = 0;
         StartCoroutine(InvokePerceive());
-        step = 0;;
+        
     }
 
     private void LoadExistingInfo(string filePath)
@@ -52,19 +57,65 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator InvokePerceive()
     {
+        
+        int lasttime = curr_time.Hour * 60 + curr_time.Minute;
+        int pStep = 1;//이미 base에서 perceive가 0이 있음.
         while (true)
         {
-            yield return new WaitForSeconds(3f);
-            SaveJsonFile();
-            GetMovement();
-            step++;
+            curr_time = Clock.Instance.GetCurrentTime();
+
+            int minute = curr_time.Hour * 60 + curr_time.Minute; 
+            
+//            Debug.Log("0"+NPCServerManager.Instance.serverOpened);
+            //server manage에서 서버가 안 열렸을때
+            if (!NPCServerManager.Instance.serverOpened) { yield return new WaitForSeconds(1f); continue;}
+            
+           
+            if (step == 0)
+            {
+                GetMovement(step);
+                Debug.Log("1"+step);
+                step++;
+                lasttime = minute;
+                NPCServerManager.Instance.perceived = false;
+                yield return new WaitForSeconds(1f); 
+                continue;
+            }
+            
+            //Debug.Log("2 "+step);
+            if (minute - lasttime >= stepTime || pStep > step)
+            {
+                //step이 올라가는 타이밍이 왔을 때 딱 한번만 호출
+                if (pStep == step && NPCServerManager.Instance.getReaction)
+                {
+                    lasttime = minute;
+                    Debug.Log("perceive"+step);
+                    SaveJsonFile(); //perceive 
+                    NPCServerManager.Instance.getReaction = false;
+                    pStep++;
+                }
+
+                //server가 Perceive 파일을 받았을 때 
+                if (NPCServerManager.Instance.perceived&false)
+                {
+                    Debug.Log("Get Step "+step);
+                    GetMovement(step);
+                    step++;
+                    NPCServerManager.Instance.perceived = false;
+
+                }
+            }
+            yield return new WaitForSeconds(1f); //10초를 18로 나눴을 때 0.55556이라 0.5씩 반복하면 1분 단위 게임 시간을 모두 체크함.
+           
+            
+            
         }
     }
 
-    private void GetMovement()
+    private void GetMovement(int stepNumber)
     {
         // get movement api 
-        StartCoroutine(NPCServerManager.Instance.GetMovementCoroutine(0));
+        StartCoroutine(NPCServerManager.Instance.GetMovementCoroutine(gameName,stepNumber));
 
         // read get movement
         foreach(var movementInfo in NPCServerManager.Instance.CurrentMovementInfo)
@@ -200,7 +251,7 @@ public class GameManager : MonoBehaviour
         string PerceiveData = JsonConvert.SerializeObject(existingInfo, Formatting.Indented);
         
         //recall Perceive Post API
-        StartCoroutine(NPCServerManager.Instance.PostPerceiveCoroutine(PerceiveData,step));
+        StartCoroutine(NPCServerManager.Instance.PostPerceiveCoroutine(PerceiveData,gameName,step));
 
         // Save the JSON data to a file
         //string filePath = "Assets/NPCPerceiveFile.json";
