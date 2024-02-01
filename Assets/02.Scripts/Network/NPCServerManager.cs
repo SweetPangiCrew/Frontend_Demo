@@ -18,15 +18,20 @@ public class NPCServerManager : HttpServerBase
     [SerializeField]
     private List<Persona> currentMovementInfo;
 
-
-    #region ?�로?�티
+    private bool _serverOpened = false;
+    private bool _perceived = false;
+    private bool _getReaction = false;
+    
+    public bool serverOpened { get => _serverOpened; set { _serverOpened = value;  } }
+    public bool perceived { get => _perceived; set => _perceived = value; }
+    public bool getReaction { get => _getReaction; set => _getReaction = value; }
+    
     public List<Persona> CurrentMovementInfo { get => currentMovementInfo;
         set
         {
             currentMovementInfo = value;
         }
     }
-    #endregion
 
     private void Awake()
     {
@@ -39,14 +44,21 @@ public class NPCServerManager : HttpServerBase
             Destroy(gameObject);
     }
 
-    public IEnumerator GetMovementCoroutine(int step)
+   
+    public IEnumerator GetMovementCoroutine(string simName,int step)
     {
-        yield return GetMovement("test4", step);
+        yield return GetMovement(simName, step);
     }
     
-    public IEnumerator PostPerceiveCoroutine(string data, int step)
+    public IEnumerator PostPerceiveCoroutine(string data,string simName, int step)
     {
-        yield return PostPerceive(data, "test6", step);
+        yield return PostPerceive(data, simName, step);
+    }
+    
+    public void gameStart()
+    {   
+        StartCoroutine( PostGameStartoroutine(Database.Instance.simCode,Database.Instance.gameName));
+
     }
     
     public IEnumerator PostGameStartoroutine(string simCode, string gameName)
@@ -75,7 +87,7 @@ public class NPCServerManager : HttpServerBase
             // Newtonsoft.Json ?�키지�??�용??Json Parsing
             var resultData = JObject.Parse(result.Json)["serverTime"]; 
             
-            Debug.Log("?�버?�간"+resultData);
+            Debug.Log("서버 시간"+resultData);
             
             
         };
@@ -89,22 +101,20 @@ public class NPCServerManager : HttpServerBase
     public Coroutine GetMovement(string simName, int step,
         Action<Result> onSucceed = null, Action<Result> onFailed = null, Action<Result> onNetworkFailed = null)
     {
-        // 로그??URL??조합
+
         string url = GameURL.NPCServer.Server_URL + GameURL.NPCServer.getNPCMovement+simName+"/"+step;
 
-        // Newtonsoft.Json ?�키지�??�용??Json?�성
+        // Newtonsoft.Json 
         JObject jobj = new JObject();
         
-        // ?�공?�을??콜백
-        // ?�로???��? ?�보�??�팅??로그???�청?�했�??�공?�다�???�� ?�데?�트 ?�도�??�려�??�쪽???�의??
+
         Action<Result> updateMovementInfoAction = (result) =>
         {
-            // Newtonsoft.Json ?�키지�??�용??Json Parsing
+            // Newtonsoft.Json Json Parsing
             var resultData = JObject.Parse(result.Json)["persona"]; 
             
           //  Debug.Log(result);
             
-            //resutlData ?�회?�면??각각???�보�?가?�옴
             List<string> personas = new List<string>();
             List<string> act_address   = new List<string>();
             List<string> pronunciatio  = new List<string>();
@@ -132,6 +142,7 @@ public class NPCServerManager : HttpServerBase
             {
                 Persona newMovementInfo = new Persona(personas[i], act_address[i], pronunciatio[i], description[i], chats);
                 CurrentMovementInfo.Add(newMovementInfo);
+                _getReaction = true;
                 Debug.Log(newMovementInfo.ToString());
             }
             
@@ -161,25 +172,13 @@ public class NPCServerManager : HttpServerBase
        
         jobj = JObject.Parse(jsonFileContent);
         
-        // ?�공?�을??콜백
-        // ?�로???��? ?�보�??�팅??로그???�청?�했�??�공?�다�???�� ?�데?�트 ?�도�??�려�??�쪽???�의??
+
         Action<Result> updateMPerceiveInfoAction = (result) =>
         {
-            // Newtonsoft.Json ?�키지�??�용??Json Parsing
-          //  var resultData = JObject.Parse(result.Json)["persona"]; 
-            
-          //  Debug.Log(result);
-            
-           // resutlData ?�회?�면??각각???�보�?가?�옴
-             //List<string> personas = new List<string>();
-            
-            Debug.Log("Post ?�료:"+ result.Json);
-             // foreach (JProperty property in resultData)
-             // {
-             //        
-             // }
-             
-            
+            Debug.Log("Post :"+ result.Json);
+            _perceived = true;
+
+
         };
 
         onSucceed += updateMPerceiveInfoAction;
@@ -205,16 +204,9 @@ public class NPCServerManager : HttpServerBase
          {
              // Newtonsoft.Json / Json Parsing
              //  var resultData = JObject.Parse(result.Json)["persona"]; 
-            
+             _serverOpened = true;
              //  Debug.Log(result);
-            
-          
              Debug.Log("Post :"+ result.Json);
-             // foreach (JProperty property in resultData)
-             // {
-             //        
-             // }
-             
             
          };
 

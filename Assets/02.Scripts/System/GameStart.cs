@@ -6,6 +6,8 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using System.Collections;
 using NPCServer;
+using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameStart : MonoBehaviour
 {
@@ -14,9 +16,15 @@ public class GameStart : MonoBehaviour
     public TMP_InputField nameInput;
 
     private Button startBtn;
+    
+    string nextSceneName = "MainTest";
+    
     // Start is called before the first frame update
     void Start()
     {
+        baseInput.text = "agenti";
+        Database.Instance.simCode =  "agenti";
+        
         startBtn = gameObject.GetComponent<Button>();
         baseInput.onValueChanged.AddListener(OnBaseValueChanged);
         nameInput.onValueChanged.AddListener(OnNameValueChanged);
@@ -32,7 +40,8 @@ public class GameStart : MonoBehaviour
     {
         GameManager.Instance.gameName = newValue;
     }
-    public void gameStart()
+
+    void OnNameValueChanged(string newValue)
     {
         StartCoroutine( NPCServerManager.Instance.PostGameStartoroutine(GameManager.Instance.simCode,GameManager.Instance.gameName));
       //  Debug.Log(+ );

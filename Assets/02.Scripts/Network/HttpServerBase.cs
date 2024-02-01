@@ -30,6 +30,7 @@ public class HttpServerBase : MonoBehaviour
             byte[] bodyRaw = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(jobj));
             req.uploadHandler = new UploadHandlerRaw(bodyRaw);
             req.downloadHandler = new DownloadHandlerBuffer();
+            
             // header 입력
             req.SetRequestHeader("Content-Type", "application/json");
 
@@ -89,11 +90,10 @@ public class HttpServerBase : MonoBehaviour
             case UnityWebRequest.Result.Success:
                 Debug.Log("Result"+req.downloadHandler.text);
                 JObject jobj = JObject.Parse(req.downloadHandler.text);
-
                 
                 // 서버측에서 "code"데이터가 0이 아니면 전부 실패 케이스로 쓰기로 했다.
-                //bool isSuccess = int.Parse(jobj["meta"]["code"].ToString()) == 0 ? true : false;
-                bool isSuccess = true;
+                bool isSuccess = int.Parse(jobj["meta"]["code"].ToString()) == 0;
+                //bool isSuccess = true;
                
                 // 성공
                 if (isSuccess)
