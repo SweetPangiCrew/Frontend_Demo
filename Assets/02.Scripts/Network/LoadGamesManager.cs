@@ -4,8 +4,8 @@ using Newtonsoft.Json.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 using UnityEngine.UI;
-
 using UnityEngine.Networking;
 using System.Text;
 using UnityEngine.SceneManagement;
@@ -42,8 +42,8 @@ public class LoadGamesManager : HttpServerBase
 
     private void Start()
     {
-        GameURL.NPCServer.Server_URL = GameURL.NPCServer.Local_URL;
-        StartCoroutine(GetExistingGamesCoroutine());
+        //GameURL.NPCServer.Server_URL = GameURL.NPCServer.Local_URL;
+        //StartCoroutine(GetExistingGamesCoroutine());
     }
 
     private void clickBtnloadGame()
@@ -69,9 +69,8 @@ public class LoadGamesManager : HttpServerBase
                 Database.Instance.simCode = game.Key;
                 Database.Instance.StartStep = game.Value;
                 
-               // btn.onClick.AddListener(clickBtnloadGame);
+                //btn.onClick.AddListener(clickBtnloadGame);
                
-
 
             }
            

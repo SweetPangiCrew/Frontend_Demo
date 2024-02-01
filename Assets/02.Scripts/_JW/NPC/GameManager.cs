@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
        }
        else
        {
-           GameURL.NPCServer.Server_URL = GameURL.NPCServer.Local_URL;
+           //GameURL.NPCServer.Server_URL = GameURL.NPCServer.Local_URL;
            gameName = "game1";
            isTest = true;
        }
