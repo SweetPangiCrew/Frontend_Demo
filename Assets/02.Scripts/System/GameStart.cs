@@ -28,7 +28,7 @@ public class GameStart : MonoBehaviour
         startBtn = gameObject.GetComponent<Button>();
         baseInput.onValueChanged.AddListener(OnBaseValueChanged);
         nameInput.onValueChanged.AddListener(OnNameValueChanged);
-       // startBtn.onClick.AddListener(gameStart);
+       // startBtn.onSubmit.AddListener(gameStart);
     }
 
     void OnBaseValueChanged(string newValue)
@@ -45,5 +45,15 @@ public class GameStart : MonoBehaviour
     {
         StartCoroutine( NPCServerManager.Instance.PostGameStartoroutine(Database.Instance.simCode,Database.Instance.gameName));
       //  Debug.Log(+ );
+    }
+
+    public void ClickLocalURL()
+    {
+        GameURL.NPCServer.Server_URL = GameURL.NPCServer.Local_URL;
+    }
+    
+    public void ClickServerURL()
+    {
+        GameURL.NPCServer.Server_URL = GameURL.NPCServer.Remote_URL;
     }
 }

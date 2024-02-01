@@ -1,19 +1,13 @@
 using System;
-using Newtonsoft.Json;
+
 using Newtonsoft.Json.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 using UnityEngine.UI;
-using UnityEngine.Networking;
-using System.Text;
-using UnityEngine.SceneManagement;
-using UnityEngine.Events;
-using NPCServer;
-using System.IO;
-using System.Linq;
 using TMPro;
+using NPCServer;
+using UnityEngine.SceneManagement;
 
 
 public class LoadGamesManager : HttpServerBase
@@ -42,14 +36,20 @@ public class LoadGamesManager : HttpServerBase
 
     private void Start()
     {
-        //GameURL.NPCServer.Server_URL = GameURL.NPCServer.Local_URL;
-        //StartCoroutine(GetExistingGamesCoroutine());
+        GameURL.NPCServer.Server_URL = GameURL.NPCServer.Local_URL;
+        StartCoroutine(GetExistingGamesCoroutine());
     }
 
-    private void clickBtnloadGame()
+    private void clickBtnloadGame(string gamekey,int step)
     {
+  
+        
+        Database.Instance.gameName = gamekey;
+        Database.Instance.StartStep = step;
+        
         NPCServerManager.Instance.gameStart();
         SceneManager.LoadScene("MainTest");
+        
     }
 
     private void loadGameButtons()
@@ -63,14 +63,11 @@ public class LoadGamesManager : HttpServerBase
             {
                 // 불러온 프리팹을 동적으로 생성
                 GameObject prefab = Instantiate(prefabToLoad,transform);
-
-                Button btn = prefab.GetComponent<Button>();
-                prefab.transform.GetComponentInChildren<TextMeshPro>().text = game.Key;
-                Database.Instance.simCode = game.Key;
-                Database.Instance.StartStep = game.Value;
-                
-                //btn.onClick.AddListener(clickBtnloadGame);
+                UnityEngine.UI.Button btn = prefab.GetComponent<UnityEngine.UI.Button>();
+                prefab.transform.GetComponentInChildren<TextMeshProUGUI>().text = game.Key;
                
+                btn.onClick.AddListener(()=>clickBtnloadGame(game.Key,game.Value));
+              
 
             }
            

@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
        if (gameName != "")
        {
            gameName = Database.Instance.gameName;
+           step = Database.Instance.StartStep; // 초기화는 0으로, game load한거라면 다름.
        }
        else
        {
@@ -62,8 +63,7 @@ public class GameManager : MonoBehaviour
            gameName = "game1";
            isTest = true;
        }
-
-       step = 0;
+       
         StartCoroutine(InvokePerceive());
         
     }
