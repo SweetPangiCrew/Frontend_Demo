@@ -62,16 +62,14 @@ public class LoadGamesManager : HttpServerBase
             foreach (var game in existingGameInfo)
             {
                 // 불러온 프리팹을 동적으로 생성
-                GameObject prefab = Instantiate(prefabToLoad);
-
-                prefab.transform.parent = transform;
+                GameObject prefab = Instantiate(prefabToLoad,transform);
 
                 Button btn = prefab.GetComponent<Button>();
                 prefab.transform.GetComponentInChildren<TextMeshPro>().text = game.Key;
                 Database.Instance.simCode = game.Key;
                 Database.Instance.StartStep = game.Value;
                 
-              //  btn.onClick.AddListener(clickBtnloadGame);
+               // btn.onClick.AddListener(clickBtnloadGame);
                
 
 

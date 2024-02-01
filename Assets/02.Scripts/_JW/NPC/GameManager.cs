@@ -39,11 +39,13 @@ public class GameManager : MonoBehaviour
    // public string simCode; 
     public string gameName; 
     public string NPCName; 
-
+    
     // Chat 
     public ChatManager chatManager;
     private int speakerIndex;
 
+
+    public bool isTest = false;
     void Start()
     {
         filePath = "Assets/NPCPerceiveFile.json";
@@ -56,7 +58,9 @@ public class GameManager : MonoBehaviour
        }
        else
        {
-           gameName = "test4";
+           GameURL.NPCServer.Server_URL = GameURL.NPCServer.Local_URL;
+           gameName = "game1";
+           isTest = true;
        }
 
        step = 0;
@@ -91,7 +95,7 @@ public class GameManager : MonoBehaviour
             
 //            Debug.Log("0"+NPCServerManager.Instance.serverOpened);
             //server manage에서 서버가 안 열렸을때
-            if (!NPCServerManager.Instance.serverOpened & false) { yield return new WaitForSeconds(1f); continue;}
+            if (!NPCServerManager.Instance.serverOpened & !isTest) { yield return new WaitForSeconds(1f); continue;}
             
            
             if (step == 0)
@@ -121,10 +125,10 @@ public class GameManager : MonoBehaviour
                 //server가 Perceive 파일을 받았을 때 
                 if (NPCServerManager.Instance.perceived)
                 {
-                    Debug.Log("Get Step "+step);
-                    GetMovement(step);
-                    step++;
-                    NPCServerManager.Instance.perceived = false;
+                   //Debug.Log("Get Step "+step);
+                    //GetMovement(step);
+                   // step++;
+                   // NPCServerManager.Instance.perceived = false;
 
                 }
             }
