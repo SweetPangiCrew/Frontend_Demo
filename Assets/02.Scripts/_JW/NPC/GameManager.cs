@@ -50,8 +50,16 @@ public class GameManager : MonoBehaviour
         LoadExistingInfo(filePath);
         //simCode는 게임 베이스, 지금 당장은 필요 없음. 
        // simCode = Database.Instance.simCode;
-        gameName = Database.Instance.gameName; 
-        step = 0;
+       if (gameName != "")
+       {
+           gameName = Database.Instance.gameName;
+       }
+       else
+       {
+           gameName = "test4";
+       }
+
+       step = 0;
         StartCoroutine(InvokePerceive());
         
     }

@@ -33,17 +33,17 @@ public class GameStart : MonoBehaviour
 
     void OnBaseValueChanged(string newValue)
     {
-        GameManager.Instance.simCode = newValue;
+        Database.Instance.simCode = newValue;
     }
 
     void OnNameValueChanged(string newValue)
     {
-        GameManager.Instance.gameName = newValue;
+        Database.Instance.gameName = newValue;
     }
 
-    void OnNameValueChanged(string newValue)
+    void gameStart()
     {
-        StartCoroutine( NPCServerManager.Instance.PostGameStartoroutine(GameManager.Instance.simCode,GameManager.Instance.gameName));
+        StartCoroutine( NPCServerManager.Instance.PostGameStartoroutine(Database.Instance.simCode,Database.Instance.gameName));
       //  Debug.Log(+ );
     }
 }

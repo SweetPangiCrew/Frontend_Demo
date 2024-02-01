@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
 using UnityEngine.Networking;
 using System.Text;
 using UnityEngine.SceneManagement;
@@ -66,11 +67,11 @@ public class LoadGamesManager : HttpServerBase
                 prefab.transform.parent = transform;
 
                 Button btn = prefab.GetComponent<Button>();
-                btn.GetComponentInChildren<TextMeshPro>().text = game.Key;
+                prefab.transform.GetComponentInChildren<TextMeshPro>().text = game.Key;
                 Database.Instance.simCode = game.Key;
                 Database.Instance.StartStep = game.Value;
                 
-                btn.onClick.AddListener(clickBtnloadGame);
+              //  btn.onClick.AddListener(clickBtnloadGame);
                
 
 
