@@ -91,7 +91,7 @@ public class GameManager : MonoBehaviour
             
 //            Debug.Log("0"+NPCServerManager.Instance.serverOpened);
             //server manage에서 서버가 안 열렸을때
-            if (!NPCServerManager.Instance.serverOpened) { yield return new WaitForSeconds(1f); continue;}
+            if (!NPCServerManager.Instance.serverOpened & false) { yield return new WaitForSeconds(1f); continue;}
             
            
             if (step == 0)
@@ -119,7 +119,7 @@ public class GameManager : MonoBehaviour
                 }
 
                 //server가 Perceive 파일을 받았을 때 
-                if (NPCServerManager.Instance.perceived&false)
+                if (NPCServerManager.Instance.perceived)
                 {
                     Debug.Log("Get Step "+step);
                     GetMovement(step);
