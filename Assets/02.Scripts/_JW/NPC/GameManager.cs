@@ -146,15 +146,14 @@ public class GameManager : MonoBehaviour
 
         // read get movement
         foreach(var movementInfo in NPCServerManager.Instance.CurrentMovementInfo)
-        {
-            
+        { 
             foreach (var perceivedInfo in existingInfo.perceived_info)
             {
                 int npcIndex = FindNPCIndex(perceivedInfo.persona);
 
                 if(movementInfo.Name == perceivedInfo.persona) // same persona
                 {
-                    
+                    Debug.Log("왜 안디냐?");
                     int index = movementInfo.ActAddress.IndexOf('>');
                     
                     // if <persona> tag exists -> start conversation
@@ -229,6 +228,9 @@ public class GameManager : MonoBehaviour
                             }
                         }
                     }
+                }else
+                {
+                    Debug.Log("페르소나의 이름이 다릅니다.");
                 }
             }                
         }

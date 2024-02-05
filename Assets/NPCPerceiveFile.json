@@ -1,13 +1,13 @@
 {
   "perceived_info": [
     {
-      "persona": "Isabella Rodriguez",
+      "persona": "나주교",
       "curr_address": "",
       "perceived_tiles": [
         {
-          "dist": 0.0,
+          "dist": 0.999967456,
           "event": [
-            "Isabella Rodriguez",
+            "오화가",
             "null",
             "null",
             "null"
@@ -16,17 +16,27 @@
       ]
     },
     {
-      "persona": "Maria Lopez",
+      "persona": "오화가",
       "curr_address": "",
       "perceived_tiles": [
         {
-          "dist": 0.0,
+          "dist": 0.999967456,
           "event": [
-            "Maria Lopez",
+            "나주교",
             "null",
             "null",
             "null"
           ]
+        }
+      ]
+    },
+    {
+      "persona": "이자식",
+      "curr_address": "",
+      "perceived_tiles": [
+        {
+          "dist": 0.9999783,
+          "event": []
         }
       ]
     }
