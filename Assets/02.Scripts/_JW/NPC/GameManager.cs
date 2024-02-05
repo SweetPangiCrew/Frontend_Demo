@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
 
     // Get Movement
     private int step;
+    
    // public string simCode; 
     public string gameName; 
     public string NPCName; 
@@ -50,6 +51,7 @@ public class GameManager : MonoBehaviour
     {
         filePath = "Assets/NPCPerceiveFile.json";
         LoadExistingInfo(filePath);
+        
         //simCode는 게임 베이스, 지금 당장은 필요 없음. 
        // simCode = Database.Instance.simCode;
        if (gameName != "")
