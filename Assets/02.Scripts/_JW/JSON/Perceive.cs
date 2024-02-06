@@ -12,7 +12,7 @@ public class PerceivedInfo
 {
     public string persona;
 
-    public string curr_address;
+    public string curr_address ;
 
     public List<PerceivedTile> perceived_tiles;
 
@@ -22,7 +22,7 @@ public class PerceivedInfo
 public class PerceivedTile
 {
     public float dist;    
-    public List<string> @event;
+    public string[] @event;
 }
 
 public class Perceive

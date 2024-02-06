@@ -2,43 +2,28 @@
   "perceived_info": [
     {
       "persona": "나주교",
-      "curr_address": "",
+      "curr_address": "home:home:home:home",
       "perceived_tiles": [
         {
-          "dist": 0.999967456,
+          "dist": 0.9,
           "event": [
             "오화가",
-            "null",
-            "null",
-            "null"
+            null,
+            null,
+            null
           ]
         }
       ]
     },
     {
       "persona": "오화가",
-      "curr_address": "",
-      "perceived_tiles": [
-        {
-          "dist": 0.999967456,
-          "event": [
-            "나주교",
-            "null",
-            "null",
-            "null"
-          ]
-        }
-      ]
+      "curr_address": "home:home:home:home",
+      "perceived_tiles": []
     },
     {
       "persona": "이자식",
-      "curr_address": "",
-      "perceived_tiles": [
-        {
-          "dist": 0.9999783,
-          "event": []
-        }
-      ]
+      "curr_address": "home:home:home:home",
+      "perceived_tiles": []
     }
   ]
 }

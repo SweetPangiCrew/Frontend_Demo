@@ -160,18 +160,20 @@ public class NPCServerManager : HttpServerBase
         // 로그??URL??조합
         string url = GameURL.NPCServer.Server_URL + GameURL.NPCServer.postNPCPercention +simName+"/"+step+"/";
 
-        // Newtonsoft.Json ?�키지�??�용??Json?�성
+      
         JObject jobj = new JObject();
         
         
        //현재 로컬 파일로 부르는 중..? daa 쓸 필요 없나?  
-       string jsonFilePath = Path.Combine(Application.dataPath, "PercevieAPI.json");
-        string jsonFileContent = File.ReadAllText(jsonFilePath);
-       // string jsonFileContent = data;
-       
-       
-        jobj = JObject.Parse(jsonFileContent);
+       // string jsonFilePath = Path.Combine(Application.dataPath, "NPCPerceiveFile.json");//NPCPerceiveFile  PercevieAPI 이전버전
+      //  string jsonFileContent = File.ReadAllText(jsonFilePath);
         
+        //넘어온 매개변수 data 이용
+       string jsonFileContent = data;
+
+
+        jobj =  JObject.Parse(jsonFileContent);
+
 
         Action<Result> updateMPerceiveInfoAction = (result) =>
         {

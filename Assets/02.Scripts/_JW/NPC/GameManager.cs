@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
        }
        else
        {
-           //GameURL.NPCServer.Server_URL = GameURL.NPCServer.Local_URL;
+           GameURL.NPCServer.Server_URL = GameURL.NPCServer.Local_URL;
            gameName = "game1";
            isTest = true;
        }
@@ -162,8 +162,7 @@ public class GameManager : MonoBehaviour
                     if (index != -1) // <persona> exists
                     {
                         NPCName = movementInfo.ActAddress.Substring(index + 2);
-
-
+                        
                         // meets NPC -> Stop
                         for (int i = 0; i < perceivedInfo.perceived_tiles.Count; i++)
                         {
@@ -247,14 +246,16 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+  
             foreach (var perceivedInfo in existingInfo.perceived_info)
             {
                 int npcIndex = FindNPCIndex(perceivedInfo.persona);
 
                 if (npcIndex != -1)
                 {
-                    /*  UPDATE curr_address */ 
-                    existingInfo.perceived_info[npcIndex].curr_address = NPC[npcIndex]._locationName;
+                    /*  UPDATE curr_address */
+                    //curr_address 에 ": : :" 요형태 있어야 오류 안남. ""(빈스트링)도 안됨.
+                    existingInfo.perceived_info[npcIndex].curr_address = "home:home:home:home";//NPC[npcIndex]._locationName;
 
                     for (int k = 0; k < NPC[npcIndex]._detectedObject.Count; k++)
                     {
@@ -272,13 +273,16 @@ public class GameManager : MonoBehaviour
                             /*  UPDATE perceived_tiles.@event */ 
                             while (existingInfo.perceived_info[npcIndex].perceived_tiles[k].@event == null)
                             {
-                                existingInfo.perceived_info[npcIndex].perceived_tiles[k].@event = new List<string>();
+                                //이벤트는 무조건 요소 4개 가지고 있는 배열이라 리스트에서 바꿈
+                                existingInfo.perceived_info[npcIndex].perceived_tiles[k].@event =
+                                    new string[4]; //new List<string>();
+
                             }
 
-                            while (existingInfo.perceived_info[npcIndex].perceived_tiles[k].@event.Count <= 3)
-                            {
-                                existingInfo.perceived_info[npcIndex].perceived_tiles[k].@event.Add(null);
-                            }
+                            // while (existingInfo.perceived_info[npcIndex].perceived_tiles[k].@event.Count <= 3)
+                            // {
+                            //     existingInfo.perceived_info[npcIndex].perceived_tiles[k].@event.Add(null);
+                            // }
 
                             existingInfo.perceived_info[npcIndex].perceived_tiles[k].@event[0] =
                                 NPC[npcIndex]._detectedObject[k].gameObject.name.ToString();
@@ -286,7 +290,7 @@ public class GameManager : MonoBehaviour
                             // Set the rest of @event to null
                             for (int j = 1; j < 4; j++)
                             {
-                                existingInfo.perceived_info[npcIndex].perceived_tiles[k].@event[j] = "null";
+                                //existingInfo.perceived_info[npcIndex].perceived_tiles[k].@event[j] = null;
                             }
                         }
                     }
@@ -297,12 +301,15 @@ public class GameManager : MonoBehaviour
         // Convert LunaData to JSON
         string PerceiveData = JsonConvert.SerializeObject(existingInfo, Formatting.Indented);
         
+        // Save the JSON data to a file
+        //string filePath = "Assets/NPCPerceiveFile.json";
+        // Debug.Log(PerceiveData);
+        File.WriteAllText(filePath, PerceiveData);
+       
         //recall Perceive Post API
         StartCoroutine(NPCServerManager.Instance.PostPerceiveCoroutine(PerceiveData,gameName,step));
 
-        // Save the JSON data to a file
-        //string filePath = "Assets/NPCPerceiveFile.json";
-        File.WriteAllText(filePath, PerceiveData);
+       
     }
 
     private int FindNPCIndex(string persona)
