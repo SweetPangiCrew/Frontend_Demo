@@ -5,12 +5,12 @@
       "curr_address": "home:home:home:home",
       "perceived_tiles": [
         {
-          "dist": 0.9,
+          "dist": 0.999967456,
           "event": [
-            "오화가",
-            null,
-            null,
-            null
+            "the Ville:나주교's apartment:main room:bed",
+            "be",
+            "used",
+            "being used"
           ]
         }
       ]

@@ -61,7 +61,8 @@ public class GameManager : MonoBehaviour
        }
        else
        {
-           GameURL.NPCServer.Server_URL = GameURL.NPCServer.Local_URL;
+           //로컬 서버 관련 코드
+           //GameURL.NPCServer.Server_URL = GameURL.NPCServer.Local_URL;
            gameName = "game1";
            isTest = true;
        }
@@ -128,9 +129,9 @@ public class GameManager : MonoBehaviour
                 if (NPCServerManager.Instance.perceived)
                 {
                    //Debug.Log("Get Step "+step);
-                    //GetMovement(step);
-                   // step++;
-                   // NPCServerManager.Instance.perceived = false;
+                    GetMovement(step);
+                    step++;
+                    NPCServerManager.Instance.perceived = false;
 
                 }
             }
@@ -266,10 +267,20 @@ public class GameManager : MonoBehaviour
                                 existingInfo.perceived_info[npcIndex].perceived_tiles.Add(new PerceivedTile());
                             }
 
-                            /*  UPDATE perceived_tiles.dist */ 
-                            existingInfo.perceived_info[npcIndex].perceived_tiles[k].dist =
-                                Vector2.Distance(NPC[npcIndex].transform.position, NPC[npcIndex]._detectedObject[k].transform.position);
+                            try
+                            {
+                                /*  UPDATE perceived_tiles.dist */ 
+                                existingInfo.perceived_info[npcIndex].perceived_tiles[k].dist =
+                                    Vector2.Distance(NPC[npcIndex].transform.position, NPC[npcIndex]._detectedObject[k].transform.position);
 
+                            }
+                            catch (Exception  e)
+                            {
+                                Console.WriteLine(e);
+                                Debug.Log("Index "+ npcIndex);
+                                throw;
+                            }
+                            
                             /*  UPDATE perceived_tiles.@event */ 
                             while (existingInfo.perceived_info[npcIndex].perceived_tiles[k].@event == null)
                             {
@@ -279,14 +290,16 @@ public class GameManager : MonoBehaviour
 
                             }
 
+                            //지워도 될듯. 리스트를 배열로 바꾸면서 필요 없어짐.
                             // while (existingInfo.perceived_info[npcIndex].perceived_tiles[k].@event.Count <= 3)
                             // {
                             //     existingInfo.perceived_info[npcIndex].perceived_tiles[k].@event.Add(null);
                             // }
 
-                            existingInfo.perceived_info[npcIndex].perceived_tiles[k].@event[0] =
-                                NPC[npcIndex]._detectedObject[k].gameObject.name.ToString();
+                            //사람 이름 넣는 코드 -> key "node_1"에러 나서 주석처리해둠
+                           //existingInfo.perceived_info[npcIndex].perceived_tiles[k].@event[0] = NPC[npcIndex]._detectedObject[k].gameObject.name.ToString();
 
+                           //지워도 될듯. 리스트를 배열로 바꾸면서 필요 없어짐.
                             // Set the rest of @event to null
                             for (int j = 1; j < 4; j++)
                             {
