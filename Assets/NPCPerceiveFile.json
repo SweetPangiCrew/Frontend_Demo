@@ -5,12 +5,21 @@
       "curr_address": "home:home:home:home",
       "perceived_tiles": [
         {
-          "dist": 0.999967456,
+          "dist": 13.1931467,
           "event": [
-            "the Ville:나주교's apartment:main room:bed",
-            "be",
-            "used",
-            "being used"
+            "오화가",
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "dist": 5.914638,
+          "event": [
+            "이자식",
+            null,
+            null,
+            null
           ]
         }
       ]
@@ -18,12 +27,50 @@
     {
       "persona": "오화가",
       "curr_address": "home:home:home:home",
-      "perceived_tiles": []
+      "perceived_tiles": [
+        {
+          "dist": 13.1931467,
+          "event": [
+            "나주교",
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "dist": 19.07981,
+          "event": [
+            "이자식",
+            null,
+            null,
+            null
+          ]
+        }
+      ]
     },
     {
       "persona": "이자식",
       "curr_address": "home:home:home:home",
-      "perceived_tiles": []
+      "perceived_tiles": [
+        {
+          "dist": 19.07981,
+          "event": [
+            "오화가",
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "dist": 5.914638,
+          "event": [
+            "나주교",
+            null,
+            null,
+            null
+          ]
+        }
+      ]
     }
   ]
 }

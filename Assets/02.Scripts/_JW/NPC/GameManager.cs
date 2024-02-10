@@ -156,7 +156,7 @@ public class GameManager : MonoBehaviour
 
                 if(movementInfo.Name == perceivedInfo.persona) // same persona
                 {
-                    Debug.Log("왜 안디냐?");
+                    Debug.Log("성공 :" + movementInfo.Name + " "+ perceivedInfo.persona);
                     int index = movementInfo.ActAddress.IndexOf('>');
                     
                     // if <persona> tag exists -> start conversation
@@ -203,7 +203,6 @@ public class GameManager : MonoBehaviour
 
                                                     chatManager.isFirst = true;
 
-                                                    
                                                 }
 
 
@@ -230,9 +229,10 @@ public class GameManager : MonoBehaviour
                             }
                         }
                     }
-                }else
+                }
+                else
                 {
-                    Debug.Log("페르소나의 이름이 다릅니다.");
+                    Debug.Log("실패 : " + movementInfo.Name);
                 }
             }                
         }
@@ -247,11 +247,10 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-  
             foreach (var perceivedInfo in existingInfo.perceived_info)
             {
                 int npcIndex = FindNPCIndex(perceivedInfo.persona);
-
+                
                 if (npcIndex != -1)
                 {
                     /*  UPDATE curr_address */
@@ -260,9 +259,10 @@ public class GameManager : MonoBehaviour
 
                     for (int k = 0; k < NPC[npcIndex]._detectedObject.Count; k++)
                     {
+         
                         if (NPC[npcIndex]._detectedObject[k].CompareTag("NPC"))
                         {
-                            while(existingInfo.perceived_info[npcIndex].perceived_tiles.Count < k)
+                            while(existingInfo.perceived_info[npcIndex].perceived_tiles.Count < k + 1)
                             {
                                 existingInfo.perceived_info[npcIndex].perceived_tiles.Add(new PerceivedTile());
                             }
@@ -282,12 +282,13 @@ public class GameManager : MonoBehaviour
                             }
                             
                             /*  UPDATE perceived_tiles.@event */ 
-                            while (existingInfo.perceived_info[npcIndex].perceived_tiles[k].@event == null)
+                            if(existingInfo.perceived_info[npcIndex].perceived_tiles[k].@event == null)
                             {
                                 //이벤트는 무조건 요소 4개 가지고 있는 배열이라 리스트에서 바꿈
                                 existingInfo.perceived_info[npcIndex].perceived_tiles[k].@event =
                                     new string[4]; //new List<string>();
-
+                               
+                                existingInfo.perceived_info[npcIndex].perceived_tiles[k].@event[0] = NPC[npcIndex]._detectedObject[k].gameObject.name;
                             }
 
                             //지워도 될듯. 리스트를 배열로 바꾸면서 필요 없어짐.
@@ -305,6 +306,10 @@ public class GameManager : MonoBehaviour
                             {
                                 //existingInfo.perceived_info[npcIndex].perceived_tiles[k].@event[j] = null;
                             }
+                        }
+                        else
+                        {
+                            existingInfo.perceived_info[npcIndex].perceived_tiles = null;
                         }
                     }
                 }
@@ -334,6 +339,8 @@ public class GameManager : MonoBehaviour
                 return i;
             }
         }
+
+        
         return -1; // Return -1 if not found
     }
 }
