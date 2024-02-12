@@ -8,6 +8,7 @@ public class PlayerAction : MonoBehaviour
     float v;
     float speed = 3;
     Rigidbody2D rigid;
+    Animator animator;
 
     public float detectionRadius = 0.3f; // Ž�� �ݰ�
 
@@ -15,6 +16,7 @@ public class PlayerAction : MonoBehaviour
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -49,7 +51,15 @@ public class PlayerAction : MonoBehaviour
     void FixedUpdate()
     {
         rigid.velocity = new Vector2(h * speed, v * speed);
-    }
 
+        //move animation
+        animator.SetBool("isWalk", rigid.velocity.x != 0 || rigid.velocity.y != 0);   
+        animator.SetBool("walk_f", rigid.velocity.x == 0 && rigid.velocity.y < 0);   //down
+        animator.SetBool("walk_l", rigid.velocity.x < 0);   //left
+        animator.SetBool("walk_r", rigid.velocity.x > 0);   //right
+        animator.SetBool("walk_b", rigid.velocity.x == 0 && rigid.velocity.y > 0);   //up
+        
+
+    }
 
 }
