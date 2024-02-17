@@ -45,10 +45,10 @@ public class ChatManager : MonoBehaviour
         while (dialogues.Count > currentDialogueIndex + 1)
         {
             SetNextDialogue();
-            yield return new WaitForSeconds(2); // 1ÃÊ ´ë±â
+            yield return new WaitForSeconds(2); // 1ï¿½ï¿½ ï¿½ï¿½ï¿½
         }
 
-        // ´ëÈ­°¡ ³¡³­ ÈÄ Ã³¸®
+        // ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ã³ï¿½ï¿½
         isChatting = false;
     }
 
@@ -72,23 +72,29 @@ public class ChatManager : MonoBehaviour
         currentDialogueIndex++;
         currentSpeakerIndex = dialogues[currentDialogueIndex].speakerIndex;
 
-        // Kakao Talk Dialogue
+        KakaoTalkDialogue();   
+        SpeechBubbleDialogue();
+
+        scrollBar.value = 0;
+    }
+
+    public void KakaoTalkDialogue(){
+
         GameObject TextClone = Instantiate(speakers[currentSpeakerIndex].textArea, ContentRect);
         AreaScript Area = TextClone.GetComponent<AreaScript>();
 
         Area.TextRect.GetComponent<TextMeshProUGUI>().text = dialogues[currentDialogueIndex].dialogue;
         Area.NameText.text = dialogues[currentDialogueIndex].name;
+    }
 
-        // Speech Bubble Dialogue
+    private void SpeechBubbleDialogue(){
         SetActiveObjects(speakers[currentSpeakerIndex], true);
         speakers[currentSpeakerIndex].dialogueText.text = dialogues[currentDialogueIndex].dialogue;
-
-        scrollBar.value = 0;
     }
 
     private void SetActiveObjects(Speaker speaker, bool visible)
     {
-        speaker.dialougeImage.gameObject.SetActive(visible);
+        speaker.dialogueImage.gameObject.SetActive(visible);
         speaker.dialogueText.gameObject.SetActive(visible);
     }
 
@@ -103,7 +109,7 @@ public class ChatManager : MonoBehaviour
 public struct Speaker
 {
     public GameObject textArea;
-    public Image dialougeImage;
+    public Image dialogueImage;
     public TextMeshProUGUI dialogueText;
     
 }
