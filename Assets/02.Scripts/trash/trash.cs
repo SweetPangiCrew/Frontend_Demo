@@ -26,9 +26,9 @@ public class trash : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                PlayerAction.reliability += 1f;
+                PlayerAction.reliability += 0.2f;
                 panel.SetActive(true);
-                rel_txt.text = "신뢰도: " + PlayerAction.getCurrentReliability().ToString();
+                rel_txt.text = "신뢰도: " + Mathf.FloorToInt(PlayerAction.getCurrentReliability()).ToString();
                 Destroy(gameObject);
             }
         }
