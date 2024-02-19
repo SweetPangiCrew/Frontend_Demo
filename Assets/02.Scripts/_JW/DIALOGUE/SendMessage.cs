@@ -11,13 +11,14 @@ public class SendMessage : MonoBehaviour
     private int transferNum = 0; // Number of transfers
 
     // chatting UI
-    private ChatManager _chatManager;
+    public ChatManager _chatManager;
     public RectTransform ContentRect;
     public Scrollbar scrollBar;
     public TMP_InputField inputField;
     
     public void Transfer(){
         if(transferNum <= 7){
+            
             // send message on chat
             Debug.Log(transferNum + 1 + "번째 메세지");
             GameObject TextClone = Instantiate(_chatManager.YellowArea, ContentRect);
