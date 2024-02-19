@@ -18,19 +18,41 @@ public class SendMessage : MonoBehaviour
     
     public void Transfer(){
         if(transferNum <= 7){
+
+            // player message send
+            PCMessage();
+
+            // NPc Message get
+            NPCMessage();
             
-            // send message on chat
-            Debug.Log(transferNum + 1 + "번째 메세지");
-            GameObject TextClone = Instantiate(_chatManager.YellowArea, ContentRect);
-            AreaScript Area = TextClone.GetComponent<AreaScript>();
-
-            Area.TextRect.GetComponent<TextMeshProUGUI>().text = inputField.text;
-            Area.NameText.text = "player";
-
             transferNum++;
         }else{
             // cannot send message
             Debug.Log("더 이상 메세지를 전송할 수 없습니다.");
         }
     }
+
+    private void PCMessage(){
+                // send message on chat
+            Debug.Log(transferNum + 1 + "번째 메세지 발신");
+            GameObject TextClone = Instantiate(_chatManager.YellowArea, ContentRect);
+            AreaScript Area = TextClone.GetComponent<AreaScript>();
+
+            Area.TextRect.GetComponent<TextMeshProUGUI>().text = inputField.text;
+            Area.NameText.text = "player";
+    }
+
+    private void NPCMessage(){
+        Debug.Log(transferNum + 1 + "번째 메세지 수신");
+        GameObject TextClone = Instantiate(_chatManager.OrangeArea, ContentRect);
+
+        AreaScript Area = TextClone.GetComponent<AreaScript>();
+
+        // NPC message -> text
+        //Area.TextRect.GetComponent<TextMeshProUGUI>().text = inputField.text;
+
+        // NPC message -> name
+        //Area.NameText.text = "player";
+    }
 }
+
