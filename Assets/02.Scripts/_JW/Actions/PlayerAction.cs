@@ -7,14 +7,17 @@ public class PlayerAction : MonoBehaviour
     float h;
     float v;
     float speed = 3;
+
     Rigidbody2D rigid;
     Animator animator;
 
     public float detectionRadius = 0.3f; // Ž�� �ݰ�
+    public static float reliability;    //유저 신뢰도
 
     // Start is called before the first frame update
     void Awake()
     {
+        reliability = 0;
         rigid = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
@@ -60,6 +63,11 @@ public class PlayerAction : MonoBehaviour
         animator.SetBool("walk_b", rigid.velocity.x == 0 && rigid.velocity.y > 0);   //up
         
 
+    }
+
+    public static float getCurrentReliability()
+    {
+        return reliability;
     }
 
 }
