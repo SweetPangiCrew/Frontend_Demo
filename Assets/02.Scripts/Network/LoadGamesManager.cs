@@ -91,7 +91,7 @@ public class LoadGamesManager : HttpServerBase
         // Newtonsoft.Json
         JObject jobj = new JObject();
         
-        Action<Result> updateGameNamesInfoAction = (result) =>
+        Action<Result> updateInfoAction = (result) =>
         {
             
             var resultData = JObject.Parse(result.Json)["games"]; 
@@ -108,7 +108,7 @@ public class LoadGamesManager : HttpServerBase
             loadGameButtons();
         };
 
-        onSucceed += updateGameNamesInfoAction;
+        onSucceed += updateInfoAction;
         return StartCoroutine(SendRequestCor(url, SendType.GET, jobj, onSucceed, onFailed, onNetworkFailed));
     }
     
