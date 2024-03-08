@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerAction : MonoBehaviour
 {
@@ -13,6 +14,11 @@ public class PlayerAction : MonoBehaviour
 
     public float detectionRadius = 0.3f; // Ž�� �ݰ�
     public static float reliability;    //유저 신뢰도
+
+
+    // Canvas_Location
+    public GameObject Canvas_Location;
+    public TextMeshProUGUI Txt_Location;
 
     // Start is called before the first frame update
     void Awake()
@@ -51,6 +57,18 @@ public class PlayerAction : MonoBehaviour
 
     }
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        Canvas_Location.GetComponent<Animator>().Play("Location_Tag_Active");
+        Txt_Location.text = other.gameObject.name;
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        Canvas_Location.GetComponent<Animator>().Play("Location_Tag_Inactive");
+    }   
+
+
     void FixedUpdate()
     {
         rigid.velocity = new Vector2(h * speed, v * speed);
@@ -61,8 +79,6 @@ public class PlayerAction : MonoBehaviour
         animator.SetBool("walk_l", rigid.velocity.x < 0);   //left
         animator.SetBool("walk_r", rigid.velocity.x > 0);   //right
         animator.SetBool("walk_b", rigid.velocity.x == 0 && rigid.velocity.y > 0);   //up
-        
-
     }
 
     public static float getCurrentReliability()
