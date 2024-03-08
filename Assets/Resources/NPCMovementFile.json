@@ -1,0 +1,54 @@
+{
+  "persona": {
+    "나주교": {
+      "act_address": "<persona> 오화가",
+      "pronunciatio": "💬",
+      "description": "conversing about This is a conversation about two people greeting each other and discussing how they have been, with one person expressing happiness about spending their time painting landscapes.",
+      "assembly_attendance": true,
+      "chat": [
+        [
+          "나주교",
+          "안녕하세요! 어떻게 지내세요?"
+        ],
+        [
+          "오화가",
+          "안녕하세요! 잘 살아서 기뻐요. 요즘 풍경화를 그리면서 시간을 보내고 있어요."
+        ],
+        [
+          "나주교",
+          "그렇군요, 풍경화를 그리는 것은 정말 멋진 취미인 것 같네요. 저는 오늘 종교 집회를 위해 바빠요. 나중에 또 얘기해봐요."
+        ]
+      ]
+    },
+    "오화가": {
+      "act_address": "<persona> 나주교",
+      "pronunciatio": "💬",
+      "description": "conversing about This is a conversation between 이자식 and 오화가 about how 오화가 is enjoying their time drawing landscape paintings.",
+      "assembly_attendance": false,
+      "chat": [
+        [
+          "나주교",
+          "안녕하세요! 어떻게 지내세요?"
+        ],
+        [
+          "오화가",
+          "안녕하세요! 잘 살아서 기뻐요. 요즘 풍경화를 그리면서 시간을 보내고 있어요."
+        ],
+        [
+          "나주교",
+          "그렇군요, 풍경화를 그리는 것은 정말 멋진 취미인 것 같네요. 저는 오늘 종교 집회를 위해 바빠요. 나중에 또 얘기해봐요."
+        ]
+      ]
+    },
+    "이자식": {
+      "act_address": "<location> the Vile:교회:null:null",
+      "pronunciatio": "😴",
+      "description": "이자식 is sleeping",
+      "assembly_attendance": false,
+      "chat": null
+    }
+  },
+  "meta": {
+    "curr_time": "August 01, 2023, 20:30:00"
+  }
+}

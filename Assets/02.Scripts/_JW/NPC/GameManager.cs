@@ -6,6 +6,8 @@ using System.IO;
 using NPCServer;
 using System;
 using System.Linq;
+using Newtonsoft.Json.Linq;
+
 
 
 public class GameManager : MonoBehaviour
@@ -27,7 +29,7 @@ public class GameManager : MonoBehaviour
     private TextAsset PerceiveJSONFile;
     private Perceive existingInfo;
     public List<NPC> NPC;
-    
+    public List<Persona> personaList = new List<Persona>();
     private string filePath;
     
     //timer
@@ -36,7 +38,8 @@ public class GameManager : MonoBehaviour
 
     // Get Movement
     private int step;
-    
+    //Get Movement from local file, true : only Test Mode available
+    public bool isUsingMovementLocalFile = true;
    // public string simCode; 
     public string gameName; 
     public string NPCName; 
@@ -44,7 +47,7 @@ public class GameManager : MonoBehaviour
     // Chat 
     public ChatManager chatManager;
     private int speakerIndex;
-
+    
 
     public bool isTest = false;
     void Start()
@@ -144,11 +147,56 @@ public class GameManager : MonoBehaviour
 
     private void GetMovement(int stepNumber)
     {
-        // get movement api 
-        StartCoroutine(NPCServerManager.Instance.GetMovementCoroutine(gameName,stepNumber));
+
+       
+        
+        if (isUsingMovementLocalFile){
+            
+            string json = File.ReadAllText("Assets/Resources/NPCMovementFile.json");
+            
+            var resultData = JObject.Parse(json)["persona"]; 
+            
+            List<string> personas = new List<string>();
+            List<string> act_address   = new List<string>();
+            List<string> pronunciatio  = new List<string>();
+            List<string> description  = new List<string>();
+            List<List<string>> chats = new List<List<string>>();
+            
+            foreach (JProperty property in resultData)
+            {
+                personas.Add(property.Name);
+                act_address.Add(property.Value["act_address"].ToString());
+                pronunciatio.Add(property.Value["pronunciatio"].ToString());
+                description.Add(property.Value["description"].ToString());
+                Debug.Log(property.Value["chat"].ToString());
+                    
+                foreach (var chatlist in property.Value["chat"])
+                {
+                    var chatEntry = chatlist.Select(item => item.ToString()).ToList();
+                    chats.Add(chatEntry);
+                    //chats.Add(chatlist.ToObject<List<string>>());
+                }
+            }
+
+
+            for(int i=0; i< personas.Count; i++)
+            {
+                Persona newMovementInfo = new Persona(personas[i], act_address[i], pronunciatio[i], description[i], chats);
+                personaList.Add(newMovementInfo);
+  
+            }
+
+
+        }
+        else
+        {
+            // get movement api 
+            StartCoroutine(NPCServerManager.Instance.GetMovementCoroutine(gameName, stepNumber));
+            personaList = NPCServerManager.Instance.CurrentMovementInfo;
+        }
 
         // read get movement
-        foreach(var movementInfo in NPCServerManager.Instance.CurrentMovementInfo)
+        foreach(var movementInfo in personaList)
         { 
             foreach (var perceivedInfo in existingInfo.perceived_info)
             {

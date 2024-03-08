@@ -134,7 +134,7 @@ public class NPCServerManager : HttpServerBase
                         var chatEntry = chatlist.Select(item => item.ToString()).ToList();
                         chats.Add(chatEntry);
                     //chats.Add(chatlist.ToObject<List<string>>());
-                }
+                    }
             }
 
 
