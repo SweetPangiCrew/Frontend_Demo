@@ -5,7 +5,7 @@
       "curr_address": "home:home:home:home",
       "perceived_tiles": [
         {
-          "dist": 13.1601744,
+          "dist": 19.8901176,
           "event": [
             "오화가",
             null,
@@ -14,7 +14,7 @@
           ]
         },
         {
-          "dist": 5.89270353,
+          "dist": 3.26264286,
           "event": [
             "이자식",
             null,
@@ -23,7 +23,7 @@
           ]
         },
         {
-          "dist": 0.0,
+          "dist": 7.23665333,
           "event": [
             "나주교",
             null,
@@ -38,7 +38,7 @@
       "curr_address": "home:home:home:home",
       "perceived_tiles": [
         {
-          "dist": 13.1601744,
+          "dist": 19.8901176,
           "event": [
             "나주교",
             null,
@@ -47,7 +47,7 @@
           ]
         },
         {
-          "dist": 19.0254841,
+          "dist": 16.7448177,
           "event": [
             "이자식",
             null,
@@ -56,7 +56,7 @@
           ]
         },
         {
-          "dist": 0.0,
+          "dist": 19.4034252,
           "event": [
             "오화가",
             null,
@@ -71,7 +71,7 @@
       "curr_address": "home:home:home:home",
       "perceived_tiles": [
         {
-          "dist": 19.0254841,
+          "dist": 16.7448177,
           "event": [
             "오화가",
             null,
@@ -80,7 +80,7 @@
           ]
         },
         {
-          "dist": 5.89270353,
+          "dist": 3.26264286,
           "event": [
             "나주교",
             null,
@@ -89,7 +89,7 @@
           ]
         },
         {
-          "dist": 0.0,
+          "dist": 7.23665333,
           "event": [
             "이자식",
             null,

@@ -15,8 +15,9 @@ public class LoadChatListManager :  HttpServerBase
     
     [FormerlySerializedAs("Info")] [SerializeField]
     private Dictionary<string,List<List<List<string>>>> existingInfo;
-    
-   
+
+    public ChatManager chatManager;
+    public GameObject chatPanel,chatListPanel;
     public Dictionary<string,List<List<List<string>>>> ExistingGameInfo { get => existingInfo;
         set
         {
@@ -67,7 +68,7 @@ public class LoadChatListManager :  HttpServerBase
                        chatPrefab.transform.Find("Names").GetComponentInChildren<TextMeshProUGUI>().text = chat[0][0]+", "+chat[1][0];
                        chatPrefab.transform.Find("Explain").GetComponentInChildren<TextMeshProUGUI>().text = chat[0][1];
                        UnityEngine.UI.Button btn = chatPrefab.GetComponent<UnityEngine.UI.Button>();
-                       // btn.onClick.AddListener(()=>clickBtnloadGame(game.Key,game.Value));
+                       btn.onClick.AddListener(()=>clickBtnloadChat(chat));
                    }
                    catch (Exception e)
                    {
@@ -88,6 +89,13 @@ public class LoadChatListManager :  HttpServerBase
         }
     }
 
+    private void clickBtnloadChat(List<List<string>> chat)
+    {
+        chatManager.isChattingHistory = true;
+        chatManager.showDialogue(chat);
+        chatPanel.SetActive(true);
+        chatListPanel.SetActive(false);
+    }
     public IEnumerator GetExistingChatListsCoroutine()
     {
         yield return GetExistingChatLists();

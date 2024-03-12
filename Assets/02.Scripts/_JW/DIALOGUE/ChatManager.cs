@@ -25,30 +25,79 @@ public class ChatManager : MonoBehaviour
     private int currentSpeakerIndex = 0;
 
     public bool isFirst = false;
-
+    public bool isChattingHistory = false;
     void Start()
     {
-
+        if (isChattingHistory)
+        {
+            
+        }
     }
 
     void Update()
     {
-        if (isFirst)
+        if (isFirst&& !isChattingHistory)
         {
             StartCoroutine(AutoDialogue());
             isFirst = false;
         }
 
     }
+    
+    public void showDialogue(List<List<string>> chatInfo)
+    {
+      
+        int speakerIndex = 0;
+        
+        for (int k = 0; k < chatInfo.Count; k++)
+        {
+            string speaker = chatInfo[k][0];
+            string dialogue = chatInfo[k][1];
+            if (dialogues.Count <= k)
+            {
+                if (k % 2 == 0)
+                    speakerIndex = 0;
+                else
+                    speakerIndex = 1;
+
+                dialogues.Add(new DialogueData { dialogue = dialogue, name = speaker, speakerIndex = speakerIndex });
+            }
+        }
+        
+      
+        currentDialogueIndex = 0;
+        while (dialogues.Count > currentDialogueIndex )
+        {  //Debug.Log("---------"+dialogues.Count + ": "+currentDialogueIndex);
+            SetNextDialogueOnlyForHistory();
+            currentDialogueIndex++;
+            
+        }
+        
+        isChatting = false;
+    }
+    
+    private void SetNextDialogueOnlyForHistory()
+    {
+        currentSpeakerIndex = dialogues[currentDialogueIndex].speakerIndex;
+
+        // Kakao Talk Dialogue
+        GameObject TextClone = Instantiate(speakers[currentSpeakerIndex].textArea, ContentRect);
+        AreaScript Area = TextClone.GetComponent<AreaScript>();
+
+        Area.TextRect.GetComponent<TextMeshProUGUI>().text = dialogues[currentDialogueIndex].dialogue;
+        Area.NameText.text = dialogues[currentDialogueIndex].name;
+        scrollBar.value = 1f;
+    }
+
     private IEnumerator AutoDialogue()
     {
         while (dialogues.Count > currentDialogueIndex + 1)
         {
             SetNextDialogue();
-            yield return new WaitForSeconds(2); // 1ÃÊ ´ë±â
+            yield return new WaitForSeconds(2); // 1ï¿½ï¿½ ï¿½ï¿½ï¿½
         }
 
-        // ´ëÈ­°¡ ³¡³­ ÈÄ Ã³¸®
+        // ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ã³ï¿½ï¿½
         isChatting = false;
     }
 
@@ -83,7 +132,7 @@ public class ChatManager : MonoBehaviour
         SetActiveObjects(speakers[currentSpeakerIndex], true);
         speakers[currentSpeakerIndex].dialogueText.text = dialogues[currentDialogueIndex].dialogue;
 
-        scrollBar.value = 0;
+        scrollBar.value += 0.1f;
     }
 
     private void SetActiveObjects(Speaker speaker, bool visible)
@@ -96,6 +145,8 @@ public class ChatManager : MonoBehaviour
     {
         isChatting = _isChatting;
     }
+
+   
 }
 
 
