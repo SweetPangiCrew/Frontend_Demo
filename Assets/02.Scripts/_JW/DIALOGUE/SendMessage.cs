@@ -18,7 +18,7 @@ public class SendMessage : MonoBehaviour
 
     public string targetPersonaName = "이자식";
 
-    private bool TestMode = true;
+    private bool TestMode = false;
     public void Transfer(){
         if(transferNum <= 7){
             

@@ -40,7 +40,7 @@ public class UserChatAPIManager : HttpServerBase
 
     private void Start()
     {
-        GameURL.NPCServer.Server_URL = GameURL.NPCServer.Local_URL;
+        //GameURL.NPCServer.Server_URL = GameURL.NPCServer.Local_URL;
        // StartCoroutine(SendMessageCoroutine(Database.Instance.gameName,"이자식","hi",0));
     }
 
