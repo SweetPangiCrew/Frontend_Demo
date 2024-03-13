@@ -41,8 +41,8 @@
       ]
     },
     "이자식": {
-      "act_address": "<location> the Vile:교회:null:null",
-      "pronunciatio": "😴",
+      "act_address": "<location> theVille:오화가와 유리코의 집:유리코의 방:null",
+      "pronunciatio": "<sprite=13>",
       "description": "이자식 is sleeping",
       "assembly_attendance": false,
       "chat": null

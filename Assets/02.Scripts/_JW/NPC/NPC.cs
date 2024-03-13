@@ -16,22 +16,21 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
     public Persona persona;
 
     // Move
-    public Transform[] _LunaWaypoints;
-    private int _currentWaypointIndex = 0;
-    private float _waitTime = 3f;
+    public List<Transform> waypoints;
+    public int currentWaypointIndex = 0;
+    private float waitTime = 3f;
     public NavMeshAgent agent;
-    private float _waitCounter = 0f;
-    private bool _isWaiting = false;
+    private float waitCounter = 0f;
+    private bool isWaiting = false;
 
     // Perceive
-    public Perceive _perceive;
-    public PerceivedInfo _perceivedInfo;
+    public Perceive perceive;
+    public PerceivedInfo perceivedInfo;
 
-    public string _name;
-    public Vector2 _location;
-    public string _locationName;
+    public Vector2 location;
+    public string locationName;
     public float detectionRadius = 0.65f;
-    public List<GameObject> _detectedObject = null;
+    public List<GameObject> detectedObject = null;
     Vector2 direction;
     Vector3 rayOrigin;
 
@@ -47,9 +46,10 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
     {
         // Nav Mesh Agent
         agent = GetComponent<NavMeshAgent>();
-        
+
+
         // Perceive
-        _perceive = new Perceive()
+        perceive = new Perceive()
         {
             perceived_info = new List<PerceivedInfo>(),
         };
@@ -64,13 +64,13 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
         transform.rotation = Quaternion.Euler(0, 0, 0);
 
         // NPC Moving
-        if (_isWaiting)
+        if (isWaiting)
         {
-            _waitCounter += Time.deltaTime;
-            if (_waitCounter >= _waitTime)
+            waitCounter += Time.deltaTime;
+            if (waitCounter >= waitTime)
             {
-                _isWaiting = false;
-                _waitCounter = 0f;
+                isWaiting = false;
+                waitCounter = 0f;
                 Move();
             }
         }
@@ -78,7 +78,7 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
         {
             if (agent.remainingDistance <= 0.01)
             {
-                _isWaiting = true;
+                isWaiting = true;
             }
         }
 
@@ -110,7 +110,7 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
     public void Perceive()
     {
         // update NPC name and location
-        _location = this.GetComponent<Transform>().position;
+        location = this.GetComponent<Transform>().position;
 
         // NPC perceive
         for (int i = 0; i < 36; i++)
@@ -119,19 +119,19 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
 
             // Initialize rayOrigin and direction based on NPC position and angle
             direction = Quaternion.Euler(1, 1, angle) * Vector2.up;
-            rayOrigin = _location + direction * detectionRadius;
+            rayOrigin = location + direction * detectionRadius;
 
             RaycastHit2D ObjectHit = Physics2D.Raycast(rayOrigin, direction, detectionRadius, LayerMask.GetMask("InteractableObject"));
             Debug.DrawRay(rayOrigin, direction * detectionRadius, Color.red);   
             
             if(ObjectHit.collider != null)
             {
-                GameObject detectedObject = ObjectHit.collider.gameObject;
+                GameObject _detectedObject = ObjectHit.collider.gameObject;
 
                 // Check if the object is not already in the list before adding
-                if (!_detectedObject.Contains(detectedObject))
+                if (!detectedObject.Contains(_detectedObject))
                 {
-                    _detectedObject.Add(detectedObject);
+                    detectedObject.Add(_detectedObject);
                 }
             }
                
@@ -140,17 +140,24 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
     #endregion
 
     #region MOVE
+
     public void Move()
     {
-        if (_LunaWaypoints.Length == 0) return;
+        if (waypoints.Count == 0) return;
 
-        Transform nextWaypoint = _LunaWaypoints[_currentWaypointIndex];
+        Transform nextWaypoint = waypoints[currentWaypointIndex];
         agent.SetDestination(nextWaypoint.position);
-        _currentWaypointIndex = (_currentWaypointIndex + 1) % _LunaWaypoints.Length;
+        currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Count;
         
         // Resume NPC movement
         agent.isStopped = false;
     }
+
+    public void AddWaypoint(Transform nl)
+    {
+        waypoints.Insert(currentWaypointIndex, nl);
+    }
+
     #endregion
 
 
