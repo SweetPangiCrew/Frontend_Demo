@@ -41,9 +41,14 @@ public class LoadChatListManager :  HttpServerBase
         {
             GameURL.NPCServer.Server_URL = GameURL.NPCServer.Local_URL;
         }
+
+        ClickButtonLoadChatList();
+    }
+
+    public void ClickButtonLoadChatList()
+    {
         StartCoroutine(GetExistingChatListsCoroutine());
     }
-    
     
     private void loadChatListButtons()
     {
