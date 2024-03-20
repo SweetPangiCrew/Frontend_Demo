@@ -45,10 +45,10 @@ public class ChatManager : MonoBehaviour
         while (dialogues.Count > currentDialogueIndex + 1)
         {
             SetNextDialogue();
-            yield return new WaitForSeconds(2); // 1ÃÊ ´ë±â
+            yield return new WaitForSeconds(2); // 1ï¿½ï¿½ ï¿½ï¿½ï¿½
         }
 
-        // ´ëÈ­°¡ ³¡³­ ÈÄ Ã³¸®
+        // ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ã³ï¿½ï¿½
         isChatting = false;
     }
 
@@ -80,16 +80,16 @@ public class ChatManager : MonoBehaviour
         Area.NameText.text = dialogues[currentDialogueIndex].name;
 
         // Speech Bubble Dialogue
-        SetActiveObjects(speakers[currentSpeakerIndex], true);
-        speakers[currentSpeakerIndex].dialogueText.text = dialogues[currentDialogueIndex].dialogue;
+        //SetActiveObjects(speakers[currentSpeakerIndex], true);
+        //speakers[currentSpeakerIndex].dialogueText.text = dialogues[currentDialogueIndex].dialogue;
 
         scrollBar.value = 0;
     }
 
     private void SetActiveObjects(Speaker speaker, bool visible)
     {
-        speaker.dialougeImage.gameObject.SetActive(visible);
-        speaker.dialogueText.gameObject.SetActive(visible);
+        //speaker.dialougeImage.gameObject.SetActive(visible);
+        //speaker.dialogueText.gameObject.SetActive(visible);
     }
 
     public void SetIsChatting(bool _isChatting)
