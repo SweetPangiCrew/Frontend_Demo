@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class NPCQuiz : MonoBehaviour
 {
+    public bool quizEnd;
+
     [SerializeField]
     public List<QuizData> Quiz;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        quizEnd = false;
     }
 
     // Update is called once per frame

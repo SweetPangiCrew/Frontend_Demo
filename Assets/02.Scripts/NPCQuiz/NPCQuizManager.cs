@@ -8,6 +8,10 @@ public class NPCQuizManager : MonoBehaviour
     public TextMeshProUGUI quizText;
     public TMP_InputField answerText;
 
+    public GameObject quizPanel;
+    public GameObject answerPanel;
+    public GameObject submit;
+
     public GameObject correctPanel;
     public GameObject wrongPanel;
 
@@ -15,28 +19,18 @@ public class NPCQuizManager : MonoBehaviour
     List<QuizData> quizList;
     int quizNum;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-/*        //NPC 퀴즈 내용 불러오기
-        npcQuiz = GameObject.Find("이자식").GetComponent<NPCQuiz>();
-        quizList = npcQuiz.Quiz;
-        QuizOpen();*/
-    }
     private void OnEnable()
     {
         Time.timeScale = 0;
+
+        quizPanel.SetActive(true);
+        answerPanel.SetActive(true);
+        submit.SetActive(true);
 
         //NPC 퀴즈 내용 불러오기
         npcQuiz = GameObject.Find("이자식").GetComponent<NPCQuiz>();
         quizList = npcQuiz.Quiz;
         QuizOpen();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     void QuizOpen()
@@ -55,6 +49,7 @@ public class NPCQuizManager : MonoBehaviour
         }
     }
 
+    //제출하기 버튼에 붙는 함수
     public void CompareAnswer()
     {
         Debug.Log("입력: " + answerText.text.Trim() + answerText.text.GetType());
@@ -64,47 +59,96 @@ public class NPCQuizManager : MonoBehaviour
         if (answerText.text.Trim() == quizList[quizNum].answer.Trim())
         {
             Debug.Log("정답!");
+
             //정답 시 correct 값 true로 변경
             QuizData data = quizList[quizNum];
             data.correct = true;
             npcQuiz.Quiz[quizNum] = data;
 
             //정답 패널 보여주기
-            //StartCoroutine("CorrectPanel");
-
-            //다음 퀴즈 생성
-            QuizOpen();
+            StartCoroutine("CorrectPanel");
         }
         else
         {
             Debug.Log("오답!");
 
             //오답 패널 보여주기
-            //StartCoroutine("WrongPanel");
-
-            //시간 원상태 후 창 사라짐
-            Time.timeScale = 1;
-            gameObject.SetActive(false);
+            StartCoroutine("WrongPanel");
         }
     }
 
     private IEnumerator CorrectPanel()
     {
+        quizPanel.SetActive(false);
+        answerPanel.SetActive(false);
+        submit.SetActive(false);
+
         correctPanel.SetActive(true);
 
-        yield return new WaitForSeconds(2);
+        //2초 후 창 사라짐
+        float timer = 0;
+        while(timer < 2)
+        {
+            timer += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
         correctPanel.SetActive(false);
 
-        //다음 퀴즈 생성
-        QuizOpen();
+        if (quizList.FindIndex(item => item.correct == false) == -1)
+        {
+            //퀴즈를 다 맞힌 경우
+            npcQuiz.quizEnd = true;
+            StartCoroutine("QuizEnd");
+        }
+        else
+        {
+            quizPanel.SetActive(true);
+            answerPanel.SetActive(true);
+            submit.SetActive(true);
+
+            //다음 퀴즈 생성
+            QuizOpen();
+        }
+
     }
 
     private IEnumerator WrongPanel()
     {
+        quizPanel.SetActive(false);
+        answerPanel.SetActive(false);
+        submit.SetActive(false);
+
         wrongPanel.SetActive(true);
 
-        yield return new WaitForSeconds(2);
+        //2초 후 창 사라짐
+        float timer = 0;
+        while (timer < 2)
+        {
+            timer += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
         wrongPanel.SetActive(false);
+
+        //시간 원상태 후 창 사라짐
+        Time.timeScale = 1;
+        gameObject.SetActive(false);
+    }
+
+    private IEnumerator QuizEnd()
+    {
+        correctPanel.SetActive(true);
+        correctPanel.GetComponentInChildren<TextMeshProUGUI>().text = "모든 퀴즈를 맞히셨습니다!";
+
+        float timer = 0;
+        while (timer < 2)
+        {
+            timer += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
+        correctPanel.SetActive(false);
 
         //시간 원상태 후 창 사라짐
         Time.timeScale = 1;
