@@ -15,6 +15,9 @@ public class GameURL : MonoBehaviour
         public static readonly string getNPCMovement = "npc/movement/";
         public static readonly string postNPCPercention = "npc/perceive/";
         
+        public static readonly string getRIndex = "npc/loadReligiousIndex/";
+        public static readonly string updateRIndex = "npc/updateReligiousIndex/";
+
         public static readonly string sendUserMessage = "chat/send/";
         public static readonly string getChatLists = "chat/list/";
 
