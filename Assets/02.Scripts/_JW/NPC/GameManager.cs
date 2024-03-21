@@ -10,6 +10,7 @@ using Newtonsoft.Json.Linq;
 
 
 
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
@@ -30,6 +31,8 @@ public class GameManager : MonoBehaviour
     private Perceive existingInfo;
     public List<NPC> NPC;
     public List<Persona> personaList = new List<Persona>();
+    
+    public bool usingLocalServer = false;
     private string filePath;
     
     //timer
@@ -65,7 +68,11 @@ public class GameManager : MonoBehaviour
        else
        {
            //로컬 서버 관련 코드
-          // GameURL.NPCServer.Server_URL = GameURL.NPCServer.Local_URL;
+           if (usingLocalServer)
+           {
+               GameURL.NPCServer.Server_URL = GameURL.NPCServer.Local_URL;
+           }
+
            gameName = "game1";
            isTest = true;
        }
@@ -204,7 +211,7 @@ public class GameManager : MonoBehaviour
 
                 if(movementInfo.Name == perceivedInfo.persona) // same persona
                 {
-                    Debug.Log("성공 :" + movementInfo.Name + " "+ perceivedInfo.persona);
+                    //Debug.Log("성공 :" + movementInfo.Name + " "+ perceivedInfo.persona);
                     int index = movementInfo.ActAddress.IndexOf('>');
                     
                     // if <persona> tag exists -> start conversation
@@ -280,7 +287,7 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("실패 : " + movementInfo.Name);
+                   // Debug.Log("실패 : " + movementInfo.Name);
                 }
             }                
         }
