@@ -5,19 +5,25 @@ using TMPro;
 
 public class NPCQuizManager : MonoBehaviour
 {
+    //퀴즈, 답 내용
     public TextMeshProUGUI quizText;
     public TMP_InputField answerText;
 
+    //메인 퀴즈 창
     public GameObject quizPanel;
     public GameObject answerPanel;
     public GameObject submit;
 
-    public GameObject correctPanel;
-    public GameObject wrongPanel;
+    //정답, 오답 창
+    public GameObject InfoPanel;
 
+    //NPC 퀴즈 리스트
     NPCQuiz npcQuiz;
     List<QuizData> quizList;
     int quizNum;
+
+    //퀴즈 대상 NPC 이름
+    public string NPCName;
 
     private void OnEnable()
     {
@@ -28,7 +34,9 @@ public class NPCQuizManager : MonoBehaviour
         submit.SetActive(true);
 
         //NPC 퀴즈 내용 불러오기
-        npcQuiz = GameObject.Find("이자식").GetComponent<NPCQuiz>();
+        NPCName = "이자식";    //퀴즈 대상 불러오기
+
+        npcQuiz = GameObject.Find(NPCName).GetComponent<NPCQuiz>();
         quizList = npcQuiz.Quiz;
         QuizOpen();
     }
@@ -83,7 +91,14 @@ public class NPCQuizManager : MonoBehaviour
         answerPanel.SetActive(false);
         submit.SetActive(false);
 
-        correctPanel.SetActive(true);
+        InfoPanel.SetActive(true);
+        InfoPanel.GetComponentInChildren<TextMeshProUGUI>().text = "정답입니다! (" + NPCName + "의 종교 친화 지수 - 5)";
+
+        //NPC 종교 친화 지수 5 감소
+        Dictionary<string, int> updateInfo = new Dictionary<string, int>();
+        updateInfo[NPCName] = -5;
+        StartCoroutine(ReligiousIndexNetworkManager.Instance.UpdateRIndexCoroutine(updateInfo));
+        Debug.Log(NPCName + ReligiousIndexNetworkManager.Instance.RIndexInfo[NPCName].ToString());
 
         //2초 후 창 사라짐
         float timer = 0;
@@ -93,7 +108,7 @@ public class NPCQuizManager : MonoBehaviour
             yield return null;
         }
 
-        correctPanel.SetActive(false);
+        InfoPanel.SetActive(false);
 
         if (quizList.FindIndex(item => item.correct == false) == -1)
         {
@@ -119,7 +134,8 @@ public class NPCQuizManager : MonoBehaviour
         answerPanel.SetActive(false);
         submit.SetActive(false);
 
-        wrongPanel.SetActive(true);
+        InfoPanel.SetActive(true);
+        InfoPanel.GetComponentInChildren<TextMeshProUGUI>().text = "오답입니다!";
 
         //2초 후 창 사라짐
         float timer = 0;
@@ -129,7 +145,7 @@ public class NPCQuizManager : MonoBehaviour
             yield return null;
         }
 
-        wrongPanel.SetActive(false);
+        InfoPanel.SetActive(false);
 
         //시간 원상태 후 창 사라짐
         Time.timeScale = 1;
@@ -138,8 +154,8 @@ public class NPCQuizManager : MonoBehaviour
 
     private IEnumerator QuizEnd()
     {
-        correctPanel.SetActive(true);
-        correctPanel.GetComponentInChildren<TextMeshProUGUI>().text = "모든 퀴즈를 맞히셨습니다!";
+        InfoPanel.SetActive(true);
+        InfoPanel.GetComponentInChildren<TextMeshProUGUI>().text = "모든 퀴즈를 맞히셨습니다!";
 
         float timer = 0;
         while (timer < 2)
@@ -148,7 +164,7 @@ public class NPCQuizManager : MonoBehaviour
             yield return null;
         }
 
-        correctPanel.SetActive(false);
+        InfoPanel.SetActive(false);
 
         //시간 원상태 후 창 사라짐
         Time.timeScale = 1;
