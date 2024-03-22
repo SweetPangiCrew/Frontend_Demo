@@ -50,7 +50,7 @@ public class ReligiousIndexNetworkManager : HttpServerBase
         Dictionary<string, int> updateInfo = new Dictionary<string, int>();
         updateInfo["이자식"] = 1; // 이자식의 종교친화 지수를 1 업데이트함.
         
-        StartCoroutine(UpdateRIndexCoroutine(updateInfo));
+        //StartCoroutine(UpdateRIndexCoroutine(updateInfo));
     }
     
 
