@@ -40,6 +40,7 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
     // Canvas
     public GameObject IconBubble;
     public GameObject SpeechBubble;
+    public GameObject DescriptionBubble;
 
     // Animator
     private Animator animator;

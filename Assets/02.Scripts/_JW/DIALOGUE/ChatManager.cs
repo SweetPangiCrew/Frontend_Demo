@@ -80,16 +80,16 @@ public class ChatManager : MonoBehaviour
         Area.NameText.text = dialogues[currentDialogueIndex].name;
 
         // Speech Bubble Dialogue
-        //SetActiveObjects(speakers[currentSpeakerIndex], true);
-        //speakers[currentSpeakerIndex].dialogueText.text = dialogues[currentDialogueIndex].dialogue;
+        SetActiveObjects(speakers[currentSpeakerIndex], true);
+        speakers[currentSpeakerIndex].dialogueText.text = dialogues[currentDialogueIndex].dialogue;
 
         scrollBar.value = 0;
     }
 
     private void SetActiveObjects(Speaker speaker, bool visible)
     {
-        //speaker.dialougeImage.gameObject.SetActive(visible);
-        //speaker.dialogueText.gameObject.SetActive(visible);
+        speaker.dialougeImage.gameObject.SetActive(visible);
+        speaker.dialogueText.gameObject.SetActive(visible);
     }
 
     public void SetIsChatting(bool _isChatting)

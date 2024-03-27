@@ -2,7 +2,7 @@
   "persona": {
     "나주교": {
       "act_address": "<persona> 오화가",
-      "pronunciatio": "💬",
+      "pronunciatio": "<sprite=13>",
       "description": "conversing about This is a conversation about two people greeting each other and discussing how they have been, with one person expressing happiness about spending their time painting landscapes.",
       "assembly_attendance": true,
       "chat": [
@@ -22,7 +22,7 @@
     },
     "오화가": {
       "act_address": "<persona> 나주교",
-      "pronunciatio": "💬",
+      "pronunciatio": "<sprite=13>",
       "description": "conversing about This is a conversation between 이자식 and 오화가 about how 오화가 is enjoying their time drawing landscape paintings.",
       "assembly_attendance": false,
       "chat": [

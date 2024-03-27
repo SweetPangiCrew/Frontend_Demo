@@ -32,14 +32,14 @@ public class GameManager : MonoBehaviour
     public List<NPC> NPC;
     public List<Persona> personaList = new List<Persona>();
     private string filePath;
-    
-    //timer
+
+    // timer
     private DateTime curr_time;
     private int stepTime = 18; // 게임 시간으로 18분 마다 스텝이 업데이트 됨.
 
     // Get Movement
     private int step;
-    //Get Movement from local file, true : only Test Mode available
+    // Get Movement from local file, true : only Test Mode available
     public bool isUsingMovementLocalFile = true;
    // public string simCode; 
     public string gameName; 
@@ -142,9 +142,6 @@ public class GameManager : MonoBehaviour
                 }
             }
             yield return new WaitForSeconds(1f); //10초를 18로 나눴을 때 0.55556이라 0.5씩 반복하면 1분 단위 게임 시간을 모두 체크함.
-           
-            
-            
         }
     }
 
@@ -208,10 +205,13 @@ public class GameManager : MonoBehaviour
 
                     // tag extract
                     (string tag, string content) = ExtractTagAndContent(movementInfo.ActAddress);
+
                     // <persona> 
                     if(tag == "persona")
                     {
                         NPCName = content;
+
+                        List<(string, string)> generatedDialogues = new List<(string, string)>();
 
                         // meets NPC -> Stop
                         for (int i = 0; i < perceivedInfo.perceived_tiles.Count; i++)
@@ -222,44 +222,50 @@ public class GameManager : MonoBehaviour
                                 {
                                     if(NPC[j].gameObject.name.ToString() == NPCName)
                                     {
-                                        NPC[npcIndex].navMeshAgent.isStopped = true;
-                                        NPC[j].navMeshAgent.isStopped = true;
-
-                           
-                                        if (!chatManager.isChatting)
+                                        if (!DialogueAlreadyGenerated(NPCName, NPC[j].gameObject.name.ToString(), generatedDialogues))
                                         {
-                                            NPC[npcIndex].IconBubble.SetActive(true);
-                                            NPC[j].IconBubble.SetActive(true);
+                                            NPC[npcIndex].navMeshAgent.isStopped = true;
+                                            NPC[j].navMeshAgent.isStopped = true;
 
-                                            for (int k = 0; k < movementInfo.Chat.Count; k++)
+                            
+                                            if (!chatManager.isChatting)
                                             {
-                                                var chat = movementInfo.Chat[k];
-                                                string speaker = chat[0].ToString();
-                                                string dialogue = chat[1].ToString();
+                                                NPC[npcIndex].IconBubble.SetActive(true);
+                                                NPC[j].IconBubble.SetActive(true);
 
-                                                if (chatManager.dialogues.Count <= k)
+                                                for (int k = 0; k < movementInfo.Chat.Count; k++)
                                                 {
-                                                    if (k % 2 == 0)
-                                                        speakerIndex = 1;
-                                                    else                                                   
-                                                        speakerIndex = 0;
-                                                
-                                                    chatManager.dialogues.Add(new DialogueData { 
-                                                        dialogue = dialogue,
-                                                        name = speaker,
-                                                        speakerIndex = speakerIndex
-                                                        });
+                                                    var chat = movementInfo.Chat[k];
+                                                    string speaker = chat[0].ToString();
+                                                    string dialogue = chat[1].ToString();
 
-                                                    chatManager.isFirst = true;
+                                                    if (chatManager.dialogues.Count <= k)
+                                                    {
+                                                        if (k % 2 == 0)
+                                                            speakerIndex = 1;
+                                                        else                                                   
+                                                            speakerIndex = 0;
+                                                    
+                                                        chatManager.dialogues.Add(new DialogueData { 
+                                                            dialogue = dialogue,
+                                                            name = speaker,
+                                                            speakerIndex = speakerIndex
+                                                            });
 
+                                                        chatManager.isFirst = true;
+                                                    }
+                                                    
+                                                    generatedDialogues.Add((NPCName, NPC[j].gameObject.name.ToString()));  
                                                 }
 
 
                                                 //yield return new WaitUntil(()=>dialogueManager.UpdateDialogue());
-
-
                                             }
+
                                         }
+
+
+                                        
                                     }
                                 }
                             }
@@ -272,11 +278,14 @@ public class GameManager : MonoBehaviour
                     }
                     
                     /* --- PRONUNCIATIO --- */
-                    NPC[npcIndex].IconBubble.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text += movementInfo.Pronunciatio;
+                    NPC[npcIndex].IconBubble.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text += movementInfo.Pronunciatio;  
+
+                    /* --- DESCRIPTION --- */
+                    NPC[npcIndex].DescriptionBubble.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = movementInfo.Description;
                 }
             }                
         }
-    }
+    } 
 
     private void GetLocation(string content, int npcIndex)
     {
@@ -295,6 +304,19 @@ public class GameManager : MonoBehaviour
                 break; 
             }
         }
+    }
+
+    bool DialogueAlreadyGenerated(string npc1, string npc2, List<(string, string)> generatedDialogues)
+    {
+    foreach (var dialoguePair in generatedDialogues)
+    {
+        if ((dialoguePair.Item1 == npc1 && dialoguePair.Item2 == npc2) || (dialoguePair.Item1 == npc2 && dialoguePair.Item2 == npc1))
+        {
+            return true;
+        }
+    }
+    
+    return false;
     }
 
     
