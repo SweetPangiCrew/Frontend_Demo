@@ -164,10 +164,11 @@ public class GameManager : MonoBehaviour
             List<string> act_address   = new List<string>();
             List<string> pronunciatio  = new List<string>();
             List<string> description  = new List<string>();
-            List<List<string>> chats= new List<List<string>>();
+            List<List<List<string>>> chats= new List<List<List<string>>>();
             
             foreach (JProperty property in resultData)
             {
+                List<List<string>> chat = new List<List<string>>();
               
                 personas.Add(property.Name);
                 act_address.Add(property.Value["act_address"].ToString());
@@ -179,7 +180,8 @@ public class GameManager : MonoBehaviour
                 {
                    
                     var chatEntry = chatlist.Select(item => item.ToString()).ToList();
-                    chats.Add(chatEntry);
+                    chat.Add(chatEntry);
+                    chats.Add(chat);
                     //Debug.Log(chats.Count+":Count"+chatEntry);
                     //chats.Add(chatlist.ToObject<List<string>>());
                 }
@@ -188,7 +190,7 @@ public class GameManager : MonoBehaviour
 
             for(int i=0; i< personas.Count; i++)
             {
-                Persona newMovementInfo = new Persona(personas[i], act_address[i], pronunciatio[i], description[i], chats);
+                Persona newMovementInfo = new Persona(personas[i], act_address[i], pronunciatio[i], description[i], chats[i]);
                
                 personaList.Add(newMovementInfo);
             }
