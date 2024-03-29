@@ -4,12 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+
 public class SendMessage : MonoBehaviour
 {
     // chatting transfer limit
-    const int maxTransferNum = 7;
+    private int maxTransferNum = 5;
     private int transferNum = 0; // Number of transfers
 
+    private int max_length = 100;
     // chatting UI
     public ChatManager _chatManager;
     public RectTransform ContentRect;
@@ -19,8 +21,60 @@ public class SendMessage : MonoBehaviour
     public string targetPersonaName = "이자식";
 
     private bool TestMode = false;
+    
+    
+    void Start()
+    {
+        //대화시 시간 멈춤!
+        Time.timeScale = 0;
+        
+        // 입력 필드의 onValueChanged 이벤트에 메서드를 추가합니다.
+        inputField.onValueChanged.AddListener(OnTextChanged);
+        
+        int reliability = 30; // 유저 신뢰도 연결
+        
+        if (reliability <= 5)
+        {
+            max_length = 10;
+            maxTransferNum = 5;
+        }
+        else if (reliability <= 10)
+        {
+            max_length = 30;
+            maxTransferNum = 7;
+           
+        }
+        else if (reliability <= 20)
+        {
+            max_length = 50;
+            maxTransferNum = 10;
+        }
+        else
+        {
+            maxTransferNum = 10;
+            max_length = 100;
+        }
+    }
+
+    private void OnTextChanged(string text)
+    {
+        
+        // 텍스트의 길이가 100자를 초과하는 경우
+        if (text.Length > max_length)
+        {
+            // 텍스트를 100자로 제한합니다.
+            inputField.text = text.Substring(0, max_length);
+        }
+    }
+
+    //종료할 때 시간 재시작 에디터 내에서 연결 해주기
+    public void clickCancleBtn()
+    {
+        Time.timeScale = 1; 
+    }
     public void Transfer(){
-        if(transferNum <= 7){
+        
+        if(transferNum <= maxTransferNum){
             
             if(inputField.text == "") return;
 
@@ -32,6 +86,7 @@ public class SendMessage : MonoBehaviour
          
         } else{
             
+            Time.timeScale = 1; 
             //종료창 띄워야함.
             inputField.interactable = true;
             // cannot send message
