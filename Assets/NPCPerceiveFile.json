@@ -5,18 +5,9 @@
       "curr_address": "home:home:home:home",
       "perceived_tiles": [
         {
-          "dist": 0.9999999,
+          "dist": 1.49403572,
           "event": [
             "오화가",
-            null,
-            null,
-            null
-          ]
-        },
-        {
-          "dist": 1.9747262,
-          "event": [
-            "이자식",
             null,
             null,
             null
@@ -29,18 +20,18 @@
       "curr_address": "home:home:home:home",
       "perceived_tiles": [
         {
-          "dist": 0.9999999,
+          "dist": 11.43467,
           "event": [
-            "나주교",
+            "플레이어",
             null,
             null,
             null
           ]
         },
         {
-          "dist": 0.999996662,
+          "dist": 1.49403572,
           "event": [
-            "이자식",
+            "나주교",
             null,
             null,
             null
@@ -51,26 +42,7 @@
     {
       "persona": "이자식",
       "curr_address": "home:home:home:home",
-      "perceived_tiles": [
-        {
-          "dist": 0.999996662,
-          "event": [
-            "오화가",
-            null,
-            null,
-            null
-          ]
-        },
-        {
-          "dist": 1.9747262,
-          "event": [
-            "나주교",
-            null,
-            null,
-            null
-          ]
-        }
-      ]
+      "perceived_tiles": []
     }
   ]
 }

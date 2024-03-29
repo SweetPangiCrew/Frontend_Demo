@@ -91,7 +91,7 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
             {
                 isWaiting = false;
                 waitCounter = 0f;
-                Move();
+                //Move();
             }
         }
         else

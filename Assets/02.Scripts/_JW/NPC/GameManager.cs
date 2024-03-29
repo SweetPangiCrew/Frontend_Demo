@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
     // Chat 
     public ChatManager chatManager;
     private int speakerIndex;
+    private HashSet<string> conversationPairs = new HashSet<string>();
     
     // Location
     public List<Transform> location;
@@ -68,7 +69,7 @@ public class GameManager : MonoBehaviour
        else
        {
            //로컬 서버 관련 코드
-          // GameURL.NPCServer.Server_URL = GameURL.NPCServer.Local_URL;
+           //GameURL.NPCServer.Server_URL = GameURL.NPCServer.Local_URL;
            gameName = "game1";
            isTest = true;
        }
@@ -95,9 +96,11 @@ public class GameManager : MonoBehaviour
     {
         
         int lasttime = curr_time.Hour * 60 + curr_time.Minute;
-        int pStep = 1;//이미 base에서 perceive가 0이 있음.
+        int pStep = 1; //이미 base에서 perceive가 0이 있음.
         while (true)
         {
+  
+
             curr_time = Clock.Instance.GetCurrentTime();
 
             int minute = curr_time.Hour * 60 + curr_time.Minute; 
@@ -109,6 +112,7 @@ public class GameManager : MonoBehaviour
            
             if (step == 0)
             {
+               
                 GetMovement(step);
                 //Debug.Log("1"+step);
                 step++;
@@ -154,14 +158,17 @@ public class GameManager : MonoBehaviour
             
             var resultData = JObject.Parse(json)["persona"]; 
             
+            //Debug.Log(resultData);
+
             List<string> personas = new List<string>();
             List<string> act_address   = new List<string>();
             List<string> pronunciatio  = new List<string>();
             List<string> description  = new List<string>();
-            List<List<string>> chats = new List<List<string>>();
+            List<List<string>> chats= new List<List<string>>();
             
             foreach (JProperty property in resultData)
             {
+              
                 personas.Add(property.Name);
                 act_address.Add(property.Value["act_address"].ToString());
                 pronunciatio.Add(property.Value["pronunciatio"].ToString());
@@ -170,8 +177,10 @@ public class GameManager : MonoBehaviour
                     
                 foreach (var chatlist in property.Value["chat"])
                 {
+                   
                     var chatEntry = chatlist.Select(item => item.ToString()).ToList();
                     chats.Add(chatEntry);
+                    //Debug.Log(chats.Count+":Count"+chatEntry);
                     //chats.Add(chatlist.ToObject<List<string>>());
                 }
             }
@@ -180,6 +189,7 @@ public class GameManager : MonoBehaviour
             for(int i=0; i< personas.Count; i++)
             {
                 Persona newMovementInfo = new Persona(personas[i], act_address[i], pronunciatio[i], description[i], chats);
+               
                 personaList.Add(newMovementInfo);
             }
         }
@@ -190,84 +200,99 @@ public class GameManager : MonoBehaviour
             personaList = NPCServerManager.Instance.CurrentMovementInfo;
         }
 
-
-        /* read get movement */ 
-        foreach(var movementInfo in personaList)
-        { 
             foreach (var perceivedInfo in existingInfo.perceived_info)
             {
                 int npcIndex = FindNPCIndex(perceivedInfo.persona);
 
                 // NPC에 해당하는 persona가 movement file에 존재함
-                if(movementInfo.Name == perceivedInfo.persona)
+                if(personaList[npcIndex].Name == NPC[npcIndex].name)
                 {
                     /* --- ACT ADDRESS --- */
 
                     // tag extract
-                    (string tag, string content) = ExtractTagAndContent(movementInfo.ActAddress);
+                    (string tag, string content) = ExtractTagAndContent(personaList[npcIndex].ActAddress);
 
                     // <persona> 
                     if(tag == "persona")
                     {
                         NPCName = content;
 
-                        List<(string, string)> generatedDialogues = new List<(string, string)>();
-
                         // meets NPC -> Stop
                         for (int i = 0; i < perceivedInfo.perceived_tiles.Count; i++)
                         {
-                            if(perceivedInfo.perceived_tiles[i].@event[0] == NPCName)
+                            if (perceivedInfo.perceived_tiles[i].@event[0] == NPCName) 
                             {
-                                for(int j = 0; j < NPC.Count; j++)
+                                // perceive에 만나야 할 persona가 존재함
+                                int otherNpcIndex = FindNPCIndex(NPCName);
+                                NPC[npcIndex].navMeshAgent.isStopped = true;
+                                        
+                                string otherNPCName = perceivedInfo.perceived_tiles[i].@event[0]; // 상대방 NPC
+                                string firstNPCName = NPC[npcIndex].gameObject.name.CompareTo(otherNPCName) < 0 ? NPC[npcIndex].gameObject.name : otherNPCName;
+                                string secondNPCName = NPC[npcIndex].gameObject.name.CompareTo(otherNPCName) < 0 ? otherNPCName : NPC[npcIndex].gameObject.name;
+                                        
+                                string conversationPair = $"{firstNPCName}-{secondNPCName}";
+
+                                if (conversationPairs.Contains(conversationPair))
                                 {
-                                    if(NPC[j].gameObject.name.ToString() == NPCName)
+                                    continue; // Skip if conversation already exists
+                                }
+                                else
+                                {
+                                    if (!chatManager.isChatting)
                                     {
-                                        if (!DialogueAlreadyGenerated(NPCName, NPC[j].gameObject.name.ToString(), generatedDialogues))
-                                        {
-                                            NPC[npcIndex].navMeshAgent.isStopped = true;
-                                            NPC[j].navMeshAgent.isStopped = true;
+                                        //Debug.Log(NPC[npcIndex]);
+                                        NPC[npcIndex].IconBubble.SetActive(true);
+                                        NPC[otherNpcIndex].IconBubble.SetActive(true);
 
-                            
-                                            if (!chatManager.isChatting)
+                                            // 나주교 chat 만 불러와야함
+                                        
+                                            for (int k = 0; k < personaList[npcIndex].Chat.Count; k++)
                                             {
-                                                NPC[npcIndex].IconBubble.SetActive(true);
-                                                NPC[j].IconBubble.SetActive(true);
+                                                Debug.Log(" !!!!!!!!!!!!!!!!!!!" 
+                                                +personaList[npcIndex]);
 
-                                                for (int k = 0; k < movementInfo.Chat.Count; k++)
+                                                var chat = personaList[npcIndex].Chat[k];
+                                                string speaker = chat[0].ToString();
+                                                string dialogue = chat[1].ToString();
+
+                                                if (chatManager.dialogues.Count <= k)
                                                 {
-                                                    var chat = movementInfo.Chat[k];
-                                                    string speaker = chat[0].ToString();
-                                                    string dialogue = chat[1].ToString();
+                                                    if (k % 2 == 0)
+                                                        speakerIndex = 1;
+                                                    else
+                                                        speakerIndex = 0;
 
-                                                    if (chatManager.dialogues.Count <= k)
+                                                    chatManager.dialogues.Add(new DialogueData
                                                     {
-                                                        if (k % 2 == 0)
-                                                            speakerIndex = 1;
-                                                        else                                                   
-                                                            speakerIndex = 0;
-                                                    
-                                                        chatManager.dialogues.Add(new DialogueData { 
-                                                            dialogue = dialogue,
-                                                            name = speaker,
-                                                            speakerIndex = speakerIndex
-                                                            });
+                                                        dialogue = dialogue,
+                                                        name = speaker,
+                                                        speakerIndex = speakerIndex
+                                                    });
 
-                                                        chatManager.isFirst = true;
-                                                    }
-                                                    
-                                                    generatedDialogues.Add((NPCName, NPC[j].gameObject.name.ToString()));  
+                                                    chatManager.isFirst = true;
                                                 }
 
-
-                                                //yield return new WaitUntil(()=>dialogueManager.UpdateDialogue());
                                             }
-
-                                        }
-
-
+                                            
+                                            //yield return new WaitUntil(()=>dialogueManager.UpdateDialogue());
+                                    }
+                                    
+                                            
+                                    conversationPairs.Add(conversationPair);
+                                }                                
+                            
+                                // 여기서 부터 해결하면 되긔윤~!!!!!!!!!!!!!!!!
+                                /*
+                                for (int j = i + 1; j < perceivedInfo.perceived_tiles.Count; j++) // i 이후의 perceived_tiles만 확인
+                                {
+                                    if (perceivedInfo.perceived_tiles[j-1].@event[0] == NPC[npcIndex].name)
+                                    {
+                                        Debug.Log(otherNPCName + " " + firstNPCName + " " + secondNPCName);
+                                        
                                         
                                     }
                                 }
+                                */
                             }
                         }
                     }
@@ -278,13 +303,127 @@ public class GameManager : MonoBehaviour
                     }
                     
                     /* --- PRONUNCIATIO --- */
-                    NPC[npcIndex].IconBubble.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text += movementInfo.Pronunciatio;  
+                    NPC[npcIndex].IconBubble.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text += personaList[npcIndex].Pronunciatio;  
 
                     /* --- DESCRIPTION --- */
+                    NPC[npcIndex].DescriptionBubble.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = personaList[npcIndex].Description;
+                }
+            }                
+
+        /* read get movement */ 
+        /*
+        foreach(var movementInfo in personaList)
+        { 
+            foreach (var perceivedInfo in existingInfo.perceived_info)
+            {
+                int npcIndex = FindNPCIndex(perceivedInfo.persona);
+
+                // NPC에 해당하는 persona가 movement file에 존재함
+                if(movementInfo.Name == NPC[npcIndex].name)
+                {
+                    /* --- ACT ADDRESS --- 
+
+                    // tag extract
+                    (string tag, string content) = ExtractTagAndContent(movementInfo.ActAddress);
+
+                    // <persona> 
+                    if(tag == "persona")
+                    {
+                        NPCName = content;
+
+                        // meets NPC -> Stop
+                        for (int i = 0; i < perceivedInfo.perceived_tiles.Count; i++)
+                        {
+                            if (perceivedInfo.perceived_tiles[i].@event[0] == NPCName) 
+                            {
+                                // perceive에 만나야 할 persona가 존재함
+                                int otherNpcIndex = FindNPCIndex(NPCName);
+                                NPC[npcIndex].navMeshAgent.isStopped = true;
+                                        
+                                string otherNPCName = perceivedInfo.perceived_tiles[i].@event[0]; // 상대방 NPC
+                                string firstNPCName = NPC[npcIndex].gameObject.name.CompareTo(otherNPCName) < 0 ? NPC[npcIndex].gameObject.name : otherNPCName;
+                                string secondNPCName = NPC[npcIndex].gameObject.name.CompareTo(otherNPCName) < 0 ? otherNPCName : NPC[npcIndex].gameObject.name;
+                                        
+                                string conversationPair = $"{firstNPCName}-{secondNPCName}";
+
+                                if (conversationPairs.Contains(conversationPair))
+                                {
+                                    continue; // Skip if conversation already exists
+                                }
+                                else
+                                {
+                                    if (!chatManager.isChatting)
+                                    {
+                                        //Debug.Log(NPC[npcIndex]);
+                                        NPC[npcIndex].IconBubble.SetActive(true);
+                                        NPC[otherNpcIndex].IconBubble.SetActive(true);
+
+                                        // 나주교 chat 만 불러와야함
+                                        
+                                            for (int k = 0; k < personaList[npcIndex].Chat.Count; k++)
+                                            {
+                                                Debug.Log(personaList[npcIndex].Name);
+
+                                                var chat = movementInfo.Chat[k];
+                                                string speaker = chat[0].ToString();
+                                                string dialogue = chat[1].ToString();
+
+                                                if (chatManager.dialogues.Count <= k)
+                                                {
+                                                    if (k % 2 == 0)
+                                                        speakerIndex = 1;
+                                                    else
+                                                        speakerIndex = 0;
+
+                                                    chatManager.dialogues.Add(new DialogueData
+                                                    {
+                                                        dialogue = dialogue,
+                                                        name = speaker,
+                                                        speakerIndex = speakerIndex
+                                                    });
+
+                                                    chatManager.isFirst = true;
+                                                }
+
+                                            }
+                                            
+                                            //yield return new WaitUntil(()=>dialogueManager.UpdateDialogue());
+                                    }
+                                    
+                                            
+                                    conversationPairs.Add(conversationPair);
+                                }                                
+                            
+                                // 여기서 부터 해결하면 되긔윤~!!!!!!!!!!!!!!!!
+                                
+                                /*for (int j = i + 1; j < perceivedInfo.perceived_tiles.Count; j++) // i 이후의 perceived_tiles만 확인
+                                {
+                                    if (perceivedInfo.perceived_tiles[j-1].@event[0] == NPC[npcIndex].name)
+                                    {
+                                        Debug.Log(otherNPCName + " " + firstNPCName + " " + secondNPCName);
+                                        
+                                        
+                                    }
+                                }
+                                
+                            }
+                        }
+                    }
+                    // <location>
+                    else if(tag == "location")
+                    {
+                        GetLocation(content, npcIndex);
+                    }
+                    
+                    /* --- PRONUNCIATIO --- 
+                    NPC[npcIndex].IconBubble.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text += movementInfo.Pronunciatio;  
+
+                    /* --- DESCRIPTION ---
                     NPC[npcIndex].DescriptionBubble.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = movementInfo.Description;
                 }
             }                
-        }
+        }*/
+    
     } 
 
     private void GetLocation(string content, int npcIndex)
