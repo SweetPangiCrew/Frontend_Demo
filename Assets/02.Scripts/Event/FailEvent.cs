@@ -25,7 +25,7 @@ public class FailEvent : MonoBehaviour
         text.text = speech[index];
         index++;
 
-        npc = new string[] { "고영이", "김태리", "변호인", "여이삭", "오서달", "오화가", "유리코", "유태호", "이자식", "이장남", "이지양", "이화령", "주아령", "최문식" };
+        npc = new string[] { "유리코", "오화가", "주아령", "고영이", "이화령", "유태호", "변호인", "최문식", "여이삭", "오서달", "이지양", "이자식", "이장남", "김태리" };
     }
 
     // Update is called once per frame
@@ -73,6 +73,38 @@ public class FailEvent : MonoBehaviour
             }
         }
 
+        // 기계신앙 만세
+        yield return new WaitForSeconds(1.5f);
+        GameObject.Find("나주교").transform.Find("NPC Canvas/Speach Bubble").gameObject.SetActive(true);
+        GameObject.Find("나주교").transform.Find("NPC Canvas/Speach Bubble").gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "기계신앙 만세!!!";
+
+        yield return new WaitForSeconds(1f);
+
+        // 말풍선 생성
+        for (int i = 0; i < npc.Length; i++)
+        {
+            if (GameObject.Find(npc[i]) != null)
+            {
+                GameObject.Find(npc[i]).transform.Find("NPC Canvas/Speach Bubble").gameObject.SetActive(true);
+                GameObject.Find(npc[i]).transform.Find("NPC Canvas/Speach Bubble").gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "와아";
+                yield return new WaitForSeconds(0.1f);
+            }
+
+        }
+        yield return new WaitForSeconds(2f);
+
+        // 말풍선 제거
+        for (int i = 0; i < npc.Length; i++)
+        {
+            if (GameObject.Find(npc[i]) != null)
+            {
+                GameObject.Find(npc[i]).transform.Find("NPC Canvas/Speach Bubble").gameObject.SetActive(false);
+            }
+        }
+
+        GameObject.Find("나주교").transform.Find("NPC Canvas/Speach Bubble").gameObject.SetActive(false);
+
+
         // 구멍 생성
         yield return new WaitForSeconds(1.5f);
         hole.SetActive(true);
@@ -80,6 +112,7 @@ public class FailEvent : MonoBehaviour
         // 갑시다
         yield return new WaitForSeconds(1.5f);
         GameObject.Find("나주교").transform.Find("NPC Canvas/Speach Bubble").gameObject.SetActive(true);
+        GameObject.Find("나주교").transform.Find("NPC Canvas/Speach Bubble").gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "갑시다!";
 
         yield return new WaitForSeconds(2f);
 
@@ -88,7 +121,18 @@ public class FailEvent : MonoBehaviour
         // 한명씩 점프
         yield return new WaitForSeconds(1.5f);
 
-        GameObject.Find("유리코").GetComponent<Animator>().enabled = true;
+        for (int i = 0; i < npc.Length; i++)
+        {
+            if (GameObject.Find(npc[i]) != null)
+            {
+                GameObject.Find(npc[i]).GetComponent<Animator>().enabled = true;
+                yield return new WaitForSeconds(1.5f);
+            }
+        }
+
+        yield return new WaitForSeconds(1.5f);
+        GameObject.Find("나주교").transform.Find("NPC Canvas/Speach Bubble").gameObject.SetActive(true);
+        GameObject.Find("나주교").transform.Find("NPC Canvas/Speach Bubble").gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "킄..크킄..";
 
     }
 
