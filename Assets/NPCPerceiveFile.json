@@ -43,6 +43,36 @@
       "persona": "이자식",
       "curr_address": "home:home:home:home",
       "perceived_tiles": []
+    },
+    {
+      "persona": "고영이",
+      "curr_address": "home:home:home:home",
+      "perceived_tiles": [
+        {
+          "dist": 1.49403572,
+          "event": [
+            "이화령",
+            null,
+            null,
+            null
+          ]
+        }
+      ]
+    },
+    {
+      "persona": "이화령",
+      "curr_address": "home:home:home:home",
+      "perceived_tiles": [
+        {
+          "dist": 1.49403572,
+          "event": [
+            "고영이",
+            null,
+            null,
+            null
+          ]
+        }
+      ]
     }
   ]
 }
