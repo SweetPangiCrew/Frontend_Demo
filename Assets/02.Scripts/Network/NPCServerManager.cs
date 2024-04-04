@@ -114,7 +114,7 @@ public class NPCServerManager : HttpServerBase
             var resultData = JObject.Parse(result.Json)["persona"]; 
             
           //  Debug.Log(result);
-            
+
             List<string> personas = new List<string>();
             List<string> act_address   = new List<string>();
             List<string> pronunciatio  = new List<string>();

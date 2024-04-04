@@ -10,7 +10,6 @@ using Newtonsoft.Json.Linq;
 using System.Text.RegularExpressions;
 using TMPro;
 
-
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
@@ -41,13 +40,12 @@ public class GameManager : MonoBehaviour
     private int step;
     // Get Movement from local file, true : only Test Mode available
     public bool isUsingMovementLocalFile = true;
-   // public string simCode; 
     public string gameName; 
     public string NPCName; 
     
     // Chat 
     public ChatManager chatManager;
-    public int npcIndex;
+    private int npcIndex;
     private int speakerIndex;
     private HashSet<string> conversationPairs = new HashSet<string>();
     
@@ -60,8 +58,6 @@ public class GameManager : MonoBehaviour
         filePath = "Assets/NPCPerceiveFile.json";
         LoadExistingInfo(filePath);
         
-        //simCode는 게임 베이스, 지금 당장은 필요 없음. 
-        // simCode = Database.Instance.simCode;
         if (gameName != "")
         {
             gameName = Database.Instance.gameName;
@@ -69,8 +65,6 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            //로컬 서버 관련 코드
-            //GameURL.NPCServer.Server_URL = GameURL.NPCServer.Local_URL;
             gameName = "game1";
             isTest = true;
         }
@@ -88,33 +82,25 @@ public class GameManager : MonoBehaviour
         catch (Exception e)
         {
             Debug.LogError($"Failed to load existingInfo from {filePath}. Error: {e.Message}");
-           
         }
     }
 
     private IEnumerator InvokePerceive()
     {
-        
         int lasttime = curr_time.Hour * 60 + curr_time.Minute;
         int pStep = 1; //이미 base에서 perceive가 0이 있음.
         while (true)
         {
-  
-
             curr_time = Clock.Instance.GetCurrentTime();
 
             int minute = curr_time.Hour * 60 + curr_time.Minute; 
             
-//            Debug.Log("0"+NPCServerManager.Instance.serverOpened);
             //server manage에서 서버가 안 열렸을때
             if (!NPCServerManager.Instance.serverOpened & !isTest) { yield return new WaitForSeconds(1f); continue;}
             
-           
             if (step == 0)
             {
-               
                 GetMovement(step);
-                //Debug.Log("1"+step);
                 step++;
                 lasttime = minute;
                 NPCServerManager.Instance.perceived = false;
@@ -122,14 +108,12 @@ public class GameManager : MonoBehaviour
                 continue;
             }
             
-            //Debug.Log("2 "+step);
             if (minute - lasttime >= stepTime || pStep > step)
             {
                 //step이 올라가는 타이밍이 왔을 때 딱 한번만 호출
                 if (pStep == step && NPCServerManager.Instance.getReaction)
                 {
                     lasttime = minute;
-                    //Debug.Log("perceive"+step);
                     SaveJsonFile(); //perceive 
                     NPCServerManager.Instance.getReaction = false;
                     pStep++;
@@ -138,11 +122,9 @@ public class GameManager : MonoBehaviour
                 //server가 Perceive 파일을 받았을 때 
                 if (NPCServerManager.Instance.perceived)
                 {
-                   //Debug.Log("Get Step "+step);
                     GetMovement(step);
                     step++;
                     NPCServerManager.Instance.perceived = false;
-
                 }
             }
 
@@ -152,15 +134,12 @@ public class GameManager : MonoBehaviour
 
     private void GetMovement(int stepNumber)
     {
-        /* Use Local Movement File */
         if (isUsingMovementLocalFile)
         { 
             string json = File.ReadAllText("Assets/Resources/NPCMovementFile.json");
             
             var resultData = JObject.Parse(json)["persona"]; 
             
-            //Debug.Log(resultData);
-
             List<string> personas = new List<string>();
             List<string> act_address   = new List<string>();
             List<string> pronunciatio  = new List<string>();
@@ -175,30 +154,23 @@ public class GameManager : MonoBehaviour
                 act_address.Add(property.Value["act_address"].ToString());
                 pronunciatio.Add(property.Value["pronunciatio"].ToString());
                 description.Add(property.Value["description"].ToString());
-                //Debug.Log(property.Value["chat"].ToString());
                     
                 foreach (var chatlist in property.Value["chat"])
                 {
-                   
                     var chatEntry = chatlist.Select(item => item.ToString()).ToList();
                     chat.Add(chatEntry);
                     chats.Add(chat);
-                    //Debug.Log(chats.Count+":Count"+chatEntry);
-                    //chats.Add(chatlist.ToObject<List<string>>());
                 }
             }
-
 
             for(int i=0; i< personas.Count; i++)
             {
                 Persona newMovementInfo = new Persona(personas[i], act_address[i], pronunciatio[i], description[i], chats[i]);
-               
                 personaList.Add(newMovementInfo);
             }
         }
         else
         {
-            // get movement api 
             StartCoroutine(NPCServerManager.Instance.GetMovementCoroutine(gameName, stepNumber));
             personaList = NPCServerManager.Instance.CurrentMovementInfo;
         }
@@ -209,34 +181,27 @@ public class GameManager : MonoBehaviour
             return;
         }
             
-
         foreach (var perceivedInfo in existingInfo.perceived_info)
         {            
             npcIndex = FindNPCIndex(perceivedInfo.persona);
             
-            // NPC에 해당하는 persona가 movement file에 존재함
             if(personaList[npcIndex].Name == NPC[npcIndex].name)
             {
                 /* --- ACT ADDRESS --- */
-                // tag extract
                 (string tag, string content) = ExtractTagAndContent(personaList[npcIndex].ActAddress);
                 
-                // <persona> 
                 if(tag == "persona")
                 {
                     NPCName = content;
 
-                    // meets NPC -> Stop
                     for (int i = 0; i < perceivedInfo.perceived_tiles.Count; i++)
                     {
-                        //Debug.Log("!!!!!! 현재  npc index :  " + npcIndex + NPC[npcIndex]);
                         if (perceivedInfo.perceived_tiles[i].@event[0] == NPCName) 
                         {
-                            // perceive에 만나야 할 persona가 존재함
                             int otherNpcIndex = FindNPCIndex(NPCName);
                             NPC[npcIndex].navMeshAgent.isStopped = true;
                                         
-                            string otherNPCName = perceivedInfo.perceived_tiles[i].@event[0]; // 상대방 NPC
+                            string otherNPCName = perceivedInfo.perceived_tiles[i].@event[0]; 
                             string firstNPCName = NPC[npcIndex].gameObject.name.CompareTo(otherNPCName) < 0 ? NPC[npcIndex].gameObject.name : otherNPCName;
                             string secondNPCName = NPC[npcIndex].gameObject.name.CompareTo(otherNPCName) < 0 ? otherNPCName : NPC[npcIndex].gameObject.name;
                                         
@@ -252,58 +217,44 @@ public class GameManager : MonoBehaviour
                                         
                                 for (int k = 0; k < chatList.Count; k++)
                                 {
-                                    //Debug.Log(personaList[npcIndex].Name + "  " +k);
                                     var chat = chatList[k];
                                     string speaker = chat[0].ToString();
                                     string dialogue = chat[1].ToString();
-                                    
-                                    //Debug.Log(speaker  + "  " + dialogue);
 
+                                    Debug.Log("발화자 : " + speaker + personaList[npcIndex].Name);
+                                    Debug.Log("내용 : "  +dialogue);
+                                    
+                                    
                                     if (chatManager.dialogues.Count < npcIndex+1)
                                     {
-                                        for (int j = chatManager.dialogues.Count; j < npcIndex+1; j++)
+                                        for (int j = 0; j < npcIndex+1; j++)
                                         {   
                                             chatManager.dialogues.Add(new DialoguesList());
                                         }
                                     }
 
-                                    if (chatManager.dialogues[npcIndex].dialogues.Count <= k)
+                                    chatManager.dialogues[npcIndex].dialogues.Add(new DialogueData
                                     {
-                                        if (k % 2 == 0)
-                                        {
-                                           speakerIndex = 0;
-                                        }    
-                                        else
-                                        {
-                                            speakerIndex = 1;
-                                        }
-                                                            
-                                        chatManager.dialogues[npcIndex].dialogues.Add(new DialogueData
-                                        {
-                                            dialogue = dialogue,
-                                            name = speaker,
-                                            speakerIndex = speakerIndex
-                                        });
-                                    }  
+                                        dialogue = dialogue,
+                                        name = speaker,
+                                        speakerIndex = k % 2
+                                    });
+                                      
 
                                     NPC[npcIndex].IconBubble.SetActive(true);
                                     NPC[otherNpcIndex].IconBubble.SetActive(true);
                                     chatManager.isChatting = true;
-    
                                 }
 
-                                // 현재 문제는 0 햇다가 기다리고  3 이어야하는데 바로 3이 대입된다는거임 .. 
                                 chatManager.npcIndex = npcIndex;
                                 chatManager.isFirst = true;
                             }
 
                             conversationPairs.Add(conversationPair);
-                                                          
                         }
                     }
                 }
 
-                // <location>
                 else if(tag == "location")
                 {
                     GetLocation(content, npcIndex);
@@ -316,111 +267,6 @@ public class GameManager : MonoBehaviour
                 NPC[npcIndex].DescriptionBubble.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = personaList[npcIndex].Description;
             }
         }                
-
-        /* read get movement */ 
-        /*
-        foreach(var movementInfo in personaList)
-        { 
-            foreach (var perceivedInfo in existingInfo.perceived_info)
-            {
-                int npcIndex = FindNPCIndex(perceivedInfo.persona);
-
-                // NPC에 해당하는 persona가 movement file에 존재함
-                if(movementInfo.Name == NPC[npcIndex].name)
-                {
-                    /* --- ACT ADDRESS --- 
-
-                    // tag extract
-                    (string tag, string content) = ExtractTagAndContent(movementInfo.ActAddress);
-
-                    // <persona> 
-                    if(tag == "persona")
-                    {
-                        NPCName = content;
-
-                        // meets NPC -> Stop
-                        for (int i = 0; i < perceivedInfo.perceived_tiles.Count; i++)
-                        {
-                            if (perceivedInfo.perceived_tiles[i].@event[0] == NPCName) 
-                            {
-                                // perceive에 만나야 할 persona가 존재함
-                                int otherNpcIndex = FindNPCIndex(NPCName);
-                                NPC[npcIndex].navMeshAgent.isStopped = true;
-                                        
-                                string otherNPCName = perceivedInfo.perceived_tiles[i].@event[0]; // 상대방 NPC
-                                string firstNPCName = NPC[npcIndex].gameObject.name.CompareTo(otherNPCName) < 0 ? NPC[npcIndex].gameObject.name : otherNPCName;
-                                string secondNPCName = NPC[npcIndex].gameObject.name.CompareTo(otherNPCName) < 0 ? otherNPCName : NPC[npcIndex].gameObject.name;
-                                        
-                                string conversationPair = $"{firstNPCName}-{secondNPCName}";
-
-                                if (conversationPairs.Contains(conversationPair))
-                                {
-                                    continue; // Skip if conversation already exists
-                                }
-                                else
-                                {
-                                    if (!chatManager.isChatting)
-                                    {
-                                        //Debug.Log(NPC[npcIndex]);
-                                        NPC[npcIndex].IconBubble.SetActive(true);
-                                        NPC[otherNpcIndex].IconBubble.SetActive(true);
-
-                                        // 나주교 chat 만 불러와야함
-                                        
-                                            for (int k = 0; k < personaList[npcIndex].Chat.Count; k++)
-                                            {
-                                                Debug.Log(personaList[npcIndex].Name);
-
-                                                var chat = movementInfo.Chat[k];
-                                                string speaker = chat[0].ToString();
-                                                string dialogue = chat[1].ToString();
-
-                                                if (chatManager.dialogues.Count <= k)
-                                                {
-                                                    if (k % 2 == 0)
-                                                        speakerIndex = 1;
-                                                    else
-                                                        speakerIndex = 0;
-
-                                                    chatManager.dialogues.Add(new DialogueData
-                                                    {
-                                                        dialogue = dialogue,
-                                                        name = speaker,
-                                                        speakerIndex = speakerIndex
-                                                    });
-
-                                                    chatManager.isFirst = true;
-                                                }
-
-                                            }
-                                            
-                                            //yield return new WaitUntil(()=>dialogueManager.UpdateDialogue());
-                                    }
-                                    
-                                            
-                                    conversationPairs.Add(conversationPair);
-                                }                                
-                        
-
-                                
-                            }
-                        }
-                    }
-                    // <location>
-                    else if(tag == "location")
-                    {
-                        GetLocation(content, npcIndex);
-                    }
-                    
-                    /* --- PRONUNCIATIO --- 
-                    NPC[npcIndex].IconBubble.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text += movementInfo.Pronunciatio;  
-
-                    /* --- DESCRIPTION ---
-                    NPC[npcIndex].DescriptionBubble.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = movementInfo.Description;
-                }
-            }                
-        }*/
-    
     } 
 
     private void GetLocation(string content, int npcIndex)
@@ -453,13 +299,10 @@ public class GameManager : MonoBehaviour
             foreach (var perceivedInfo in existingInfo.perceived_info)
             {
                 npcIndex = FindNPCIndex(perceivedInfo.persona);
-                Debug.Log("perceive : " + NPC[npcIndex]);
                 
                 if (npcIndex != -1)
                 {
-                    /*  UPDATE curr_address */
-                    //curr_address 에 ": : :" 요형태 있어야 오류 안남. ""(빈스트링)도 안됨.
-                    existingInfo.perceived_info[npcIndex].curr_address = "home:home:home:home";//NPC[npcIndex]._locationName;
+                    existingInfo.perceived_info[npcIndex].curr_address = "home:home:home:home";
 
                     for (int k = 0; k < NPC[npcIndex].detectedObjects.Count; k++)
                     {
@@ -470,12 +313,10 @@ public class GameManager : MonoBehaviour
                                 existingInfo.perceived_info[npcIndex].perceived_tiles.Add(new PerceivedTile());
                             }
 
-                            // PerceivedTile 초기화
                             existingInfo.perceived_info[npcIndex].perceived_tiles[k].@event = new string[4]; 
 
                             try
                             {
-                                /*  UPDATE perceived_tiles.dist */ 
                                 existingInfo.perceived_info[npcIndex].perceived_tiles[k].dist =
                                     Vector2.Distance(NPC[npcIndex].transform.position, NPC[npcIndex].detectedObjects[k].transform.position);
 
@@ -486,64 +327,13 @@ public class GameManager : MonoBehaviour
                                 throw;
                             }
                             
-                            /*  UPDATE perceived_tiles.@event */ 
                             existingInfo.perceived_info[npcIndex].perceived_tiles[k].@event[0] = NPC[npcIndex].detectedObjects[k].gameObject.name;
 
-                            // Set the rest of @event to null
                             for (int j = 1; j < 4; j++)
                             {
                                 existingInfo.perceived_info[npcIndex].perceived_tiles[k].@event[j] = null;
                             }
                         }
-
-                        
-                        /*   
-                        if (NPC[npcIndex].detectedObjects[k].CompareTag("NPC"))
-                        {
-                            while(existingInfo.perceived_info[npcIndex].perceived_tiles.Count < k + 1)
-                            {
-                                existingInfo.perceived_info[npcIndex].perceived_tiles.Add(new PerceivedTile());
-                            }
-
-                            try
-                            {
-                                /*  UPDATE perceived_tiles.dist 
-                                existingInfo.perceived_info[npcIndex].perceived_tiles[k].dist =
-                                    Vector2.Distance(NPC[npcIndex].transform.position, NPC[npcIndex].detectedObjects[k].transform.position);
-
-                            }
-                            catch (Exception  e)
-                            {
-                                Console.WriteLine(e);
-                                //Debug.Log("Index "+ npcIndex);
-                                throw;
-                            }
-                            
-                            /*  UPDATE perceived_tiles.@event 
-                            if(existingInfo.perceived_info[npcIndex].perceived_tiles[k].@event == null)
-                            {
-                                //이벤트는 무조건 요소 4개 가지고 있는 배열이라 리스트에서 바꿈
-                                existingInfo.perceived_info[npcIndex].perceived_tiles[k].@event = new string[4]; 
-                               
-                                existingInfo.perceived_info[npcIndex].perceived_tiles[k].@event[0] = NPC[npcIndex].detectedObjects[k].gameObject.name;
-                            }
-
-                            //지워도 될듯. 리스트를 배열로 바꾸면서 필요 없어짐.
-                            // while (existingInfo.perceived_info[npcIndex].perceived_tiles[k].@event.Count <= 3)
-                            // {
-                            //     existingInfo.perceived_info[npcIndex].perceived_tiles[k].@event.Add(null);
-                            // }
-
-                            //사람 이름 넣는 코드 -> key "node_1"에러 나서 주석처리해둠
-                           //existingInfo.perceived_info[npcIndex].perceived_tiles[k].@event[0] = NPC[npcIndex]._detectedObject[k].gameObject.name.ToString();
-
-                           //지워도 될듯. 리스트를 배열로 바꾸면서 필요 없어짐.
-                            // Set the rest of @event to null
-                            for (int j = 1; j < 4; j++)
-                            {
-                                //existingInfo.perceived_info[npcIndex].perceived_tiles[k].@event[j] = null;
-                            }
-                        }*/ 
                         else
                         {
                             existingInfo.perceived_info[npcIndex].perceived_tiles = null;
@@ -553,15 +343,9 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        // Convert LunaData to JSON
         string PerceiveData = JsonConvert.SerializeObject(existingInfo, Formatting.Indented);
-        
-        // Save the JSON data to a file
-        //string filePath = "Assets/NPCPerceiveFile.json";
-        // Debug.Log(PerceiveData);
         File.WriteAllText(filePath, PerceiveData);
        
-        //recall Perceive Post API
         StartCoroutine(NPCServerManager.Instance.PostPerceiveCoroutine(PerceiveData,gameName,step));
     }
 
@@ -594,5 +378,5 @@ public class GameManager : MonoBehaviour
         {
             return (null, null); 
         }
-    }
+    }  
 }
