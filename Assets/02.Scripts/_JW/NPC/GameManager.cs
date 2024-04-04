@@ -212,9 +212,18 @@ public class GameManager : MonoBehaviour
                                 continue; 
                             }
                             else
-                            {                                
-                                var chatList = personaList[npcIndex].Chat;
-                                        
+                            {                   
+                                conversationPairs.Add(conversationPair);
+
+                                var chatList = personaList[npcIndex].Chat;        
+                                chatManager.LoadDialogue(chatList, npcIndex); 
+
+                                NPC[npcIndex].IconBubble.SetActive(true);
+                                NPC[otherNpcIndex].IconBubble.SetActive(true);
+                                //chatManager.isChatting = true;
+                            }
+                            /*
+
                                 for (int k = 0; k < chatList.Count; k++)
                                 {
                                     var chat = chatList[k];
@@ -244,13 +253,7 @@ public class GameManager : MonoBehaviour
                                     NPC[npcIndex].IconBubble.SetActive(true);
                                     NPC[otherNpcIndex].IconBubble.SetActive(true);
                                     chatManager.isChatting = true;
-                                }
-
-                                chatManager.npcIndex = npcIndex;
-                                chatManager.isFirst = true;
-                            }
-
-                            conversationPairs.Add(conversationPair);
+                                }*/
                         }
                     }
                 }

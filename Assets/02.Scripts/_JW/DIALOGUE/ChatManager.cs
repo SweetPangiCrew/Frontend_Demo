@@ -26,7 +26,13 @@ public class ChatManager : MonoBehaviour
 
     void Start()
     {
-      
+        if (dialogues == null)
+        {
+            for (int j = 0; j < gameManager.NPC.Count+1; j++)
+            {   
+                dialogues.Add(new DialoguesList());
+            }
+        }
     }
 
     void Update()
@@ -40,9 +46,38 @@ public class ChatManager : MonoBehaviour
                 isFirst = false;
             }
             isChatting = false;
+        }
+    }
+
+    public void LoadDialogue(List<List<string>> chatList, int npcIndex)
+    {
+        for (int k = 0; k < chatList.Count; k++)
+        {
+            var chat = chatList[k];
+            string speaker = chat[0].ToString();
+            string dialogue = chat[1].ToString();
+
+            Debug.Log("발화자 : " + speaker + "NPC 번호 : "+ npcIndex);
+            Debug.Log("내용 : "  +dialogue);
+
+            if (dialogues.Count < gameManager.NPC.Count)
+            {
+                for (int j = 0; j < gameManager.NPC.Count; j++)
+                {   
+                    dialogues.Add(new DialoguesList());
+                }
+            }
+
+            dialogues[npcIndex].dialogues.Add(new DialogueData
+            {
+                dialogue = dialogue,
+                name = speaker,
+                speakerIndex = k % 2
+            });                         
 
         }
     }
+    
     private IEnumerator AutoDialogue()
     {
         while (dialogues.Count > currentDialogueIndex + 1)
