@@ -39,9 +39,7 @@ public class ChatManager : MonoBehaviour
     {
         if(isChatting)
         {
-            Debug.Log("현재 순번 " + npcIndex);
-            StartCoroutine(AutoDialogue(npcIndex));
-                       
+            StartCoroutine(AutoDialogue(npcIndex));                     
             
         }
     }
@@ -90,8 +88,6 @@ public class ChatManager : MonoBehaviour
     {
         SetActiveObjects(speakers[currentSpeakerIndex], false);
         currentDialogueIndex++;
-        Debug.Log("currentDialogueIndex : " + currentDialogueIndex);
-        Debug.Log("dialogue 개수 : " + dialogues[npcIndex].dialogues.Count);
         
         if (currentDialogueIndex < dialogues[npcIndex].dialogues.Count)
         {
@@ -100,15 +96,15 @@ public class ChatManager : MonoBehaviour
                 currentSpeakerIndex = dialogues[npcIndex].dialogues[currentDialogueIndex].speakerIndex;
 
                 // Kakao Talk Dialogue
-                GameObject TextClone = Instantiate(speakers[currentSpeakerIndex].textArea, ContentRect);
+                GameObject TextClone = Instantiate(speakers[npcIndex].textArea, ContentRect);
                 AreaScript Area = TextClone.GetComponent<AreaScript>();
 
                 Area.TextRect.GetComponent<TextMeshProUGUI>().text = dialogues[npcIndex].dialogues[currentDialogueIndex].dialogue;
                 Area.NameText.text = dialogues[npcIndex].dialogues[currentDialogueIndex].name;
 
                 // Speech Bubble Dialogue
-                SetActiveObjects(speakers[currentSpeakerIndex], true);
-                speakers[currentSpeakerIndex].dialogueText.text = dialogues[npcIndex].dialogues[currentDialogueIndex].dialogue;
+                SetActiveObjects(speakers[npcIndex], true);
+                speakers[npcIndex].dialogueText.text = dialogues[npcIndex].dialogues[currentDialogueIndex].dialogue;
 
                 scrollBar.value = 0;
             }

@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
 
     // timer
     private DateTime curr_time;
-    private int stepTime = 18; // 게임 시간으로 18분 마다 스텝이 업데이트 됨.
+    private int stepTime = 18; // 게임 ?�간?�로 18�?마다 ?�텝???�데?�트 ??
 
     // Get Movement
     private int step;
@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
         if (gameName != "")
         {
             gameName = Database.Instance.gameName;
-            step = Database.Instance.StartStep; // 초기화는 0으로, game load한거라면 다름.
+            step = Database.Instance.StartStep; // 초기?�는 0?�로, game load?�거?�면 ?�름.
         }
         else
         {
@@ -88,14 +88,14 @@ public class GameManager : MonoBehaviour
     private IEnumerator InvokePerceive()
     {
         int lasttime = curr_time.Hour * 60 + curr_time.Minute;
-        int pStep = 1; //이미 base에서 perceive가 0이 있음.
+        int pStep = 1; //?��? base?�서 perceive가 0???�음.
         while (true)
         {
             curr_time = Clock.Instance.GetCurrentTime();
 
             int minute = curr_time.Hour * 60 + curr_time.Minute; 
             
-            //server manage에서 서버가 안 열렸을때
+            //server manage?�서 ?�버가 ???�렸?�때
             if (!NPCServerManager.Instance.serverOpened & !isTest) { yield return new WaitForSeconds(1f); continue;}
             
             if (step == 0)
@@ -110,7 +110,7 @@ public class GameManager : MonoBehaviour
             
             if (minute - lasttime >= stepTime || pStep > step)
             {
-                //step이 올라가는 타이밍이 왔을 때 딱 한번만 호출
+                //step???�라가???�?�밍???�을 ?????�번�??�출
                 if (pStep == step && NPCServerManager.Instance.getReaction)
                 {
                     lasttime = minute;
@@ -119,7 +119,7 @@ public class GameManager : MonoBehaviour
                     pStep++;
                 }
 
-                //server가 Perceive 파일을 받았을 때 
+                //server가 Perceive ?�일??받았????
                 if (NPCServerManager.Instance.perceived)
                 {
                     GetMovement(step);
@@ -128,7 +128,7 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-            yield return new WaitForSeconds(1f); //10초를 18로 나눴을 때 0.55556이라 0.5씩 반복하면 1분 단위 게임 시간을 모두 체크함.
+            yield return new WaitForSeconds(1f); //10초�? 18�??�눴????0.55556?�라 0.5??반복?�면 1�??�위 게임 ?�간??모두 체크??
         }
     }
 
