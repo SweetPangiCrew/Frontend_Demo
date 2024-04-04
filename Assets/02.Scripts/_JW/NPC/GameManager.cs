@@ -159,8 +159,9 @@ public class GameManager : MonoBehaviour
                 {
                     var chatEntry = chatlist.Select(item => item.ToString()).ToList();
                     chat.Add(chatEntry);
-                    chats.Add(chat);
+                  
                 }
+                chats.Add(chat);
             }
 
             for(int i=0; i< personas.Count; i++)
