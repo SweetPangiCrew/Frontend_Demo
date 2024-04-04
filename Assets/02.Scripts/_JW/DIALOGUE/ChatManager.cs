@@ -35,17 +35,14 @@ public class ChatManager : MonoBehaviour
         }
     }
 
-    void Update()
+    public void StartDialogue(int npcIndex)
     {
         if(isChatting)
         {
-            if (isFirst)
-            {
-                Debug.Log("현재 순번 " + npcIndex);
-                StartCoroutine(AutoDialogue());
-                isFirst = false;
-            }
-            isChatting = false;
+            Debug.Log("현재 순번 " + npcIndex);
+            StartCoroutine(AutoDialogue(npcIndex));
+                       
+            
         }
     }
 
@@ -56,9 +53,6 @@ public class ChatManager : MonoBehaviour
             var chat = chatList[k];
             string speaker = chat[0].ToString();
             string dialogue = chat[1].ToString();
-
-            Debug.Log("발화자 : " + speaker + "NPC 번호 : "+ npcIndex);
-            Debug.Log("내용 : "  +dialogue);
 
             if (dialogues.Count < gameManager.NPC.Count)
             {
@@ -76,22 +70,23 @@ public class ChatManager : MonoBehaviour
             });                         
 
         }
+
+        isChatting = true;
     }
     
-    private IEnumerator AutoDialogue()
+    private IEnumerator AutoDialogue(int npcIndex)
     {
-        while (dialogues.Count > currentDialogueIndex + 1)
-            {
-                SetNextDialogue();
-                yield return new WaitForSeconds(2);
-            }
-
-        isChatting = false;
+        while (dialogues[npcIndex].dialogues.Count > currentDialogueIndex + 1)
+        {
+            SetNextDialogue(npcIndex);
+            yield return new WaitForSeconds(2);
+        }
+        
         SetActiveObjects(speakers[currentSpeakerIndex], false);
 
     }
 
-    private void SetNextDialogue()
+    private void SetNextDialogue(int npcIndex)
     {
         SetActiveObjects(speakers[currentSpeakerIndex], false);
         currentDialogueIndex++;

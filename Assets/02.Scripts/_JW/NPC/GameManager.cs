@@ -221,40 +221,7 @@ public class GameManager : MonoBehaviour
 
                                 NPC[npcIndex].IconBubble.SetActive(true);
                                 NPC[otherNpcIndex].IconBubble.SetActive(true);
-                                //chatManager.isChatting = true;
                             }
-                            /*
-
-                                for (int k = 0; k < chatList.Count; k++)
-                                {
-                                    var chat = chatList[k];
-                                    string speaker = chat[0].ToString();
-                                    string dialogue = chat[1].ToString();
-
-                                    Debug.Log("발화자 : " + speaker + personaList[npcIndex].Name);
-                                    Debug.Log("내용 : "  +dialogue);
-                                    
-                                    
-                                    if (chatManager.dialogues.Count < npcIndex+1)
-                                    {
-                                        for (int j = 0; j < npcIndex+1; j++)
-                                        {   
-                                            chatManager.dialogues.Add(new DialoguesList());
-                                        }
-                                    }
-
-                                    chatManager.dialogues[npcIndex].dialogues.Add(new DialogueData
-                                    {
-                                        dialogue = dialogue,
-                                        name = speaker,
-                                        speakerIndex = k % 2
-                                    });
-                                      
-
-                                    NPC[npcIndex].IconBubble.SetActive(true);
-                                    NPC[otherNpcIndex].IconBubble.SetActive(true);
-                                    chatManager.isChatting = true;
-                                }*/
                         }
                     }
                 }
