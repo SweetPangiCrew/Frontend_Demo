@@ -42,7 +42,17 @@ public class LoadChatListManager :  HttpServerBase
             GameURL.NPCServer.Server_URL = GameURL.NPCServer.Local_URL;
         }
 
-        ClickButtonLoadChatList();
+        // ClickButtonLoadChatList();
+    }
+
+    private void OnDisable()
+    {
+        // 자식 GameObject를 모두 파괴합니다.
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            Destroy(transform.GetChild(i).gameObject);
+        }
+ 
     }
 
     public void ClickButtonLoadChatList()
@@ -63,9 +73,7 @@ public class LoadChatListManager :  HttpServerBase
                 GameObject prefab = Instantiate(prefabToLoad,transform);
               
                 prefab.GetComponentInChildren<TextMeshProUGUI>().text = chatList.Key;
-               
-            
-
+                
                foreach (var chat in chatList.Value)
                {     GameObject chatPrefab = Instantiate(prefabChat,prefab.transform);
                    try
