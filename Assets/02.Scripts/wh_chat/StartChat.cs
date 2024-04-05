@@ -5,6 +5,8 @@ using UnityEngine;
 public class StartChat : MonoBehaviour
 {
     public GameObject chatPanel;
+    public SendMessage sendMessage;
+    public NPCQuizManager npcQuizManager;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +28,9 @@ public class StartChat : MonoBehaviour
             {
                 chatPanel.SetActive(true);
                 Time.timeScale = 0;
+
+                sendMessage.targetPersonaName = collision.gameObject.name;
+                npcQuizManager.NPCName = collision.gameObject.name;
             }
         }
     }

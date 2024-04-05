@@ -9,8 +9,8 @@ using TMPro;
 public class SendMessage : MonoBehaviour
 {
     // chatting transfer limit
-    private int maxTransferNum = 5;
-    private int transferNum = 0; // Number of transfers
+    public int maxTransferNum = 5;
+    public int transferNum = 0; // Number of transfers
 
     private int max_length = 100;
     // chatting UI
@@ -20,6 +20,9 @@ public class SendMessage : MonoBehaviour
     public TMP_InputField inputField;
     private UnityEngine.UI.Button sendBtn;
     public string targetPersonaName = "이자식";
+
+    // npc quiz
+    public GameObject NPCQuizPanel;
     
     
 
@@ -58,7 +61,7 @@ public class SendMessage : MonoBehaviour
         }
         else
         {
-            maxTransferNum = 10;
+            maxTransferNum = 4;
             max_length = 100;
         }
     }
@@ -133,6 +136,8 @@ public class SendMessage : MonoBehaviour
         
         //scrollview
         scrollBar.value = 0;
+
+        
     }
     
     public IEnumerator showNPCMessageCoroutine()
@@ -159,6 +164,13 @@ public class SendMessage : MonoBehaviour
                     inputField.text = "더 이상 메세지를 전송할 수 없습니다.";
                     inputField.interactable = false;
                     sendBtn.interactable = false;
+
+                    if (transferNum == maxTransferNum)
+                    {
+  
+                        StartCoroutine("StartNPCQuiz");
+
+                    }
                 }
                 break;
             } 
@@ -166,6 +178,15 @@ public class SendMessage : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         
         scrollBar.value = 0;
+    }
+
+    IEnumerator StartNPCQuiz()
+    {
+        yield return new WaitForSeconds(3f);
+        
+        Debug.Log("대화 종료. 퀴즈 시작");
+        // 대화 종료 후 퀴즈 시작
+        NPCQuizPanel.SetActive(true);
     }
     
 }

@@ -66,7 +66,7 @@ public class PlayerAction : MonoBehaviour
     void OnTriggerExit2D(Collider2D other)
     {
         Canvas_Location.GetComponent<Animator>().Play("Location_Tag_Inactive");
-    }   
+    }
 
 
     void FixedUpdate()
@@ -74,7 +74,7 @@ public class PlayerAction : MonoBehaviour
         rigid.velocity = new Vector2(h * speed, v * speed);
 
         //move animation
-        animator.SetBool("isWalk", rigid.velocity.x != 0 || rigid.velocity.y != 0);   
+        animator.SetBool("isWalk", rigid.velocity.x != 0 || rigid.velocity.y != 0);
         animator.SetBool("walk_f", rigid.velocity.x == 0 && rigid.velocity.y < 0);   //down
         animator.SetBool("walk_l", rigid.velocity.x < 0);   //left
         animator.SetBool("walk_r", rigid.velocity.x > 0);   //right
