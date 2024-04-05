@@ -10,6 +10,7 @@ using Newtonsoft.Json.Linq;
 using System.Text.RegularExpressions;
 using TMPro;
 
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
@@ -30,11 +31,13 @@ public class GameManager : MonoBehaviour
     private Perceive existingInfo;
     public List<NPC> NPC;
     public List<Persona> personaList = new List<Persona>();
+    
+    public bool usingLocalServer = false;
     private string filePath;
 
     // timer
     private DateTime curr_time;
-    private int stepTime = 18; // 게임 ?�간?�로 18�?마다 ?�텝???�데?�트 ??
+    private int stepTime = 18; // 게임 ?�간?�로 18�?마다 ?�텝???�데?�트 ??
 
     // Get Movement
     private int step;
@@ -58,16 +61,24 @@ public class GameManager : MonoBehaviour
         filePath = "Assets/NPCPerceiveFile.json";
         LoadExistingInfo(filePath);
         
-        if (gameName != "")
-        {
-            gameName = Database.Instance.gameName;
-            step = Database.Instance.StartStep; // 초기?�는 0?�로, game load?�거?�면 ?�름.
-        }
-        else
-        {
-            gameName = "game1";
-            isTest = true;
-        }
+        //simCode는 게임 베이스, 지금 당장은 필요 없음. 
+       // simCode = Database.Instance.simCode;
+       if (gameName != "")
+       {
+           gameName = Database.Instance.gameName;
+           step = Database.Instance.StartStep; // 초기화는 0으로, game load한거라면 다름.
+       }
+       else
+       {
+           //로컬 서버 관련 코드
+           if (usingLocalServer)
+           {
+               GameURL.NPCServer.Server_URL = GameURL.NPCServer.Local_URL;
+           }
+
+           gameName = "game1";
+           isTest = true;
+       }
        
         StartCoroutine(InvokePerceive());        
     }
@@ -88,14 +99,14 @@ public class GameManager : MonoBehaviour
     private IEnumerator InvokePerceive()
     {
         int lasttime = curr_time.Hour * 60 + curr_time.Minute;
-        int pStep = 1; //?��? base?�서 perceive가 0???�음.
+        int pStep = 1; //?��? base?�서 perceive가 0???�음.
         while (true)
         {
             curr_time = Clock.Instance.GetCurrentTime();
 
             int minute = curr_time.Hour * 60 + curr_time.Minute; 
             
-            //server manage?�서 ?�버가 ???�렸?�때
+            //server manage?�서 ?�버가 ???�렸?�때
             if (!NPCServerManager.Instance.serverOpened & !isTest) { yield return new WaitForSeconds(1f); continue;}
             
             if (step == 0)
@@ -110,7 +121,7 @@ public class GameManager : MonoBehaviour
             
             if (minute - lasttime >= stepTime || pStep > step)
             {
-                //step???�라가???�?�밍???�을 ?????�번�??�출
+                //step???�라가???�?�밍???�을 ?????�번�??�출
                 if (pStep == step && NPCServerManager.Instance.getReaction)
                 {
                     lasttime = minute;
@@ -119,7 +130,7 @@ public class GameManager : MonoBehaviour
                     pStep++;
                 }
 
-                //server가 Perceive ?�일??받았????
+                //server가 Perceive ?�일??받았????
                 if (NPCServerManager.Instance.perceived)
                 {
                     GetMovement(step);
@@ -128,7 +139,7 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-            yield return new WaitForSeconds(1f); //10초�? 18�??�눴????0.55556?�라 0.5??반복?�면 1�??�위 게임 ?�간??모두 체크??
+            yield return new WaitForSeconds(1f); //10초�? 18�??�눴????0.55556?�라 0.5??반복?�면 1�??�위 게임 ?�간??모두 체크??
         }
     }
 
@@ -255,7 +266,7 @@ public class GameManager : MonoBehaviour
             {
                 NPC[npcIndex].AddWaypoint(nl);      
                 break; 
-            }
+            }                
         }
     }
 

@@ -23,7 +23,7 @@ public class ChatManager : MonoBehaviour
 
     [SerializeField] public List<Speaker> speakers;
     [SerializeField] public List<DialoguesList> dialogues = new List<DialoguesList>();
-
+    public bool isChattingHistory = false;
     void Start()
     {
         if (dialogues == null)
@@ -32,12 +32,15 @@ public class ChatManager : MonoBehaviour
             {   
                 dialogues.Add(new DialoguesList());
             }
+
         }
+
     }
 
     public void StartDialogue(int npcIndex)
     {
-        if(isChatting)
+     
+        if (isChatting&& !isChattingHistory)
         {
             StartCoroutine(AutoDialogue(npcIndex));                     
             
@@ -72,7 +75,53 @@ public class ChatManager : MonoBehaviour
         isChatting = true;
     }
     
-    private IEnumerator AutoDialogue(int npcIndex)
+    
+    public void showDialogue(List<List<string>> chatInfo)
+    {
+      
+        int speakerIndex = 0;
+        
+        for (int k = 0; k < chatInfo.Count; k++)
+        {
+            string speaker = chatInfo[k][0];
+            string dialogue = chatInfo[k][1];
+            if (dialogues.Count <= k)
+            {
+                if (k % 2 == 0)
+                    speakerIndex = 0;
+                else
+                    speakerIndex = 1;
+
+                dialogues.Add(new DialogueData { dialogue = dialogue, name = speaker, speakerIndex = speakerIndex });
+            }
+        }
+        
+      
+        currentDialogueIndex = 0;
+        while (dialogues.Count > currentDialogueIndex )
+        {  //Debug.Log("---------"+dialogues.Count + ": "+currentDialogueIndex);
+            SetNextDialogueOnlyForHistory();
+            currentDialogueIndex++;
+            
+        }
+        
+        isChatting = false;
+    }
+    
+    private void SetNextDialogueOnlyForHistory()
+    {
+        currentSpeakerIndex = dialogues[currentDialogueIndex].speakerIndex;
+
+        // Kakao Talk Dialogue
+        GameObject TextClone = Instantiate(speakers[currentSpeakerIndex].textArea, ContentRect);
+        AreaScript Area = TextClone.GetComponent<AreaScript>();
+
+        Area.TextRect.GetComponent<TextMeshProUGUI>().text = dialogues[currentDialogueIndex].dialogue;
+        Area.NameText.text = dialogues[currentDialogueIndex].name;
+        scrollBar.value = 1f;
+    }
+
+    private IEnumerator AutoDialogue()
     {
         while (dialogues[npcIndex].dialogues.Count > currentDialogueIndex + 1)
         {
@@ -80,8 +129,8 @@ public class ChatManager : MonoBehaviour
             yield return new WaitForSeconds(2);
         }
         
-        SetActiveObjects(speakers[currentSpeakerIndex], false);
-
+        
+        isChatting = false;
     }
 
     private void SetNextDialogue(int npcIndex)
@@ -115,6 +164,7 @@ public class ChatManager : MonoBehaviour
             Debug.Log("no dialogues exist!");
             //isChatting = false; 
         }
+        scrollBar.value += 0.1f;
     }
 
     private void SetActiveObjects(Speaker speaker, bool visible)
@@ -123,10 +173,8 @@ public class ChatManager : MonoBehaviour
         speaker.dialogueText.gameObject.SetActive(visible);
     }
 
-    public void SetIsChatting(bool _isChatting)
-    {
-        isChatting = _isChatting;
-    }
+   
+   
 }
 
 

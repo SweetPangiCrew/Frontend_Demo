@@ -178,5 +178,4 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
     }
     #endregion
 
-
 }
