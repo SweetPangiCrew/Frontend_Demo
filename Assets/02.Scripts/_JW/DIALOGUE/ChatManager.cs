@@ -18,13 +18,14 @@ public class ChatManager : MonoBehaviour
     private int currentDialogueIndex = -1;
     private int currentSpeakerIndex = 0;
     public bool isFirst = false;
-
     public int npcIndex;
 
     [SerializeField] public List<Speaker> speakers;
     [SerializeField] public List<DialoguesList> dialogues = new List<DialoguesList>();
     [SerializeField] public List<DialogueData> dialogueHistoryList = new List<DialogueData>();
+
     public bool isChattingHistory = false;
+
     void Start()
     {
         if (dialogues == null)
@@ -33,9 +34,7 @@ public class ChatManager : MonoBehaviour
             {   
                 dialogues.Add(new DialoguesList());
             }
-
         }
-
     }
 
     public void StartDialogue(int npcIndex)
@@ -44,7 +43,6 @@ public class ChatManager : MonoBehaviour
         if (isChatting&& !isChattingHistory)
         {
             StartCoroutine(AutoDialogue(npcIndex));                     
-            
         }
     }
 
@@ -79,7 +77,6 @@ public class ChatManager : MonoBehaviour
     
     public void showDialogue(List<List<string>> chatInfo)
     {
-      
         int speakerIndex = 0;
         
         for (int k = 0; k < chatInfo.Count; k++)
@@ -96,14 +93,13 @@ public class ChatManager : MonoBehaviour
                 dialogueHistoryList.Add(new DialogueData { dialogue = dialogue, name = speaker, speakerIndex = speakerIndex });
             }
         }
-        
-      
+
         currentDialogueIndex = 0;
         while (dialogues.Count > currentDialogueIndex )
-        {  //Debug.Log("---------"+dialogues.Count + ": "+currentDialogueIndex);
+        {  
+            //Debug.Log("---------"+dialogues.Count + ": "+currentDialogueIndex);
             SetNextDialogueOnlyForHistory();
             currentDialogueIndex++;
-            
         }
         
         isChatting = false;
@@ -129,8 +125,7 @@ public class ChatManager : MonoBehaviour
             SetNextDialogue(npcIndex);
             yield return new WaitForSeconds(2);
         }
-        
-        
+
         isChatting = false;
     }
 
@@ -158,7 +153,6 @@ public class ChatManager : MonoBehaviour
 
                 scrollBar.value = 0;
             }
-
         }
         else
         {
@@ -172,10 +166,7 @@ public class ChatManager : MonoBehaviour
     {
         speaker.dialougeImage.gameObject.SetActive(visible);
         speaker.dialogueText.gameObject.SetActive(visible);
-    }
-
-   
-   
+    }   
 }
 
 
