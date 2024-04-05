@@ -147,17 +147,11 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
             if(ObjectHit.collider != null)
             {
                 GameObject detectedObject = ObjectHit.collider.gameObject;
-                
                 if(detectedObject.name == "플레이어")
-                {
                     continue;
-                }
                 else if(!detectedObjects.Contains(detectedObject))
-                {
                     detectedObjects.Add(detectedObject);
-                }
             }
-               
         }
     }
     #endregion
