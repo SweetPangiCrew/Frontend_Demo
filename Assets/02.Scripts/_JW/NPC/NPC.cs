@@ -16,22 +16,20 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
     public Persona persona;
 
     // Move
-    public Transform[] _LunaWaypoints;
-    private int _currentWaypointIndex = 0;
-    private float _waitTime = 3f;
-    public NavMeshAgent agent;
-    private float _waitCounter = 0f;
-    private bool _isWaiting = false;
+    public List<Transform> waypoints;
+    private int currentWaypointIndex = 0;
+    private float waitTime = 3f;
+    public NavMeshAgent navMeshAgent;
+    private float waitCounter = 0f;
+    private bool isWaiting = false;
 
     // Perceive
-    public Perceive _perceive;
-    public PerceivedInfo _perceivedInfo;
-
-    public string _name;
-    public Vector2 _location;
-    public string _locationName;
+    public Perceive perceive;
+    public PerceivedInfo perceivedInfo;
+    public Vector2 location;
+    public string locationName;
     public float detectionRadius = 0.65f;
-    public List<GameObject> _detectedObject = null;
+    public List<GameObject> detectedObjects = null;
     Vector2 direction;
     Vector3 rayOrigin;
 
@@ -42,20 +40,42 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
     // Canvas
     public GameObject IconBubble;
     public GameObject SpeechBubble;
+    public GameObject DescriptionBubble;
+
+    // Animator
+    private Animator animator;
 
     void Start()
     {
         // Nav Mesh Agent
-        agent = GetComponent<NavMeshAgent>();
-        
+        navMeshAgent = GetComponent<NavMeshAgent>();
+
+        // Animator
+        animator = GetComponent<Animator>();
+
         // Perceive
-        _perceive = new Perceive()
+        perceive = new Perceive()
         {
             perceived_info = new List<PerceivedInfo>(),
         };
 
         Move();
  
+    }
+    void FixedUpdate()
+    {
+        if(animator)
+        {
+            Vector3 velocity = navMeshAgent.velocity;
+            bool isMoving = velocity.magnitude > 0.1f; // 임의의 최소 속도 설정
+            
+            animator.SetBool("isWalk", isMoving);
+            animator.SetBool("walk_f", velocity.z < -0.1f); // 아래로 이동
+            animator.SetBool("walk_l", velocity.x < -0.1f); // 왼쪽으로 이동
+            animator.SetBool("walk_r", velocity.x > 0.1f);  // 오른쪽으로 이동
+            animator.SetBool("walk_b", velocity.z > 0.1f);  // 위로 이동
+        }
+
     }
 
     void Update()
@@ -64,21 +84,21 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
         transform.rotation = Quaternion.Euler(0, 0, 0);
 
         // NPC Moving
-        if (_isWaiting)
+        if (isWaiting)
         {
-            _waitCounter += Time.deltaTime;
-            if (_waitCounter >= _waitTime)
+            waitCounter += Time.deltaTime;
+            if (waitCounter >= waitTime)
             {
-                _isWaiting = false;
-                _waitCounter = 0f;
-                Move();
+                isWaiting = false;
+                waitCounter = 0f;
+                //Move();
             }
         }
         else
         {
-            if (agent.remainingDistance <= 0.01)
+            if (navMeshAgent.remainingDistance <= 0.01)
             {
-                _isWaiting = true;
+                isWaiting = true;
             }
         }
 
@@ -110,7 +130,7 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
     public void Perceive()
     {
         // update NPC name and location
-        _location = this.GetComponent<Transform>().position;
+        location = this.GetComponent<Transform>().position;
 
         // NPC perceive
         for (int i = 0; i < 36; i++)
@@ -119,7 +139,7 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
 
             // Initialize rayOrigin and direction based on NPC position and angle
             direction = Quaternion.Euler(1, 1, angle) * Vector2.up;
-            rayOrigin = _location + direction * detectionRadius;
+            rayOrigin = location + direction * detectionRadius;
 
             RaycastHit2D ObjectHit = Physics2D.Raycast(rayOrigin, direction, detectionRadius, LayerMask.GetMask("InteractableObject"));
             Debug.DrawRay(rayOrigin, direction * detectionRadius, Color.red);   
@@ -129,9 +149,9 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
                 GameObject detectedObject = ObjectHit.collider.gameObject;
 
                 // Check if the object is not already in the list before adding
-                if (!_detectedObject.Contains(detectedObject))
+                if (!detectedObjects.Contains(detectedObject))
                 {
-                    _detectedObject.Add(detectedObject);
+                    detectedObjects.Add(detectedObject);
                 }
             }
                
@@ -142,14 +162,19 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
     #region MOVE
     public void Move()
     {
-        if (_LunaWaypoints.Length == 0) return;
+        if (waypoints.Count == 0) return;
 
-        Transform nextWaypoint = _LunaWaypoints[_currentWaypointIndex];
-        agent.SetDestination(nextWaypoint.position);
-        _currentWaypointIndex = (_currentWaypointIndex + 1) % _LunaWaypoints.Length;
+        Transform nextWaypoint = waypoints[currentWaypointIndex];
+        navMeshAgent.SetDestination(nextWaypoint.position);
+        currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Count;
         
         // Resume NPC movement
-        agent.isStopped = false;
+        navMeshAgent.isStopped = false;
+    }
+
+    public void AddWaypoint(Transform nl)
+    {
+        waypoints.Insert(currentWaypointIndex, nl);
     }
     #endregion
 

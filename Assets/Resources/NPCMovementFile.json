@@ -2,8 +2,8 @@
   "persona": {
     "나주교": {
       "act_address": "<persona> 오화가",
-      "pronunciatio": "💬",
-      "description": "conversing about This is a conversation about two people greeting each other and discussing how they have been, with one person expressing happiness about spending their time painting landscapes.",
+      "pronunciatio": "<sprite=13>",
+      "description": "오화가와 이야기를 나누는 중...",
       "assembly_attendance": true,
       "chat": [
         [
@@ -22,8 +22,8 @@
     },
     "오화가": {
       "act_address": "<persona> 나주교",
-      "pronunciatio": "💬",
-      "description": "conversing about This is a conversation between 이자식 and 오화가 about how 오화가 is enjoying their time drawing landscape paintings.",
+      "pronunciatio": "<sprite=13>",
+      "description": "나주교와 이야기를 나누는 중...",
       "assembly_attendance": false,
       "chat": [
         [
@@ -42,10 +42,42 @@
     },
     "이자식": {
       "act_address": "<location> the Vile:교회:null:null",
-      "pronunciatio": "😴",
-      "description": "이자식 is sleeping",
+      "pronunciatio": "<sprite=13>",
+      "description": "잠을 자는 중...",
       "assembly_attendance": false,
       "chat": null
+    },
+    "고영이": {
+      "act_address": "<persona> 이화령",
+      "pronunciatio": "<sprite=13>",
+      "description": "이화령과 이야기를 나누는 중...",
+      "assembly_attendance": false,
+      "chat": [
+        [
+          "고영이",
+          "야옹?"
+        ],
+        [
+          "이화령",
+          "야옹."
+        ]
+      ]
+    },
+    "이화령": {
+      "act_address": "<persona> 고영이",
+      "pronunciatio": "<sprite=13>",
+      "description": "고영이와 이야기를 나누는 중...",
+      "assembly_attendance": false,
+      "chat": [
+        [
+          "고영이",
+          "야옹?"
+        ],
+        [
+          "이화령",
+          "야옹."
+        ]
+      ]
     }
   },
   "meta": {

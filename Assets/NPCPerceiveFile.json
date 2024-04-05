@@ -5,27 +5,9 @@
       "curr_address": "home:home:home:home",
       "perceived_tiles": [
         {
-          "dist": 0.9985955,
+          "dist": 1.49403572,
           "event": [
             "오화가",
-            null,
-            null,
-            null
-          ]
-        },
-        {
-          "dist": 0.998641133,
-          "event": [
-            "이자식",
-            null,
-            null,
-            null
-          ]
-        },
-        {
-          "dist": 7.23665333,
-          "event": [
-            "나주교",
             null,
             null,
             null
@@ -38,27 +20,18 @@
       "curr_address": "home:home:home:home",
       "perceived_tiles": [
         {
-          "dist": 0.9985955,
+          "dist": 11.43467,
+          "event": [
+            "플레이어",
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "dist": 1.49403572,
           "event": [
             "나주교",
-            null,
-            null,
-            null
-          ]
-        },
-        {
-          "dist": 1.00557852,
-          "event": [
-            "이자식",
-            null,
-            null,
-            null
-          ]
-        },
-        {
-          "dist": 0.0,
-          "event": [
-            "오화가",
             null,
             null,
             null
@@ -69,29 +42,31 @@
     {
       "persona": "이자식",
       "curr_address": "home:home:home:home",
+      "perceived_tiles": []
+    },
+    {
+      "persona": "고영이",
+      "curr_address": "home:home:home:home",
       "perceived_tiles": [
         {
-          "dist": 1.00557852,
+          "dist": 1.49403572,
           "event": [
-            "오화가",
+            "이화령",
             null,
             null,
             null
           ]
-        },
+        }
+      ]
+    },
+    {
+      "persona": "이화령",
+      "curr_address": "home:home:home:home",
+      "perceived_tiles": [
         {
-          "dist": 0.998641133,
+          "dist": 1.49403572,
           "event": [
-            "나주교",
-            null,
-            null,
-            null
-          ]
-        },
-        {
-          "dist": 7.23665333,
-          "event": [
-            "이자식",
+            "고영이",
             null,
             null,
             null
