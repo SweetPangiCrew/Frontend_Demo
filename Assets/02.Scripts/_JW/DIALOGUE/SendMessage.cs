@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,8 +18,10 @@ public class SendMessage : MonoBehaviour
     public RectTransform ContentRect;
     public Scrollbar scrollBar;
     public TMP_InputField inputField;
-
+    private UnityEngine.UI.Button sendBtn;
     public string targetPersonaName = "이자식";
+    
+    
 
     private bool TestMode = false;
     
@@ -83,8 +86,6 @@ public class SendMessage : MonoBehaviour
             StartCoroutine(showNPCMessageCoroutine());
            
             transferNum++;
-         
-        } else{
             
             Time.timeScale = 1; 
             //종료창 띄워야함.
@@ -102,8 +103,11 @@ public class SendMessage : MonoBehaviour
             
             Area.TextRect.GetComponent<TextMeshProUGUI>().text = inputField.text;
             Area.NameText.text = "player";
+            
             inputField.interactable = false;
-
+            inputField.text = "답변을 기다리는 중입니다...";
+            sendBtn.interactable = false;
+            scrollBar.value = 0;
             //테스트용 코드 : 다른 상대와 대화 초기화하고 대화 시작
             if (TestMode && transferNum == 0) transferNum = -1;
             
@@ -115,22 +119,27 @@ public class SendMessage : MonoBehaviour
     private void NPCMessage(){
         Debug.Log(transferNum + 1 + "번째 메세지 수신");
         GameObject TextClone = Instantiate(_chatManager.OrangeArea, ContentRect);
-
         AreaScript Area = TextClone.GetComponent<AreaScript>();
-        
+        inputField.text = "";
         // NPC message -> text
         Area.TextRect.GetComponent<TextMeshProUGUI>().text = UserChatAPIManager.Instance.ResponseMessageInfo["response"];
 
         // NPC message -> name
         Area.NameText.text = targetPersonaName;
+        
+        //scrollview
+        scrollBar.value = 0;
     }
     
     public IEnumerator showNPCMessageCoroutine()
     {
+        yield return new WaitForSeconds(0.1f);
+        scrollBar.value = 0;
         while (true)
         {
             if(!UserChatAPIManager.Instance.isResponded)
             {
+
                 //메세지 수신 기다리는 중
                 yield return new WaitForSeconds(0.5f);
             }
@@ -139,12 +148,20 @@ public class SendMessage : MonoBehaviour
                 // NPc Message get
                 NPCMessage();
                 inputField.interactable = true;
+                sendBtn.interactable = true;
+              
+                if (transferNum == maxTransferNum)
+                {
+                    inputField.text = "더 이상 메세지를 전송할 수 없습니다.";
+                    inputField.interactable = false;
+                    sendBtn.interactable = false;
+                }
                 break;
-             
-
             } 
         }
-        yield return 0;
+        yield return new WaitForSeconds(0.2f);
+        
+        scrollBar.value = 0;
     }
     
 }

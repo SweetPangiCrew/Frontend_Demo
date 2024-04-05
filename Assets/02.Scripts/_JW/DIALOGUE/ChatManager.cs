@@ -41,7 +41,6 @@ public class ChatManager : MonoBehaviour
             StartCoroutine(AutoDialogue());
             isFirst = false;
         }
-
     }
     
     public void showDialogue(List<List<string>> chatInfo)
@@ -94,10 +93,9 @@ public class ChatManager : MonoBehaviour
         while (dialogues.Count > currentDialogueIndex + 1)
         {
             SetNextDialogue();
-            yield return new WaitForSeconds(2); // 1�� ���
+            yield return new WaitForSeconds(2); 
         }
-
-        // ��ȭ�� ���� �� ó��
+        
         isChatting = false;
     }
 
