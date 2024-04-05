@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class SuccessEvent : MonoBehaviour
 {
     GameObject player;
+    public GameObject panel;
     // Start is called before the first frame update
     void Start()
     {
@@ -71,6 +73,27 @@ public class SuccessEvent : MonoBehaviour
 
         speech.SetActive(true);
         speech.GetComponentInChildren<TextMeshProUGUI>().text = "두고봐라..!";
+
+        //자연신앙 만세
+        yield return new WaitForSeconds(4.0f);
+        GameObject.Find("오화가").transform.Find("NPC Canvas/Speach Bubble").gameObject.SetActive(true);
+        GameObject.Find("오화가").transform.Find("NPC Canvas/Speach Bubble").gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "자연신앙 만세!!!";
+        yield return new WaitForSeconds(4.0f);
+
+        //fade in
+        StartCoroutine("FadeIn");
+
+    }
+
+    IEnumerator FadeIn()
+    {
+        Color color = panel.GetComponent<Image>().color;
+        while (color.a < 1)
+        {
+            color.a += Time.deltaTime / 4;
+            panel.GetComponent<Image>().color = color;
+            yield return null;
+        }
 
     }
 }

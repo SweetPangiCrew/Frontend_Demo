@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class FailEvent : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class FailEvent : MonoBehaviour
     public string[] npc;
 
     public GameObject hole;
+    public GameObject panel;
 
     private bool isActive;
     private int index;
@@ -87,11 +89,10 @@ public class FailEvent : MonoBehaviour
             {
                 GameObject.Find(npc[i]).transform.Find("NPC Canvas/Speach Bubble").gameObject.SetActive(true);
                 GameObject.Find(npc[i]).transform.Find("NPC Canvas/Speach Bubble").gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "와아";
-                yield return new WaitForSeconds(0.1f);
             }
 
         }
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(3f);
 
         // 말풍선 제거
         for (int i = 0; i < npc.Length; i++)
@@ -134,6 +135,32 @@ public class FailEvent : MonoBehaviour
         GameObject.Find("나주교").transform.Find("NPC Canvas/Speach Bubble").gameObject.SetActive(true);
         GameObject.Find("나주교").transform.Find("NPC Canvas/Speach Bubble").gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "킄..크킄..";
 
+        yield return new WaitForSeconds(3f);
+
+        // ending
+        StartCoroutine("FadeIn");
+    }
+
+    IEnumerator FadeIn()
+    {
+/*        float elapsedTime = 0f;
+        float fadedTime = 5.0f;
+
+        while (elapsedTime <= fadedTime)
+        {
+            panel.GetComponent<CanvasRenderer>().SetAlpha(Mathf.Lerp(0f, 1f, elapsedTime / fadedTime));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }*/
+
+        Color color = panel.GetComponent<Image>().color;
+        while (color.a < 1)
+        {
+            color.a += Time.deltaTime / 4;
+            panel.GetComponent<Image>().color = color;
+            yield return null;
+        }
+        
     }
 
 }
