@@ -1,86 +1,97 @@
 {
   "persona": {
-    "나주교": {
-      "act_address": "<persona> 오화가",
-      "pronunciatio": "1f642 1f932",
-      "description": "오화가와 이야기를 나누는 중...",
-      "assembly_attendance": true,
-      "chat": [
-        [
-          "나주교",
-          "안녕하세요! 어떻게 지내세요?"
-        ],
-        [
-          "오화가",
-          "안녕하세요! 잘 살아서 기뻐요. 요즘 풍경화를 그리면서 시간을 보내고 있어요."
-        ],
-        [
-          "나주교",
-          "그렇군요, 풍경화를 그리는 것은 정말 멋진 취미인 것 같네요. 저는 오늘 종교 집회를 위해 바빠요. 나중에 또 얘기해봐요."
-        ]
-      ]
-    },
-    "오화가": {
-      "act_address": "<persona> 나주교",
-      "pronunciatio": "1f642 1f932",
-      "description": "나주교와 이야기를 나누는 중...",
-      "assembly_attendance": false,
-      "chat": [
-        [
-          "나주교",
-          "안녕하세요! 어떻게 지내세요?"
-        ],
-        [
-          "오화가",
-          "안녕하세요! 잘 살아서 기뻐요. 요즘 풍경화를 그리면서 시간을 보내고 있어요."
-        ],
-        [
-          "나주교",
-          "그렇군요, 풍경화를 그리는 것은 정말 멋진 취미인 것 같네요. 저는 오늘 종교 집회를 위해 바빠요. 나중에 또 얘기해봐요."
-        ]
-      ]
-    },
-    "이자식": {
-      "act_address": "<location> the Vile:교회:null:null",
-      "pronunciatio": "1f642 1f932",
-      "description": "잠을 자는 중...",
-      "assembly_attendance": false,
+    "고영이": {
+      "act_address": null,
+      "pronunciatio": "1f4d6.png ",
+      "description": "고영이는 책을 읽고 있다.",
       "chat": null
     },
-    "고영이": {
-      "act_address": "<persona> 이화령",
-      "pronunciatio": "1f642 1f932",
-      "description": "이화령과 이야기를 나누는 중...",
-      "assembly_attendance": false,
-      "chat": [
-        [
-          "고영이",
-          "야옹?"
-        ],
-        [
-          "이화령",
-          "야옹."
-        ]
-      ]
+    "김태리": {
+      "act_address": null,
+      "pronunciatio": "1f634.png ",
+      "description": "김태리는 아직 잠을 자고 있다.",
+      "chat": null
+    },
+    "나주교": {
+      "act_address": null,
+      "pronunciatio": "1f373.png ",
+      "description": "나주교는 아침 식사를 하고 있다.",
+      "chat": null
+    },
+    "변호인": {
+      "act_address": null,
+      "pronunciatio": "1f4da.png",
+      "description": "변호인은 새로운 세무법을 공부하고 있다.",
+      "chat": null
+    },
+    "여이삭": {
+      "act_address": null,
+      "pronunciatio": "1f4fa.png",
+      "description": "여이삭은 TV를 시청하고 있다.",
+      "chat": null
+    },
+    "오서달": {
+      "act_address": null,
+      "pronunciatio": "2615.png 1f389.png",
+      "description": "오서달은 카페 Pera에서 리쿠 생일 카페 기획을 준비하고 있다.",
+      "chat": null
+    },
+    "오화가": {
+      "act_address": null,
+      "pronunciatio": "1f58c-fe0f.png   ",
+      "description": "오화가는 디자인 작업을 하고 있다.",
+      "chat": null
+    },
+    "유리코": {
+      "act_address": null,
+      "pronunciatio": "1f4da.png ",
+      "description": "유리코는 공부를 하고 있다.",
+      "chat": null
+    },
+    "유태호": {
+      "act_address": null,
+      "pronunciatio": "1f373.png ",
+      "description": "유태호는 아침 식사를 준비하고 있다.",
+      "chat": null
+    },
+    "이자식": {
+      "act_address": null,
+      "pronunciatio": "1f634.png ",
+      "description": "이자식은 잠을 자고 있다.",
+      "chat": null
+    },
+    "이장남": {
+      "act_address": null,
+      "pronunciatio": "1f373.png ",
+      "description": "이장남은 아침 식사를 준비하고 있다.",
+      "chat": null
+    },
+    "이지양": {
+      "act_address": null,
+      "pronunciatio": "1f914.png ",
+      "description": "이지양은(는) 아침 식사를 하고 있다.",
+      "chat": null
     },
     "이화령": {
-      "act_address": "<persona> 고영이",
-      "pronunciatio": "1f642",
-      "description": "고영이와 이야기를 나누는 중...",
-      "assembly_attendance": false,
-      "chat": [
-        [
-          "고영이",
-          "야옹?"
-        ],
-        [
-          "이화령",
-          "야옹."
-        ]
-      ]
+      "act_address": null,
+      "pronunciatio": "1f36b.png ",
+      "description": "이화령은 브라우니를 먹고 있다.",
+      "chat": null
+    },
+    "주아령": {
+      "act_address": null,
+      "pronunciatio": "1f345.png ",
+      "description": "주아령은 정원에서 토마토를 수확하고 있다.",
+      "chat": null
+    },
+    "최문식": {
+      "act_address": null,
+      "pronunciatio": "1f468.png 1f4bb.png ",
+      "description": "최문식은 모바일 앱 개발 프로젝트를 진행하고 있다.",
+      "chat": null
     }
   },
   "meta": {
-    "curr_time": "August 01, 2023, 20:30:00"
+    "curr_time": "August 01, 2023, 08:10:00"
   }
 }

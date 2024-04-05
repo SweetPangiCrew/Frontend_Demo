@@ -243,20 +243,21 @@ public class GameManager : MonoBehaviour
                 }
                     
                 /* --- PRONUNCIATIO --- */
-                string[] emoji = personaList[npcIndex].Pronunciatio.Split(' ');
+                string[] emoji = personaList[npcIndex].Pronunciatio.Trim().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
                 for(int i = 0; i < emoji.Length; i++)
                 {
+                    Debug.Log(emoji[i]);
                     string extension = Path.GetExtension(emoji[i]);
+                    
                     string fileNameWithoutExtension = emoji[i].Replace(extension, "");
-
-                    string imagePathWithName = "Pronunciatio/" + emoji[i];
+                    string imagePathWithName = "Pronunciatio/" + fileNameWithoutExtension;
                     Sprite sprite = Resources.Load<Sprite>(imagePathWithName);
 
                     if (sprite != null)
                         NPC[npcIndex].IconBubble.transform.GetChild(0).GetChild(i).GetComponent<Image>().sprite = sprite;
                 }
-                
+
                 /* --- DESCRIPTION --- */
                 NPC[npcIndex].DescriptionBubble.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = personaList[npcIndex].Description;
             }
