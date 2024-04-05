@@ -7,6 +7,8 @@ using TMPro;
 
 public class SendMessage : MonoBehaviour
 {
+    public GameObject chatPanel;
+
     // chatting transfer limit
     private int maxTransferNum = 5;
     private int transferNum = 0; // Number of transfers
@@ -53,6 +55,13 @@ public class SendMessage : MonoBehaviour
         {
             maxTransferNum = 10;
             max_length = 100;
+        }
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            chatPanel.SetActive(true);
         }
     }
 
