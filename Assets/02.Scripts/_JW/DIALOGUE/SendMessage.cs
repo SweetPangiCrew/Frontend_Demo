@@ -25,7 +25,11 @@ public class SendMessage : MonoBehaviour
 
     private bool TestMode = false;
     
-    
+    private void Awake()
+    {
+        sendBtn = GetComponent<UnityEngine.UI.Button>();
+    }
+
     void Start()
     {
         //대화시 시간 멈춤!
