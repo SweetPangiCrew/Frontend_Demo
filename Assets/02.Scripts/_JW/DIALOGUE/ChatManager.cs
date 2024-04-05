@@ -79,6 +79,8 @@ public class ChatManager : MonoBehaviour
     
     public void showDialogue(List<List<string>> chatInfo)
     {
+        
+        
       
         int speakerIndex = 0;
         
@@ -99,7 +101,7 @@ public class ChatManager : MonoBehaviour
         
       
         currentDialogueIndex = 0;
-        while (dialogues.Count > currentDialogueIndex )
+        while (dialogueHistoryList.Count > currentDialogueIndex )
         {  //Debug.Log("---------"+dialogues.Count + ": "+currentDialogueIndex);
             SetNextDialogueOnlyForHistory();
             currentDialogueIndex++;
@@ -116,7 +118,8 @@ public class ChatManager : MonoBehaviour
         // Kakao Talk Dialogue
         GameObject TextClone = Instantiate(speakers[currentSpeakerIndex].textArea, ContentRect);
         AreaScript Area = TextClone.GetComponent<AreaScript>();
-
+        
+        Debug.Log("prefab 생성 대화");
         Area.TextRect.GetComponent<TextMeshProUGUI>().text = dialogueHistoryList[currentDialogueIndex].dialogue;
         Area.NameText.text = dialogueHistoryList[currentDialogueIndex].name;
         scrollBar.value = 1f;

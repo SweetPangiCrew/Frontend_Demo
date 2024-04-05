@@ -107,17 +107,20 @@ public class SendMessage : MonoBehaviour
             
             Area.TextRect.GetComponent<TextMeshProUGUI>().text = inputField.text;
             Area.NameText.text = "player";
-            
-            inputField.interactable = false;
-            inputField.text = "답변을 기다리는 중입니다...";
-            sendBtn.interactable = false;
-            scrollBar.value = 0;
+          
             //테스트용 코드 : 다른 상대와 대화 초기화하고 대화 시작
             if (TestMode && transferNum == 0) transferNum = -1;
             
             StartCoroutine(UserChatAPIManager.Instance.SendMessageCoroutine(Database.Instance.gameName,targetPersonaName,inputField.text,transferNum));
             
+            
             if (TestMode && transferNum == 0) transferNum = 1;
+            
+              
+            inputField.interactable = false;
+            inputField.text = "답변을 기다리는 중입니다...";
+            sendBtn.interactable = false;
+            scrollBar.value = 0;
     }
 
     private void NPCMessage(){

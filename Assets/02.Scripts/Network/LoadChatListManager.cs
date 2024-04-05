@@ -82,6 +82,7 @@ public class LoadChatListManager :  HttpServerBase
                        chatPrefab.transform.Find("Explain").GetComponentInChildren<TextMeshProUGUI>().text = chat[0][1];
                        UnityEngine.UI.Button btn = chatPrefab.GetComponent<UnityEngine.UI.Button>();
                        btn.onClick.AddListener(()=>clickBtnloadChat(chat));
+                       
                    }
                    catch (Exception e)
                    {
