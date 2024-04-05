@@ -1,0 +1,1861 @@
+fileFormatVersion: 2
+guid: 6445c0d9ae16c16448909877a3488e5c
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: RA_Temple_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 290120634f52b1a43ad54785538d9e7b
+      internalID: 1425277140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_1
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 243
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df4e353f563c0114381b42fdf513689b
+      internalID: 367451036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_2
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 243
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c7cfc48ddf3d994f9f65e3990983688
+      internalID: 1313757991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_3
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 241
+        width: 8
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da23b3c1bb7c031488d03c9e06c12d62
+      internalID: 2077552058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_4
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 242
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b03735e74eb8b604ea6eafdc1fa8f490
+      internalID: 1538963132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_5
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 226
+        width: 24
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f9556db4da74454aadc54baf4660214
+      internalID: -738692687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_6
+      rect:
+        serializedVersion: 2
+        x: 372
+        y: 226
+        width: 24
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cdacb6dbe5bed9843a98955ca1aefa2e
+      internalID: -178193969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_7
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 224
+        width: 52
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0fcafdd82e3215f4a869723c282d6cea
+      internalID: -547454686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_8
+      rect:
+        serializedVersion: 2
+        x: 464
+        y: 224
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31d14c282d8112041aef972ce9f1f78a
+      internalID: -991384098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_9
+      rect:
+        serializedVersion: 2
+        x: 517
+        y: 243
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d075af271acc4ff469cde94907609782
+      internalID: -1543835114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_10
+      rect:
+        serializedVersion: 2
+        x: 533
+        y: 243
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a76ddf3655e687642aadcbc929097bf5
+      internalID: -1454344105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_11
+      rect:
+        serializedVersion: 2
+        x: 548
+        y: 241
+        width: 8
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65bd584425c9e364783ced1f8dc458e2
+      internalID: -67800569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_12
+      rect:
+        serializedVersion: 2
+        x: 563
+        y: 242
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 350b5542a6aa09247912d83d4a9e1f14
+      internalID: 187733490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_13
+      rect:
+        serializedVersion: 2
+        x: 596
+        y: 226
+        width: 24
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8bf7b98723137054eb72b86a5470c56b
+      internalID: 1810945129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_14
+      rect:
+        serializedVersion: 2
+        x: 628
+        y: 226
+        width: 24
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32c1da865bd9f234cb05e08c797de350
+      internalID: 216299753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_15
+      rect:
+        serializedVersion: 2
+        x: 662
+        y: 224
+        width: 52
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c81e6634caeb6541bfdd8a59380ef7d
+      internalID: 1469297701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_16
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 224
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4822eae4a69945b4daa6406f012d4b37
+      internalID: 1429613439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_17
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 193
+        width: 40
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6218d042ae520c744b4164e03f660e04
+      internalID: -1263096717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_18
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 225
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee452aff2c6de65428e05b46b44de467
+      internalID: 1886481861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_19
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 225
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6da6d0eb8d4d1c47874875b36b6e04f
+      internalID: -1161257696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_20
+      rect:
+        serializedVersion: 2
+        x: 516
+        y: 193
+        width: 40
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1da99ca6fe2d9d946887f71b57fd6dc9
+      internalID: -1527878615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_21
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 225
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f40bf8e3c3dba2242aba4647ac6f28ca
+      internalID: 702893591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_22
+      rect:
+        serializedVersion: 2
+        x: 580
+        y: 225
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0026cda66a7243a4d81065c3d6ba9baa
+      internalID: -662768534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_23
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 209
+        width: 8
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7154be5a1d0218f41bd94e2503f2da42
+      internalID: 945317911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_24
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 208
+        width: 8
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3aa38119c71f1ae44ae1d50166dfd57f
+      internalID: 1754223225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_25
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 194
+        width: 24
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6a7807d7249bdc4d9478c048e723cbd
+      internalID: -1207678716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_26
+      rect:
+        serializedVersion: 2
+        x: 372
+        y: 194
+        width: 24
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c72e317ba634d074a8bd95bfbeab9e2e
+      internalID: -1018923521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_27
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 184
+        width: 64
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5dac929882e964345baf36d46cd63298
+      internalID: 66979350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_28
+      rect:
+        serializedVersion: 2
+        x: 468
+        y: 176
+        width: 40
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4add18022e1d9a43a0faebfd956672f
+      internalID: -1729795797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_29
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 209
+        width: 8
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b011c108210bdd4bbc5c3bf0c06b011
+      internalID: 2054967848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_30
+      rect:
+        serializedVersion: 2
+        x: 580
+        y: 208
+        width: 8
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61de083d725ac6d408d7865905c4dd83
+      internalID: -1218840975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_31
+      rect:
+        serializedVersion: 2
+        x: 596
+        y: 194
+        width: 24
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56f608841dbe43144a00886e33b49f48
+      internalID: 1124505399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_32
+      rect:
+        serializedVersion: 2
+        x: 628
+        y: 194
+        width: 24
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2327ed57d0869154fbcfc32562afa79e
+      internalID: -789986382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_33
+      rect:
+        serializedVersion: 2
+        x: 656
+        y: 184
+        width: 64
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d47a155216b8d1d448d2991f2abd2ebe
+      internalID: -1683750306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_34
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 176
+        width: 40
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae4fa833418e2514786d516711dd7dbb
+      internalID: -1719712204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_35
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 145
+        width: 40
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e3ebf8af3fc7864a91c1b9a8fcbcba7
+      internalID: 1431342157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_36
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 177
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3428e14ac5e4201478e432d01b2bfaa6
+      internalID: 2140548777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_37
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 177
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d67dc337995470347af5234ea60ac271
+      internalID: -1487640991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_38
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 162
+        width: 24
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec64efe6bcf44024d9ee1d8863abe35a
+      internalID: 900518786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_39
+      rect:
+        serializedVersion: 2
+        x: 372
+        y: 162
+        width: 24
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ef7bb15110b5d548998896d3b513330
+      internalID: 1583329659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_40
+      rect:
+        serializedVersion: 2
+        x: 516
+        y: 145
+        width: 40
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b45a40fdc4f22e54d8d30c722833bd3f
+      internalID: -689216608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_41
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 177
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 334c9c5e4eed7234fbf12ef702ee7b2d
+      internalID: -1759880856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_42
+      rect:
+        serializedVersion: 2
+        x: 580
+        y: 177
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3bcc0a5afbc5dcf4188469ac31eb4e20
+      internalID: -257955482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_43
+      rect:
+        serializedVersion: 2
+        x: 596
+        y: 162
+        width: 24
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f186be60821b7b44fb82d9b1d71ad393
+      internalID: -1290559299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_44
+      rect:
+        serializedVersion: 2
+        x: 628
+        y: 162
+        width: 24
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 766f657cfdbd39f41a6dd33e63b78021
+      internalID: 811430023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_45
+      rect:
+        serializedVersion: 2
+        x: 308
+        y: 161
+        width: 8
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a050c5cb356e2fa4f8ef3d7cbd0bdcba
+      internalID: 713629361
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_46
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 160
+        width: 8
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5866a2e0117e3194b8967f4ed8f1fff7
+      internalID: -1575787054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_47
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 145
+        width: 16
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd35c899f279cde4899e1af110c01500
+      internalID: 585426501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_48
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 145
+        width: 32
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad459185954623e4cb5d9d37fa3edea7
+      internalID: 1287292024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_49
+      rect:
+        serializedVersion: 2
+        x: 466
+        y: 128
+        width: 44
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bcd3fb68e7024d64daf29bd6d38cf11c
+      internalID: -3827539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_50
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 161
+        width: 8
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7981a903369690442becb2ac053b47ec
+      internalID: -1937020158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_51
+      rect:
+        serializedVersion: 2
+        x: 580
+        y: 160
+        width: 8
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: acbe24f3effa88d42af665ca0b97a0c2
+      internalID: 684940774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_52
+      rect:
+        serializedVersion: 2
+        x: 656
+        y: 145
+        width: 16
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22e4392cddb3acc46a5c8762af565a2b
+      internalID: -468061181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_53
+      rect:
+        serializedVersion: 2
+        x: 688
+        y: 145
+        width: 32
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71339b46dafbcd648a874ce22e85b939
+      internalID: 434353740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_54
+      rect:
+        serializedVersion: 2
+        x: 722
+        y: 128
+        width: 44
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7bf196c52a23e7a4cbad1201b0f8cc7b
+      internalID: 992405982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_55
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 100
+        width: 38
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28f9ecbf69176af4ea887126bca23689
+      internalID: 575352385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_56
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 96
+        width: 112
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e8a4bd0f318b3b46afd44b158886c5e
+      internalID: 1925330545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_57
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 130
+        width: 24
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28965938bc08bbd4d93539ec6068ec47
+      internalID: -1180199418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_58
+      rect:
+        serializedVersion: 2
+        x: 372
+        y: 130
+        width: 24
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab75ee1ed6f22f742ae44f7c994c413e
+      internalID: 1906774244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_59
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 116
+        width: 32
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46cdbf28dc1981246a168353ffafb84d
+      internalID: 1251525560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_60
+      rect:
+        serializedVersion: 2
+        x: 517
+        y: 100
+        width: 38
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f62a9976bfc58749a7f7a41775bfc39
+      internalID: -775759146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_61
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 96
+        width: 112
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8d427ff2f9621c41ab066e427dc4477
+      internalID: 789493716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_62
+      rect:
+        serializedVersion: 2
+        x: 596
+        y: 130
+        width: 24
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e3580e6e9a27884fa94a5edd03f147d
+      internalID: 1058798814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_63
+      rect:
+        serializedVersion: 2
+        x: 628
+        y: 130
+        width: 24
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85ef86b20fe49f74d94a8e7438040838
+      internalID: 163697650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_64
+      rect:
+        serializedVersion: 2
+        x: 688
+        y: 116
+        width: 32
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20c7a0fa79309be42a403405fe6d9160
+      internalID: 1921764832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_65
+      rect:
+        serializedVersion: 2
+        x: 468
+        y: 113
+        width: 40
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28b49e55ecb742841a9dde4241929207
+      internalID: -732571083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_66
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 113
+        width: 40
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae67ce586d176d449aa38368defb0d67
+      internalID: 1121798340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_67
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 52
+        width: 38
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ae941ccc3ef7294b87e469bc6807ff6
+      internalID: -808590916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_68
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 64
+        width: 96
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d59fb8bcf1fdbf741947c145cf9e5b34
+      internalID: -1047567089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_69
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 64
+        width: 96
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b019717299f3f14cbf2de363d1239ca
+      internalID: -456847208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_70
+      rect:
+        serializedVersion: 2
+        x: 517
+        y: 52
+        width: 38
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6960d2e6a94702f49905328e37f63fd4
+      internalID: -232647878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_71
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 64
+        width: 96
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e887324e55e02c54899162b8f9ceb93d
+      internalID: -2014071156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_72
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 64
+        width: 96
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6119dd19ae3331c4888e4b9aa4beaf05
+      internalID: 889878710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_73
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 4
+        width: 38
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af846f323d597aa4288506f0c555fd84
+      internalID: 1814090751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_74
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 16
+        width: 208
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac134d3c0a4fb9b42a037e671e1a364e
+      internalID: -920971495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_75
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 0
+        width: 176
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ee6074f4bf28154d94b72913279b383
+      internalID: 825158438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_76
+      rect:
+        serializedVersion: 2
+        x: 517
+        y: 4
+        width: 38
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbcc4eb21192ecc4f90a5eefb22cd849
+      internalID: 1863442720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_77
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 16
+        width: 208
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82e14334066a0014da2472bf75bcf745
+      internalID: -2071125130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RA_Temple_78
+      rect:
+        serializedVersion: 2
+        x: 592
+        y: 0
+        width: 176
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1397a4390b2469b4d87146918ea2c544
+      internalID: -898050692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      RA_Temple_0: 1425277140
+      RA_Temple_1: 367451036
+      RA_Temple_10: -1454344105
+      RA_Temple_11: -67800569
+      RA_Temple_12: 187733490
+      RA_Temple_13: 1810945129
+      RA_Temple_14: 216299753
+      RA_Temple_15: 1469297701
+      RA_Temple_16: 1429613439
+      RA_Temple_17: -1263096717
+      RA_Temple_18: 1886481861
+      RA_Temple_19: -1161257696
+      RA_Temple_2: 1313757991
+      RA_Temple_20: -1527878615
+      RA_Temple_21: 702893591
+      RA_Temple_22: -662768534
+      RA_Temple_23: 945317911
+      RA_Temple_24: 1754223225
+      RA_Temple_25: -1207678716
+      RA_Temple_26: -1018923521
+      RA_Temple_27: 66979350
+      RA_Temple_28: -1729795797
+      RA_Temple_29: 2054967848
+      RA_Temple_3: 2077552058
+      RA_Temple_30: -1218840975
+      RA_Temple_31: 1124505399
+      RA_Temple_32: -789986382
+      RA_Temple_33: -1683750306
+      RA_Temple_34: -1719712204
+      RA_Temple_35: 1431342157
+      RA_Temple_36: 2140548777
+      RA_Temple_37: -1487640991
+      RA_Temple_38: 900518786
+      RA_Temple_39: 1583329659
+      RA_Temple_4: 1538963132
+      RA_Temple_40: -689216608
+      RA_Temple_41: -1759880856
+      RA_Temple_42: -257955482
+      RA_Temple_43: -1290559299
+      RA_Temple_44: 811430023
+      RA_Temple_45: 713629361
+      RA_Temple_46: -1575787054
+      RA_Temple_47: 585426501
+      RA_Temple_48: 1287292024
+      RA_Temple_49: -3827539
+      RA_Temple_5: -738692687
+      RA_Temple_50: -1937020158
+      RA_Temple_51: 684940774
+      RA_Temple_52: -468061181
+      RA_Temple_53: 434353740
+      RA_Temple_54: 992405982
+      RA_Temple_55: 575352385
+      RA_Temple_56: 1925330545
+      RA_Temple_57: -1180199418
+      RA_Temple_58: 1906774244
+      RA_Temple_59: 1251525560
+      RA_Temple_6: -178193969
+      RA_Temple_60: -775759146
+      RA_Temple_61: 789493716
+      RA_Temple_62: 1058798814
+      RA_Temple_63: 163697650
+      RA_Temple_64: 1921764832
+      RA_Temple_65: -732571083
+      RA_Temple_66: 1121798340
+      RA_Temple_67: -808590916
+      RA_Temple_68: -1047567089
+      RA_Temple_69: -456847208
+      RA_Temple_7: -547454686
+      RA_Temple_70: -232647878
+      RA_Temple_71: -2014071156
+      RA_Temple_72: 889878710
+      RA_Temple_73: 1814090751
+      RA_Temple_74: -920971495
+      RA_Temple_75: 825158438
+      RA_Temple_76: 1863442720
+      RA_Temple_77: -2071125130
+      RA_Temple_78: -898050692
+      RA_Temple_8: -991384098
+      RA_Temple_9: -1543835114
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
