@@ -23,6 +23,7 @@ public class ChatManager : MonoBehaviour
 
     [SerializeField] public List<Speaker> speakers;
     [SerializeField] public List<DialoguesList> dialogues = new List<DialoguesList>();
+    [SerializeField] public List<DialogueData> dialogueHistoryList = new List<DialogueData>();
     public bool isChattingHistory = false;
     void Start()
     {
@@ -85,14 +86,14 @@ public class ChatManager : MonoBehaviour
         {
             string speaker = chatInfo[k][0];
             string dialogue = chatInfo[k][1];
-            if (dialogues.Count <= k)
+            if (dialogueHistoryList.Count <= k)
             {
                 if (k % 2 == 0)
                     speakerIndex = 0;
                 else
                     speakerIndex = 1;
 
-                dialogues.Add(new DialogueData { dialogue = dialogue, name = speaker, speakerIndex = speakerIndex });
+                dialogueHistoryList.Add(new DialogueData { dialogue = dialogue, name = speaker, speakerIndex = speakerIndex });
             }
         }
         
@@ -110,18 +111,18 @@ public class ChatManager : MonoBehaviour
     
     private void SetNextDialogueOnlyForHistory()
     {
-        currentSpeakerIndex = dialogues[currentDialogueIndex].speakerIndex;
+        currentSpeakerIndex = dialogueHistoryList[currentDialogueIndex].speakerIndex;
 
         // Kakao Talk Dialogue
         GameObject TextClone = Instantiate(speakers[currentSpeakerIndex].textArea, ContentRect);
         AreaScript Area = TextClone.GetComponent<AreaScript>();
 
-        Area.TextRect.GetComponent<TextMeshProUGUI>().text = dialogues[currentDialogueIndex].dialogue;
-        Area.NameText.text = dialogues[currentDialogueIndex].name;
+        Area.TextRect.GetComponent<TextMeshProUGUI>().text = dialogueHistoryList[currentDialogueIndex].dialogue;
+        Area.NameText.text = dialogueHistoryList[currentDialogueIndex].name;
         scrollBar.value = 1f;
     }
 
-    private IEnumerator AutoDialogue()
+    private IEnumerator AutoDialogue(int npcIndex)
     {
         while (dialogues[npcIndex].dialogues.Count > currentDialogueIndex + 1)
         {
