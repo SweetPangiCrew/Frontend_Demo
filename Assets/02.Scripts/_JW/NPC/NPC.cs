@@ -147,9 +147,12 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
             if(ObjectHit.collider != null)
             {
                 GameObject detectedObject = ObjectHit.collider.gameObject;
-
-                // Check if the object is not already in the list before adding
-                if (!detectedObjects.Contains(detectedObject))
+                
+                if(detectedObject.name == "플레이어")
+                {
+                    continue;
+                }
+                else if(!detectedObjects.Contains(detectedObject))
                 {
                     detectedObjects.Add(detectedObject);
                 }

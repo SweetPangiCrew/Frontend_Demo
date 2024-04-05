@@ -2,7 +2,7 @@
   "persona": {
     "나주교": {
       "act_address": "<persona> 오화가",
-      "pronunciatio": "<sprite=13>",
+      "pronunciatio": "1f642 1f932",
       "description": "오화가와 이야기를 나누는 중...",
       "assembly_attendance": true,
       "chat": [
@@ -22,7 +22,7 @@
     },
     "오화가": {
       "act_address": "<persona> 나주교",
-      "pronunciatio": "<sprite=13>",
+      "pronunciatio": "1f642 1f932",
       "description": "나주교와 이야기를 나누는 중...",
       "assembly_attendance": false,
       "chat": [
@@ -42,14 +42,14 @@
     },
     "이자식": {
       "act_address": "<location> the Vile:교회:null:null",
-      "pronunciatio": "<sprite=13>",
+      "pronunciatio": "1f642 1f932",
       "description": "잠을 자는 중...",
       "assembly_attendance": false,
       "chat": null
     },
     "고영이": {
       "act_address": "<persona> 이화령",
-      "pronunciatio": "<sprite=13>",
+      "pronunciatio": "1f642 1f932",
       "description": "이화령과 이야기를 나누는 중...",
       "assembly_attendance": false,
       "chat": [
@@ -65,7 +65,7 @@
     },
     "이화령": {
       "act_address": "<persona> 고영이",
-      "pronunciatio": "<sprite=13>",
+      "pronunciatio": "1f642",
       "description": "고영이와 이야기를 나누는 중...",
       "assembly_attendance": false,
       "chat": [

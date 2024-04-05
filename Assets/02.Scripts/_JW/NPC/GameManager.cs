@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Newtonsoft.Json;
 using System.IO;
 using NPCServer;
@@ -9,7 +10,6 @@ using System.Linq;
 using Newtonsoft.Json.Linq;
 using System.Text.RegularExpressions;
 using TMPro;
-
 
 public class GameManager : MonoBehaviour
 {
@@ -243,7 +243,25 @@ public class GameManager : MonoBehaviour
                 }
                     
                 /* --- PRONUNCIATIO --- */
-                NPC[npcIndex].IconBubble.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text += personaList[npcIndex].Pronunciatio;  
+                string[] emoji = personaList[npcIndex].Pronunciatio.Split(' ');
+
+                for(int i = 0; i < emoji.Length; i++)
+                {
+                    string imagePathWithName = "Pronunciatio/" + emoji[i];
+                    Sprite sprite = Resources.Load<Sprite>(imagePathWithName);
+
+                    if (sprite != null)
+                    {
+                        // NPC 아이콘 버블의 자식 요소에 해당 이미지 설정
+                        NPC[npcIndex].IconBubble.transform.GetChild(0).GetChild(i).GetComponent<Image>().sprite = sprite;
+                    }
+                    else
+                    {
+                        Debug.LogError("Failed to load image with name: " + emoji[i]);
+                    }
+                }
+
+                //NPC[npcIndex].IconBubble.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text += personaList[npcIndex].Pronunciatio;  
 
                 /* --- DESCRIPTION --- */
                 NPC[npcIndex].DescriptionBubble.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = personaList[npcIndex].Description;

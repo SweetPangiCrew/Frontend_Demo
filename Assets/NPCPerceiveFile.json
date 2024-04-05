@@ -1,108 +1,68 @@
 {
   "perceived_info": [
     {
-      "persona": "고영이",
-      "curr_address": "home:home:home:home",
-      "perceived_tiles": [
-        
-      ]
-    },
-    {
-      "persona": "김태리",
-      "curr_address": "home:home:home:home",
-      "perceived_tiles": [
-        
-      ]
-    },
-    {
       "persona": "나주교",
       "curr_address": "home:home:home:home",
       "perceived_tiles": [
-
-      ]
-    },
-    {
-      "persona": "변호인",
-      "curr_address": "home:home:home:home",
-      "perceived_tiles": [
-
-      ]
-    },
-    {
-      "persona": "여이삭",
-      "curr_address": "home:home:home:home",
-      "perceived_tiles": [
-
-      ]
-    },
-    {
-      "persona": "오서달",
-      "curr_address": "home:home:home:home",
-      "perceived_tiles": [
-
+        {
+          "dist": 1.49403572,
+          "event": [
+            "오화가",
+            null,
+            null,
+            null
+          ]
+        }
       ]
     },
     {
       "persona": "오화가",
       "curr_address": "home:home:home:home",
       "perceived_tiles": [
-
-      ]
-    },
-    {
-      "persona": "유리코",
-      "curr_address": "home:home:home:home",
-      "perceived_tiles": [
-
-      ]
-    },
-    {
-      "persona": "유태호",
-      "curr_address": "home:home:home:home",
-      "perceived_tiles": [
-
+        {
+          "dist": 1.49403572,
+          "event": [
+            "나주교",
+            null,
+            null,
+            null
+          ]
+        }
       ]
     },
     {
       "persona": "이자식",
       "curr_address": "home:home:home:home",
-      "perceived_tiles": [
-
-      ]
+      "perceived_tiles": []
     },
     {
-      "persona": "이장남",
+      "persona": "고영이",
       "curr_address": "home:home:home:home",
       "perceived_tiles": [
-
-      ]
-    },
-    {
-      "persona": "이지양",
-      "curr_address": "home:home:home:home",
-      "perceived_tiles": [
-
+        {
+          "dist": 1.49403572,
+          "event": [
+            "이화령",
+            null,
+            null,
+            null
+          ]
+        }
       ]
     },
     {
       "persona": "이화령",
       "curr_address": "home:home:home:home",
       "perceived_tiles": [
-
-      ]
-    },
-    {
-      "persona": "주아령",
-      "curr_address": "home:home:home:home",
-      "perceived_tiles": [
-
-      ]
-    },
-    {
-      "persona": "최문식",
-      "curr_address": "home:home:home:home",
-      "perceived_tiles": [
-
+        {
+          "dist": 1.49403572,
+          "event": [
+            "고영이",
+            null,
+            null,
+            null
+          ]
+        }
       ]
     }
   ]
