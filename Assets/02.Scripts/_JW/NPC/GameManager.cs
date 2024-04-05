@@ -247,22 +247,16 @@ public class GameManager : MonoBehaviour
 
                 for(int i = 0; i < emoji.Length; i++)
                 {
+                    string extension = Path.GetExtension(emoji[i]);
+                    string fileNameWithoutExtension = emoji[i].Replace(extension, "");
+
                     string imagePathWithName = "Pronunciatio/" + emoji[i];
                     Sprite sprite = Resources.Load<Sprite>(imagePathWithName);
 
                     if (sprite != null)
-                    {
-                        // NPC 아이콘 버블의 자식 요소에 해당 이미지 설정
                         NPC[npcIndex].IconBubble.transform.GetChild(0).GetChild(i).GetComponent<Image>().sprite = sprite;
-                    }
-                    else
-                    {
-                        Debug.LogError("Failed to load image with name: " + emoji[i]);
-                    }
                 }
-
-                //NPC[npcIndex].IconBubble.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text += personaList[npcIndex].Pronunciatio;  
-
+                
                 /* --- DESCRIPTION --- */
                 NPC[npcIndex].DescriptionBubble.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = personaList[npcIndex].Description;
             }
