@@ -189,14 +189,14 @@ public class GameManager : MonoBehaviour
 
         if (personaList.Count==0 ||personaList == null || NPC == null)
         {
-            Debug.LogError("personaList or NPC list is null.");
+            Debug.LogWarning("personaList or NPC list is null.");
             return;
         }
             
         foreach (var perceivedInfo in existingInfo.perceived_info)
         {            
             npcIndex = FindNPCIndex(perceivedInfo.persona);
-            Debug.Log(npcIndex+"Index"+personaList.Count);
+           // Debug.Log(npcIndex+"Index"+personaList.Count);
             if(personaList[npcIndex].Name == NPC[npcIndex].name)
             {
                 /* --- ACT ADDRESS --- */
