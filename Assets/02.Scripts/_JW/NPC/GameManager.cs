@@ -122,7 +122,7 @@ public class GameManager : MonoBehaviour
             if (minute - lasttime >= stepTime || pStep > step)
             {
                 //step???�라가???�?�밍???�을 ?????�번�??�출
-                if (pStep == step && NPCServerManager.Instance.getReaction)
+                if (pStep == step && NPCServerManager.Instance.getReaction || isTest)
                 {
                     lasttime = minute;
                     SaveJsonFile(); //perceive 
@@ -247,7 +247,7 @@ public class GameManager : MonoBehaviour
 
                 for(int i = 0; i < emoji.Length; i++)
                 {
-                    Debug.Log(emoji[i]);
+                    //Debug.Log(emoji[i]);
                     string extension = Path.GetExtension(emoji[i]);
                     
                     string fileNameWithoutExtension = emoji[i].Replace(extension, "");

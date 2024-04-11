@@ -52,6 +52,7 @@ public class NPCServerManager : HttpServerBase
     
     public IEnumerator PostPerceiveCoroutine(string data,string simName, int step)
     {
+        
         yield return PostPerceive(data, simName, step);
     }
     
@@ -143,7 +144,7 @@ public class NPCServerManager : HttpServerBase
                 Persona newMovementInfo = new Persona(personas[i], act_address[i], pronunciatio[i], description[i], chats);
                 CurrentMovementInfo.Add(newMovementInfo);
                 _getReaction = true;
-                Debug.Log(newMovementInfo.ToString());
+                //Debug.Log(newMovementInfo.ToString());
             }
             
             
@@ -174,6 +175,8 @@ public class NPCServerManager : HttpServerBase
 
         jobj =  JObject.Parse(jsonFileContent);
 
+        jobj["meta"] = new JObject();
+        jobj["meta"]["curr_time"] = Clock.Instance.GetCurrentTime();
 
         Action<Result> updateMPerceiveInfoAction = (result) =>
         {
