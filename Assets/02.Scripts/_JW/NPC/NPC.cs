@@ -9,6 +9,7 @@ using Panda.Examples.Move;
 using System.Net;
 using NPCServer;
 using System.Linq;
+using System.Diagnostics.Tracing;
 
 public class NPC : MonoBehaviour // later, it will be global NPC Controller
 {
@@ -45,6 +46,9 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
     // Animator
     private Animator animator;
 
+    // Location
+    public string curr_address = "none";
+
     void Start()
     {
         // Nav Mesh Agent
@@ -75,7 +79,8 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
             animator.SetBool("walk_r", velocity.x > 0.1f);  // 오른쪽으로 이동
             animator.SetBool("walk_b", velocity.z > 0.1f);  // 위로 이동
         }
-
+        
+        //Debug.Log(curr_address);
     }
 
     void Update()
@@ -175,4 +180,13 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
     }
     #endregion
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        curr_address = other.gameObject.name;
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        curr_address = "none";
+    }  
 }

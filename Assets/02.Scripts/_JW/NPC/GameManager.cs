@@ -297,7 +297,7 @@ public class GameManager : MonoBehaviour
                 
                 if (npcIndex != -1)
                 {
-                    existingInfo.perceived_info[npcIndex].curr_address = "home:home:home:home";
+                    existingInfo.perceived_info[npcIndex].curr_address = NPC[npcIndex].curr_address+":home:home:home";
 
                     for (int k = 0; k < NPC[npcIndex].detectedObjects.Count; k++)
                     {
