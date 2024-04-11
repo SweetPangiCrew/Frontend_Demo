@@ -105,7 +105,7 @@ public class SendMessage : MonoBehaviour
     private void PCMessage(){
            // send message on chat
             Debug.Log(transferNum + 1 + "번째 메세지 발신");
-            GameObject TextClone = Instantiate(_chatManager.YellowArea, ContentRect);
+            GameObject TextClone = Instantiate(_chatManager.textArea[0], ContentRect);
             AreaScript Area = TextClone.GetComponent<AreaScript>();
             
             Area.TextRect.GetComponent<TextMeshProUGUI>().text = inputField.text;
@@ -128,7 +128,7 @@ public class SendMessage : MonoBehaviour
 
     private void NPCMessage(){
         Debug.Log(transferNum + 1 + "번째 메세지 수신");
-        GameObject TextClone = Instantiate(_chatManager.OrangeArea, ContentRect);
+        GameObject TextClone = Instantiate(_chatManager.textArea[1], ContentRect);
         AreaScript Area = TextClone.GetComponent<AreaScript>();
         inputField.text = "";
         // NPC message -> text
