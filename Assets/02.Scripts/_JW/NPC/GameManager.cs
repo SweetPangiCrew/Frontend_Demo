@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
     // Chat 
     public ChatManager chatManager;
     private int npcIndex;
-    private int speakerIndex;
+    private int otherNpcIndex;
     private HashSet<string> conversationPairs = new HashSet<string>();
     
     // Location
@@ -197,7 +197,7 @@ public class GameManager : MonoBehaviour
         foreach (var perceivedInfo in existingInfo.perceived_info)
         {            
             npcIndex = FindNPCIndex(perceivedInfo.persona);
-           // Debug.Log(npcIndex+"Index"+personaList.Count);
+
             if(personaList[npcIndex].Name == NPC[npcIndex].name)
             {
                 /* --- ACT ADDRESS --- */
@@ -211,8 +211,9 @@ public class GameManager : MonoBehaviour
                     {
                         if (perceivedInfo.perceived_tiles[i].@event[0] == NPCName) 
                         {
-                            int otherNpcIndex = FindNPCIndex(NPCName);
+                            otherNpcIndex = FindNPCIndex(NPCName);
                             NPC[npcIndex].navMeshAgent.isStopped = true;
+                            NPC[otherNpcIndex].navMeshAgent.isStopped = true;
                                         
                             string otherNPCName = perceivedInfo.perceived_tiles[i].@event[0]; 
                             string firstNPCName = NPC[npcIndex].gameObject.name.CompareTo(otherNPCName) < 0 ? NPC[npcIndex].gameObject.name : otherNPCName;
@@ -226,13 +227,11 @@ public class GameManager : MonoBehaviour
                             }
                             else
                             {                   
-                                conversationPairs.Add(conversationPair);
+                                conversationPairs.Add(conversationPair);      
+                                chatManager.LoadDialogue(personaList[npcIndex].Chat, npcIndex, otherNpcIndex); 
 
-                                var chatList = personaList[npcIndex].Chat;        
-                                chatManager.LoadDialogue(chatList, npcIndex); 
-
-                                NPC[npcIndex].IconBubble.SetActive(true);
-                                NPC[otherNpcIndex].IconBubble.SetActive(true);
+                                NPC[npcIndex].IconBubble.SetActive(false);
+                                NPC[otherNpcIndex].IconBubble.SetActive(false);
                             }
                         }
                     }
@@ -245,10 +244,10 @@ public class GameManager : MonoBehaviour
                     
                 /* --- PRONUNCIATIO --- */
                 string[] emoji = personaList[npcIndex].Pronunciatio.Trim().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                NPC[npcIndex].IconBubble.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = NPC[npcIndex].gameObject.name + ":";
 
                 for(int i = 0; i < emoji.Length; i++)
                 {
-                    //Debug.Log(emoji[i]);
                     string extension = Path.GetExtension(emoji[i]);
                     
                     string fileNameWithoutExtension = emoji[i].Replace(extension, "");
@@ -278,7 +277,7 @@ public class GameManager : MonoBehaviour
         {
             if(nl.gameObject.name == nextLocation)
             {
-                NPC[npcIndex].AddWaypoint(nl);      
+                NPC[npcIndex].AddWaypoint(nl, 10);      // 임시로 10초 넣음
                 break; 
             }                
         }
@@ -298,7 +297,7 @@ public class GameManager : MonoBehaviour
                 
                 if (npcIndex != -1)
                 {
-                    existingInfo.perceived_info[npcIndex].curr_address = "home:home:home:home";
+                    existingInfo.perceived_info[npcIndex].curr_address = NPC[npcIndex].curr_address+":home:home:home";
 
                     for (int k = 0; k < NPC[npcIndex].detectedObjects.Count; k++)
                     {

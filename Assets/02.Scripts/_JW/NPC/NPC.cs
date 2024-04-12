@@ -9,33 +9,23 @@ using Panda.Examples.Move;
 using System.Net;
 using NPCServer;
 using System.Linq;
+using System.Diagnostics.Tracing;
 
 public class NPC : MonoBehaviour // later, it will be global NPC Controller
 {
-    // Persona
-    public Persona persona;
-
     // Move
-    public List<Transform> waypoints;
+    public List<Routine> routines;
     private int currentWaypointIndex = 0;
-    private float waitTime = 3f;
     public NavMeshAgent navMeshAgent;
     private float waitCounter = 0f;
     private bool isWaiting = false;
 
     // Perceive
-    public Perceive perceive;
-    public PerceivedInfo perceivedInfo;
-    public Vector2 location;
-    public string locationName;
-    public float detectionRadius = 0.65f;
+    private Vector2 location;
+    private float detectionRadius = 0.65f;
     public List<GameObject> detectedObjects = null;
     Vector2 direction;
     Vector3 rayOrigin;
-
-    // Interact
-    private bool isInteracting = false;
-    public GameObject ChatBufferButton;
 
     // Canvas
     public GameObject IconBubble;
@@ -45,6 +35,9 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
     // Animator
     private Animator animator;
 
+    // Location
+    public string curr_address = "none";
+
     void Start()
     {
         // Nav Mesh Agent
@@ -53,14 +46,7 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
         // Animator
         animator = GetComponent<Animator>();
 
-        // Perceive
-        perceive = new Perceive()
-        {
-            perceived_info = new List<PerceivedInfo>(),
-        };
-
         Move();
- 
     }
     void FixedUpdate()
     {
@@ -75,7 +61,6 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
             animator.SetBool("walk_r", velocity.x > 0.1f);  // 오른쪽으로 이동
             animator.SetBool("walk_b", velocity.z > 0.1f);  // 위로 이동
         }
-
     }
 
     void Update()
@@ -87,11 +72,12 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
         if (isWaiting)
         {
             waitCounter += Time.deltaTime;
-            if (waitCounter >= waitTime)
+            if (waitCounter >= routines[currentWaypointIndex-1].waitTime)
             {
+                Debug.Log(waitCounter);
                 isWaiting = false;
                 waitCounter = 0f;
-                //Move();
+                Move();
             }
         }
         else
@@ -159,20 +145,44 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
     #region MOVE
     public void Move()
     {
-        if (waypoints.Count == 0) return;
+        if (routines.Count == 0) return;
 
-        Transform nextWaypoint = waypoints[currentWaypointIndex];
+        Transform nextWaypoint = routines[currentWaypointIndex].wayPoint;
         navMeshAgent.SetDestination(nextWaypoint.position);
-        currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Count;
+        currentWaypointIndex = (currentWaypointIndex + 1) % routines.Count;
         
         // Resume NPC movement
         navMeshAgent.isStopped = false;
     }
 
-    public void AddWaypoint(Transform nl)
+    public void AddWaypoint(Transform nl, int time)
     {
-        waypoints.Insert(currentWaypointIndex, nl);
+        Routine newRoutine = new Routine
+        {
+            wayPoint = nl,
+            waitTime = time
+        };
+
+        routines.Insert(currentWaypointIndex, newRoutine);
     }
     #endregion
 
+    #region LOCATION
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        curr_address = other.gameObject.name;
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        curr_address = "none";
+    }  
+    #endregion
+}
+
+[System.Serializable]
+public struct Routine
+{
+    public Transform wayPoint;
+    public int waitTime;
 }

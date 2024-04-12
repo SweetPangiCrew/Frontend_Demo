@@ -9,17 +9,14 @@ using TMPro;
 public class ChatManager : MonoBehaviour
 {
     public GameManager gameManager;
-    public GameObject YellowArea, OrangeArea, DateArea;
+    public List<GameObject> textArea;
     public RectTransform ContentRect;
     public Scrollbar scrollBar;
 
-    private bool isStart = false;
-    public bool isChatting = false;
+    private bool isChatting = false;
     private int currentDialogueIndex = -1;
-    private int currentSpeakerIndex = 0;
-    public bool isFirst = false;
-    public int npcIndex;
-
+    private int currentSpeakerIndex;
+  
     [SerializeField] public List<Speaker> speakers;
     [SerializeField] public List<DialoguesList> dialogues = new List<DialoguesList>();
     [SerializeField] public List<DialogueData> dialogueHistoryList = new List<DialogueData>();
@@ -37,16 +34,7 @@ public class ChatManager : MonoBehaviour
         }
     }
 
-    public void StartDialogue(int npcIndex)
-    {
-     
-        if (isChatting&& !isChattingHistory)
-        {
-            StartCoroutine(AutoDialogue(npcIndex));                     
-        }
-    }
-
-    public void LoadDialogue(List<List<string>> chatList, int npcIndex)
+    public void LoadDialogue(List<List<string>> chatList, int npcIndex, int otherNpcIndex)
     {
         for (int k = 0; k < chatList.Count; k++)
         {
@@ -62,24 +50,37 @@ public class ChatManager : MonoBehaviour
                 }
             }
 
-            dialogues[npcIndex].dialogues.Add(new DialogueData
+            if (dialogues.Count > k)
             {
-                dialogue = dialogue,
-                name = speaker,
-                speakerIndex = k % 2
-            });                         
+                if (k % 2 == 0)
+                    currentSpeakerIndex = npcIndex;
+                else
+                    currentSpeakerIndex = otherNpcIndex;
+                    
+                dialogues[npcIndex].dialogues.Add(new DialogueData
+                {
+                    dialogue = dialogue,
+                    name = speaker,
+                    speakerIndex = currentSpeakerIndex,
+                });                         
+
+            }
+        
 
         }
 
         isChatting = true;
+        StartDialogue(npcIndex);
     }
-    
+
+    public void StartDialogue(int npcIndex)
+    {
+        if (isChatting && !isChattingHistory)
+            StartCoroutine(AutoDialogue(npcIndex));                     
+    }    
     
     public void showDialogue(List<List<string>> chatInfo)
     {
-        
-        
-      
         int speakerIndex = 0;
         
         for (int k = 0; k < chatInfo.Count; k++)
@@ -112,7 +113,7 @@ public class ChatManager : MonoBehaviour
         currentSpeakerIndex = dialogueHistoryList[currentDialogueIndex].speakerIndex;
 
         // Kakao Talk Dialogue
-        GameObject TextClone = Instantiate(speakers[currentSpeakerIndex].textArea, ContentRect);
+        GameObject TextClone = Instantiate(textArea[dialogues.Count%2], ContentRect);
         AreaScript Area = TextClone.GetComponent<AreaScript>();
         
         Debug.Log("prefab 생성 대화");
@@ -129,7 +130,10 @@ public class ChatManager : MonoBehaviour
             yield return new WaitForSeconds(2);
         }
 
-        isChatting = false;
+        Debug.Log("no dialogues exist!");
+        isChatting = false; 
+        SetActiveObjects(speakers[currentSpeakerIndex], false);
+        // icon bubble 다시 뜨게 만들어야함 
     }
 
     private void SetNextDialogue(int npcIndex)
@@ -144,31 +148,27 @@ public class ChatManager : MonoBehaviour
                 currentSpeakerIndex = dialogues[npcIndex].dialogues[currentDialogueIndex].speakerIndex;
 
                 // Kakao Talk Dialogue
-                GameObject TextClone = Instantiate(speakers[npcIndex].textArea, ContentRect);
+                GameObject TextClone = Instantiate(textArea[currentDialogueIndex%2], ContentRect);
                 AreaScript Area = TextClone.GetComponent<AreaScript>();
 
                 Area.TextRect.GetComponent<TextMeshProUGUI>().text = dialogues[npcIndex].dialogues[currentDialogueIndex].dialogue;
                 Area.NameText.text = dialogues[npcIndex].dialogues[currentDialogueIndex].name;
 
                 // Speech Bubble Dialogue
-                SetActiveObjects(speakers[npcIndex], true);
-                speakers[npcIndex].dialogueText.text = dialogues[npcIndex].dialogues[currentDialogueIndex].dialogue;
+                SetActiveObjects(speakers[currentSpeakerIndex], true);
+                speakers[currentSpeakerIndex].SpeechBubble.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = 
+                    dialogues[npcIndex].dialogues[currentDialogueIndex].dialogue;
 
                 scrollBar.value = 0;
             }
         }
-        else
-        {
-            Debug.Log("no dialogues exist!");
-            //isChatting = false; 
-        }
+
         scrollBar.value += 0.1f;
     }
 
     private void SetActiveObjects(Speaker speaker, bool visible)
     {
-        speaker.dialougeImage.gameObject.SetActive(visible);
-        speaker.dialogueText.gameObject.SetActive(visible);
+        speaker.SpeechBubble.SetActive(visible);
     }   
 }
 
@@ -177,10 +177,7 @@ public class ChatManager : MonoBehaviour
 public struct Speaker
 {       
     public string name;
-    public GameObject textArea;
-    public Image dialougeImage;
-    public TextMeshProUGUI dialogueText;
-
+    public GameObject SpeechBubble;
 }
 
 [System.Serializable]
