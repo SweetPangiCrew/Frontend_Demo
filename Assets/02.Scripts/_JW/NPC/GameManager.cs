@@ -212,6 +212,7 @@ public class GameManager : MonoBehaviour
                         {
                             otherNpcIndex = FindNPCIndex(NPCName);
                             NPC[npcIndex].navMeshAgent.isStopped = true;
+                            NPC[otherNpcIndex].navMeshAgent.isStopped = true;
                                         
                             string otherNPCName = perceivedInfo.perceived_tiles[i].@event[0]; 
                             string firstNPCName = NPC[npcIndex].gameObject.name.CompareTo(otherNPCName) < 0 ? NPC[npcIndex].gameObject.name : otherNPCName;
@@ -230,8 +231,6 @@ public class GameManager : MonoBehaviour
 
                                 NPC[npcIndex].IconBubble.SetActive(false);
                                 NPC[otherNpcIndex].IconBubble.SetActive(false);
-                                
-
                             }
                         }
                     }

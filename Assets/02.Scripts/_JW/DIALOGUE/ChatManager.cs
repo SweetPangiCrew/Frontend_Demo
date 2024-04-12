@@ -50,7 +50,7 @@ public class ChatManager : MonoBehaviour
                 }
             }
 
-             if (dialogues.Count > k)
+            if (dialogues.Count > k)
             {
                 if (k % 2 == 0)
                     currentSpeakerIndex = npcIndex;
@@ -75,15 +75,9 @@ public class ChatManager : MonoBehaviour
 
     public void StartDialogue(int npcIndex)
     {
-     
         if (isChatting && !isChattingHistory)
-        {
-            Debug.Log("대화 시작!");
             StartCoroutine(AutoDialogue(npcIndex));                     
-        }
-    }
-
-    
+    }    
     
     public void showDialogue(List<List<string>> chatInfo)
     {
@@ -135,6 +129,11 @@ public class ChatManager : MonoBehaviour
             SetNextDialogue(npcIndex);
             yield return new WaitForSeconds(2);
         }
+
+        Debug.Log("no dialogues exist!");
+        isChatting = false; 
+        SetActiveObjects(speakers[currentSpeakerIndex], false);
+        // icon bubble 다시 뜨게 만들어야함 
     }
 
     private void SetNextDialogue(int npcIndex)
@@ -162,11 +161,6 @@ public class ChatManager : MonoBehaviour
 
                 scrollBar.value = 0;
             }
-        }
-        else
-        {
-            Debug.Log("no dialogues exist!");
-            isChatting = false; 
         }
 
         scrollBar.value += 0.1f;
