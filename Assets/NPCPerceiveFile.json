@@ -2,7 +2,7 @@
   "perceived_info": [
     {
       "persona": "고영이",
-      "curr_address": "none:home:home:home",
+      "curr_address": "주아령의 도서관:home:home:home",
       "perceived_tiles": [
         {
           "dist": 0.0,
@@ -14,9 +14,18 @@
           ]
         },
         {
-          "dist": 48.4586945,
+          "dist": 47.46951,
           "event": [
-            "오화가",
+            "나주교",
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "dist": 45.97403,
+          "event": [
+            "유리코",
             null,
             null,
             null
@@ -53,9 +62,27 @@
           ]
         },
         {
-          "dist": 22.029335,
+          "dist": 47.46951,
           "event": [
-            "오화가",
+            "고영이",
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "dist": 1.49767649,
+          "event": [
+            "이화령",
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "dist": 1.49939311,
+          "event": [
+            "유리코",
             null,
             null,
             null
@@ -77,7 +104,7 @@
           ]
         },
         {
-          "dist": 1.49976277,
+          "dist": 1.49730015,
           "event": [
             "최문식",
             null,
@@ -101,7 +128,7 @@
           ]
         },
         {
-          "dist": 1.49975145,
+          "dist": 1.49957621,
           "event": [
             "이자식",
             null,
@@ -128,7 +155,7 @@
     },
     {
       "persona": "오화가",
-      "curr_address": "none:home:home:home",
+      "curr_address": "오화가와 유리코의 집:home:home:home",
       "perceived_tiles": [
         {
           "dist": 0.0,
@@ -140,9 +167,9 @@
           ]
         },
         {
-          "dist": 48.4586945,
+          "dist": 58.0711555,
           "event": [
-            "고영이",
+            "유리코",
             null,
             null,
             null
@@ -152,7 +179,7 @@
     },
     {
       "persona": "유리코",
-      "curr_address": "유태호의 집:home:home:home",
+      "curr_address": "none:home:home:home",
       "perceived_tiles": [
         {
           "dist": 0.0,
@@ -179,7 +206,7 @@
           ]
         },
         {
-          "dist": 1.49975145,
+          "dist": 1.49957621,
           "event": [
             "여이삭",
             null,
@@ -200,7 +227,7 @@
     },
     {
       "persona": "이자식",
-      "curr_address": "오화가와 유리코의 집:home:home:home",
+      "curr_address": "none:home:home:home",
       "perceived_tiles": [
         {
           "dist": 0.0,
@@ -212,9 +239,27 @@
           ]
         },
         {
-          "dist": 1.49978936,
+          "dist": 58.0711555,
           "event": [
             "오화가",
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "dist": 45.97403,
+          "event": [
+            "고영이",
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "dist": 1.49939311,
+          "event": [
+            "나주교",
             null,
             null,
             null
@@ -236,7 +281,7 @@
           ]
         },
         {
-          "dist": 10.1590776,
+          "dist": 10.4625368,
           "event": [
             "이자식",
             null,
@@ -248,7 +293,7 @@
     },
     {
       "persona": "이지양",
-      "curr_address": "이지양의 꽃집:home:home:home",
+      "curr_address": "보라매 공원:home:home:home",
       "perceived_tiles": [
         {
           "dist": 0.0,
@@ -258,12 +303,30 @@
             null,
             null
           ]
+        },
+        {
+          "dist": 14.8487406,
+          "event": [
+            "이화령",
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "dist": 1.4999702,
+          "event": [
+            "나주교",
+            null,
+            null,
+            null
+          ]
         }
       ]
     },
     {
       "persona": "이화령",
-      "curr_address": "이화령의 집:home:home:home",
+      "curr_address": "none:home:home:home",
       "perceived_tiles": [
         {
           "dist": 0.0,
@@ -275,9 +338,18 @@
           ]
         },
         {
-          "dist": 7.7646904,
+          "dist": 14.8487406,
           "event": [
-            "고영이",
+            "이지양",
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "dist": 1.49767649,
+          "event": [
+            "나주교",
             null,
             null,
             null
@@ -314,7 +386,7 @@
           ]
         },
         {
-          "dist": 1.49976277,
+          "dist": 1.49730015,
           "event": [
             "변호인",
             null,
