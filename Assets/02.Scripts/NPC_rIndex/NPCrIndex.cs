@@ -17,6 +17,8 @@ public class NPCrIndex : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+        if(ReligiousIndexNetworkManager.Instance.RIndexInfo.Count == 0 ) return;
         int rIndex = ReligiousIndexNetworkManager.Instance.RIndexInfo[gameObject.name];
 
         if (rIndex < 10) //0단계
