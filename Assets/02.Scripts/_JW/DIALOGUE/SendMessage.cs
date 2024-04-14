@@ -93,12 +93,8 @@ public class SendMessage : MonoBehaviour
             StartCoroutine(showNPCMessageCoroutine());
            
             transferNum++;
-            
-            Time.timeScale = 1; 
-            //종료창 띄워야함.
+    
             inputField.interactable = true;
-            // cannot send message
-            Debug.Log("더 이상 메세지를 전송할 수 없습니다.");
         }
     }
     
@@ -112,12 +108,12 @@ public class SendMessage : MonoBehaviour
             Area.NameText.text = "player";
           
             //테스트용 코드 : 다른 상대와 대화 초기화하고 대화 시작
-            if (TestMode && transferNum == 0) transferNum = -1;
+            //if (TestMode && transferNum == 0) transferNum = -1;
             
             StartCoroutine(UserChatAPIManager.Instance.SendMessageCoroutine(Database.Instance.gameName,targetPersonaName,inputField.text,transferNum));
             
             
-            if (TestMode && transferNum == 0) transferNum = 1;
+            //if (TestMode && transferNum == 0) transferNum = 1;
             
               
             inputField.interactable = false;
@@ -145,7 +141,7 @@ public class SendMessage : MonoBehaviour
     
     public IEnumerator showNPCMessageCoroutine()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSecondsRealtime(0.1f);
         scrollBar.value = 0;
         while (true)
         {
@@ -153,7 +149,7 @@ public class SendMessage : MonoBehaviour
             {
 
                 //메세지 수신 기다리는 중
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSecondsRealtime(0.5f);
             }
             else
             {
@@ -167,7 +163,7 @@ public class SendMessage : MonoBehaviour
                     inputField.text = "더 이상 메세지를 전송할 수 없습니다.";
                     inputField.interactable = false;
                     sendBtn.interactable = false;
-
+                  
                     if (transferNum == maxTransferNum)
                     {
   
@@ -178,14 +174,14 @@ public class SendMessage : MonoBehaviour
                 break;
             } 
         }
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSecondsRealtime(0.2f);
         
         scrollBar.value = 0;
     }
 
     IEnumerator StartNPCQuiz()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSecondsRealtime(3f);
         
         Debug.Log("대화 종료. 퀴즈 시작");
         // 대화 종료 후 퀴즈 시작

@@ -124,7 +124,7 @@ public class GameManager : MonoBehaviour
             if (minute - lasttime >= stepTime || pStep > step)
             {
                 //step???�라가???�?�밍???�을 ?????�번�??�출
-                if (pStep == step && NPCServerManager.Instance.getReaction || isTest && isUsingMovementLocalFile)
+                if (pStep == step && NPCServerManager.Instance.getReaction)// || isTest && isUsingMovementLocalFile
                 {
                     lasttime = minute;
                     SaveJsonFile(); //perceive 

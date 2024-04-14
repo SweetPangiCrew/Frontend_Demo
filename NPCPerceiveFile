@@ -1,0 +1,178 @@
+{
+  "perceived_info": [
+    {
+      "persona": "고영이",
+      "curr_address": "이화령의 집:home:home:home",
+      "perceived_tiles": [
+        {
+          "dist": 5.448622,
+          "event": [
+            "이화령",
+            null,
+            null,
+            null
+          ]
+        }
+      ]
+    },
+    {
+      "persona": "김태리",
+      "curr_address": "김태리의 집:home:home:home",
+      "perceived_tiles": []
+    },
+    {
+      "persona": "나주교",
+      "curr_address": ":home:home:home",
+      "perceived_tiles": [
+        {
+          "dist": 1.77180743,
+          "event": [
+            "오화가",
+            null,
+            null,
+            null
+          ]
+        }
+      ]
+    },
+    {
+      "persona": "변호인",
+      "curr_address": "변호인과 최문식의 집:home:home:home",
+      "perceived_tiles": [
+        {
+          "dist": 1.49974561,
+          "event": [
+            "최문식",
+            null,
+            null,
+            null
+          ]
+        }
+      ]
+    },
+    {
+      "persona": "여이삭",
+      "curr_address": "여이삭의 집:home:home:home",
+      "perceived_tiles": [
+        {
+          "dist": 1.49990416,
+          "event": [
+            "이자식",
+            null,
+            null,
+            null
+          ]
+        }
+      ]
+    },
+    {
+      "persona": "오서달",
+      "curr_address": "오서달의 집:home:home:home",
+      "perceived_tiles": []
+    },
+    {
+      "persona": "오화가",
+      "curr_address": ":home:home:home",
+      "perceived_tiles": [
+        {
+          "dist": 1.77180743,
+          "event": [
+            "나주교",
+            null,
+            null,
+            null
+          ]
+        }
+      ]
+    },
+    {
+      "persona": "유리코",
+      "curr_address": "유태호의 집:home:home:home",
+      "perceived_tiles": []
+    },
+    {
+      "persona": "유태호",
+      "curr_address": "이장남과 이자식의 집:home:home:home",
+      "perceived_tiles": [
+        {
+          "dist": 12.8312216,
+          "event": [
+            "이장남",
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "dist": 1.49990416,
+          "event": [
+            "여이삭",
+            null,
+            null,
+            null
+          ]
+        }
+      ]
+    },
+    {
+      "persona": "이자식",
+      "curr_address": "none:home:home:home",
+      "perceived_tiles": []
+    },
+    {
+      "persona": "이장남",
+      "curr_address": "이장남과 이자식의 집:home:home:home",
+      "perceived_tiles": [
+        {
+          "dist": 12.8312216,
+          "event": [
+            "이자식",
+            null,
+            null,
+            null
+          ]
+        }
+      ]
+    },
+    {
+      "persona": "이지양",
+      "curr_address": "이지양의 꽃집:home:home:home",
+      "perceived_tiles": []
+    },
+    {
+      "persona": "이화령",
+      "curr_address": "이화령의 집:home:home:home",
+      "perceived_tiles": [
+        {
+          "dist": 5.448622,
+          "event": [
+            "고영이",
+            null,
+            null,
+            null
+          ]
+        }
+      ]
+    },
+    {
+      "persona": "주아령",
+      "curr_address": "주아령의 도서관:home:home:home",
+      "perceived_tiles": []
+    },
+    {
+      "persona": "최문식",
+      "curr_address": "변호인과 최문식의 집:home:home:home",
+      "perceived_tiles": [
+        {
+          "dist": 1.49974561,
+          "event": [
+            "변호인",
+            null,
+            null,
+            null
+          ]
+        }
+      ]
+    }
+  ]
+}
