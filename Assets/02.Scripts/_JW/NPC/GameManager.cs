@@ -11,6 +11,7 @@ using Newtonsoft.Json.Linq;
 using System.Text.RegularExpressions;
 using TMPro;
 
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
@@ -58,7 +59,7 @@ public class GameManager : MonoBehaviour
     public bool isTest = false;
     void Start()
     {
-        filePath = "Assets/NPCPerceiveFile.json";
+        filePath = "NPCPerceiveFile";
         LoadExistingInfo(filePath);
         
         //simCode는 게임 베이스, 지금 당장은 필요 없음. 
@@ -88,8 +89,8 @@ public class GameManager : MonoBehaviour
     {
         try
         {
-            string json = File.ReadAllText(filePath);
-            existingInfo = JsonConvert.DeserializeObject<Perceive>(json);
+            var json = Resources.Load<TextAsset>(filePath);
+            existingInfo = JsonConvert.DeserializeObject<Perceive>(json.text);
         }
         catch (Exception e)
         {
@@ -148,17 +149,20 @@ public class GameManager : MonoBehaviour
     {
         if (isUsingMovementLocalFile)
         { 
-            string json = File.ReadAllText("Assets/Resources/NPCMovementFile.json");
-            
-            var resultData = JObject.Parse(json)["persona"]; 
-            
+            //string json = File.ReadAllText("Assets/Resources/NPCMovementFile.json");     
+            //var resultData = JObject.Parse(json)["persona"]; 
+
+            string jsonFilePath = "NPCMovementFile";
+            var jsonTextFile = Resources.Load<TextAsset>(jsonFilePath);
+            var jsonData = JObject.Parse(jsonTextFile.text)["persona"]; 
+
             List<string> personas = new List<string>();
             List<string> act_address   = new List<string>();
             List<string> pronunciatio  = new List<string>();
             List<string> description  = new List<string>();
             List<List<List<string>>> chats= new List<List<List<string>>>();
             
-            foreach (JProperty property in resultData)
+            foreach (JProperty property in jsonData)
             {
                 List<List<string>> chat = new List<List<string>>();
               
@@ -211,6 +215,7 @@ public class GameManager : MonoBehaviour
                     {
                         if (perceivedInfo.perceived_tiles[i].@event[0] == NPCName) 
                         {
+                            Debug.Log("ㅅ비ㅏㄹ");
                             otherNpcIndex = FindNPCIndex(NPCName);
                             NPC[npcIndex].navMeshAgent.isStopped = true;
                             NPC[otherNpcIndex].navMeshAgent.isStopped = true;
@@ -220,7 +225,7 @@ public class GameManager : MonoBehaviour
                             string secondNPCName = NPC[npcIndex].gameObject.name.CompareTo(otherNPCName) < 0 ? otherNPCName : NPC[npcIndex].gameObject.name;
                                         
                             string conversationPair = $"{firstNPCName}-{secondNPCName}";
-
+                            
                             if (conversationPairs.Contains(conversationPair))
                             {
                                 continue; 
@@ -229,7 +234,7 @@ public class GameManager : MonoBehaviour
                             {                   
                                 conversationPairs.Add(conversationPair);      
                                 chatManager.LoadDialogue(personaList[npcIndex].Chat, npcIndex, otherNpcIndex); 
-
+                                Debug.Log("잉????????????????????????????");
                                 NPC[npcIndex].IconBubble.SetActive(false);
                                 NPC[otherNpcIndex].IconBubble.SetActive(false);
                             }
@@ -245,7 +250,7 @@ public class GameManager : MonoBehaviour
                 /* --- PRONUNCIATIO --- */
                 string[] emoji = personaList[npcIndex].Pronunciatio.Trim().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 NPC[npcIndex].IconBubble.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = NPC[npcIndex].gameObject.name + ":";
-
+                Debug.Log(NPC[npcIndex].gameObject.name);
                 for(int i = 0; i < emoji.Length; i++)
                 {
                     string extension = Path.GetExtension(emoji[i]);

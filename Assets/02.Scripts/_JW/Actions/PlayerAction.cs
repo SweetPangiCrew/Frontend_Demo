@@ -7,7 +7,7 @@
     {
         float h;
         float v;
-        float speed = 3;
+        float speed = 5;
 
         Rigidbody2D rigid;
         Animator animator;

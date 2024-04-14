@@ -22,7 +22,7 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
 
     // Perceive
     private Vector2 location;
-    private float detectionRadius = 0.65f;
+    private float detectionRadius = 0.75f;
     public List<GameObject> detectedObjects = null;
     Vector2 direction;
     Vector3 rayOrigin;
@@ -68,25 +68,30 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
         // Fix NPC Rotation
         transform.rotation = Quaternion.Euler(0, 0, 0);
 
-        // NPC Moving
-        if (isWaiting)
-        {
-            waitCounter += Time.deltaTime;
-            if (waitCounter >= routines[currentWaypointIndex-1].waitTime)
+        if(routines.Count != 0)
+        {   
+            // NPC Moving
+            if (isWaiting)
+            {   
+                Debug.Log(currentWaypointIndex);
+                waitCounter += Time.deltaTime;
+                if (waitCounter >= routines[currentWaypointIndex].waitTime)
+                {
+                    Debug.Log(waitCounter);
+                    isWaiting = false;
+                    waitCounter = 0f;
+                    Move();
+                }
+            }
+            else
             {
-                Debug.Log(waitCounter);
-                isWaiting = false;
-                waitCounter = 0f;
-                Move();
+                if (navMeshAgent.remainingDistance <= 0.01)
+                {
+                    isWaiting = true;
+                }
             }
         }
-        else
-        {
-            if (navMeshAgent.remainingDistance <= 0.01)
-            {
-                isWaiting = true;
-            }
-        }
+        
 
         // NPC Perceive
         Perceive();
@@ -133,7 +138,7 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
             if(ObjectHit.collider != null)
             {
                 GameObject detectedObject = ObjectHit.collider.gameObject;
-                if(detectedObject.name == "플레이어")
+                if(detectedObject.name == "플레이어" || detectedObject.name == gameObject.name)
                     continue;
                 else if(!detectedObjects.Contains(detectedObject))
                     detectedObjects.Add(detectedObject);
