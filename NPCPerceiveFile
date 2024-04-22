@@ -5,7 +5,7 @@
       "curr_address": "이화령의 집:home:home:home",
       "perceived_tiles": [
         {
-          "dist": 5.448622,
+          "dist": 5.45265865,
           "event": [
             "이화령",
             null,
@@ -40,7 +40,7 @@
       "curr_address": "변호인과 최문식의 집:home:home:home",
       "perceived_tiles": [
         {
-          "dist": 1.49974561,
+          "dist": 1.53434169,
           "event": [
             "최문식",
             null,
@@ -144,7 +144,7 @@
       "curr_address": "이화령의 집:home:home:home",
       "perceived_tiles": [
         {
-          "dist": 5.448622,
+          "dist": 5.45265865,
           "event": [
             "고영이",
             null,
@@ -164,7 +164,7 @@
       "curr_address": "변호인과 최문식의 집:home:home:home",
       "perceived_tiles": [
         {
-          "dist": 1.49974561,
+          "dist": 1.53434169,
           "event": [
             "변호인",
             null,

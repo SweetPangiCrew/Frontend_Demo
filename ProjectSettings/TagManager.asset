@@ -5,7 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - NPC
-  - Garden
+  - Location
   layers:
   - Default
   - TransparentFX

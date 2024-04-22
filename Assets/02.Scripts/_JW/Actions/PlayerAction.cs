@@ -16,9 +16,8 @@
         public static float reliability;    //유저 신뢰도
 
 
-        // Canvas_Location
+        // Location
         public GameObject Canvas_Location;
-        public TextMeshProUGUI Txt_Location;
 
         // Start is called before the first frame update
         void Awake()
@@ -59,13 +58,17 @@
 
         void OnTriggerEnter2D(Collider2D other)
         {
-            Canvas_Location.GetComponent<Animator>().Play("Location_Tag_Active");
-            Txt_Location.text = other.gameObject.name;
+            if(other.tag == "Location")
+            {
+                Canvas_Location.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = other.gameObject.name;
+                Canvas_Location.GetComponent<Animator>().Play("Location_Tag_Active");
+            }
         }
 
         void OnTriggerExit2D(Collider2D other)
         {
-            Canvas_Location.GetComponent<Animator>().Play("Location_Tag_Inactive");
+            if(other.tag == "Location")
+                Canvas_Location.GetComponent<Animator>().Play("Location_Tag_Inactive");
         }   
 
 
