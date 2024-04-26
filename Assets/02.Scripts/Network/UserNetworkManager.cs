@@ -8,19 +8,23 @@ using UnityEngine.UI;
 using TMPro;
 using NPCServer;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 
 public class UserNetworkManager : HttpServerBase
 {
     public static UserNetworkManager Instance {get; private set;}
     
-    [SerializeField]
-    private  Dictionary<string,int> existingInfo;
+    [FormerlySerializedAs("uuid")] [SerializeField]
+    private string uuid;
     
-    public Dictionary<string,int> ExistingInfo { get => existingInfo;
+    public TMP_InputField inputField;
+    public UnityEngine.UI.Button submitButton;
+    
+    public string ExistingInfo { get => uuid;
         set
         {
-            existingInfo = value;
+            uuid = value;
         }
     }
     private void Awake()
@@ -40,54 +44,82 @@ public class UserNetworkManager : HttpServerBase
         {
             GameURL.NPCServer.Server_URL = GameURL.NPCServer.Local_URL;
         }
-        StartCoroutine(GetExistingGamesCoroutine());
-    }
 
-    private void clickBtnloadGame(string gamekey,int step)
-    {
-  
-        
-        Database.Instance.gameName = gamekey;
-        Database.Instance.StartStep = step;
-        
-        NPCServerManager.Instance.gameStart();
-        SceneManager.LoadScene("MainTest");
-        
-    }
+        string local_uuid = LoadString("uuid");
 
-    public IEnumerator PostUserNameCoroutine()
-    {
-        yield return PostUserName();
+        if (local_uuid!= "NULL")
+        {
+          
+            
+            gameObject.SetActive(false);
+            
+            
+        }
+        
+        inputField.onValueChanged.AddListener(ValidateInput);
     }
     
-     public Coroutine PostUserName(
+    void ValidateInput(string text)
+    {
+        // 입력된 텍스트의 유효성을 검사하고, 텍스트가 비어있으면 버튼을 비활성화합니다.
+        submitButton.interactable = !string.IsNullOrEmpty(text);
+    }
+        
+    public void ReadInputField()
+    {
+        string inputText = inputField.text; // InputField의 텍스트 값을 가져옵니다.
+        
+        StartCoroutine(PostUserNameCoroutine(inputText));
+       // Debug.Log("Entered Text: " + inputText); // 콘솔에 텍스트 출력
+    }
+    
+    public IEnumerator PostUserNameCoroutine(string name)
+    {
+        yield return PostUserName(name);
+    }
+    
+     public Coroutine PostUserName(string name,
         Action<Result> onSucceed = null, Action<Result> onFailed = null, Action<Result> onNetworkFailed = null)
     {
-        string url = GameURL.NPCServer.Server_URL + GameURL.NPCServer.getExistingGames; 
+        string url = GameURL.NPCServer.Server_URL + GameURL.NPCServer.registUserName; 
 
-        // Newtonsoft.Json
+        //Newtonsoft.Json
         JObject jobj = new JObject();
-        
+
+        jobj["username"] = name;
+        SaveString("username", name);
+        Database.Instance.username = name;
         Action<Result> updateInfoAction = (result) =>
         {
-            
-            var resultData = JObject.Parse(result.Json)["games"]; 
-            
-            Dictionary<string,int> game_names = new Dictionary<string,int>();
-            
-            foreach (JProperty property in resultData)
-            { 
-                game_names[property.Name] = int.Parse(property.Value["step"].ToString());
-             
-            }
 
-            existingGameInfo = game_names;
-            loadGameButtons();
+            var resultData = JObject.Parse(result.Json);
+            uuid = resultData["uuid"].Value<string>();
+            Database.Instance.uuid = uuid;
+            SaveString("uuid", uuid);
+
         };
 
         onSucceed += updateInfoAction;
-        return StartCoroutine(SendRequestCor(url, SendType.GET, jobj, onSucceed, onFailed, onNetworkFailed));
+        return StartCoroutine(SendRequestCor(url, SendType.POST, jobj, onSucceed, onFailed, onNetworkFailed));
     }
+     
+     public void SaveString(string key, string value)
+     {
+         PlayerPrefs.SetString(key, value);
+         PlayerPrefs.Save(); // 변경사항을 디스크에 즉시 저장
+     }
+     
+     public string LoadString(string key)
+     {
+         return PlayerPrefs.GetString(key, "NULL");
+     }
+     void OnDestroy()
+     {
+         // 리스너를 제거하여 리소스 누수를 방지합니다.
+         inputField.onValueChanged.RemoveListener(ValidateInput);
+     }
     
+     
+     
     
 }

@@ -20,6 +20,9 @@ public class GameURL : MonoBehaviour
 
         public static readonly string sendUserMessage = "chat/send/";
         public static readonly string getChatLists = "chat/list/";
+        
+        public static readonly string registUserName = "users/registration/";
+        public static readonly string createGame = "users/create-game-stage/";
 
     }
 

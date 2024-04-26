@@ -12,9 +12,9 @@ using UnityEngine.SceneManagement;
 public class GameStart : MonoBehaviour
 {
     public TMP_InputField baseInput;
-
     public TMP_InputField nameInput;
 
+    public TMP_Text errText;
     private Button startBtn;
     
     string nextSceneName = "MainTest";
@@ -43,7 +43,7 @@ public class GameStart : MonoBehaviour
 
     void gameStart()
     {
-        StartCoroutine( NPCServerManager.Instance.PostGameStartoroutine(Database.Instance.simCode,Database.Instance.gameName));
+        StartCoroutine( NPCServerManager.Instance.PostGameStartoroutineWithText(Database.Instance.simCode,Database.Instance.gameName,errText));
       //  Debug.Log(+ );
     }
 
@@ -56,4 +56,5 @@ public class GameStart : MonoBehaviour
     {
         GameURL.NPCServer.Server_URL = GameURL.NPCServer.Remote_URL;
     }
+    
 }

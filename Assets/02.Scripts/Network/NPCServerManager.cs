@@ -7,8 +7,11 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System.Text;
 
+using UnityEngine.UI;
+using TMPro;
 using System.IO;
 using System.Linq;
+using System.Net.Mime;
 
 namespace NPCServer{
 public class NPCServerManager : HttpServerBase
@@ -67,6 +70,10 @@ public class NPCServerManager : HttpServerBase
         yield return PostGameStart(simCode, gameName);
     }
     
+    public IEnumerator PostGameStartoroutineWithText(string simCode, string gameName, TMP_Text errText)
+    {
+        yield return PostGameStart(simCode, gameName,errText);
+    }
     public IEnumerator GetServerTimeCoroutine()
     {
         yield return GetServerTime();
@@ -191,15 +198,21 @@ public class NPCServerManager : HttpServerBase
         return StartCoroutine(SendRequestCor(url, SendType.POST, jobj, onSucceed, onFailed, onNetworkFailed));
     }
      
-     public Coroutine PostGameStart(string simCode, string gameName,
+     public Coroutine PostGameStart(string simCode, string gameName, TMP_Text errText = null,
          Action<Result> onSucceed = null, Action<Result> onFailed = null, Action<Result> onNetworkFailed = null)
      {
-         string url = GameURL.NPCServer.Server_URL +"gamestart/";
+         string url = GameURL.NPCServer.Server_URL + GameURL.NPCServer.createGame;
 
+      //{
+      // 'user': self.user.uuid, #모델이기 때문에 uuid만 보내도 충분!
+      // 'game_name': 'TestGame4',
+      // 'sim_code': 'agenti',
+      // 'is_completed': False #필수 필드 아님
+      // }
       
          JObject jobj = new JObject();
 
-
+         jobj["user"] = Database.Instance.uuid;
          jobj["sim_code"] = simCode;
          jobj["game_name"] = gameName;
         
@@ -214,8 +227,18 @@ public class NPCServerManager : HttpServerBase
              Debug.Log("Post :"+ result.Json);
             
          };
+        
+         Action<Result> showLog = (result) =>
+         {
+            
+             var resultData = JObject.Parse(result.Json)["game_name"][0];
+             errText.text = resultData.ToString();
+             Debug.Log("Faile");
 
+         };
          onSucceed += updateStartInfoAction;
+         onNetworkFailed += showLog;
+         onFailed += showLog;
 
          return StartCoroutine(SendRequestCor(url, SendType.POST, jobj, onSucceed, onFailed, onNetworkFailed));
      }
