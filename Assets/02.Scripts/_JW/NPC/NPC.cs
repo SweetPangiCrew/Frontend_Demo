@@ -73,7 +73,7 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
             // NPC Moving
             if (isWaiting)
             {   
-                Debug.Log(currentWaypointIndex);
+                //Debug.Log(currentWaypointIndex);
                 waitCounter += Time.deltaTime;
                 if (waitCounter >= routines[currentWaypointIndex].waitTime)
                 {

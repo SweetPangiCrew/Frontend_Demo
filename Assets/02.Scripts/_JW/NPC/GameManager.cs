@@ -66,6 +66,9 @@ public class GameManager : MonoBehaviour
        // simCode = Database.Instance.simCode;
        if (gameName != "")
        {
+
+           Database.Instance.username = "김유저";
+           Database.Instance.uuid = "";
            gameName = Database.Instance.gameName;
            step = Database.Instance.StartStep; // 초기화는 0으로, game load한거라면 다름.
        }

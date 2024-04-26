@@ -22,8 +22,8 @@ public class GameStart : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        baseInput.text = "agenti";
-        Database.Instance.simCode =  "agenti";
+        baseInput.text = "agenti_15";
+        Database.Instance.simCode =  "agenti_15";
         
         startBtn = gameObject.GetComponent<Button>();
         baseInput.onValueChanged.AddListener(OnBaseValueChanged);
@@ -39,6 +39,7 @@ public class GameStart : MonoBehaviour
     void OnNameValueChanged(string newValue)
     {
         Database.Instance.gameName = newValue;
+        errText.text = "";
     }
 
     void gameStart()

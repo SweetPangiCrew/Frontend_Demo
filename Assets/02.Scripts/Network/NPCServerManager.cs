@@ -231,7 +231,7 @@ public class NPCServerManager : HttpServerBase
          Action<Result> showLog = (result) =>
          {
             
-             var resultData = JObject.Parse(result.Json)["game_name"][0];
+             var resultData = JObject.Parse(result.Json)["error"];
              errText.text = resultData.ToString();
              Debug.Log("Faile");
 
