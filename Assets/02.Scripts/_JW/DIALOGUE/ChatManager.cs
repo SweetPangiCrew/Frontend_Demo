@@ -113,7 +113,7 @@ public class ChatManager : MonoBehaviour
         currentSpeakerIndex = dialogueHistoryList[currentDialogueIndex].speakerIndex;
 
         // Kakao Talk Dialogue
-        GameObject TextClone = Instantiate(textArea[dialogues.Count%2], ContentRect);
+        GameObject TextClone = Instantiate(textArea[currentDialogueIndex%2], ContentRect);
         AreaScript Area = TextClone.GetComponent<AreaScript>();
         
         Debug.Log("prefab 생성 대화");

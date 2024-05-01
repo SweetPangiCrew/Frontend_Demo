@@ -62,6 +62,7 @@ public class UserChatAPIManager : HttpServerBase
         jsonFileContent["persona"] = persona;
         jsonFileContent["message"] = message;
         jsonFileContent["round"] = round.ToString();
+        jsonFileContent["uuid"] = Database.Instance.uuid;
         
         string jsonString = JsonConvert.SerializeObject(jsonFileContent);
 

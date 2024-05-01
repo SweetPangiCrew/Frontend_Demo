@@ -57,6 +57,7 @@ public class LoadChatListManager :  HttpServerBase
 
     public void ClickButtonLoadChatList()
     {
+        OnDisable();
         StartCoroutine(GetExistingChatListsCoroutine());
     }
     
@@ -118,7 +119,7 @@ public class LoadChatListManager :  HttpServerBase
      public Coroutine GetExistingChatLists(
         Action<Result> onSucceed = null, Action<Result> onFailed = null, Action<Result> onNetworkFailed = null)
     {
-        string url = GameURL.NPCServer.Server_URL + GameURL.NPCServer.getChatLists + Database.Instance.gameName; 
+        string url = GameURL.NPCServer.Server_URL + GameURL.NPCServer.getChatLists + Database.Instance.gameName+"/"+Database.Instance.uuid; 
 
         // Newtonsoft.Json
         JObject jobj = new JObject();

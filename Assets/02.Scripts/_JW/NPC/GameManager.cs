@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
            isTest = true;
        }
        
-        StartCoroutine(InvokePerceive());        
+       // StartCoroutine(InvokePerceive());        
     }
 
     private void LoadExistingInfo(string filePath)

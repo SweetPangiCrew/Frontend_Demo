@@ -62,7 +62,7 @@ public class ReligiousIndexNetworkManager : HttpServerBase
      public Coroutine GetRIndex(
         Action<Result> onSucceed = null, Action<Result> onFailed = null, Action<Result> onNetworkFailed = null)
     {
-        string url = GameURL.NPCServer.Server_URL + GameURL.NPCServer.getRIndex + Database.Instance.gameName; 
+        string url = GameURL.NPCServer.Server_URL + GameURL.NPCServer.getRIndex + Database.Instance.gameName+"/"+Database.Instance.uuid; 
 
         // Newtonsoft.Json
         JObject jobj = new JObject();
@@ -96,7 +96,7 @@ public class ReligiousIndexNetworkManager : HttpServerBase
      public Coroutine UpdateRIndex( Dictionary<string,int> updateInfo,
          Action<Result> onSucceed = null, Action<Result> onFailed = null, Action<Result> onNetworkFailed = null)
      {
-         string url = GameURL.NPCServer.Server_URL + GameURL.NPCServer.updateRIndex + Database.Instance.gameName +"/"; 
+         string url = GameURL.NPCServer.Server_URL + GameURL.NPCServer.updateRIndex + Database.Instance.gameName +"/"+Database.Instance.uuid+"/"; 
 
          // Newtonsoft.Json
          JObject jobj = new JObject();

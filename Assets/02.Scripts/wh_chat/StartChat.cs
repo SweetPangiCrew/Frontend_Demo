@@ -5,6 +5,7 @@ using UnityEngine;
 public class StartChat : MonoBehaviour
 {
     public GameObject chatPanel;
+    
     public SendMessage sendMessage;
     public NPCQuizManager npcQuizManager;
 
