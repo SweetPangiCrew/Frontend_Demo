@@ -110,7 +110,7 @@ public class NPCServerManager : HttpServerBase
         Action<Result> onSucceed = null, Action<Result> onFailed = null, Action<Result> onNetworkFailed = null)
     {
 
-        string url = GameURL.NPCServer.Server_URL + GameURL.NPCServer.getNPCMovement+simName+"/"+step;
+        string url = GameURL.NPCServer.Server_URL + GameURL.NPCServer.getNPCMovement+simName+"/"+step+"/"+Database.Instance.uuid;
 
         // Newtonsoft.Json 
         JObject jobj = new JObject();
@@ -135,7 +135,7 @@ public class NPCServerManager : HttpServerBase
                     act_address.Add(property.Value["act_address"].ToString());
                     pronunciatio.Add(property.Value["pronunciatio"].ToString());
                     description.Add(property.Value["description"].ToString());
-                    Debug.Log(property.Value["chat"].ToString());
+                    //Debug.Log(property.Value["chat"].ToString());
                     
                     foreach (var chatlist in property.Value["chat"])
                     {
@@ -166,12 +166,10 @@ public class NPCServerManager : HttpServerBase
         Action<Result> onSucceed = null, Action<Result> onFailed = null, Action<Result> onNetworkFailed = null)
     {
         // 로그??URL??조합
-        string url = GameURL.NPCServer.Server_URL + GameURL.NPCServer.postNPCPercention +simName+"/"+step+"/";
+        string url = GameURL.NPCServer.Server_URL + GameURL.NPCServer.postNPCPercention +simName+"/"+step+"/"+Database.Instance.uuid;
 
       
         JObject jobj = new JObject();
-        
-        
        //현재 로컬 파일로 부르는 중..? daa 쓸 필요 없나?  
        // string jsonFilePath = Path.Combine(Application.dataPath, "NPCPerceiveFile.json");//NPCPerceiveFile  PercevieAPI 이전버전
       //  string jsonFileContent = File.ReadAllText(jsonFilePath);
