@@ -33,6 +33,8 @@ public class ChatManager : MonoBehaviour
             }
         }
     }
+    
+   
 
     public void LoadDialogue(List<List<string>> chatList, int npcIndex, int otherNpcIndex)
     {
@@ -116,7 +118,7 @@ public class ChatManager : MonoBehaviour
         GameObject TextClone = Instantiate(textArea[currentDialogueIndex%2], ContentRect);
         AreaScript Area = TextClone.GetComponent<AreaScript>();
         
-        Debug.Log("prefab 생성 대화");
+       // Debug.Log("prefab 생성 대화");
         Area.TextRect.GetComponent<TextMeshProUGUI>().text = dialogueHistoryList[currentDialogueIndex].dialogue;
         Area.NameText.text = dialogueHistoryList[currentDialogueIndex].name;
         scrollBar.value = 1f;

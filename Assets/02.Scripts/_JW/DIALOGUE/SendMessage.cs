@@ -33,6 +33,22 @@ public class SendMessage : MonoBehaviour
         // 입력 필드의 onValueChanged 이벤트에 메서드를 추가합니다.
         inputField.onValueChanged.AddListener(OnTextChanged);
     }
+    
+    private void OnDisable()
+    {
+        inputField.text = "";
+        inputField.interactable = true;
+        sendBtn.interactable = true;
+        transferNum = 0;
+        Time.timeScale = 1;
+        
+        // 자식 GameObject를 모두 파괴합니다.
+        for (int i = 0; i < ContentRect.transform.childCount; i++)
+        {
+            Destroy(ContentRect.transform.GetChild(i).gameObject);
+        }
+ 
+    }
 
     void OnEnable()
     {

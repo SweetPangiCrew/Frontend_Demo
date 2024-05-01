@@ -45,6 +45,11 @@ public class LoadChatListManager :  HttpServerBase
         // ClickButtonLoadChatList();
     }
 
+    private void OnEnable()
+    {
+        ClickButtonLoadChatList();
+    }
+
     private void OnDisable()
     {
         // 자식 GameObject를 모두 파괴합니다.
