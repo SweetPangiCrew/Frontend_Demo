@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 using TMPro;
 
 
+
 public class GameManager : MonoBehaviour
 {
     // test 
@@ -161,6 +162,7 @@ public class GameManager : MonoBehaviour
             {
                 jsonFilePath = "NPCMovementFile2";
                 Debug.Log("두번ㅉ!!!!!!!!!");
+                personaList = new List<Persona>();
             }
             
             
