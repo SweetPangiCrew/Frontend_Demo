@@ -20,7 +20,7 @@ public class Database : MonoBehaviour
             DontDestroyOnLoad(gameObject);
             
             Debug.Log("User 정보 불러옴");
-            uuid =  PlayerPrefs.GetString("uuid", "NULL");
+            uuid =  PlayerPrefs.GetString("uuid", "a45c234b-f6f8-4ba8-9fa3-0dac1ce521de");
             username = PlayerPrefs.GetString("username", "NULL");
         }
         else

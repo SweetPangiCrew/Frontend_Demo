@@ -47,7 +47,7 @@ public class UserNetworkManager : HttpServerBase
 
         string local_uuid = LoadString("uuid");
 
-        if (local_uuid!= "NULL")
+        if (local_uuid != "NULL")
         {
           
             
@@ -70,7 +70,7 @@ public class UserNetworkManager : HttpServerBase
         string inputText = inputField.text; // InputField의 텍스트 값을 가져옵니다.
         
         StartCoroutine(PostUserNameCoroutine(inputText));
-       // Debug.Log("Entered Text: " + inputText); // 콘솔에 텍스트 출력
+        Debug.Log("Entered Text: " + inputText); // 콘솔에 텍스트 출력
     }
     
     public IEnumerator PostUserNameCoroutine(string name)
