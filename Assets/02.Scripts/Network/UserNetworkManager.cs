@@ -20,6 +20,7 @@ public class UserNetworkManager : HttpServerBase
     
     public TMP_InputField inputField;
     public UnityEngine.UI.Button submitButton;
+    public GameObject uiPanel;
     
     public string ExistingInfo { get => uuid;
         set
@@ -51,7 +52,7 @@ public class UserNetworkManager : HttpServerBase
         {
           
             
-            gameObject.SetActive(false);
+            uiPanel.SetActive(false);
             
             
         }
