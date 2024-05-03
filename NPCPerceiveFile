@@ -2,10 +2,10 @@
   "perceived_info": [
     {
       "persona": "고영이",
-      "curr_address": "none:home:home:home",
+      "curr_address": "고영이의 집:home:home:home",
       "perceived_tiles": [
         {
-          "dist": 5.509517,
+          "dist": 26.6484852,
           "event": [
             "이화령",
             null,
@@ -40,7 +40,7 @@
       "curr_address": "변호인과 최문식의 집:home:home:home",
       "perceived_tiles": [
         {
-          "dist": 1.54153311,
+          "dist": 1.50134385,
           "event": [
             "최문식",
             null,
@@ -55,7 +55,7 @@
       "curr_address": "여이삭의 집:home:home:home",
       "perceived_tiles": [
         {
-          "dist": 1.49990416,
+          "dist": 1.49994421,
           "event": [
             "이자식",
             null,
@@ -92,12 +92,12 @@
     },
     {
       "persona": "유태호",
-      "curr_address": "이장남과 이자식의 집:home:home:home",
+      "curr_address": "여이삭의 집:home:home:home",
       "perceived_tiles": [
         {
-          "dist": 12.8312216,
+          "dist": 1.49994421,
           "event": [
-            "이장남",
+            "여이삭",
             null,
             null,
             null
@@ -144,7 +144,7 @@
       "curr_address": "이화령의 집:home:home:home",
       "perceived_tiles": [
         {
-          "dist": 5.509517,
+          "dist": 26.6484852,
           "event": [
             "고영이",
             null,
@@ -164,7 +164,7 @@
       "curr_address": "변호인과 최문식의 집:home:home:home",
       "perceived_tiles": [
         {
-          "dist": 1.54153311,
+          "dist": 1.50134385,
           "event": [
             "변호인",
             null,

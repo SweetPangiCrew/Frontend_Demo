@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
 
     // timer
     private DateTime curr_time;
-    private int stepTime = 18; // 게임 ?�간?�로 18�?마다 ?�텝???�데?�트 ??
+    private int stepTime = 18; // 게임 시간으로 18분 마다 perceive가 invoke
 
     // Get Movement
     private int step;
@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
            isTest = true;
        }
        
-       // StartCoroutine(InvokePerceive());        
+        StartCoroutine(InvokePerceive());        
     }
 
     private void LoadExistingInfo(string filePath)
@@ -329,13 +329,22 @@ public class GameManager : MonoBehaviour
                                 Console.WriteLine(e);
                                 throw;
                             }
-                            
-                            existingInfo.perceived_info[npcIndex].perceived_tiles[k].@event[0] = NPC[npcIndex].detectedObjects[k].gameObject.name;
+
+                            string otherNPCName = NPC[npcIndex].detectedObjects[k].gameObject.name;
+                            existingInfo.perceived_info[npcIndex].perceived_tiles[k].@event[0] = otherNPCName;
 
                             for (int j = 1; j < 4; j++)
                             {
                                 existingInfo.perceived_info[npcIndex].perceived_tiles[k].@event[j] = null;
                             }
+                            
+                            //현재 NPC랑 만난 NPC 멈추기
+                            otherNpcIndex = FindNPCIndex(otherNPCName);
+                            NPC[otherNpcIndex].StopAndMoveForChatting();
+                            NPC[npcIndex].StopAndMoveForChatting();
+                            
+                           // Debug.Log(otherNPCName+"와"+perceivedInfo.persona+"대화하려고 멈춤");
+     
                         }
                         else
                         {

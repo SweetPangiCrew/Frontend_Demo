@@ -10,6 +10,9 @@ using System.Net;
 using NPCServer;
 using System.Linq;
 using System.Diagnostics.Tracing;
+using System;
+
+
 
 public class NPC : MonoBehaviour // later, it will be global NPC Controller
 {
@@ -20,6 +23,8 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
     private float waitCounter = 0f;
     private bool isWaiting = false;
 
+    private bool isNPCChatAvailable = true;
+    
     // Perceive
     private Vector2 location;
     private float detectionRadius = 0.75f;
@@ -47,6 +52,7 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
         animator = GetComponent<Animator>();
 
         Move();
+        StartCoroutine(RepeatedFunctionCoroutine(1f,Perceive));
     }
     void FixedUpdate()
     {
@@ -92,9 +98,6 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
             }
         }
         
-
-        // NPC Perceive
-        Perceive();
     }
 
 /*
@@ -122,7 +125,8 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
     {
         // update NPC name and location
         location = this.GetComponent<Transform>().position;
-
+        detectedObjects = new List<GameObject>();
+        
         // NPC perceive
         for (int i = 0; i < 36; i++)
         {
@@ -134,14 +138,18 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
 
             RaycastHit2D ObjectHit = Physics2D.Raycast(rayOrigin, direction, detectionRadius, LayerMask.GetMask("InteractableObject"));
             Debug.DrawRay(rayOrigin, direction * detectionRadius, Color.red);   
+           
             
             if(ObjectHit.collider != null)
             {
                 GameObject detectedObject = ObjectHit.collider.gameObject;
                 if(detectedObject.name == "플레이어" || detectedObject.name == gameObject.name)
                     continue;
-                else if(!detectedObjects.Contains(detectedObject))
+                else if (!detectedObjects.Contains(detectedObject))
+                {
                     detectedObjects.Add(detectedObject);
+                   
+                }
             }
         }
     }
@@ -170,7 +178,52 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
 
         routines.Insert(currentWaypointIndex, newRoutine);
     }
+    
+    public void StopAndMoveForChatting(float time = 40f)
+    {
+        
+        if(!isNPCChatAvailable) return;
+        
+        navMeshAgent.isStopped = true;
+        isNPCChatAvailable = false;
+        
+          StartCoroutine(WaitForSecondsCoroutine(time, () =>
+        {
+             // 이 부분에 코루틴이 끝난 후 할 행동
+             //행동루틴 장소 확인하고 이동
+             Debug.Log("chatting 끝나고 행동루틴 움직임!"+gameObject.name);
+             Move();
+             
+             //대화 시간 만큼 한번 더 기다려서 chatting 가능하게 활성화
+             StartCoroutine(WaitForSecondsCoroutine(time, () =>
+             {
+                 isNPCChatAvailable = true;
+             }));
+           
+        }));
+          
+    }
+    
+    IEnumerator WaitForSecondsCoroutine(float waitTime, Action onComplete)
+    {
+
+        // 지정된 시간만큼 기다립니다.
+        yield return new WaitForSeconds(waitTime);
+
+        // 코루틴이 끝난 후에 Action을 실행합니다.
+        onComplete?.Invoke();
+    }
     #endregion
+    
+    IEnumerator RepeatedFunctionCoroutine(float interval, System.Action function)
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(interval);
+            function?.Invoke();
+        }
+    }
+
 
     #region LOCATION
     void OnTriggerEnter2D(Collider2D other)
