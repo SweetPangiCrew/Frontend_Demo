@@ -1004,6 +1004,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 416869617}
   m_CullTransparentMesh: 1
+--- !u!1 &459283191
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 459283193}
+  - component: {fileID: 459283192}
+  m_Layer: 0
+  m_Name: UserNameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &459283192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 459283191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c254346154876463aa0b8f438d31cf34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uuid: 
+  inputField: {fileID: 895326483}
+  submitButton: {fileID: 513103760}
+  uiPanel: {fileID: 744573111}
+--- !u!4 &459283193
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 459283191}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1051.6473, y: 458.1529, z: -12.867972}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &513103758
 GameObject:
   m_ObjectHideFlags: 0
@@ -1088,7 +1136,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 744573115}
+      - m_Target: {fileID: 459283192}
         m_TargetAssemblyTypeName: UserNetworkManager, Assembly-CSharp
         m_MethodName: ReadInputField
         m_Mode: 1
@@ -1785,7 +1833,6 @@ GameObject:
   - component: {fileID: 744573112}
   - component: {fileID: 744573114}
   - component: {fileID: 744573113}
-  - component: {fileID: 744573115}
   m_Layer: 5
   m_Name: Get User Name
   m_TagString: Untagged
@@ -1854,21 +1901,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 744573111}
   m_CullTransparentMesh: 1
---- !u!114 &744573115
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 744573111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c254346154876463aa0b8f438d31cf34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uuid: 
-  inputField: {fileID: 895326483}
-  submitButton: {fileID: 513103760}
 --- !u!1 &849387846
 GameObject:
   m_ObjectHideFlags: 0
