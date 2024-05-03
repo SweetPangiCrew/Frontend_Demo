@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
 
     // Get Movement
     private int step;
+
     // Get Movement from local file, true : only Test Mode available
     public bool isUsingMovementLocalFile = true;
     public string gameName; 
@@ -114,7 +115,7 @@ public class GameManager : MonoBehaviour
             //server manage?�서 ?�버가 ???�렸?�때
             if (!NPCServerManager.Instance.serverOpened & !isTest) { yield return new WaitForSeconds(1f); continue;}
             
-            if (step == 0)
+            if (step == 0 || step ==1)
             {
                 GetMovement(step);
                 step++;
@@ -161,14 +162,20 @@ public class GameManager : MonoBehaviour
             else if(stepNumber ==1)
             {
                 jsonFilePath = "NPCMovementFile2";
-                Debug.Log("두번ㅉ!!!!!!!!!");
+                
                 personaList = new List<Persona>();
+                Debug.Log("@@@@@@@@@@@@@@@@");
+            }else if(stepNumber ==2 ){
+                                jsonFilePath = "NPCMovementFile3";
+                
+                personaList = new List<Persona>();
+                                Debug.Log("@@@@@@@@@@@@@@@@");
             }
             
             
 
             var jsonTextFile = Resources.Load<TextAsset>(jsonFilePath);
-            Debug.Log(jsonFilePath);
+            
             var jsonData = JObject.Parse(jsonTextFile.text)["persona"]; 
 
             List<string> personas = new List<string>();

@@ -41,7 +41,7 @@ public class NPC : MonoBehaviour
         // Animator
         animator = GetComponent<Animator>();
 
-        Move();
+        //Move();
     }
 
     void FixedUpdate()
@@ -67,22 +67,39 @@ public class NPC : MonoBehaviour
         if(routines.Count != 0)
         {   
             // NPC Moving
-            if (isWaiting)
+            if (!isWaiting)
             {
-                waitCounter += Time.deltaTime;
-                if (waitCounter >= locationTags[currentLocationTagIndex].waitTime)
+
+                if(locationTag)
                 {
-                    Debug.Log(waitCounter);
-                    isWaiting = false;
-                    waitCounter = 0f;
-                    Move();
+                    waitCounter += Time.deltaTime;
+                    if (waitCounter >= locationTags[currentLocationTagIndex].waitTime)
+                    {
+                        isWaiting = true;
+                        waitCounter = 0f;
+
+                        Transform nextWaypoint = locationTags[currentLocationTagIndex].wayPoint;
+                        Debug.Log(nextWaypoint.name);
+                        navMeshAgent.SetDestination(nextWaypoint.position);
+                        currentLocationTagIndex = (currentLocationTagIndex + 1) % locationTags.Count;  // Proper wrap-around increment.
+                        locationTag = false;
+
+                    }
                 }
+                else
+                {                        
+                    isWaiting = true;
+                    SetRoutine();
+                }
+
+                navMeshAgent.isStopped = false;
+
             }
             else
             {
                 if (navMeshAgent.remainingDistance <= 0.01)
                 {
-                    isWaiting = true;
+                    isWaiting = false;
                 }
             }
         }
@@ -124,8 +141,9 @@ public class NPC : MonoBehaviour
     }
     #endregion     
 
+
     #region MOVE
-    public void Move()
+/*    public void Move()
     {
         //if(routines.Count == 0) return;
 
@@ -145,7 +163,7 @@ public class NPC : MonoBehaviour
         // Resume NPC movement
         navMeshAgent.isStopped = false;
 
-    }
+    }*/
 
     public void SetRoutine()
     {
@@ -170,7 +188,7 @@ public class NPC : MonoBehaviour
         };
 
         locationTags.Insert(currentRoutineIndex, locationTag);
-
+        currentRoutineIndex++;
     }
     #endregion
 
