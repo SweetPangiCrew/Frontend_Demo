@@ -2,10 +2,10 @@
   "perceived_info": [
     {
       "persona": "고영이",
-      "curr_address": "이화령의 집:home:home:home",
+      "curr_address": "none:home:home:home",
       "perceived_tiles": [
         {
-          "dist": 5.45265865,
+          "dist": 5.57051754,
           "event": [
             "이화령",
             null,
@@ -40,7 +40,7 @@
       "curr_address": "변호인과 최문식의 집:home:home:home",
       "perceived_tiles": [
         {
-          "dist": 1.53434169,
+          "dist": 1.499891,
           "event": [
             "최문식",
             null,
@@ -116,7 +116,7 @@
     },
     {
       "persona": "이자식",
-      "curr_address": "none:home:home:home",
+      "curr_address": "오화가와 유리코의 집:home:home:home",
       "perceived_tiles": []
     },
     {
@@ -144,7 +144,7 @@
       "curr_address": "이화령의 집:home:home:home",
       "perceived_tiles": [
         {
-          "dist": 5.45265865,
+          "dist": 5.57051754,
           "event": [
             "고영이",
             null,
@@ -164,7 +164,7 @@
       "curr_address": "변호인과 최문식의 집:home:home:home",
       "perceived_tiles": [
         {
-          "dist": 1.53434169,
+          "dist": 1.499891,
           "event": [
             "변호인",
             null,
