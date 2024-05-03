@@ -14,6 +14,8 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    // test 
+    string jsonFilePath;
     public static GameManager Instance { get; private set; }
     
     private void Awake()
@@ -117,7 +119,8 @@ public class GameManager : MonoBehaviour
                 step++;
                 lasttime = minute;
                 NPCServerManager.Instance.perceived = false;
-                yield return new WaitForSeconds(1f); 
+                yield return new WaitForSeconds(10f); 
+                GetMovement(step);
                 continue;
             }
             
@@ -151,9 +154,19 @@ public class GameManager : MonoBehaviour
         { 
             //string json = File.ReadAllText("Assets/Resources/NPCMovementFile.json");     
             //var resultData = JObject.Parse(json)["persona"]; 
+    
+            if(stepNumber == 0)
+                jsonFilePath = "NPCMovementFile";
+            else if(stepNumber ==1)
+            {
+                jsonFilePath = "NPCMovementFile2";
+                Debug.Log("두번ㅉ!!!!!!!!!");
+            }
+            
+            
 
-            string jsonFilePath = "NPCMovementFile";
             var jsonTextFile = Resources.Load<TextAsset>(jsonFilePath);
+            Debug.Log(jsonFilePath);
             var jsonData = JObject.Parse(jsonTextFile.text)["persona"]; 
 
             List<string> personas = new List<string>();
@@ -207,15 +220,16 @@ public class GameManager : MonoBehaviour
                 /* --- ACT ADDRESS --- */
                 (string tag, string content) = ExtractTagAndContent(personaList[npcIndex].ActAddress);
                 
+                // <persona>
                 if(tag == "persona")
                 {
+                    NPC[npcIndex].AddWaypoint(NPC[npcIndex].transform, 40);
                     NPCName = content;
 
                     for (int i = 0; i < perceivedInfo.perceived_tiles.Count; i++)
                     {
                         if (perceivedInfo.perceived_tiles[i].@event[0] == NPCName) 
                         {
-                            Debug.Log("ㅅ비ㅏㄹ");
                             otherNpcIndex = FindNPCIndex(NPCName);
                             NPC[npcIndex].navMeshAgent.isStopped = true;
                             NPC[otherNpcIndex].navMeshAgent.isStopped = true;
@@ -234,23 +248,25 @@ public class GameManager : MonoBehaviour
                             {                   
                                 conversationPairs.Add(conversationPair);      
                                 chatManager.LoadDialogue(personaList[npcIndex].Chat, npcIndex, otherNpcIndex); 
-                                Debug.Log("잉????????????????????????????");
+
                                 NPC[npcIndex].IconBubble.SetActive(false);
                                 NPC[otherNpcIndex].IconBubble.SetActive(false);
                             }
                         }
                     }
                 }
-
+                // <location>
                 else if(tag == "location")
                 {
-                    GetLocation(content, npcIndex);
+                    NPC[npcIndex].locationTag = true;
+                    AddLocation(content, npcIndex);
                 }
                     
+                
                 /* --- PRONUNCIATIO --- */
                 string[] emoji = personaList[npcIndex].Pronunciatio.Trim().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 NPC[npcIndex].IconBubble.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = NPC[npcIndex].gameObject.name + ":";
-                Debug.Log(NPC[npcIndex].gameObject.name);
+                //Debug.Log(NPC[npcIndex].gameObject.name);
                 for(int i = 0; i < emoji.Length; i++)
                 {
                     string extension = Path.GetExtension(emoji[i]);
@@ -282,7 +298,7 @@ public class GameManager : MonoBehaviour
         {
             if(nl.gameObject.name == nextLocation)
             {
-                NPC[npcIndex].AddWaypoint(nl, 10);      // 임시로 10초 넣음
+                NPC[npcIndex].AddWaypoint(nl, 40);   
                 break; 
             }                
         }

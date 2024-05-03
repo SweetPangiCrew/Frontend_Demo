@@ -1,21 +1,16 @@
-using System.Collections;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 using UnityEngine;
-using System.IO;
 using UnityEngine.AI;
-using NavMeshPlus.Extensions;
-using Panda.Examples.Move;
-using System.Net;
 using NPCServer;
-using System.Linq;
-using System.Diagnostics.Tracing;
 
-public class NPC : MonoBehaviour // later, it will be global NPC Controller
+public class NPC : MonoBehaviour 
 {
     // Move
     public List<Routine> routines;
-    private int currentWaypointIndex = 0;
+    public List<LocationTag> locationTags;
+    public bool locationTag = true;
+    private int currentRoutineIndex = 0;
+    private int currentLocationTagIndex = 0;
     public NavMeshAgent navMeshAgent;
     private float waitCounter = 0f;
     private bool isWaiting = false;
@@ -48,6 +43,7 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
 
         Move();
     }
+
     void FixedUpdate()
     {
         if(animator)
@@ -72,10 +68,9 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
         {   
             // NPC Moving
             if (isWaiting)
-            {   
-                Debug.Log(currentWaypointIndex);
+            {
                 waitCounter += Time.deltaTime;
-                if (waitCounter >= routines[currentWaypointIndex].waitTime)
+                if (waitCounter >= locationTags[currentLocationTagIndex].waitTime)
                 {
                     Debug.Log(waitCounter);
                     isWaiting = false;
@@ -91,33 +86,15 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
                 }
             }
         }
+
+
         
 
         // NPC Perceive
         Perceive();
     }
 
-/*
-    #region INTERACT
-    public void Interact()
-    {
-        if (!isInteracting) // Luna is interacting with NPC
-        { 
-
-        }
-        else // End Interacting
-        {
-            Debug.Log("End Interact!");
-
-            agent.isStopped = false;
-            _currentWaypointIndex = (_currentWaypointIndex + 1) % _LunaWaypoints.Length;
-            Move();
-
-        }
-    }
-    #endregion
-*/
-    #region PERCEIVE
+     #region PERCEIVE
     public void Perceive()
     {
         // update NPC name and location
@@ -145,30 +122,55 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
             }
         }
     }
-    #endregion
+    #endregion     
 
     #region MOVE
     public void Move()
     {
-        if (routines.Count == 0) return;
+        //if(routines.Count == 0) return;
 
-        Transform nextWaypoint = routines[currentWaypointIndex].wayPoint;
-        navMeshAgent.SetDestination(nextWaypoint.position);
-        currentWaypointIndex = (currentWaypointIndex + 1) % routines.Count;
-        
+        if(locationTag)
+        {            
+            Transform nextWaypoint = locationTags[currentLocationTagIndex].wayPoint;
+            Debug.Log(nextWaypoint.name);
+            navMeshAgent.SetDestination(nextWaypoint.position);
+            currentLocationTagIndex = (currentLocationTagIndex + 1) % locationTags.Count;  // Proper wrap-around increment.
+            locationTag = false;
+        }
+        else
+        {
+            SetRoutine();
+        }
+
         // Resume NPC movement
         navMeshAgent.isStopped = false;
+
     }
+
+    public void SetRoutine()
+    {
+        int curr_time = Clock.Instance.GetCurrentTime().Hour;
+        foreach(var routine in routines)
+        {
+            if(routine.startTime == curr_time)
+            {
+                navMeshAgent.SetDestination(routine.wayPoint.position);
+                Debug.Log(routine.wayPoint.position);
+                navMeshAgent.isStopped = false;
+            }                 
+        }
+    }  
 
     public void AddWaypoint(Transform nl, int time)
     {
-        Routine newRoutine = new Routine
+        LocationTag locationTag = new LocationTag
         {
             wayPoint = nl,
-            waitTime = time
+            waitTime = time,
         };
 
-        routines.Insert(currentWaypointIndex, newRoutine);
+        locationTags.Insert(currentRoutineIndex, locationTag);
+
     }
     #endregion
 
@@ -187,6 +189,13 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
 
 [System.Serializable]
 public struct Routine
+{
+    public Transform wayPoint;
+    public int startTime;
+}
+
+[System.Serializable]
+public struct LocationTag
 {
     public Transform wayPoint;
     public int waitTime;
