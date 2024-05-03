@@ -131,7 +131,7 @@ public class GameManager : MonoBehaviour
                 {
                     lasttime = minute;
                     SaveJsonFile(); //perceive 
-                    NPCServerManager.Instance.getReaction = false;
+                    NPCServerManager.Instance.getReaction = false; // perceive 뒤에 해야함.
                     pStep++;
                 }
 
@@ -218,7 +218,7 @@ public class GameManager : MonoBehaviour
                     {
                         if (perceivedInfo.perceived_tiles[i].@event[0] == NPCName) 
                         {
-                            Debug.Log("ㅅ비ㅏㄹ");
+                         
                             otherNpcIndex = FindNPCIndex(NPCName);
                             NPC[npcIndex].navMeshAgent.isStopped = true;
                             NPC[otherNpcIndex].navMeshAgent.isStopped = true;

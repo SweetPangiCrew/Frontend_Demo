@@ -187,19 +187,13 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
         navMeshAgent.isStopped = true;
         isNPCChatAvailable = false;
         
-          StartCoroutine(WaitForSecondsCoroutine(time, () =>
+          StartCoroutine(checkChattingStop( () =>
         {
              // 이 부분에 코루틴이 끝난 후 할 행동
              //행동루틴 장소 확인하고 이동
              Debug.Log("chatting 끝나고 행동루틴 움직임!"+gameObject.name);
              Move();
              
-             //대화 시간 만큼 한번 더 기다려서 chatting 가능하게 활성화
-             StartCoroutine(WaitForSecondsCoroutine(time, () =>
-             {
-                 isNPCChatAvailable = true;
-             }));
-           
         }));
           
     }
@@ -214,7 +208,7 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
         onComplete?.Invoke();
     }
     #endregion
-    
+
     IEnumerator RepeatedFunctionCoroutine(float interval, System.Action function)
     {
         while (true)
@@ -222,6 +216,20 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
             yield return new WaitForSeconds(interval);
             function?.Invoke();
         }
+    }
+    
+    IEnumerator checkChattingStop(Action onComplete)
+    {
+        while (!NPCServerManager.Instance.getReaction)
+        {
+            yield return new WaitForSeconds(1f);
+        }
+        onComplete?.Invoke();
+        
+        yield return new WaitForSeconds(10f);
+        
+        isNPCChatAvailable = true;
+        
     }
 
 
