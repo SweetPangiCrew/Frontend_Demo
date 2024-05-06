@@ -130,6 +130,8 @@ public class GameManager : MonoBehaviour
                 if (pStep == step && NPCServerManager.Instance.getReaction)// || isTest && isUsingMovementLocalFile
                 {
                     lasttime = minute;
+                    personaList = NPCServerManager.Instance.CurrentMovementInfo; // 이게 무브먼트 끝나고 바로 해야함
+                    applyMovement();
                     SaveJsonFile(); //perceive 
                     NPCServerManager.Instance.getReaction = false; // perceive 뒤에 해야함.
                     pStep++;
@@ -192,15 +194,23 @@ public class GameManager : MonoBehaviour
         else
         {
             StartCoroutine(NPCServerManager.Instance.GetMovementCoroutine(gameName, stepNumber));
-            personaList = NPCServerManager.Instance.CurrentMovementInfo;
+
         }
 
+      
+            
+                
+    }
+
+    private void applyMovement()
+    { 
+        Debug.Log("Apply Movement");
         if (personaList.Count==0 ||personaList == null || NPC == null)
         {
             Debug.LogWarning("personaList or NPC list is null.");
             return;
         }
-            
+        
         foreach (var perceivedInfo in existingInfo.perceived_info)
         {            
             npcIndex = FindNPCIndex(perceivedInfo.persona);
@@ -269,9 +279,9 @@ public class GameManager : MonoBehaviour
                 /* --- DESCRIPTION --- */
                 NPC[npcIndex].DescriptionBubble.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = personaList[npcIndex].Description;
             }
-        }                
-    } 
-
+        }       
+        
+    }
     private void GetLocation(string content, int npcIndex)
     {
         string[] parts = content.Split(':');
@@ -343,7 +353,7 @@ public class GameManager : MonoBehaviour
                             NPC[otherNpcIndex].StopAndMoveForChatting();
                             NPC[npcIndex].StopAndMoveForChatting();
                             
-                           // Debug.Log(otherNPCName+"와"+perceivedInfo.persona+"대화하려고 멈춤");
+                            Debug.Log(otherNPCName+"와"+perceivedInfo.persona+"대화하려고 멈춤");
      
                         }
                         else

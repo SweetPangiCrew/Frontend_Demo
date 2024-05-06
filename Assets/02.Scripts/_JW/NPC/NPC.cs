@@ -74,7 +74,8 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
         // Fix NPC Rotation
         transform.rotation = Quaternion.Euler(0, 0, 0);
 
-        if(routines.Count != 0)
+
+        if(!navMeshAgent.isStopped && routines.Count != 0)
         {   
             // NPC Moving
             if (isWaiting)
@@ -166,6 +167,7 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
         
         // Resume NPC movement
         navMeshAgent.isStopped = false;
+
     }
 
     public void AddWaypoint(Transform nl, int time)
@@ -186,6 +188,7 @@ public class NPC : MonoBehaviour // later, it will be global NPC Controller
         
         navMeshAgent.isStopped = true;
         isNPCChatAvailable = false;
+        
         
           StartCoroutine(checkChattingStop( () =>
         {
