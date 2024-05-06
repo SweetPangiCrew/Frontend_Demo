@@ -42,6 +42,12 @@
       "description": "오화가는 나주교와 대화를 나누고있다.",
       "chat": null
     },
+    "유리코": {
+      "act_address": null,
+      "pronunciatio": "1f4da.png ",
+      "description": "유리코는 공부를 하고 있다.",
+      "chat": null
+    },
     "유태호": {
       "act_address": null,
       "pronunciatio": "1f373.png ",
@@ -52,12 +58,6 @@
       "act_address": null,
       "pronunciatio": "1f634.png ",
       "description": "이자식은 잠을 자고 있다.",
-      "chat": null
-    },
-    "유리코": {
-      "act_address": null,
-      "pronunciatio": "1f4da.png ",
-      "description": "유리코는 공부를 하고 있다.",
       "chat": null
     },
     "이장남": {
