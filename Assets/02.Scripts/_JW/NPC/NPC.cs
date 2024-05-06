@@ -48,7 +48,7 @@ public class NPC : MonoBehaviour
         // Animator
         animator = GetComponent<Animator>();
 
-        Move();
+       // Move();
         StartCoroutine(RepeatedFunctionCoroutine(1f,Perceive));
     }
 
