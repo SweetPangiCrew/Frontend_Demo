@@ -243,10 +243,14 @@ public class NPC : MonoBehaviour
     
     IEnumerator checkChattingStop(Action onComplete)
     {
+        yield return new WaitForSeconds(10f);
+        
         while (!NPCServerManager.Instance.getReaction)
         {
             yield return new WaitForSeconds(1f);
         }
+        
+        yield return new WaitForSeconds(10f);
         onComplete?.Invoke();
         
         yield return new WaitForSeconds(10f);
