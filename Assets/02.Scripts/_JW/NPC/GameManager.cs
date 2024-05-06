@@ -12,8 +12,11 @@ using System.Text.RegularExpressions;
 using TMPro;
 
 
+
 public class GameManager : MonoBehaviour
 {
+    // test 
+    string jsonFilePath;
     public static GameManager Instance { get; private set; }
     
     private void Awake()
@@ -42,6 +45,7 @@ public class GameManager : MonoBehaviour
 
     // Get Movement
     private int step;
+
     // Get Movement from local file, true : only Test Mode available
     public bool isUsingMovementLocalFile = true;
     public string gameName; 
@@ -114,13 +118,14 @@ public class GameManager : MonoBehaviour
             //server manage?�서 ?�버가 ???�렸?�때
             if (!NPCServerManager.Instance.serverOpened & !isTest) { yield return new WaitForSeconds(1f); continue;}
             
-            if (step == 0)
+            if (step == 0 || step ==1)
             {
                 GetMovement(step);
                 step++;
                 lasttime = minute;
                 NPCServerManager.Instance.perceived = false;
-                yield return new WaitForSeconds(1f); 
+                yield return new WaitForSeconds(10f); 
+                GetMovement(step);
                 continue;
             }
             
@@ -156,9 +161,26 @@ public class GameManager : MonoBehaviour
         { 
             //string json = File.ReadAllText("Assets/Resources/NPCMovementFile.json");     
             //var resultData = JObject.Parse(json)["persona"]; 
+    
+            if(stepNumber == 0)
+                jsonFilePath = "NPCMovementFile";
+            else if(stepNumber ==1)
+            {
+                jsonFilePath = "NPCMovementFile2";
+                
+                personaList = new List<Persona>();
+                Debug.Log("@@@@@@@@@@@@@@@@");
+            }else if(stepNumber ==2 ){
+                                jsonFilePath = "NPCMovementFile3";
+                
+                personaList = new List<Persona>();
+                                Debug.Log("@@@@@@@@@@@@@@@@");
+            }
+            
+            
 
-            string jsonFilePath = "NPCMovementFile";
             var jsonTextFile = Resources.Load<TextAsset>(jsonFilePath);
+            
             var jsonData = JObject.Parse(jsonTextFile.text)["persona"]; 
 
             List<string> personas = new List<string>();
@@ -220,15 +242,16 @@ public class GameManager : MonoBehaviour
                 /* --- ACT ADDRESS --- */
                 (string tag, string content) = ExtractTagAndContent(personaList[npcIndex].ActAddress);
                 
+                // <persona>
                 if(tag == "persona")
                 {
+                    NPC[npcIndex].AddWaypoint(NPC[npcIndex].transform, 40);
                     NPCName = content;
 
                     for (int i = 0; i < perceivedInfo.perceived_tiles.Count; i++)
                     {
                         if (perceivedInfo.perceived_tiles[i].@event[0] == NPCName) 
                         {
-                         
                             otherNpcIndex = FindNPCIndex(NPCName);
                             NPC[npcIndex].navMeshAgent.isStopped = true;
                             NPC[otherNpcIndex].navMeshAgent.isStopped = true;
@@ -247,23 +270,25 @@ public class GameManager : MonoBehaviour
                             {                   
                                 conversationPairs.Add(conversationPair);      
                                 chatManager.LoadDialogue(personaList[npcIndex].Chat, npcIndex, otherNpcIndex); 
-                                Debug.Log("잉????????????????????????????");
+
                                 NPC[npcIndex].IconBubble.SetActive(false);
                                 NPC[otherNpcIndex].IconBubble.SetActive(false);
                             }
                         }
                     }
                 }
-
+                // <location>
                 else if(tag == "location")
                 {
-                    GetLocation(content, npcIndex);
+                    NPC[npcIndex].locationTag = true;
+                    AddLocation(content, npcIndex);
                 }
                     
+                
                 /* --- PRONUNCIATIO --- */
                 string[] emoji = personaList[npcIndex].Pronunciatio.Trim().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 NPC[npcIndex].IconBubble.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = NPC[npcIndex].gameObject.name + ":";
-                Debug.Log(NPC[npcIndex].gameObject.name);
+                //Debug.Log(NPC[npcIndex].gameObject.name);
                 for(int i = 0; i < emoji.Length; i++)
                 {
                     string extension = Path.GetExtension(emoji[i]);
@@ -295,7 +320,7 @@ public class GameManager : MonoBehaviour
         {
             if(nl.gameObject.name == nextLocation)
             {
-                NPC[npcIndex].AddWaypoint(nl, 10);      // 임시로 10초 넣음
+                NPC[npcIndex].AddWaypoint(nl, 40);   
                 break; 
             }                
         }

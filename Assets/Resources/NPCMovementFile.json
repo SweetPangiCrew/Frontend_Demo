@@ -13,23 +13,10 @@
       "chat": null
     },
     "나주교": {
-      "act_address": "<persona> 오화가",
+      "act_address": null,
       "pronunciatio": "1f373.png ",
       "description": "나주교는 오화가와 대화를 나누고있다.",
-      "chat": [
-        [
-          "나주교",
-          "안녕하세요! 어떻게 지내세요?"
-        ],
-        [
-          "오화가",
-          "안녕하세요! 잘 살아서 기뻐요. 요즘 풍경화를 그리면서 시간을 보내고 있어요."
-        ],
-        [
-          "나주교",
-          "그렇군요, 풍경화를 그리는 것은 정말 멋진 취미인 것 같네요. 저는 오늘 종교 집회를 위해 바빠요. 나중에 또 얘기해봐요."
-        ]
-      ]
+      "chat": null
     },
     "변호인": {
       "act_address": null,
@@ -50,23 +37,16 @@
       "chat": null
     },
     "오화가": {
-      "act_address": "<persona> 나주교",
+      "act_address": null,
       "pronunciatio": "1f58c-fe0f.png ",
       "description": "오화가는 나주교와 대화를 나누고있다.",
-      "chat": [
-        [
-          "나주교",
-          "안녕하세요! 어떻게 지내세요?"
-        ],
-        [
-          "오화가",
-          "안녕하세요! 잘 살아서 기뻐요. 요즘 풍경화를 그리면서 시간을 보내고 있어요."
-        ],
-        [
-          "나주교",
-          "그렇군요, 풍경화를 그리는 것은 정말 멋진 취미인 것 같네요. 저는 오늘 종교 집회를 위해 바빠요. 나중에 또 얘기해봐요."
-        ]
-      ]
+      "chat": null
+    },
+    "유리코": {
+      "act_address": null,
+      "pronunciatio": "1f4da.png ",
+      "description": "유리코는 공부를 하고 있다.",
+      "chat": null
     },
     "유태호": {
       "act_address": null,
@@ -78,12 +58,6 @@
       "act_address": null,
       "pronunciatio": "1f634.png ",
       "description": "이자식은 잠을 자고 있다.",
-      "chat": null
-    },
-    "유리코": {
-      "act_address": null,
-      "pronunciatio": "1f4da.png ",
-      "description": "유리코는 공부를 하고 있다.",
       "chat": null
     },
     "이장남": {
