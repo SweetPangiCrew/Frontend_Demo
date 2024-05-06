@@ -183,7 +183,7 @@ public class NPC : MonoBehaviour
             if(routine.startTime == curr_time)
             {
                 navMeshAgent.SetDestination(routine.wayPoint.position);
-                Debug.Log(routine.wayPoint.position);
+                //Debug.Log(routine.wayPoint.position);
                 navMeshAgent.isStopped = false;
             }                 
         }
