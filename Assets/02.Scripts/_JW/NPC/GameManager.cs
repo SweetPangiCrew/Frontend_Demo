@@ -118,14 +118,14 @@ public class GameManager : MonoBehaviour
             //server manage?�서 ?�버가 ???�렸?�때
             if (!NPCServerManager.Instance.serverOpened & !isTest) { yield return new WaitForSeconds(1f); continue;}
             
-            if (step == 0 || step ==1)
+            if (step == 0 )
             {
                 GetMovement(step);
                 step++;
                 lasttime = minute;
                 NPCServerManager.Instance.perceived = false;
-                yield return new WaitForSeconds(10f); 
-                GetMovement(step);
+                // yield return new WaitForSeconds(10f); 
+                // GetMovement(step);
                 continue;
             }
             
@@ -168,6 +168,7 @@ public class GameManager : MonoBehaviour
             {
                 jsonFilePath = "NPCMovementFile2";
                 
+                //file 받을 때 중복해서 들어가는 오류 있어서 CLear
                 personaList = new List<Persona>();
                 Debug.Log("@@@@@@@@@@@@@@@@");
             }else if(stepNumber ==2 ){
