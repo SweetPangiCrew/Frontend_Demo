@@ -5,7 +5,7 @@ using NPCServer;
 using System.Linq;
 using System.Diagnostics.Tracing;
 using System;
-
+using System.Collections;
 
 
 public class NPC : MonoBehaviour 
@@ -47,8 +47,7 @@ public class NPC : MonoBehaviour
 
         // Animator
         animator = GetComponent<Animator>();
-
-       // Move();
+        
         StartCoroutine(RepeatedFunctionCoroutine(1f,Perceive));
     }
 
@@ -216,8 +215,8 @@ public class NPC : MonoBehaviour
              // 이 부분에 코루틴이 끝난 후 할 행동
              //행동루틴 장소 확인하고 이동
              Debug.Log("chatting 끝나고 행동루틴 움직임!"+gameObject.name);
-             Move();
-             
+             SetRoutine();
+
         }));
           
     }
