@@ -126,40 +126,58 @@ public class ChatManager : MonoBehaviour
 
     private IEnumerator AutoDialogue(int npcIndex)
     {
-        while (dialogues[npcIndex].dialogues.Count > currentDialogueIndex + 1)
+        int dialogueIndex = -1;
+
+
+        while (dialogues[npcIndex].dialogues.Count > dialogueIndex + 1)
         {
-            SetNextDialogue(npcIndex);
+    
+            dialogueIndex++;
+           // Debug.Log("npc Index"+npcIndex+":"+dialogueIndex);
+            SetNextDialogue(npcIndex,dialogueIndex);
             yield return new WaitForSeconds(2);
         }
 
+        
         Debug.Log("no dialogues exist!");
-        isChatting = false; 
-        SetActiveObjects(speakers[currentSpeakerIndex], false);
+        isChatting = false;
+        int remainSpeaker = dialogues[npcIndex].dialogues[dialogueIndex].speakerIndex;
+        SetActiveObjects(speakers[remainSpeaker], false);
         // icon bubble 다시 뜨게 만들어야함 
     }
 
-    private void SetNextDialogue(int npcIndex)
+    private void SetNextDialogue(int npcIndex,int dialogueIndex)
     {
-        SetActiveObjects(speakers[currentSpeakerIndex], false);
-        currentDialogueIndex++;
-        
-        if (currentDialogueIndex < dialogues[npcIndex].dialogues.Count)
+     
+        if (dialogueIndex - 1 >= 0)
+        {
+            int preSpeaker = dialogues[npcIndex].dialogues[dialogueIndex - 1].speakerIndex;
+
+            SetActiveObjects(speakers[preSpeaker], false);
+            Debug.Log("pre speaker" + preSpeaker);
+        }
+
+       // currentDialogueIndex++;
+       Debug.Log("npc Index"+npcIndex+":"+dialogueIndex+"남은 count : "+dialogues[npcIndex].dialogues.Count);
+    
+        if (dialogueIndex < dialogues[npcIndex].dialogues.Count)
         {
             if(dialogues[npcIndex].dialogues != null)
             {
-                currentSpeakerIndex = dialogues[npcIndex].dialogues[currentDialogueIndex].speakerIndex;
+               
+                int curSpeakerIndex  = dialogues[npcIndex].dialogues[dialogueIndex].speakerIndex;
 
                 // Kakao Talk Dialogue
-                GameObject TextClone = Instantiate(textArea[currentDialogueIndex%2], ContentRect);
+                GameObject TextClone = Instantiate(textArea[dialogueIndex%2], ContentRect);
                 AreaScript Area = TextClone.GetComponent<AreaScript>();
 
-                Area.TextRect.GetComponent<TextMeshProUGUI>().text = dialogues[npcIndex].dialogues[currentDialogueIndex].dialogue;
-                Area.NameText.text = dialogues[npcIndex].dialogues[currentDialogueIndex].name;
+                Area.TextRect.GetComponent<TextMeshProUGUI>().text = dialogues[npcIndex].dialogues[dialogueIndex].dialogue;
+                Area.NameText.text = dialogues[npcIndex].dialogues[dialogueIndex].name;
 
                 // Speech Bubble Dialogue
-                SetActiveObjects(speakers[currentSpeakerIndex], true);
-                speakers[currentSpeakerIndex].SpeechBubble.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = 
-                    dialogues[npcIndex].dialogues[currentDialogueIndex].dialogue;
+                SetActiveObjects(speakers[curSpeakerIndex], true);
+                speakers[curSpeakerIndex].SpeechBubble.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = 
+                    dialogues[npcIndex].dialogues[dialogueIndex].dialogue;
 
                 scrollBar.value = 0;
             }

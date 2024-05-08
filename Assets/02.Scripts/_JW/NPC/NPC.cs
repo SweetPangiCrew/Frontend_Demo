@@ -72,7 +72,7 @@ public class NPC : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, 0);
 
 
-        if(!navMeshAgent.isStopped && routines.Count != 0)
+        if(routines.Count != 0)
         {   
             // NPC Moving
             if (!isWaiting)
@@ -204,7 +204,7 @@ public class NPC : MonoBehaviour
     public void StopAndMoveForChatting(float time = 40f)
     {
         
-        if(!isNPCChatAvailable) return;
+        if(!isNPCChatAvailable || isWaiting) return;
         
         navMeshAgent.isStopped = true;
         isNPCChatAvailable = false;
@@ -243,14 +243,15 @@ public class NPC : MonoBehaviour
     
     IEnumerator checkChattingStop(Action onComplete)
     {
-        yield return new WaitForSeconds(10f);
+       // yield return new WaitForSeconds(10f);
         
         while (!NPCServerManager.Instance.getReaction)
         {
             yield return new WaitForSeconds(1f);
         }
         
-        yield return new WaitForSeconds(10f);
+        //체크용 Apply Movement 
+        yield return new WaitForSeconds(1f);
         onComplete?.Invoke();
         
         yield return new WaitForSeconds(10f);

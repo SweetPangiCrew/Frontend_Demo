@@ -127,31 +127,37 @@ public class NPCServerManager : HttpServerBase
             List<string> act_address   = new List<string>();
             List<string> pronunciatio  = new List<string>();
             List<string> description  = new List<string>();
-            List<List<string>> chats = new List<List<string>>();
+            List<List<List<string>>> chats= new List<List<List<string>>>();
             
             foreach (JProperty property in resultData)
             {
+                List<List<string>> chat = new List<List<string>>();
                     personas.Add(property.Name);
                     act_address.Add(property.Value["act_address"].ToString());
                     pronunciatio.Add(property.Value["pronunciatio"].ToString());
                     description.Add(property.Value["description"].ToString());
                     //Debug.Log(property.Value["chat"].ToString());
                     
+                    
                     foreach (var chatlist in property.Value["chat"])
                     {
                         var chatEntry = chatlist.Select(item => item.ToString()).ToList();
-                        chats.Add(chatEntry);
-                    //chats.Add(chatlist.ToObject<List<string>>());
+                        chat.Add(chatEntry);
+                  
                     }
+                    chats.Add(chat);
+                
             }
 
-
+            currentMovementInfo = new List<Persona>();
             for(int i=0; i< personas.Count; i++)
             {
-                Persona newMovementInfo = new Persona(personas[i], act_address[i], pronunciatio[i], description[i], chats);
+                Persona newMovementInfo = new Persona(personas[i], act_address[i], pronunciatio[i], description[i], chats[i]);
                 CurrentMovementInfo.Add(newMovementInfo);
                 _getReaction = true;
-                //Debug.Log(newMovementInfo.ToString());
+                
+                //if(chats[i]!=null)
+                // Debug.Log(newMovementInfo.ToString());
             }
             
             

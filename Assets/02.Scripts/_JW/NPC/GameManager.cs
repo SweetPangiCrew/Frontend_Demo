@@ -137,8 +137,10 @@ public class GameManager : MonoBehaviour
                     lasttime = minute;
                     personaList = NPCServerManager.Instance.CurrentMovementInfo; // 이게 무브먼트 끝나고 바로 해야함
                     applyMovement();
-                    SaveJsonFile(); //perceive 
+                    
                     NPCServerManager.Instance.getReaction = false; // perceive 뒤에 해야함.
+                    SaveJsonFile(); //perceive 
+   
                     pStep++;
                 }
 
@@ -234,6 +236,7 @@ public class GameManager : MonoBehaviour
             return;
         }
         
+        
         foreach (var perceivedInfo in existingInfo.perceived_info)
         {            
             npcIndex = FindNPCIndex(perceivedInfo.persona);
@@ -246,7 +249,8 @@ public class GameManager : MonoBehaviour
                 // <persona>
                 if(tag == "persona")
                 {
-                    NPC[npcIndex].AddWaypoint(NPC[npcIndex].transform, 40);
+                    //대화하기 위해 멈춤
+                    NPC[npcIndex].AddWaypoint(NPC[npcIndex].transform, 30);
                     NPCName = content;
 
                     for (int i = 0; i < perceivedInfo.perceived_tiles.Count; i++)
