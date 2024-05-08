@@ -278,6 +278,9 @@ public class GameManager : MonoBehaviour
 
                                 NPC[npcIndex].IconBubble.SetActive(false);
                                 NPC[otherNpcIndex].IconBubble.SetActive(false);
+
+                                personaList[npcIndex].Description = otherNPCName + "와(과) 이야기를 나누는 중";
+                                personaList[otherNpcIndex].Description = NPC[npcIndex].gameObject.name + "와(과) 이야기를 나누는 중";
                             }
                         }
                     }

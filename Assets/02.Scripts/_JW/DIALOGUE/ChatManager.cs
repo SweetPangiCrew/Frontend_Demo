@@ -154,11 +154,11 @@ public class ChatManager : MonoBehaviour
             int preSpeaker = dialogues[npcIndex].dialogues[dialogueIndex - 1].speakerIndex;
 
             SetActiveObjects(speakers[preSpeaker], false);
-            Debug.Log("pre speaker" + preSpeaker);
+            //Debug.Log("pre speaker" + preSpeaker);
         }
 
        // currentDialogueIndex++;
-       Debug.Log("npc Index"+npcIndex+":"+dialogueIndex+"남은 count : "+dialogues[npcIndex].dialogues.Count);
+       //Debug.Log("npc Index"+npcIndex+":"+dialogueIndex+"남은 count : "+dialogues[npcIndex].dialogues.Count);
     
         if (dialogueIndex < dialogues[npcIndex].dialogues.Count)
         {
