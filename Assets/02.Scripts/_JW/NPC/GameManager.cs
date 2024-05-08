@@ -348,8 +348,9 @@ public class GameManager : MonoBehaviour
                 
                 if (npcIndex != -1)
                 {
-                    existingInfo.perceived_info[npcIndex].curr_address = NPC[npcIndex].curr_address+":home:home:home";
-
+                    existingInfo.perceived_info[npcIndex].curr_address = "the Vile:"+NPC[npcIndex].curr_address+":main room:home";
+                    existingInfo.perceived_info[npcIndex].perceived_tiles = new List<PerceivedTile>();
+                    
                     for (int k = 0; k < NPC[npcIndex].detectedObjects.Count; k++)
                     {
                         if (NPC[npcIndex].detectedObjects[k].CompareTag("NPC"))
@@ -389,17 +390,14 @@ public class GameManager : MonoBehaviour
                             Debug.Log(otherNPCName+"와"+perceivedInfo.persona+"대화하려고 멈춤");
      
                         }
-                        else
-                        {
-                            existingInfo.perceived_info[npcIndex].perceived_tiles = null;
-                        }
+                        
                     }
                 }
             }
         }
 
         string PerceiveData = JsonConvert.SerializeObject(existingInfo, Formatting.Indented);
-        File.WriteAllText(filePath, PerceiveData);
+       // File.WriteAllText(filePath, PerceiveData); Json 저장하지 않음. 맨 처음 초기화에 문제 생김.
        
         StartCoroutine(NPCServerManager.Instance.PostPerceiveCoroutine(PerceiveData,gameName,step));
     }
