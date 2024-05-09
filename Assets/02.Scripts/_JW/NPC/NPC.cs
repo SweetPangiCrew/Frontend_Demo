@@ -81,9 +81,10 @@ public class NPC : MonoBehaviour
                         Transform nextWaypoint = locationTags[currentLocationTagIndex].wayPoint;
                         Debug.Log(nextWaypoint.name);
                         navMeshAgent.SetDestination(nextWaypoint.position);
-                        currentLocationTagIndex = (currentLocationTagIndex + 1) % locationTags.Count;  // Proper wrap-around increment.
-                        locationTag = false;
-
+                        currentLocationTagIndex = (currentLocationTagIndex + 1) % locationTags.Count; 
+                        
+                        if(currentLocationTagIndex == locationTags.Count-1)
+                            locationTag = false;
                     }
                 }
                 else

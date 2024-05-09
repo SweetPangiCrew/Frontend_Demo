@@ -122,7 +122,6 @@ public class GameManager : MonoBehaviour
                 lasttime = minute;
                 NPCServerManager.Instance.perceived = false;
                 yield return new WaitForSeconds(10f); 
-                GetMovement(step);
                 continue;
             }
             
@@ -159,17 +158,18 @@ public class GameManager : MonoBehaviour
     
             if(stepNumber == 0)
                 jsonFilePath = "NPCMovementFile";
-            else if(stepNumber ==1)
+            else if(stepNumber == 1)
             {
                 jsonFilePath = "NPCMovementFile2";
                 
                 personaList = new List<Persona>();
                 Debug.Log("@@@@@@@@@@@@@@@@");
+
             }else if(stepNumber ==2 ){
-                                jsonFilePath = "NPCMovementFile3";
+                jsonFilePath = "NPCMovementFile3";
                 
                 personaList = new List<Persona>();
-                                Debug.Log("@@@@@@@@@@@@@@@@");
+                Debug.Log("@@@@@@@@@@@@@@@@");
             }
             
             
