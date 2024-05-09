@@ -89,7 +89,7 @@ public class NPC : MonoBehaviour
                         Transform nextWaypoint = locationTags[currentLocationTagIndex].wayPoint;
                         Debug.Log(nextWaypoint.name);
                         navMeshAgent.SetDestination(nextWaypoint.position);
-                        currentLocationTagIndex = (currentLocationTagIndex + 1) % locationTags.Count;  // Proper wrap-around increment.
+                        currentLocationTagIndex = (currentLocationTagIndex + 1) % locationTags.Count;  // Proper wrap-around increment. 0으로 돌아가는 데 괜찮을까요?
                         locationTag = false;
 
                     }
@@ -178,15 +178,19 @@ public class NPC : MonoBehaviour
     public void SetRoutine()
     {
         int curr_time = Clock.Instance.GetCurrentTime().Hour;
-        foreach(var routine in routines)
+
+        for (int i = 1; i < routines.Count; i++)
         {
-            if(routine.startTime == curr_time)
+            if (routines[i].startTime > curr_time)
             {
-                navMeshAgent.SetDestination(routine.wayPoint.position);
-                //Debug.Log(routine.wayPoint.position);
-                navMeshAgent.isStopped = false;
-            }                 
+                 navMeshAgent.SetDestination(routines[i-1].wayPoint.position);
+                 navMeshAgent.isStopped = false;
+                
+                break;
+            }
+            
         }
+       
     }  
 
     public void AddWaypoint(Transform nl, int time)
