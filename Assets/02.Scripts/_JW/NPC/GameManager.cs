@@ -114,14 +114,15 @@ public class GameManager : MonoBehaviour
             
             //server manage?�서 ?�버가 ???�렸?�때
             if (!NPCServerManager.Instance.serverOpened & !isTest) { yield return new WaitForSeconds(1f); continue;}
-            
-            if (step == 0 || step ==1)
+        
+            if (step == 0 || step ==1 || step==2)
             {
                 GetMovement(step);
-                step++;
+                
                 lasttime = minute;
                 NPCServerManager.Instance.perceived = false;
                 yield return new WaitForSeconds(10f); 
+                step++;
                 continue;
             }
             
@@ -163,13 +164,13 @@ public class GameManager : MonoBehaviour
                 jsonFilePath = "NPCMovementFile2";
                 
                 personaList = new List<Persona>();
-                Debug.Log("@@@@@@@@@@@@@@@@");
+                Debug.Log("@@@@@@@@2222@@@@@@@");
 
             }else if(stepNumber ==2 ){
                 jsonFilePath = "NPCMovementFile3";
                 
                 personaList = new List<Persona>();
-                Debug.Log("@@@@@@@@@@@@@@@@");
+                Debug.Log("@@@@@@333@@@@@@@");
             }
             
             
@@ -307,7 +308,7 @@ public class GameManager : MonoBehaviour
         {
             if(nl.gameObject.name == nextLocation)
             {
-                NPC[npcIndex].AddWaypoint(nl, 40);   
+                NPC[npcIndex].AddWaypoint(nl, 10);   
                 break; 
             }                
         }

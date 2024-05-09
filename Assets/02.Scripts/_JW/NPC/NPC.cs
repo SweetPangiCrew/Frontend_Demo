@@ -72,20 +72,27 @@ public class NPC : MonoBehaviour
 
                 if(locationTag)
                 {
-                    waitCounter += Time.deltaTime;
-                    if (waitCounter >= locationTags[currentLocationTagIndex].waitTime)
+                    while(currentLocationTagIndex <= locationTags.Count-1)
                     {
-                        isWaiting = true;
-                        waitCounter = 0f;
-
+                            
                         Transform nextWaypoint = locationTags[currentLocationTagIndex].wayPoint;
-                        Debug.Log(nextWaypoint.name);
-                        navMeshAgent.SetDestination(nextWaypoint.position);
-                        currentLocationTagIndex = (currentLocationTagIndex + 1) % locationTags.Count; 
-                        
-                        if(currentLocationTagIndex == locationTags.Count-1)
-                            locationTag = false;
+
+                        waitCounter += Time.deltaTime;
+                        if (waitCounter <= locationTags[currentLocationTagIndex].waitTime)
+                        {
+                            isWaiting = true;
+                            waitCounter = 0f;
+
+                            Debug.Log(nextWaypoint.name);
+                            navMeshAgent.SetDestination(nextWaypoint.position);
+                            currentLocationTagIndex = (currentLocationTagIndex + 1) % locationTags.Count; 
+                        }
+                        //if(currentLocationTagIndex == locationTags.Count-1)
+                          //  locationTag = false;
                     }
+
+                    locationTag = false;
+
                 }
                 else
                 {                        
@@ -174,7 +181,7 @@ public class NPC : MonoBehaviour
             if(routine.startTime == curr_time)
             {
                 navMeshAgent.SetDestination(routine.wayPoint.position);
-                Debug.Log(routine.wayPoint.position);
+                //Debug.Log(routine.wayPoint.position);
                 navMeshAgent.isStopped = false;
             }                 
         }
