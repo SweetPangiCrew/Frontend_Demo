@@ -48,9 +48,9 @@ public class NPCServerManager : HttpServerBase
     }
 
    
-    public IEnumerator GetMovementCoroutine(string simName,int step)
+    public IEnumerator GetMovementCoroutine(string simName,int step,Action<Result> onSucceed = null)
     {
-        yield return GetMovement(simName, step);
+        yield return GetMovement(simName, step,onSucceed);
     }
     
     public IEnumerator PostPerceiveCoroutine(string data,string simName, int step)

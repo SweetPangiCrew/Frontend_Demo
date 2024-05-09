@@ -34,8 +34,6 @@ public class ChatManager : MonoBehaviour
         }
     }
     
-   
-
     public void LoadDialogue(List<List<string>> chatList, int npcIndex, int otherNpcIndex)
     {
         for (int k = 0; k < chatList.Count; k++)
@@ -67,18 +65,16 @@ public class ChatManager : MonoBehaviour
                 });                         
 
             }
-        
-
         }
 
         isChatting = true;
-        StartDialogue(npcIndex);
+        StartDialogue(npcIndex,otherNpcIndex);
     }
 
-    public void StartDialogue(int npcIndex)
+    public void StartDialogue(int npcIndex, int otherNpcIndex)
     {
         if (isChatting && !isChattingHistory)
-            StartCoroutine(AutoDialogue(npcIndex));                     
+            StartCoroutine(AutoDialogue(npcIndex,otherNpcIndex));                     
     }    
     
     public void showDialogue(List<List<string>> chatInfo)
@@ -124,11 +120,10 @@ public class ChatManager : MonoBehaviour
         scrollBar.value = 1f;
     }
 
-    private IEnumerator AutoDialogue(int npcIndex)
+    private IEnumerator AutoDialogue(int npcIndex, int otherNpcIndex)
     {
         int dialogueIndex = -1;
-
-
+        
         while (dialogues[npcIndex].dialogues.Count > dialogueIndex + 1)
         {
     
@@ -143,7 +138,11 @@ public class ChatManager : MonoBehaviour
         isChatting = false;
         int remainSpeaker = dialogues[npcIndex].dialogues[dialogueIndex].speakerIndex;
         SetActiveObjects(speakers[remainSpeaker], false);
+        
         // icon bubble 다시 뜨게 만들어야함 
+        gameManager.NPC[npcIndex].IconBubble.SetActive(true);
+        gameManager.NPC[otherNpcIndex].IconBubble.SetActive(true);
+    
     }
 
     private void SetNextDialogue(int npcIndex,int dialogueIndex)
@@ -154,17 +153,13 @@ public class ChatManager : MonoBehaviour
             int preSpeaker = dialogues[npcIndex].dialogues[dialogueIndex - 1].speakerIndex;
 
             SetActiveObjects(speakers[preSpeaker], false);
-            //Debug.Log("pre speaker" + preSpeaker);
-        }
 
-       // currentDialogueIndex++;
-       //Debug.Log("npc Index"+npcIndex+":"+dialogueIndex+"남은 count : "+dialogues[npcIndex].dialogues.Count);
-    
+        }
+      
         if (dialogueIndex < dialogues[npcIndex].dialogues.Count)
         {
             if(dialogues[npcIndex].dialogues != null)
             {
-               
                 int curSpeakerIndex  = dialogues[npcIndex].dialogues[dialogueIndex].speakerIndex;
 
                 // Kakao Talk Dialogue

@@ -33,6 +33,8 @@
         }
       ]
     },
+
+
     {
       "persona": "변호인",
       "curr_address" : "the Ville:변호인과 최문식의 집:main room",
@@ -40,6 +42,17 @@
         {
           "dist" : 0.0,
           "event" : ["변호인", "is", "walking", "walking"]
+        }
+      ]
+    },
+
+    {
+      "persona": "여이삭",
+      "curr_address" : "the Ville:여이삭의 집:main room",
+      "perceived_tiles" : [
+        {
+          "dist" : 0.0,
+          "event" : ["여이삭", "is", "walking", "walking"]
         }
       ]
     },
@@ -137,16 +150,6 @@
     },
 
 
-    {
-      "persona": "여이삭",
-      "curr_address" : "the Ville:여이삭의 집:main room",
-      "perceived_tiles" : [
-        {
-          "dist" : 0.0,
-          "event" : ["여이삭", "is", "walking", "walking"]
-        }
-      ]
-    },
 
 
     {

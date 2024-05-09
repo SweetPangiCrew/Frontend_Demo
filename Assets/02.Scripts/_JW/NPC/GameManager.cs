@@ -135,9 +135,6 @@ public class GameManager : MonoBehaviour
                 if (pStep == step && NPCServerManager.Instance.getReaction)// || isTest && isUsingMovementLocalFile
                 {
                     lasttime = minute;
-                    personaList = NPCServerManager.Instance.CurrentMovementInfo; // 이게 무브먼트 끝나고 바로 해야함
-                    applyMovement();
-                    
                     NPCServerManager.Instance.getReaction = false; // perceive 뒤에 해야함.
                     SaveJsonFile(); //perceive 
    
@@ -147,7 +144,7 @@ public class GameManager : MonoBehaviour
                 //server가 Perceive ?�일??받았????
                 if (NPCServerManager.Instance.perceived)
                 {
-                    GetMovement(step);
+                    GetMovement(step);//콜백으로 Apply movement 적용됨
                     step++;
                     NPCServerManager.Instance.perceived = false;
                 }
@@ -218,16 +215,20 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            StartCoroutine(NPCServerManager.Instance.GetMovementCoroutine(gameName, stepNumber));
+            
+            Action<HttpServerBase.Result> applymovement = (result) =>
+            {
+                personaList = NPCServerManager.Instance.CurrentMovementInfo;
+                applyMovement();
+            };
+
+
+            StartCoroutine(NPCServerManager.Instance.GetMovementCoroutine(gameName, stepNumber, applymovement));
 
         }
-
-      
-            
-                
     }
 
-    private void applyMovement()
+    void applyMovement()
     { 
         Debug.Log("Apply Movement");
         if (personaList.Count==0 ||personaList == null || NPC == null)
@@ -236,13 +237,14 @@ public class GameManager : MonoBehaviour
             return;
         }
         
-        
         foreach (var perceivedInfo in existingInfo.perceived_info)
         {            
             npcIndex = FindNPCIndex(perceivedInfo.persona);
 
             if(personaList[npcIndex].Name == NPC[npcIndex].name)
             {
+                
+                
                 /* --- ACT ADDRESS --- */
                 (string tag, string content) = ExtractTagAndContent(personaList[npcIndex].ActAddress);
                 
@@ -252,16 +254,17 @@ public class GameManager : MonoBehaviour
                     //대화하기 위해 멈춤
                     NPC[npcIndex].AddWaypoint(NPC[npcIndex].transform, 30);
                     NPCName = content;
-
-                    for (int i = 0; i < perceivedInfo.perceived_tiles.Count; i++)
+                    
+                    // perceive 에 있는 대화만 가져 옴. 그냥 movement에 있으면 출력? 
+                   // for (int i = 0; i < perceivedInfo.perceived_tiles.Count; i++)
                     {
-                        if (perceivedInfo.perceived_tiles[i].@event[0] == NPCName) 
+                        //if (perceivedInfo.perceived_tiles[i].@event[0] == NPCName) 
                         {
                             otherNpcIndex = FindNPCIndex(NPCName);
                             NPC[npcIndex].navMeshAgent.isStopped = true;
                             NPC[otherNpcIndex].navMeshAgent.isStopped = true;
                                         
-                            string otherNPCName = perceivedInfo.perceived_tiles[i].@event[0]; 
+                            string otherNPCName = NPCName; 
                             string firstNPCName = NPC[npcIndex].gameObject.name.CompareTo(otherNPCName) < 0 ? NPC[npcIndex].gameObject.name : otherNPCName;
                             string secondNPCName = NPC[npcIndex].gameObject.name.CompareTo(otherNPCName) < 0 ? otherNPCName : NPC[npcIndex].gameObject.name;
                                         
@@ -269,10 +272,16 @@ public class GameManager : MonoBehaviour
                             
                             if (conversationPairs.Contains(conversationPair))
                             {
-                                continue; 
+                                //Debug.Log(conversationPair+"가 이미 존재함.");
+                                // personaList[npcIndex].Description = otherNPCName + "와(과) 이야기를 나누는 중";
+                                // personaList[otherNpcIndex].Description = NPC[npcIndex].gameObject.name + "와(과) 이야기를 나누는 중";
+                                // NPC[npcIndex].DescriptionBubble.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = personaList[npcIndex].Description;
+                                // NPC[otherNpcIndex].DescriptionBubble.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = personaList[npcIndex].Description;
+                               // continue;
                             }
                             else
-                            {                   
+                            {   
+                                //Debug.Log(conversationPair+"를 새롭게 추가함");
                                 conversationPairs.Add(conversationPair);      
                                 chatManager.LoadDialogue(personaList[npcIndex].Chat, npcIndex, otherNpcIndex); 
 
@@ -281,6 +290,7 @@ public class GameManager : MonoBehaviour
 
                                 personaList[npcIndex].Description = otherNPCName + "와(과) 이야기를 나누는 중";
                                 personaList[otherNpcIndex].Description = NPC[npcIndex].gameObject.name + "와(과) 이야기를 나누는 중";
+                               // NPC[otherNpcIndex].DescriptionBubble.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = personaList[npcIndex].Description;
                             }
                         }
                     }
@@ -311,6 +321,7 @@ public class GameManager : MonoBehaviour
 
                 /* --- DESCRIPTION --- */
                 NPC[npcIndex].DescriptionBubble.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = personaList[npcIndex].Description;
+              
             }
         }       
         
