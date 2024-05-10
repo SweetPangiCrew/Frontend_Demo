@@ -8,7 +8,9 @@ using UnityEngine.SceneManagement;
 public class Ending : MonoBehaviour
 {
     public GameObject endingCollider;
-    public TextMeshProUGUI text;
+    public GameObject panel;
+    //public TextMeshProUGUI text;
+
     private int assembled_num;
     float timer;
     bool location;
@@ -25,7 +27,7 @@ public class Ending : MonoBehaviour
     void Update()
     {
         //Debug.Log(NPCServer.Clock.Instance.GetCurrentTime());
-        DateTime dateTime = new DateTime(DateTime.Now.Year, 8, 1, 8, 30, 0);
+        DateTime dateTime = new DateTime(DateTime.Now.Year, 8, 1, 12, 0, 0);
         Debug.Log(dateTime);
 
         // 종교 집회 시작
@@ -50,15 +52,16 @@ public class Ending : MonoBehaviour
                 location = false;
             }*/
 
+            panel.SetActive(true);
             assembled_num = gameObject.GetComponentInChildren<EndingCollider>().assembled_num;
-            text.text = "나주교의 종교 집회: " + assembled_num + "명";
+            panel.GetComponentInChildren<TextMeshProUGUI>().text = "나주교의 종교 집회: " + assembled_num + "명";
 
             // 테스트용 10초 뒤 엔딩
-            timer += Time.deltaTime;
+/*            timer += Time.deltaTime;
             if (timer > 10)
             {
                 SceneManager.LoadScene("FailEvent");
-            }
+            }*/
         }
 
     }
