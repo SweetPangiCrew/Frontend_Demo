@@ -11,6 +11,7 @@ public class FailEvent : MonoBehaviour
     public GameObject speechObj;
 
     public string[] npc;
+    public List<string> assembled_npc;
 
     public GameObject hole;
     public GameObject panel;
@@ -26,8 +27,17 @@ public class FailEvent : MonoBehaviour
 
         text.text = speech[index];
         index++;
+        assembled_npc = EndingCollider.assembled_npc;
 
         npc = new string[] { "유리코", "오화가", "주아령", "고영이", "이화령", "유태호", "변호인", "최문식", "여이삭", "오서달", "이지양", "이자식", "이장남", "김태리" };
+
+        foreach (string n in npc)
+        {
+            if (!assembled_npc.Contains(n))
+            {
+                GameObject.Find(n).SetActive(false);
+            }
+        }
     }
 
     // Update is called once per frame

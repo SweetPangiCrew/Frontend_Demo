@@ -155,7 +155,8 @@ public class NPCQuizManager : MonoBehaviour
     private IEnumerator QuizEnd()
     {
         InfoPanel.SetActive(true);
-        InfoPanel.GetComponentInChildren<TextMeshProUGUI>().text = "모든 퀴즈를 맞히셨습니다!";
+        InfoPanel.GetComponentInChildren<TextMeshProUGUI>().text = "모든 퀴즈를 맞히셨습니다! (신뢰도 +3)";
+        PlayerAction.reliability += 3f;
 
         float timer = 0;
         while (timer < 2)
