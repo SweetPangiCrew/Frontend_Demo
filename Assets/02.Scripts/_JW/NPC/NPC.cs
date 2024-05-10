@@ -179,18 +179,28 @@ public class NPC : MonoBehaviour
     {
         int curr_time = Clock.Instance.GetCurrentTime().Hour;
 
-        for (int i = 1; i < routines.Count; i++)
+        int routineIndex = 0;
+        //행동 루틴이 시간 순으로 배열 되어있다는 가정
+        for (int i = 0; i < routines.Count; i++)
         {
-            if (routines[i].startTime > curr_time)
+            if (routines[i].startTime == curr_time)
+            { 
+                routineIndex = i;
+                break;
+            }
+            
+            if(routines[i].startTime > curr_time)
             {
-                 navMeshAgent.SetDestination(routines[i-1].wayPoint.position);
-                 navMeshAgent.isStopped = false;
-                
+                routineIndex = i-1;
                 break;
             }
             
         }
-       
+        
+        if (routineIndex < 0) routineIndex = 0;
+        navMeshAgent.SetDestination(routines[routineIndex].wayPoint.position);
+        navMeshAgent.isStopped = false;
+
     }  
 
     public void AddWaypoint(Transform nl, int time)
