@@ -123,7 +123,7 @@ public class NPC : MonoBehaviour
         
     }
 
-     #region PERCEIVE
+    #region PERCEIVE
     public void Perceive()
     {
         // update NPC name and location
@@ -160,31 +160,8 @@ public class NPC : MonoBehaviour
 
 
     #region MOVE
-/*    public void Move()
-    {
-        //if(routines.Count == 0) return;
-
-        if(locationTag)
-        {            
-            Transform nextWaypoint = locationTags[currentLocationTagIndex].wayPoint;
-            Debug.Log(nextWaypoint.name);
-            navMeshAgent.SetDestination(nextWaypoint.position);
-            currentLocationTagIndex = (currentLocationTagIndex + 1) % locationTags.Count;  // Proper wrap-around increment.
-            locationTag = false;
-        }
-        else
-        {
-            SetRoutine();
-        }
-
-        // Resume NPC movement
-        navMeshAgent.isStopped = false;
-
-    }*/
-
     public void SetRoutine()
     {
-        
         if(routines.Count == 0 ) return;
         
         int curr_time = Clock.Instance.GetCurrentTime().Hour;
@@ -209,7 +186,6 @@ public class NPC : MonoBehaviour
         if (routineIndex < 0) routineIndex = 0;
         navMeshAgent.SetDestination(routines[routineIndex].wayPoint.position);
         navMeshAgent.isStopped = false;
-
     }  
 
     public void AddWaypoint(Transform nl, int time)
@@ -232,20 +208,18 @@ public class NPC : MonoBehaviour
         isNPCChatAvailable = false;
         
         
-          StartCoroutine(checkChattingStop( () =>
+        StartCoroutine(checkChattingStop(() =>
         {
-             // 이 부분에 코루틴이 끝난 후 할 행동
-             //행동루틴 장소 확인하고 이동
-             Debug.Log("chatting 끝나고 행동루틴 움직임!"+gameObject.name);
-             SetRoutine();
-
+            //이 부분에 코루틴이 끝난 후 할 행동
+            //행동루틴 장소 확인하고 이동
+            Debug.Log("chatting 끝나고 행동루틴 움직임!"+gameObject.name);
+            SetRoutine();
         }));
           
     }
     
     IEnumerator WaitForSecondsCoroutine(float waitTime, Action onComplete)
     {
-
         // 지정된 시간만큼 기다립니다.
         yield return new WaitForSeconds(waitTime);
 
@@ -280,7 +254,6 @@ public class NPC : MonoBehaviour
         yield return new WaitForSeconds(10f);
         
         isNPCChatAvailable = true;
-        
     }
 
 
