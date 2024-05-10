@@ -25,9 +25,12 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            Debug.Log("gm ");
         }
         else
+        {
             Destroy(gameObject);
+        }
     }
 
     [SerializeField]
@@ -70,9 +73,6 @@ public class GameManager : MonoBehaviour
        // simCode = Database.Instance.simCode;
        if (gameName != "")
        {
-
-           Database.Instance.username = "김유저";
-           Database.Instance.uuid = "";
            gameName = Database.Instance.gameName;
            step = Database.Instance.StartStep; // 초기화는 0으로, game load한거라면 다름.
        }

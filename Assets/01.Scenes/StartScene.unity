@@ -4144,7 +4144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   simCode: 
-  gameName: 
+  gameName: game1
   StartStep: 0
   uuid: 
   username: 

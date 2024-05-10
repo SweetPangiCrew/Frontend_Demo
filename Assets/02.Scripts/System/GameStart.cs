@@ -15,7 +15,7 @@ public class GameStart : MonoBehaviour
     public TMP_InputField nameInput;
 
     public TMP_Text errText;
-    private Button startBtn;
+    private UnityEngine.UI.Button startBtn;
 
     public GameObject back, tuto;
     string nextSceneName = "MainTest";
@@ -26,7 +26,8 @@ public class GameStart : MonoBehaviour
         baseInput.text = "agenti_15";
         Database.Instance.simCode =  "agenti_15";
         
-        startBtn = gameObject.GetComponent<Button>();
+        startBtn = gameObject.GetComponent<UnityEngine.UI.Button>();
+        startBtn.interactable = false;
         baseInput.onValueChanged.AddListener(OnBaseValueChanged);
         nameInput.onValueChanged.AddListener(OnNameValueChanged);
        // startBtn.onSubmit.AddListener(gameStart);
@@ -41,6 +42,8 @@ public class GameStart : MonoBehaviour
     {
         Database.Instance.gameName = newValue;
         errText.text = "";
+        
+        if(newValue!="") startBtn.interactable = true;
     }
 
     void gameStart()
