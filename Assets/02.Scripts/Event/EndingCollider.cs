@@ -21,12 +21,20 @@ public class EndingCollider : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        assembled_num++;
-        assembled_npc.Add(collision.gameObject.name);
+        if(collision.name != "나주교" && collision.name != "플레이어")
+        {
+            assembled_num++;
+            assembled_npc.Add(collision.gameObject.name);
+        }
+
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        assembled_num--;
-        assembled_npc.Remove(collision.gameObject.name);
+        if(collision.name != "나주교" && collision.name != "플레이어")
+        {
+            assembled_num--;
+            assembled_npc.Remove(collision.gameObject.name);
+        }
+
     }
 }

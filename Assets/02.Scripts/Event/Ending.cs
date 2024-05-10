@@ -27,7 +27,7 @@ public class Ending : MonoBehaviour
     void Update()
     {
         //Debug.Log(NPCServer.Clock.Instance.GetCurrentTime());
-        DateTime dateTime = new DateTime(DateTime.Now.Year, 8, 1, 12, 0, 0);
+        DateTime dateTime = new DateTime(DateTime.Now.Year, 8, 1, 9, 0, 0);
         Debug.Log(dateTime);
 
         // 종교 집회 시작
@@ -37,20 +37,23 @@ public class Ending : MonoBehaviour
             endingCollider.SetActive(true);
 
             // NPC 종교 집회로 location 설정
-/*            if (location)
+            if (location)
             {
                 GameObject[] NPC;
                 NPC = GameObject.FindGameObjectsWithTag("NPC");
                 foreach (GameObject npc in NPC)
                 {
                     int rIndex = ReligiousIndexNetworkManager.Instance.RIndexInfo[npc.name];
-                    if(rIndex >= 0)
+                    if (rIndex >= 10)
                     {
-                        npc.GetComponent<NPC>().AddWaypoint(GameManager.Instance.location[13], 1000);
+                        npc.GetComponent<NPC>().locationTag = true;
+                        npc.GetComponent<NPC>().AddWaypoint(GameManager.Instance.location[13], 30);
+
+                        Debug.Log(npc.name + "종교 집회로 이동");
                     }
                 }
                 location = false;
-            }*/
+            }
 
             panel.SetActive(true);
             assembled_num = gameObject.GetComponentInChildren<EndingCollider>().assembled_num;
