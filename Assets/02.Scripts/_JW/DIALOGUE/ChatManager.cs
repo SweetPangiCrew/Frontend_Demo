@@ -142,6 +142,9 @@ public class ChatManager : MonoBehaviour
         // icon bubble 다시 뜨게 만들어야함 
         gameManager.NPC[npcIndex].IconBubble.SetActive(true);
         gameManager.NPC[otherNpcIndex].IconBubble.SetActive(true);
+        // 다시 움직이게 
+        gameManager.NPC[npcIndex].isWaiting = false;
+        gameManager.NPC[otherNpcIndex].isWaiting = false;
     
     }
 

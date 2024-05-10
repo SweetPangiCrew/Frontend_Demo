@@ -19,7 +19,7 @@ public class NPC : MonoBehaviour
     private int currentLocationTagIndex = 0;
     public NavMeshAgent navMeshAgent;
     private float waitCounter = 0f;
-    private bool isWaiting = false;
+    public bool isWaiting = false;
 
     private bool isNPCChatAvailable = true;
     
@@ -77,6 +77,8 @@ public class NPC : MonoBehaviour
             // NPC Moving
             if (!isWaiting)
             {
+                navMeshAgent.isStopped = false;
+                SetRoutine();
 
                 if(locationTag)
                 {
@@ -87,9 +89,7 @@ public class NPC : MonoBehaviour
                     if(curr_address == nextWaypoint.name)
                     {
                         waitCounter += Time.deltaTime;
-                        if (waitCounter <= locationTags[currentLocationTagIndex].waitTime)  
-                            isWaiting = true;
-                        else
+                        if (waitCounter >= locationTags[currentLocationTagIndex].waitTime)
                         {
                             waitCounter = 0f;   
 
@@ -97,30 +97,20 @@ public class NPC : MonoBehaviour
                                 currentLocationTagIndex++;
                                 Debug.Log("현재 location tags 번호는~!!!!!!!!!!!!!!!!!!!!!!!!" + currentLocationTagIndex);}
                             else
-                                locationTag = false;                
+                                locationTag = false;       
                         }
                     }
                 }
-                else
-                {                        
-                    isWaiting = true;
-                    SetRoutine();
-                }
-
-                navMeshAgent.isStopped = false;
-
             }
             else
             {
-                if (navMeshAgent.remainingDistance <= 0.01)
-                {
-                    isWaiting = false;
-                }
+                navMeshAgent.isStopped = true;
+                //if (navMeshAgent.remainingDistance <= 0.01)
+                //{
+                //    isWaiting = false;
+                //}
             }
-        }
-
-
-        
+        }        
     }
 
     #region PERCEIVE
@@ -166,6 +156,7 @@ public class NPC : MonoBehaviour
         
         int curr_time = Clock.Instance.GetCurrentTime().Hour;
         int routineIndex = 0;
+        
         //행동 루틴이 시간 순으로 배열 되어있다는 가정
         for (int i = 0; i < routines.Count; i++)
         {
@@ -184,8 +175,10 @@ public class NPC : MonoBehaviour
         }
         
         if (routineIndex < 0) routineIndex = 0;
-        navMeshAgent.SetDestination(routines[routineIndex].wayPoint.position);
+        
         navMeshAgent.isStopped = false;
+        navMeshAgent.SetDestination(routines[routineIndex].wayPoint.position);
+        
     }  
 
     public void AddWaypoint(Transform nl, int time)

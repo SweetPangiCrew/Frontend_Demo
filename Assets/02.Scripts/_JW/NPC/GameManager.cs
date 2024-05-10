@@ -265,8 +265,8 @@ public class GameManager : MonoBehaviour
                         //if (perceivedInfo.perceived_tiles[i].@event[0] == NPCName) 
                         {
                             otherNpcIndex = FindNPCIndex(NPCName);
-                            NPC[npcIndex].navMeshAgent.isStopped = true;
-                            NPC[otherNpcIndex].navMeshAgent.isStopped = true;
+                            NPC[npcIndex].isWaiting = true;
+                            NPC[otherNpcIndex].isWaiting = true;
                                         
                             string otherNPCName = NPCName; 
                             string firstNPCName = NPC[npcIndex].gameObject.name.CompareTo(otherNPCName) < 0 ? NPC[npcIndex].gameObject.name : otherNPCName;
