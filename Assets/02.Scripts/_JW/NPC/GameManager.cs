@@ -10,7 +10,7 @@ using System.Linq;
 using Newtonsoft.Json.Linq;
 using System.Text.RegularExpressions;
 using TMPro;
-
+using UnityEngine.SceneManagement;
 
 
 public class GameManager : MonoBehaviour
@@ -88,10 +88,14 @@ public class GameManager : MonoBehaviour
            gameName = "game1";
            isTest = true;
        }
+
        
-        StartCoroutine(InvokePerceive());        
+       StartCoroutine(InvokePerceive());        
     }
 
+       
+
+   
     private void LoadExistingInfo(string filePath)
     {
         try
@@ -104,7 +108,7 @@ public class GameManager : MonoBehaviour
             Debug.LogError($"Failed to load existingInfo from {filePath}. Error: {e.Message}");
         }
     }
-
+    
     private IEnumerator InvokePerceive()
     {
         int lasttime = curr_time.Hour * 60 + curr_time.Minute;

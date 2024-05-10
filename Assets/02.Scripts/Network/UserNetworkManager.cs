@@ -40,12 +40,10 @@ public class UserNetworkManager : HttpServerBase
     }
 
     private void Start()
-    {
-        if (GameManager.Instance.usingLocalServer)
-        {
-            GameURL.NPCServer.Server_URL = GameURL.NPCServer.Local_URL;
-        }
-
+    { 
+        //추후 삭제 
+        GameURL.NPCServer.Server_URL = GameURL.NPCServer.Local_URL;
+        
         string local_uuid = LoadString("uuid");
 
         if (local_uuid != "NULL")

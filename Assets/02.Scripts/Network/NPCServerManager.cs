@@ -25,10 +25,12 @@ public class NPCServerManager : HttpServerBase
     private bool _perceived = false;
     private bool _getReaction = false;
     
+    
     public bool serverOpened { get => _serverOpened; set { _serverOpened = value;  } }
     public bool perceived { get => _perceived; set => _perceived = value; }
     public bool getReaction { get => _getReaction; set => _getReaction = value; }
-    
+
+
     public List<Persona> CurrentMovementInfo { get => currentMovementInfo;
         set
         {
@@ -70,9 +72,9 @@ public class NPCServerManager : HttpServerBase
         yield return PostGameStart(simCode, gameName);
     }
     
-    public IEnumerator PostGameStartoroutineWithText(string simCode, string gameName, TMP_Text errText)
+    public IEnumerator PostGameStartoroutineWithText(string simCode, string gameName, TMP_Text errText, GameObject back, GameObject tuto)
     {
-        yield return PostGameStart(simCode, gameName,errText);
+        yield return PostGameStart(simCode, gameName,errText,  back, tuto);
     }
     public IEnumerator GetServerTimeCoroutine()
     {
@@ -202,7 +204,7 @@ public class NPCServerManager : HttpServerBase
         return StartCoroutine(SendRequestCor(url, SendType.POST, jobj, onSucceed, onFailed, onNetworkFailed));
     }
      
-     public Coroutine PostGameStart(string simCode, string gameName, TMP_Text errText = null,
+     public Coroutine PostGameStart(string simCode, string gameName,TMP_Text errText = null,GameObject back=null, GameObject tuto=null, 
          Action<Result> onSucceed = null, Action<Result> onFailed = null, Action<Result> onNetworkFailed = null)
      {
          string url = GameURL.NPCServer.Server_URL + GameURL.NPCServer.createGame;
@@ -227,6 +229,7 @@ public class NPCServerManager : HttpServerBase
              // Newtonsoft.Json / Json Parsing
              //  var resultData = JObject.Parse(result.Json)["persona"]; 
              _serverOpened = true;
+        
              //  Debug.Log(result);
              Debug.Log("Post :"+ result.Json);
             
@@ -238,6 +241,8 @@ public class NPCServerManager : HttpServerBase
              var resultData = JObject.Parse(result.Json)["error"];
              errText.text = resultData.ToString();
              Debug.Log("Faile");
+             back.SetActive(true);
+             tuto.SetActive(false);
 
          };
          onSucceed += updateStartInfoAction;

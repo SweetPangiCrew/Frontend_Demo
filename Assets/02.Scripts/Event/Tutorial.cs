@@ -1,7 +1,9 @@
+using NPCServer;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Tutorial : MonoBehaviour
@@ -38,20 +40,23 @@ public class Tutorial : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)||Input.GetKeyDown(KeyCode.W)||Input.GetKeyDown(KeyCode.A)||Input.GetKeyDown(KeyCode.S)||Input.GetKeyDown(KeyCode.D))
         {
-           
             //튜토리얼
             if (tindex >= tutorial.Length-1)
             {
-                tutorial[tindex].SetActive(false);
-                tutorialObj.SetActive(false);
+                // tutorial[tindex].SetActive(false);
+                // tutorialObj.SetActive(false);
             }
-            else if(index > speech.Length )
+            else if(index > speech.Length &&tindex<tutorial.Length-1)
             {
                 tindex++;
                 tutorial[tindex-1].SetActive(false);
                 tutorial[tindex].SetActive(true);
+               
             }
         
+            if(tindex>=3 && NPCServerManager.Instance.serverOpened)
+                Invoke("loadNextScene",1f);
+            
             //스피치
             if (index == speech.Length)
             {
@@ -70,6 +75,11 @@ public class Tutorial : MonoBehaviour
 
             
         }
+    }
+
+    void loadNextScene()
+    {
+        SceneManager.LoadScene("Map");
     }
 
     IEnumerator FadeIn()

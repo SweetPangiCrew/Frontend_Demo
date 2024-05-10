@@ -16,7 +16,8 @@ public class GameStart : MonoBehaviour
 
     public TMP_Text errText;
     private Button startBtn;
-    
+
+    public GameObject back, tuto;
     string nextSceneName = "MainTest";
     
     // Start is called before the first frame update
@@ -44,10 +45,24 @@ public class GameStart : MonoBehaviour
 
     void gameStart()
     {
-        StartCoroutine( NPCServerManager.Instance.PostGameStartoroutineWithText(Database.Instance.simCode,Database.Instance.gameName,errText));
-      //  Debug.Log(+ );
+        errText.text = ""; 
+        StartCoroutine( NPCServerManager.Instance.PostGameStartoroutineWithText(Database.Instance.simCode,Database.Instance.gameName,errText,back,tuto));
+       Invoke("onTutorial", 1f);
+    }
+    void onTutorial()
+    {
+        if (errText.text == "")
+        {
+            back.SetActive(false);
+            tuto.SetActive(true);
+        }
     }
 
+    public void testStartButton()
+    {
+        
+        SceneManager.LoadScene("Map");
+    }
     public void ClickLocalURL()
     {
         GameURL.NPCServer.Server_URL = GameURL.NPCServer.Local_URL;
