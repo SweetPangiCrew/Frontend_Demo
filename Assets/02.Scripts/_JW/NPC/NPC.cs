@@ -177,8 +177,10 @@ public class NPC : MonoBehaviour
 
     public void SetRoutine()
     {
+        
+        if(routines.Count == 0 ) return;
+        
         int curr_time = Clock.Instance.GetCurrentTime().Hour;
-
         int routineIndex = 0;
         //행동 루틴이 시간 순으로 배열 되어있다는 가정
         for (int i = 0; i < routines.Count; i++)
@@ -261,6 +263,7 @@ public class NPC : MonoBehaviour
         
         while (!NPCServerManager.Instance.getReaction)
         {
+            Debug.Log("chatting 때문에 멈추고 기다리는 중"+gameObject.name);
             yield return new WaitForSeconds(1f);
         }
         
