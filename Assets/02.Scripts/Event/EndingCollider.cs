@@ -21,8 +21,9 @@ public class EndingCollider : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.name != "나주교" && collision.name != "플레이어")
+        if(collision.name != "나주교" && collision.tag == "NPC")
         {
+            Debug.Log(collision.name + "참석");
             assembled_num++;
             assembled_npc.Add(collision.gameObject.name);
         }
@@ -30,7 +31,7 @@ public class EndingCollider : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.name != "나주교" && collision.name != "플레이어")
+        if(collision.name != "나주교" && collision.tag == "NPC")
         {
             assembled_num--;
             assembled_npc.Remove(collision.gameObject.name);
