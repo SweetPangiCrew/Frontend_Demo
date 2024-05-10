@@ -13,6 +13,7 @@ public class SendMessage : MonoBehaviour
     public int transferNum = 0; // Number of transfers
 
     private int max_length = 100;
+    
     // chatting UI
     public ChatManager _chatManager;
     public RectTransform ContentRect;
@@ -24,22 +25,35 @@ public class SendMessage : MonoBehaviour
     // npc quiz
     public GameObject NPCQuizPanel;
     
-    
-
     private bool TestMode = false;
     
     private void Awake()
     {
         sendBtn = GetComponent<UnityEngine.UI.Button>();
+        // 입력 필드의 onValueChanged 이벤트에 메서드를 추가합니다.
+        inputField.onValueChanged.AddListener(OnTextChanged);
+    }
+    
+    private void OnDisable()
+    {
+        inputField.text = "";
+        inputField.interactable = true;
+        sendBtn.interactable = true;
+        transferNum = 0;
+        Time.timeScale = 1;
+        
+        // 자식 GameObject를 모두 파괴합니다.
+        for (int i = 0; i < ContentRect.transform.childCount; i++)
+        {
+            Destroy(ContentRect.transform.GetChild(i).gameObject);
+        }
+ 
     }
 
-    void Start()
+    void OnEnable()
     {
         //대화시 시간 멈춤!
         Time.timeScale = 0;
-        
-        // 입력 필드의 onValueChanged 이벤트에 메서드를 추가합니다.
-        inputField.onValueChanged.AddListener(OnTextChanged);
         
         int reliability = 30; // 유저 신뢰도 연결
         
@@ -61,7 +75,7 @@ public class SendMessage : MonoBehaviour
         }
         else
         {
-            maxTransferNum = 4;
+            maxTransferNum = 4; //이부분 이상한데?
             max_length = 100;
         }
     }

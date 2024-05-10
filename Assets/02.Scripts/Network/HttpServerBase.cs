@@ -47,8 +47,8 @@ public class HttpServerBase : MonoBehaviour
                 // TODO: 네트워크 재시도 팝업 호출.
 
                 yield return new WaitForSeconds(1f);
-                Debug.LogError("재시도");
-                yield return StartCoroutine(SendRequestCor(url, sendType, jobj, onSucceed, onFailed, onNetworkFailed));
+                //Debug.LogError("재시도");
+               // yield return StartCoroutine(SendRequestCor(url, sendType, jobj, onSucceed, onFailed, onNetworkFailed));
             }
             else
             {
@@ -92,7 +92,7 @@ public class HttpServerBase : MonoBehaviour
                 JObject jobj = JObject.Parse(req.downloadHandler.text);
                 
                 // 서버측에서 "code"데이터가 0이 아니면 전부 실패 케이스로 쓰기로 했다.
-                bool isSuccess = int.Parse(jobj["meta"]["code"].ToString()) == 0;
+                bool isSuccess = true; //int.Parse(jobj["meta"]["code"].ToString()) == 0;
                 //bool isSuccess = true;
                
                 // 성공

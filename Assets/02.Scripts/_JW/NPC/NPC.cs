@@ -2,6 +2,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using NPCServer;
+using System.Linq;
+using System.Diagnostics.Tracing;
+using System;
+using System.Collections;
+
 
 public class NPC : MonoBehaviour 
 {
@@ -15,6 +20,8 @@ public class NPC : MonoBehaviour
     private float waitCounter = 0f;
     private bool isWaiting = false;
 
+    private bool isNPCChatAvailable = true;
+    
     // Perceive
     private Vector2 location;
     private float detectionRadius = 0.75f;
@@ -40,8 +47,8 @@ public class NPC : MonoBehaviour
 
         // Animator
         animator = GetComponent<Animator>();
-
-        //Move();
+        
+        StartCoroutine(RepeatedFunctionCoroutine(1f,Perceive));
     }
 
     void FixedUpdate()
@@ -64,6 +71,7 @@ public class NPC : MonoBehaviour
         // Fix NPC Rotation
         transform.rotation = Quaternion.Euler(0, 0, 0);
 
+
         if(routines.Count != 0)
         {   
             // NPC Moving
@@ -72,27 +80,19 @@ public class NPC : MonoBehaviour
 
                 if(locationTag)
                 {
-                    while(currentLocationTagIndex <= locationTags.Count-1)
+                    waitCounter += Time.deltaTime;
+                    if (waitCounter >= locationTags[currentLocationTagIndex].waitTime)
                     {
-                            
+                        isWaiting = true;
+                        waitCounter = 0f;
+
                         Transform nextWaypoint = locationTags[currentLocationTagIndex].wayPoint;
+                        Debug.Log(nextWaypoint.name);
+                        navMeshAgent.SetDestination(nextWaypoint.position);
+                        currentLocationTagIndex = (currentLocationTagIndex + 1) % locationTags.Count;  // Proper wrap-around increment. 0으로 돌아가는 데 괜찮을까요?
+                        locationTag = false;
 
-                        waitCounter += Time.deltaTime;
-                        if (waitCounter <= locationTags[currentLocationTagIndex].waitTime)
-                        {
-                            isWaiting = true;
-                            waitCounter = 0f;
-
-                            Debug.Log(nextWaypoint.name);
-                            navMeshAgent.SetDestination(nextWaypoint.position);
-                            currentLocationTagIndex = (currentLocationTagIndex + 1) % locationTags.Count; 
-                        }
-                        //if(currentLocationTagIndex == locationTags.Count-1)
-                          //  locationTag = false;
                     }
-
-                    locationTag = false;
-
                 }
                 else
                 {                        
@@ -114,9 +114,6 @@ public class NPC : MonoBehaviour
 
 
         
-
-        // NPC Perceive
-        Perceive();
     }
 
      #region PERCEIVE
@@ -124,7 +121,8 @@ public class NPC : MonoBehaviour
     {
         // update NPC name and location
         location = this.GetComponent<Transform>().position;
-
+        detectedObjects = new List<GameObject>();
+        
         // NPC perceive
         for (int i = 0; i < 36; i++)
         {
@@ -136,14 +134,18 @@ public class NPC : MonoBehaviour
 
             RaycastHit2D ObjectHit = Physics2D.Raycast(rayOrigin, direction, detectionRadius, LayerMask.GetMask("InteractableObject"));
             Debug.DrawRay(rayOrigin, direction * detectionRadius, Color.red);   
+           
             
             if(ObjectHit.collider != null)
             {
                 GameObject detectedObject = ObjectHit.collider.gameObject;
                 if(detectedObject.name == "플레이어" || detectedObject.name == gameObject.name)
                     continue;
-                else if(!detectedObjects.Contains(detectedObject))
+                else if (!detectedObjects.Contains(detectedObject))
+                {
                     detectedObjects.Add(detectedObject);
+                   
+                }
             }
         }
     }
@@ -175,16 +177,32 @@ public class NPC : MonoBehaviour
 
     public void SetRoutine()
     {
+        
+        if(routines.Count == 0 ) return;
+        
         int curr_time = Clock.Instance.GetCurrentTime().Hour;
-        foreach(var routine in routines)
+        int routineIndex = 0;
+        //행동 루틴이 시간 순으로 배열 되어있다는 가정
+        for (int i = 0; i < routines.Count; i++)
         {
-            if(routine.startTime == curr_time)
+            if (routines[i].startTime == curr_time)
+            { 
+                routineIndex = i;
+                break;
+            }
+            
+            if(routines[i].startTime > curr_time)
             {
-                navMeshAgent.SetDestination(routine.wayPoint.position);
-                //Debug.Log(routine.wayPoint.position);
-                navMeshAgent.isStopped = false;
-            }                 
+                routineIndex = i-1;
+                break;
+            }
+            
         }
+        
+        if (routineIndex < 0) routineIndex = 0;
+        navMeshAgent.SetDestination(routines[routineIndex].wayPoint.position);
+        navMeshAgent.isStopped = false;
+
     }  
 
     public void AddWaypoint(Transform nl, int time)
@@ -198,7 +216,67 @@ public class NPC : MonoBehaviour
         locationTags.Insert(currentRoutineIndex, locationTag);
         currentRoutineIndex++;
     }
+    
+    public void StopAndMoveForChatting(float time = 40f)
+    {
+        
+        if(!isNPCChatAvailable || isWaiting) return;
+        
+        navMeshAgent.isStopped = true;
+        isNPCChatAvailable = false;
+        
+        
+          StartCoroutine(checkChattingStop( () =>
+        {
+             // 이 부분에 코루틴이 끝난 후 할 행동
+             //행동루틴 장소 확인하고 이동
+             Debug.Log("chatting 끝나고 행동루틴 움직임!"+gameObject.name);
+             SetRoutine();
+
+        }));
+          
+    }
+    
+    IEnumerator WaitForSecondsCoroutine(float waitTime, Action onComplete)
+    {
+
+        // 지정된 시간만큼 기다립니다.
+        yield return new WaitForSeconds(waitTime);
+
+        // 코루틴이 끝난 후에 Action을 실행합니다.
+        onComplete?.Invoke();
+    }
     #endregion
+
+    IEnumerator RepeatedFunctionCoroutine(float interval, System.Action function)
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(interval);
+            function?.Invoke();
+        }
+    }
+    
+    IEnumerator checkChattingStop(Action onComplete)
+    {
+       // yield return new WaitForSeconds(10f);
+        
+        while (!NPCServerManager.Instance.getReaction)
+        {
+            Debug.Log("chatting 때문에 멈추고 기다리는 중"+gameObject.name);
+            yield return new WaitForSeconds(1f);
+        }
+        
+        //체크용 Apply Movement 
+        yield return new WaitForSeconds(1f);
+        onComplete?.Invoke();
+        
+        yield return new WaitForSeconds(10f);
+        
+        isNPCChatAvailable = true;
+        
+    }
+
 
     #region LOCATION
     void OnTriggerEnter2D(Collider2D other)

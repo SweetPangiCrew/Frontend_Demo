@@ -1,178 +1,180 @@
 {
-  "perceived_info": [
+
+  "perceived_info" : [
+
+
     {
       "persona": "고영이",
-      "curr_address": "none:home:home:home",
-      "perceived_tiles": [
+      "curr_address" : "the Ville:고영이의 집:main room",
+      "perceived_tiles" : [
         {
-          "dist": 26.6484852,
-          "event": [
-            "이화령",
-            null,
-            null,
-            null
-          ]
+          "dist" : 0.0,
+          "event" : ["고영이", "is", "walking", "walking"]
         }
       ]
     },
     {
       "persona": "김태리",
-      "curr_address": "김태리의 집:home:home:home",
-      "perceived_tiles": []
+      "curr_address" : "the Ville:김태리의 집:main room",
+      "perceived_tiles" : [
+        {
+          "dist" : 0.0,
+          "event" : ["김태리", "is", "walking", "walking"]
+        }
+      ]
     },
     {
       "persona": "나주교",
-      "curr_address": ":home:home:home",
-      "perceived_tiles": [
+      "curr_address" : "the Ville:교회:나주교의 방",
+      "perceived_tiles" : [
         {
-          "dist": 1.77180743,
-          "event": [
-            "오화가",
-            null,
-            null,
-            null
-          ]
+          "dist" : 0.0,
+          "event" : ["나주교", "is", "walking", "walking"]
         }
       ]
     },
+
+
     {
       "persona": "변호인",
-      "curr_address": "변호인과 최문식의 집:home:home:home",
-      "perceived_tiles": [
+      "curr_address" : "the Ville:변호인과 최문식의 집:main room",
+      "perceived_tiles" : [
         {
-          "dist": 1.49980617,
-          "event": [
-            "최문식",
-            null,
-            null,
-            null
-          ]
+          "dist" : 0.0,
+          "event" : ["변호인", "is", "walking", "walking"]
         }
       ]
     },
+
     {
       "persona": "여이삭",
-      "curr_address": "여이삭의 집:home:home:home",
-      "perceived_tiles": [
+      "curr_address" : "the Ville:여이삭의 집:main room",
+      "perceived_tiles" : [
         {
-          "dist": 1.49990416,
-          "event": [
-            "이자식",
-            null,
-            null,
-            null
-          ]
+          "dist" : 0.0,
+          "event" : ["여이삭", "is", "walking", "walking"]
         }
       ]
     },
+
     {
       "persona": "오서달",
-      "curr_address": "오서달의 집:home:home:home",
-      "perceived_tiles": []
-    },
-    {
-      "persona": "오화가",
-      "curr_address": ":home:home:home",
-      "perceived_tiles": [
+      "curr_address" : "the Ville:오서달의 집:main room",
+      "perceived_tiles" : [
         {
-          "dist": 1.77180743,
-          "event": [
-            "나주교",
-            null,
-            null,
-            null
-          ]
-        }
-      ]
-    },
-    {
-      "persona": "유리코",
-      "curr_address": "유태호의 집:home:home:home",
-      "perceived_tiles": []
-    },
-    {
-      "persona": "유태호",
-      "curr_address": "여이삭의 집:home:home:home",
-      "perceived_tiles": [
-        {
-          "dist": 12.8312216,
-          "event": [
-            "이장남",
-            null,
-            null,
-            null
-          ]
-        },
-        {
-          "dist": 1.49990416,
-          "event": [
-            "여이삭",
-            null,
-            null,
-            null
-          ]
-        }
-      ]
-    },
-    {
-      "persona": "이자식",
-      "curr_address": "오화가와 유리코의 집:home:home:home",
-      "perceived_tiles": []
-    },
-    {
-      "persona": "이장남",
-      "curr_address": "이장남과 이자식의 집:home:home:home",
-      "perceived_tiles": [
-        {
-          "dist": 12.8312216,
-          "event": [
-            "이자식",
-            null,
-            null,
-            null
-          ]
-        }
-      ]
-    },
-    {
-      "persona": "이지양",
-      "curr_address": "이지양의 꽃집:home:home:home",
-      "perceived_tiles": []
-    },
-    {
-      "persona": "이화령",
-      "curr_address": "이화령의 집:home:home:home",
-      "perceived_tiles": [
-        {
-          "dist": 26.6484852,
-          "event": [
-            "고영이",
-            null,
-            null,
-            null
-          ]
-        }
-      ]
-    },
-    {
-      "persona": "주아령",
-      "curr_address": "주아령의 도서관:home:home:home",
-      "perceived_tiles": []
-    },
-    {
-      "persona": "최문식",
-      "curr_address": "변호인과 최문식의 집:home:home:home",
-      "perceived_tiles": [
-        {
-          "dist": 1.49980617,
-          "event": [
-            "변호인",
-            null,
-            null,
-            null
-          ]
+          "dist" : 0.0,
+          "event" : ["오서달", "is", "walking", "walking"]
         }
       ]
     }
+  ,
+
+    {
+      "persona": "오화가",
+      "curr_address" : "the Ville:오화가와 유리코의 집:오화가의 방",
+      "perceived_tiles" : [
+        {
+          "dist" : 0.0,
+          "event" : ["오화가", "is", "walking", "walking"]
+        }
+      ]
+    },
+
+    {
+      "persona": "유리코",
+      "curr_address" : "the Ville:오화가와 유리코의 집:유리코의 방",
+      "perceived_tiles" : [
+        {
+          "dist" : 0.0,
+          "event" : ["유리코", "is", "walking", "walking"]
+        }
+      ]
+    },
+
+    {
+      "persona": "유태호",
+      "curr_address" : "the Ville:유태호의 집:main room",
+      "perceived_tiles" : [
+        {
+          "dist" : 0.0,
+          "event" : ["유태호", "is", "walking", "walking"]
+        }
+      ]
+    },
+
+
+    {
+      "persona": "이자식",
+      "curr_address" : "the Ville:이장남과 이자식의 집:이자식의 방",
+      "perceived_tiles" : [
+        {
+          "dist" : 0.0,
+          "event" : ["이자식", "is", "sleeping", "sleeping"]
+        }
+      ]
+    },
+
+    {
+      "persona": "이장남",
+      "curr_address" : "the Ville:이장남과 이자식의 집:이장남의 방",
+      "perceived_tiles" : [
+        {
+          "dist" : 0.0,
+          "event" : ["이장남", "is", "walking", "walking"]
+        }
+      ]
+    },
+
+
+    {
+      "persona": "이지양",
+      "curr_address" : "the Ville:이지양의 꽃집:이지양의 방",
+      "perceived_tiles" : [
+        {
+          "dist" : 0.0,
+          "event" : ["이지양", "is", "walking", "walking"]
+        }
+      ]
+    },
+
+
+    {
+      "persona": "이화령",
+      "curr_address" : "the Ville:이화령의 집:Main room",
+      "perceived_tiles" : [
+        {
+          "dist" : 0.0,
+          "event" : ["이화령", "is", "walking", "walking"]
+        }
+      ]
+    },
+
+
+
+
+    {
+      "persona": "주아령",
+      "curr_address" : "the Ville:주아령의 도서관:주아령의 방",
+      "perceived_tiles" : [
+        {
+          "dist" : 0.0,
+          "event" : ["주아령", "is", "walking", "walking"]
+        }
+      ]
+    },
+
+    {
+      "persona": "최문식",
+      "curr_address" : "the Ville:변호인과 최문식의 집:main room",
+      "perceived_tiles" : [
+        {
+          "dist" : 0.0,
+          "event" : ["최문식", "is", "walking", "walking"]
+        }
+      ]
+    }
+
   ]
 }
+
+

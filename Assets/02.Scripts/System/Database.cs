@@ -9,6 +9,8 @@ public class Database : MonoBehaviour
     public string simCode; 
     public string gameName;
     public int StartStep = 0;
+    public string uuid;
+    public string username;
     
     private void Awake()
     {
@@ -16,6 +18,10 @@ public class Database : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            
+            Debug.Log("User 정보 불러옴");
+            uuid =  PlayerPrefs.GetString("uuid", "a45c234b-f6f8-4ba8-9fa3-0dac1ce521de");
+            username = PlayerPrefs.GetString("username", "NULL");
         }
         else
             Destroy(gameObject);

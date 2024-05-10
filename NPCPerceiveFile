@@ -2,10 +2,10 @@
   "perceived_info": [
     {
       "persona": "고영이",
-      "curr_address": "이화령의 집:home:home:home",
+      "curr_address": "StartChat:home:home:home",
       "perceived_tiles": [
         {
-          "dist": 5.45265865,
+          "dist": 1.608034,
           "event": [
             "이화령",
             null,
@@ -22,7 +22,7 @@
     },
     {
       "persona": "나주교",
-      "curr_address": ":home:home:home",
+      "curr_address": "none:home:home:home",
       "perceived_tiles": [
         {
           "dist": 1.77180743,
@@ -37,10 +37,10 @@
     },
     {
       "persona": "변호인",
-      "curr_address": "변호인과 최문식의 집:home:home:home",
+      "curr_address": "none:home:home:home",
       "perceived_tiles": [
         {
-          "dist": 1.53434169,
+          "dist": 1.49980617,
           "event": [
             "최문식",
             null,
@@ -87,12 +87,12 @@
     },
     {
       "persona": "유리코",
-      "curr_address": "유태호의 집:home:home:home",
+      "curr_address": "오화가와 유리코의 집:home:home:home",
       "perceived_tiles": []
     },
     {
       "persona": "유태호",
-      "curr_address": "이장남과 이자식의 집:home:home:home",
+      "curr_address": "유태호의 집:home:home:home",
       "perceived_tiles": [
         {
           "dist": 12.8312216,
@@ -116,7 +116,7 @@
     },
     {
       "persona": "이자식",
-      "curr_address": "none:home:home:home",
+      "curr_address": "이장남과 이자식의 집:home:home:home",
       "perceived_tiles": []
     },
     {
@@ -144,7 +144,7 @@
       "curr_address": "이화령의 집:home:home:home",
       "perceived_tiles": [
         {
-          "dist": 5.45265865,
+          "dist": 1.608034,
           "event": [
             "고영이",
             null,
@@ -164,7 +164,7 @@
       "curr_address": "변호인과 최문식의 집:home:home:home",
       "perceived_tiles": [
         {
-          "dist": 1.53434169,
+          "dist": 1.49980617,
           "event": [
             "변호인",
             null,
