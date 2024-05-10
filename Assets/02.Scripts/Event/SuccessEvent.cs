@@ -10,11 +10,20 @@ public class SuccessEvent : MonoBehaviour
     public GameObject panel;
     public GameObject hole;
 
+    public List<string> npc;
+    public List<string> assembled_npc;
+
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("플레이어");
-        //StartCoroutine(Moving("김태리", "고영이", "변호인", "이화령"));
+        assembled_npc = EndingCollider.assembled_npc;
+        npc = new List<string>() { "유리코", "오화가", "주아령", "고영이", "이화령", "유태호", "변호인", "최문식", "여이삭", "오서달", "이지양", "이자식", "이장남", "김태리" };
+
+        foreach(string n in assembled_npc)
+        {
+            npc.Remove(n);
+        }
 
         StartCoroutine("Success_ending");
     }
@@ -28,8 +37,18 @@ public class SuccessEvent : MonoBehaviour
     {
         yield return new WaitForSeconds(1.5f);
 
+        // 등장 npc 랜덤 4명 선택
+        List<string> moving_npc = new List<string>();
+        for (int i = 0; i < 4; i++)
+        {
+            int n = Random.Range(0, npc.Count);
+            moving_npc.Add(npc[n]);
+            npc.Remove(npc[n]);
+        }
+
+
         player.GetComponent<Animator>().enabled = true;
-        StartCoroutine(Moving("김태리", "고영이", "여이삭", "변호인"));
+        StartCoroutine(Moving(moving_npc[0], moving_npc[1], moving_npc[2], moving_npc[3]));
 
         yield return new WaitForSeconds(5.5f);
 

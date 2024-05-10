@@ -118,7 +118,7 @@ namespace NPCServer
         public DateTime GetCurrentTime()
         {
             return curr_time;
-            // ex) feburary 13, 2023, 17:20:14
+            // ex) 08/01/2024 17:20:14
             //Debug.Log(curr_time);
         }
     }

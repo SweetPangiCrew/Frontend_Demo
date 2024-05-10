@@ -17,4 +17,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/01.Scenes/_JW/Map.unity
     guid: 3dd02a3c241a013498c3f1aaa17f4cd6
+  - enabled: 1
+    path: Assets/01.Scenes/FailEvent.unity
+    guid: d094e544ee2343145b8d5ddf455bb7b2
+  - enabled: 1
+    path: Assets/01.Scenes/EndingTest.unity
+    guid: 31544ee23b577ed43ab0525507a5d834
+  - enabled: 1
+    path: Assets/01.Scenes/SuccessEvent.unity
+    guid: 4f9e26255d16e7e468b4ef2903f00a85
+  - enabled: 1
+    path: Assets/01.Scenes/0510Ending.unity
+    guid: d4e1c3137d58ba549a3729c8bceec4dc
   m_configObjects: {}

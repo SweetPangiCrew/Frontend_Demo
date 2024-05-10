@@ -343,7 +343,7 @@ public class GameManager : MonoBehaviour
         {
             if(nl.gameObject.name == nextLocation)
             {
-                NPC[npcIndex].AddWaypoint(nl, 40);   
+                NPC[npcIndex].AddWaypoint(nl, 10);   
                 break; 
             }                
         }
@@ -402,7 +402,7 @@ public class GameManager : MonoBehaviour
                             NPC[otherNpcIndex].StopAndMoveForChatting();
                             NPC[npcIndex].StopAndMoveForChatting();
                             
-                            Debug.Log(otherNPCName+"와"+perceivedInfo.persona+"대화하려고 멈춤");
+                            //Debug.Log(otherNPCName+"와"+perceivedInfo.persona+"대화하려고 멈춤");
      
                         }
                         

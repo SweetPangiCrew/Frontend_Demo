@@ -118,8 +118,9 @@ public class SendMessage : MonoBehaviour
             GameObject TextClone = Instantiate(_chatManager.textArea[0], ContentRect);
             AreaScript Area = TextClone.GetComponent<AreaScript>();
             
+            
             Area.TextRect.GetComponent<TextMeshProUGUI>().text = inputField.text;
-            Area.NameText.text = "player";
+            Area.NameText.text = Database.Instance.username;
           
             //테스트용 코드 : 다른 상대와 대화 초기화하고 대화 시작
             //if (TestMode && transferNum == 0) transferNum = -1;
