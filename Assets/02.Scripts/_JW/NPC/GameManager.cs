@@ -25,7 +25,6 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            Debug.Log("gm ");
         }
         else
         {
@@ -88,14 +87,10 @@ public class GameManager : MonoBehaviour
            gameName = "game1";
            isTest = true;
        }
-
-       
        StartCoroutine(InvokePerceive());        
     }
 
-       
-
-   
+    
     private void LoadExistingInfo(string filePath)
     {
         try
@@ -120,7 +115,7 @@ public class GameManager : MonoBehaviour
             int minute = curr_time.Hour * 60 + curr_time.Minute; 
             
             //server manage?�서 ?�버가 ???�렸?�때
-            if (!NPCServerManager.Instance.serverOpened & !isTest) { yield return new WaitForSeconds(1f); continue;}
+            if (!NPCServerManager.Instance.serverOpened & !isTest) {    Debug.Log("b");yield return new WaitForSeconds(1f); continue;}
             
             if (step == 0 )
             {
@@ -277,8 +272,8 @@ public class GameManager : MonoBehaviour
                             if (conversationPairs.Contains(conversationPair))
                             {
                                 //Debug.Log(conversationPair+"가 이미 존재함.");
-                                // personaList[npcIndex].Description = otherNPCName + "와(과) 이야기를 나누는 중";
-                                // personaList[otherNpcIndex].Description = NPC[npcIndex].gameObject.name + "와(과) 이야기를 나누는 중";
+                                personaList[npcIndex].Description = otherNPCName + "와(과) 이야기를 나누는 중";
+                                personaList[otherNpcIndex].Description = NPC[npcIndex].gameObject.name + "와(과) 이야기를 나누는 중";
                                 // NPC[npcIndex].DescriptionBubble.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = personaList[npcIndex].Description;
                                 // NPC[otherNpcIndex].DescriptionBubble.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = personaList[npcIndex].Description;
                                // continue;
@@ -319,6 +314,10 @@ public class GameManager : MonoBehaviour
                     string imagePathWithName = "Pronunciatio/" + fileNameWithoutExtension;
                     Sprite sprite = Resources.Load<Sprite>(imagePathWithName);
 
+                    if (fileNameWithoutExtension == "")
+                    {
+                        
+                    }
                     if (sprite != null)
                         NPC[npcIndex].IconBubble.transform.GetChild(0).GetChild(i).GetComponent<Image>().sprite = sprite;
                 }
