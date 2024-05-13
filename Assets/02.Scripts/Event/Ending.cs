@@ -47,7 +47,7 @@ public class Ending : MonoBehaviour
                     if (rIndex >= 10)
                     {
                         npc.GetComponent<NPC>().locationTag = true;
-                        npc.GetComponent<NPC>().AddWaypoint(GameManager.Instance.location[13], 100);
+                        npc.GetComponent<NPC>().AddWaypoint(GameManager.Instance.location[53], 100);
 
                         Debug.Log(npc.name + "종교 집회로 이동");
                     }
