@@ -12,14 +12,12 @@ public class Ending : MonoBehaviour
     //public TextMeshProUGUI text;
 
     private int assembled_num;
-    float timer;
     bool location;
 
     // Start is called before the first frame update
     void Start()
     {
         assembled_num = 0;
-        timer = 0;
         location = true;
     }
 
