@@ -18,7 +18,7 @@ public class Panel : MonoBehaviour
     {
         
     }
-    private void OnEnable()
+    public void Show_Panel()
     {
         StartCoroutine("show_panel");
     }

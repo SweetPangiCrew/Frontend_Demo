@@ -29,11 +29,13 @@ public class trash : MonoBehaviour
                 PlayerAction.reliability += 0.1f;
                 panel.SetActive(true);
                 panel.GetComponentInChildren<TextMeshProUGUI>().text = "신뢰도가 상승하였습니다!";
-                rel_txt.text = "신뢰도: " + Mathf.FloorToInt(PlayerAction.getCurrentReliability()).ToString();
+                panel.GetComponent<Panel>().Show_Panel();
+                //rel_txt.text = "신뢰도: " + Mathf.FloorToInt(PlayerAction.getCurrentReliability()).ToString();
                 Destroy(gameObject);
             }
         }
 
     }
+
 
 }
