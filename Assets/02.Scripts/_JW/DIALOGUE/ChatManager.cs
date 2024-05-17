@@ -120,6 +120,11 @@ public class ChatManager : MonoBehaviour
         scrollBar.value = 1f;
     }
 
+    public void clearDialoguePanel()
+    {
+       
+    }
+
     private IEnumerator AutoDialogue(int npcIndex, int otherNpcIndex)
     {
         int dialogueIndex = -1;
@@ -166,11 +171,11 @@ public class ChatManager : MonoBehaviour
                 int curSpeakerIndex  = dialogues[npcIndex].dialogues[dialogueIndex].speakerIndex;
 
                 // Kakao Talk Dialogue
-                GameObject TextClone = Instantiate(textArea[dialogueIndex%2], ContentRect);
-                AreaScript Area = TextClone.GetComponent<AreaScript>();
+                //GameObject TextClone = Instantiate(textArea[dialogueIndex%2], ContentRect);
+                //AreaScript Area = TextClone.GetComponent<AreaScript>();
 
-                Area.TextRect.GetComponent<TextMeshProUGUI>().text = dialogues[npcIndex].dialogues[dialogueIndex].dialogue;
-                Area.NameText.text = dialogues[npcIndex].dialogues[dialogueIndex].name;
+                //Area.TextRect.GetComponent<TextMeshProUGUI>().text = dialogues[npcIndex].dialogues[dialogueIndex].dialogue;
+               // Area.NameText.text = dialogues[npcIndex].dialogues[dialogueIndex].name;
 
                 // Speech Bubble Dialogue
                 SetActiveObjects(speakers[curSpeakerIndex], true);
