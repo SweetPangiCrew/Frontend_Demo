@@ -96,7 +96,7 @@ public class ReligiousIndexNetworkManager : HttpServerBase
      public Coroutine UpdateRIndex( Dictionary<string,int> updateInfo,
          Action<Result> onSucceed = null, Action<Result> onFailed = null, Action<Result> onNetworkFailed = null)
      {
-         string url = GameURL.NPCServer.Server_URL + GameURL.NPCServer.updateRIndex + Database.Instance.gameName +"/"+Database.Instance.uuid+"/"; 
+         string url = GameURL.NPCServer.Server_URL + GameURL.NPCServer.updateRIndex + Database.Instance.gameName +"/"+Database.Instance.uuid; 
 
          // Newtonsoft.Json
          JObject jobj = new JObject();
