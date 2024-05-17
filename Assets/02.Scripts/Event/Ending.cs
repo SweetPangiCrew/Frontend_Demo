@@ -55,7 +55,7 @@ public class Ending : MonoBehaviour
 
             panel.SetActive(true);
             assembled_num = gameObject.GetComponentInChildren<EndingCollider>().assembled_num;
-            panel.GetComponentInChildren<TextMeshProUGUI>().text = "나주교의 종교 집회: " + assembled_num + "명";
+            panel.GetComponentInChildren<TextMeshProUGUI>().text = "현재 나주교의 종교 집회: " + assembled_num + "명 참석";
 
             // 엔딩
             DateTime endingTime = new DateTime(DateTime.Now.Year, 8, 1, 10, 0, 0);
