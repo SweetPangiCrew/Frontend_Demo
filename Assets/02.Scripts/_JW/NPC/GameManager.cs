@@ -176,7 +176,7 @@ public class GameManager : MonoBehaviour
                                 Debug.Log("@@@@@@@@@@@@@@@@");
             }
             
-            
+            //conversationPairs.Clear();
 
             var jsonTextFile = Resources.Load<TextAsset>(jsonFilePath);
             
