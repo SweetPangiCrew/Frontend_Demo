@@ -26,7 +26,7 @@ public class Ending : MonoBehaviour
     void Update()
     {
         //Debug.Log(NPCServer.Clock.Instance.GetCurrentTime());
-        DateTime dateTime = new DateTime(DateTime.Now.Year, 8, 1, 8, 30, 0);
+        DateTime dateTime = new DateTime(DateTime.Now.Year, 8, 1, 8, 10, 0);
         Debug.Log(dateTime);
 
         // 종교 집회 시작
@@ -43,10 +43,10 @@ public class Ending : MonoBehaviour
                 foreach (GameObject npc in NPC)
                 {
                     int rIndex = ReligiousIndexNetworkManager.Instance.RIndexInfo[npc.name];
-                    if (rIndex >= 10)
+                    if (rIndex >= 0)
                     {
                         npc.GetComponent<NPC>().locationTag = true;
-                        npc.GetComponent<NPC>().AddWaypoint(GameManager.Instance.location[53], 100);
+                        npc.GetComponent<NPC>().AddWaypoint(GameManager.Instance.location[53], 1000);
 
                         Debug.Log(npc.name + "종교 집회로 이동");
                     }
@@ -60,7 +60,7 @@ public class Ending : MonoBehaviour
             panel.GetComponentInChildren<TextMeshProUGUI>().text = "현재 나주교의 종교 집회: " + assembled_num + "명 참석";
 
             // 엔딩
-            DateTime endingTime = new DateTime(DateTime.Now.Year, 8, 1, 10, 0, 0);
+            DateTime endingTime = new DateTime(DateTime.Now.Year, 8, 2, 0, 30, 0);
             if (DateTime.Compare(NPCServer.Clock.Instance.GetCurrentTime(), endingTime) > 0)
             {
                 if(assembled_num < 7)

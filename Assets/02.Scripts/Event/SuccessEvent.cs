@@ -34,9 +34,7 @@ public class SuccessEvent : MonoBehaviour
         
     }
     IEnumerator Success_ending()
-    {
-        yield return new WaitForSeconds(1.5f);
-
+    { 
         // 등장 npc 랜덤 4명 선택
         List<string> moving_npc = new List<string>();
         for (int i = 0; i < 4; i++)
@@ -46,6 +44,13 @@ public class SuccessEvent : MonoBehaviour
             npc.Remove(npc[n]);
         }
 
+        // 종교 집회 참석x, 랜덤 4명x인 나머지 npc 끄기
+        foreach (string n in npc)
+        {
+            GameObject.Find(n).SetActive(false);
+        }
+
+        yield return new WaitForSeconds(1.5f);
 
         player.GetComponent<Animator>().enabled = true;
         StartCoroutine(Moving(moving_npc[0], moving_npc[1], moving_npc[2], moving_npc[3]));
