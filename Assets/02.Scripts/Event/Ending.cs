@@ -9,6 +9,7 @@ public class Ending : MonoBehaviour
 {
     public GameObject endingCollider;
     public GameObject panel;
+    public GameObject time;
     //public TextMeshProUGUI text;
 
     private int assembled_num;
@@ -54,6 +55,7 @@ public class Ending : MonoBehaviour
             }
 
             panel.SetActive(true);
+            time.SetActive(true);
             assembled_num = gameObject.GetComponentInChildren<EndingCollider>().assembled_num;
             panel.GetComponentInChildren<TextMeshProUGUI>().text = "현재 나주교의 종교 집회: " + assembled_num + "명 참석";
 
