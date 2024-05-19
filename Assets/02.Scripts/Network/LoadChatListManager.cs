@@ -37,10 +37,7 @@ public class LoadChatListManager :  HttpServerBase
 
     private void Start()
     {
-        if (GameManager.Instance.usingLocalServer)
-        {
-            GameURL.NPCServer.Server_URL = GameURL.NPCServer.Local_URL;
-        }
+      
 
         // ClickButtonLoadChatList();
     }

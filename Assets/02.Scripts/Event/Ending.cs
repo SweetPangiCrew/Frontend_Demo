@@ -27,7 +27,7 @@ public class Ending : MonoBehaviour
     {
         //Debug.Log(NPCServer.Clock.Instance.GetCurrentTime());
         DateTime dateTime = new DateTime(DateTime.Now.Year, 8, 1, 8, 10, 0);
-        Debug.Log(dateTime);
+        //Debug.Log(dateTime);
 
         // 종교 집회 시작
         if(DateTime.Compare(NPCServer.Clock.Instance.GetCurrentTime(), dateTime) > 0)

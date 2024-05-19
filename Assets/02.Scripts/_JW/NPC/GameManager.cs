@@ -77,16 +77,19 @@ public class GameManager : MonoBehaviour
        }
        else
        {
-           //로컬 서버 관련 코드
-           if (usingLocalServer)
-           {
-               GameURL.NPCServer.Server_URL = GameURL.NPCServer.Local_URL;
           
-           }
-
            gameName = "game1";
            isTest = true;
        }
+       
+       //로컬 서버 관련 코드
+       if (usingLocalServer)
+       {
+           GameURL.NPCServer.Server_URL = GameURL.NPCServer.Local_URL;
+          
+       }
+
+       
        StartCoroutine(InvokePerceive());        
     }
 
@@ -106,6 +109,7 @@ public class GameManager : MonoBehaviour
     
     private IEnumerator InvokePerceive()
     {
+       
         int lasttime = curr_time.Hour * 60 + curr_time.Minute;
         int pStep = 1; //?��? base?�서 perceive가 0???�음.
         while (true)
@@ -115,7 +119,7 @@ public class GameManager : MonoBehaviour
             int minute = curr_time.Hour * 60 + curr_time.Minute; 
             
             //server manage?�서 ?�버가 ???�렸?�때
-            if (!NPCServerManager.Instance.serverOpened & !isTest) {    Debug.Log("b");yield return new WaitForSeconds(1f); continue;}
+            if (!NPCServerManager.Instance.serverOpened & !isTest) {  yield return new WaitForSeconds(1f); continue;}
             
             if (step == 0 )
             {
@@ -123,8 +127,7 @@ public class GameManager : MonoBehaviour
                 step++;
                 lasttime = minute;
                 NPCServerManager.Instance.perceived = false;
-                // yield return new WaitForSeconds(10f); 
-                // GetMovement(step);
+             
                 continue;
             }
             
@@ -218,7 +221,9 @@ public class GameManager : MonoBehaviour
             Action<HttpServerBase.Result> applymovement = (result) =>
             {
                 personaList = NPCServerManager.Instance.CurrentMovementInfo;
-                applyMovement();
+                if(personaList.Count != 0) applyMovement();
+                
+                
             };
 
 

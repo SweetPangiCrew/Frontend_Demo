@@ -54,7 +54,7 @@ public class Tutorial : MonoBehaviour
                
             }
         
-            if(tindex>=3 && NPCServerManager.Instance.serverOpened)
+            if(tindex>=2 && NPCServerManager.Instance.serverOpened)
                 Invoke("loadNextScene",1f);
             
             //스피치

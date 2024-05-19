@@ -165,9 +165,10 @@ public class NPCServerManager : HttpServerBase
             
         };
 
-        onSucceed += updateMovementInfoAction;
+        updateMovementInfoAction += onSucceed;
+      
 
-        return StartCoroutine(SendRequestCor(url, SendType.GET, jobj, onSucceed, onFailed, onNetworkFailed));
+        return StartCoroutine(SendRequestCor(url, SendType.GET, jobj, updateMovementInfoAction, onFailed, onNetworkFailed));
     }
     
      public Coroutine PostPerceive(string data, string simName, int step, 

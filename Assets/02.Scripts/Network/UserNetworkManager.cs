@@ -40,9 +40,7 @@ public class UserNetworkManager : HttpServerBase
     }
 
     private void Start()
-    { 
-        //추후 삭제 
-        GameURL.NPCServer.Server_URL = GameURL.NPCServer.Local_URL;
+    {
         
         string local_uuid = LoadString("uuid");
 

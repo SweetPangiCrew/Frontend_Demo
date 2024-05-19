@@ -38,11 +38,7 @@ public class ReligiousIndexNetworkManager : HttpServerBase
 
     private void Start()
     {
-        if (GameManager.Instance.usingLocalServer)
-        {
-            GameURL.NPCServer.Server_URL = GameURL.NPCServer.Local_URL;
-        }
-        
+       
         //종교 친화 지수 불러오기 API 호출
         StartCoroutine(GetRIndexCoroutine());
 
