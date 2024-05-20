@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class FailEvent : MonoBehaviour
 {
@@ -170,7 +171,11 @@ public class FailEvent : MonoBehaviour
             panel.GetComponent<Image>().color = color;
             yield return null;
         }
-        
+
+        yield return new WaitForSeconds(3f);
+
+        SceneManager.LoadScene("StartScene");
+
     }
 
 }

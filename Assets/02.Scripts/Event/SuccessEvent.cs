@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SuccessEvent : MonoBehaviour
 {
@@ -95,15 +96,15 @@ public class SuccessEvent : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
 
         //나가
-        GameObject.Find("김태리").transform.Find("NPC Canvas/Speach Bubble").gameObject.SetActive(true);
-        GameObject.Find("김태리").transform.Find("NPC Canvas/Speach Bubble").gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "다 부수기 전에 나가라";
+/*        GameObject.Find(moving_npc[1]).transform.Find("NPC Canvas/Speach Bubble").gameObject.SetActive(true);
+        GameObject.Find(moving_npc[1]).transform.Find("NPC Canvas/Speach Bubble").gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "다 부수기 전에 나가라";
         yield return new WaitForSeconds(2.0f);
-        GameObject.Find("김태리").transform.Find("NPC Canvas/Speach Bubble").gameObject.SetActive(false);
+        GameObject.Find(moving_npc[1]).transform.Find("NPC Canvas/Speach Bubble").gameObject.SetActive(false);
 
-        GameObject.Find("고영이").transform.Find("NPC Canvas/Speach Bubble").gameObject.SetActive(true);
-        GameObject.Find("고영이").transform.Find("NPC Canvas/Speach Bubble").gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "부끄러운 줄 알아";
+        GameObject.Find(moving_npc[2]).transform.Find("NPC Canvas/Speach Bubble").gameObject.SetActive(true);
+        GameObject.Find(moving_npc[2]).transform.Find("NPC Canvas/Speach Bubble").gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "부끄러운 줄 알아";
         yield return new WaitForSeconds(2.0f);
-        GameObject.Find("고영이").transform.Find("NPC Canvas/Speach Bubble").gameObject.SetActive(false);
+        GameObject.Find(moving_npc[2]).transform.Find("NPC Canvas/Speach Bubble").gameObject.SetActive(false);*/
 
 
         // 나주교 도망
@@ -185,5 +186,8 @@ public class SuccessEvent : MonoBehaviour
             yield return null;
         }
 
+        yield return new WaitForSeconds(3f);
+
+        SceneManager.LoadScene("StartScene");
     }
 }
