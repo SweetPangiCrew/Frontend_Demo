@@ -26,7 +26,7 @@ public class trash : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                PlayerAction.reliability += 0.1f;
+                PlayerAction.reliability += 1f;
                 panel.SetActive(true);
                 panel.GetComponentInChildren<TextMeshProUGUI>().text = "신뢰도가 상승하였습니다!";
                 panel.GetComponent<Panel>().Show_Panel();
