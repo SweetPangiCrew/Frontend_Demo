@@ -151,11 +151,14 @@ public class NPC : MonoBehaviour
 
     #region MOVE
     public void SetRoutine()
-    {
-        if(routines.Count == 0 ) return;
+    {   
+        
+        if(routines.Count == 0) return;
         
         int curr_time = Clock.Instance.GetCurrentTime().Hour;
         int routineIndex = 0;
+
+        
         
         //행동 루틴이 시간 순으로 배열 되어있다는 가정
         for (int i = 0; i < routines.Count; i++)
@@ -174,8 +177,15 @@ public class NPC : MonoBehaviour
             
         }
         
-        if (routineIndex < 0) routineIndex = 0;
+        Debug.Log(this.gameObject.name +routineIndex );
         
+        if (routineIndex < 0){
+            //isWaiting =true;
+            routineIndex = 0;
+        }
+
+        
+           
         navMeshAgent.isStopped = false;
         navMeshAgent.SetDestination(routines[routineIndex].wayPoint.position);
         
