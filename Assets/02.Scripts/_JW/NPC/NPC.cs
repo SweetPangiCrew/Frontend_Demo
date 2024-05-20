@@ -177,7 +177,7 @@ public class NPC : MonoBehaviour
             
         }
         
-        Debug.Log(this.gameObject.name +routineIndex );
+        //Debug.Log(this.gameObject.name +routineIndex );
         
         if (routineIndex < 0){
             //isWaiting =true;
