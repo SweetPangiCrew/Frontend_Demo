@@ -45,7 +45,7 @@ public class HttpServerBase : MonoBehaviour
                 onNetworkFailed?.Invoke(result);
 
                 // TODO: 네트워크 재시도 팝업 호출.
-
+                Debug.LogError("에러");
                 yield return new WaitForSeconds(1f);
                 //Debug.LogError("재시도");
                // yield return StartCoroutine(SendRequestCor(url, sendType, jobj, onSucceed, onFailed, onNetworkFailed));
@@ -60,6 +60,7 @@ public class HttpServerBase : MonoBehaviour
                 // 서버측 실패라면(인풋이 잘못됐덨가 서버에서 연산오류가 났던가)
                 else
                 {
+                    Debug.LogError("Fail 에러");
                     onFailed?.Invoke(result);
                 }
             }
@@ -72,6 +73,7 @@ public class HttpServerBase : MonoBehaviour
         {
             // TODO: 네트워크 오류 팝업 호출
             Debug.LogError("네트워크 연결 안됨");
+            
             
             yield return new WaitUntil(() => Application.internetReachability != NetworkReachability.NotReachable);
 
