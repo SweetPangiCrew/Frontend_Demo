@@ -21,6 +21,7 @@ public class SendMessage : MonoBehaviour
     public TMP_InputField inputField;
     private UnityEngine.UI.Button sendBtn;
     public string targetPersonaName = "이자식";
+    public TextMeshProUGUI remain;
 
     // npc quiz
     public GameObject NPCQuizPanel;
@@ -55,34 +56,39 @@ public class SendMessage : MonoBehaviour
         //대화시 시간 멈춤!
         Time.timeScale = 0;
         
-        int reliability = 30; // 유저 신뢰도 연결
+        float reliability = PlayerAction.getCurrentReliability(); // 유저 신뢰도 연결
         
         if (reliability <= 5)
         {
             max_length = 10;
             maxTransferNum = 5;
+            gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "전송(" + (maxTransferNum - transferNum) + "/" + maxTransferNum + ")";
         }
         else if (reliability <= 10)
         {
             max_length = 30;
             maxTransferNum = 7;
-           
+            gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "전송(" + (maxTransferNum - transferNum) + "/" + maxTransferNum + ")";
         }
         else if (reliability <= 20)
         {
             max_length = 50;
             maxTransferNum = 10;
+            gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "전송(" + (maxTransferNum - transferNum) + "/" + maxTransferNum + ")";
         }
         else
         {
             maxTransferNum = 4; //이부분 이상한데?
             max_length = 100;
+            gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "전송(" + (maxTransferNum - transferNum) + "/" + maxTransferNum + ")";
         }
+
+        remain.text = "(" + inputField.text.Length + "/" + max_length + ")";
     }
 
     private void OnTextChanged(string text)
     {
-        
+        remain.text = "(" + inputField.text.Length + "/" + max_length + ")";
         // 텍스트의 길이가 100자를 초과하는 경우
         if (text.Length > max_length)
         {
@@ -106,8 +112,9 @@ public class SendMessage : MonoBehaviour
             PCMessage();
             StartCoroutine(showNPCMessageCoroutine());
            
-            transferNum++;
-    
+            transferNum++; 
+            gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "전송(" + (maxTransferNum - transferNum) + "/" + maxTransferNum + ")";
+
             inputField.interactable = true;
         }
     }
