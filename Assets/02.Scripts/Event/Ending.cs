@@ -43,7 +43,7 @@ public class Ending : MonoBehaviour
                 foreach (GameObject npc in NPC)
                 {
                     int rIndex = ReligiousIndexNetworkManager.Instance.RIndexInfo[npc.name];
-                    if (rIndex >= 0)
+                    if (rIndex >= 30)
                     {
                         npc.GetComponent<NPC>().locationTag = true;
                         npc.GetComponent<NPC>().AddWaypoint(GameManager.Instance.location[53], 1000);
