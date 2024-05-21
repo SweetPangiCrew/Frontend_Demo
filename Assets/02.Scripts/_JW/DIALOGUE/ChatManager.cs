@@ -79,6 +79,8 @@ public class ChatManager : MonoBehaviour
     
     public void showDialogue(List<List<string>> chatInfo)
     {
+        clearDialoguePanel();
+        
         int speakerIndex = 0;
         
         for (int k = 0; k < chatInfo.Count; k++)
@@ -92,7 +94,10 @@ public class ChatManager : MonoBehaviour
                 else
                     speakerIndex = 1;
 
-                dialogueHistoryList.Add(new DialogueData { dialogue = dialogue, name = speaker, speakerIndex = speakerIndex });
+                dialogueHistoryList.Add(new DialogueData
+                {
+                    dialogue = dialogue, name = speaker, speakerIndex = speakerIndex
+                });
             }
         }
 
@@ -122,7 +127,14 @@ public class ChatManager : MonoBehaviour
 
     public void clearDialoguePanel()
     {
-       
+        //ui Clear
+        for (int i = 0; i < ContentRect.childCount; i++)
+        {
+            Destroy(ContentRect.transform.GetChild(i).gameObject);
+        }
+        
+        //data Clear
+        dialogueHistoryList = new List<DialogueData>();
     }
 
     private IEnumerator AutoDialogue(int npcIndex, int otherNpcIndex)
