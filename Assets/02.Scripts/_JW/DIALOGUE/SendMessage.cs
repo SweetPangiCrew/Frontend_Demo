@@ -136,7 +136,6 @@ public class SendMessage : MonoBehaviour
             
             
             //if (TestMode && transferNum == 0) transferNum = 1;
-            
               
             inputField.interactable = false;
             inputField.text = "답변을 기다리는 중입니다...";
@@ -182,9 +181,11 @@ public class SendMessage : MonoBehaviour
               
                 if (transferNum == maxTransferNum)
                 {
-                    inputField.text = "더 이상 메세지를 전송할 수 없습니다.";
+            
                     inputField.interactable = false;
                     sendBtn.interactable = false;
+                    inputField.text = "";
+                    inputField.text = "더 이상 메세지를 전송할 수 없습니다.";
                   
                     if (transferNum == maxTransferNum)
                     {
