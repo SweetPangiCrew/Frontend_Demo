@@ -21,6 +21,7 @@ public class NPCrIndex : MonoBehaviour
         if (ReligiousIndexNetworkManager.Instance.RIndexInfo == null) return;
         if(ReligiousIndexNetworkManager.Instance.RIndexInfo.Count == 0 ) return;
         int rIndex = ReligiousIndexNetworkManager.Instance.RIndexInfo[gameObject.name];
+        Debug.Log(gameObject.name + rIndex.ToString());
 
         if (rIndex < 10) //0단계
         {
