@@ -6,6 +6,7 @@ TagManager:
   tags:
   - NPC
   - Location
+  - SpaceObject
   layers:
   - Default
   - TransparentFX

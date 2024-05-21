@@ -9,20 +9,11 @@ public class trash : MonoBehaviour
     public GameObject panel;
     public TextMeshProUGUI rel_txt;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private bool isPlayerInTrigger = false;
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
-    }
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if(collision.gameObject.tag == "Player")
+        if (isPlayerInTrigger)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -34,8 +25,25 @@ public class trash : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            isPlayerInTrigger = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            isPlayerInTrigger = false;
+        }
+    }
+
+  
 
 
 }
