@@ -1,3 +1,4 @@
+using NPCServer;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -148,6 +149,7 @@ public class NPCQuizManager : MonoBehaviour
         InfoPanel.SetActive(false);
 
         //시간 원상태 후 창 사라짐
+        Clock.Instance.AddTime(20);
         Time.timeScale = 1;
         gameObject.SetActive(false);
     }
@@ -168,6 +170,7 @@ public class NPCQuizManager : MonoBehaviour
         InfoPanel.SetActive(false);
 
         //시간 원상태 후 창 사라짐
+        Clock.Instance.AddTime(20);
         Time.timeScale = 1;
         gameObject.SetActive(false);
     }

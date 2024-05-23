@@ -114,7 +114,18 @@ namespace NPCServer
         {
             timerOn = true;
         }
+        
+        public DateTime AddTime(int minutes)
+        {
 
+            // 20분 더하기
+            curr_time = curr_time.AddMinutes(20);
+            
+            return curr_time;
+            // ex) 08/01/2024 17:20:14
+            //Debug.Log(curr_time);
+        }
+        
         public DateTime GetCurrentTime()
         {
             return curr_time;

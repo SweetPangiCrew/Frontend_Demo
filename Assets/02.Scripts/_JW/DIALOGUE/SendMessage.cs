@@ -54,7 +54,7 @@ public class SendMessage : MonoBehaviour
     void OnEnable()
     {
         //대화시 시간 멈춤!
-        Time.timeScale = 0;
+        Time.timeScale = 0f;
         
         float reliability = PlayerAction.getCurrentReliability(); // 유저 신뢰도 연결
         
