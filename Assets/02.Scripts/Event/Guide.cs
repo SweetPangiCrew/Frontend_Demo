@@ -12,6 +12,7 @@ public class Guide : MonoBehaviour
 
     private bool isNPCChecked = false;
     private bool isSpaceChecked = false;
+    private bool isHint1Checked = false;
 
 
     private void Start()
@@ -49,6 +50,16 @@ public class Guide : MonoBehaviour
        
     }
     
+    public void Hint()
+    {
+      
+        isHint1Checked = true;
+        panel.SetActive(true);
+        panel.GetComponentInChildren<TextMeshProUGUI>().text = "여기서 힌트가 될 물건을 찾아보자";
+        panel.GetComponent<Panel>().Show_Panel();
+       
+    }
+    
     private void OnTriggerStay2D(Collider2D collision)
     {
        
@@ -61,6 +72,12 @@ public class Guide : MonoBehaviour
         if (collision.gameObject.tag == "SpaceObject" && !isSpaceChecked)
         {
             SpacePanel();
+        }
+        
+          
+        if (collision.gameObject.tag == "Hint1" && !isHint1Checked)
+        {
+            Hint();
         }
     }
 
