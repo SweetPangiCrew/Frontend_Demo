@@ -63,6 +63,7 @@ public class Ending : MonoBehaviour
             DateTime endingTime = new DateTime(DateTime.Now.Year, 8, 2, 0, 30, 0);
             if (DateTime.Compare(NPCServer.Clock.Instance.GetCurrentTime(), endingTime) > 0)
             {
+                Debug.Log("종교 집회 시작");
                 if(assembled_num < 7)
                 {
                     SceneManager.LoadScene("SuccessEvent");

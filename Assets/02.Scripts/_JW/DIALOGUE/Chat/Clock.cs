@@ -27,6 +27,7 @@ namespace NPCServer
         public int date;
 
         public DateTime curr_time;
+        private bool change = false;
 
         public static Clock Instance { get; private set; }
 
@@ -68,7 +69,18 @@ namespace NPCServer
                 rotate = (hour * 30 + (min * 0.5f)) % 360;
                 hand.rotation = Quaternion.Euler(0, 0, -rotate);
 
-                //새벽 2시에 날짜 넘어가기
+                //자정에 날짜 바꾸기
+                if (hour == 0)
+                {
+                    if (!change)
+                    {
+                        day = (day + 1) % 7;
+                        date++;
+                        change = true;
+                    }
+                }
+
+                //새벽 2시에 시간 초기화
                 if (hour == 2)
                 {
                     ChangeDate();
@@ -101,8 +113,7 @@ namespace NPCServer
         {
             time = 0;
             rotate = 0;
-            day = (day + 1) % 7;
-            date++;
+            change = false;
         }
 
         public void StopTimer()
