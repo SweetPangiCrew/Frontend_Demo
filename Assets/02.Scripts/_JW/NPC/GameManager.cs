@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
     public List<NPC> NPC;
     public List<Persona> personaList = new List<Persona>();
     
-    public bool usingLocalServer = false;
+    //public bool usingLocalServer = false;
     private string filePath;
 
     // timer
@@ -77,13 +77,12 @@ public class GameManager : MonoBehaviour
        }
        else
        {
-          
            gameName = "game1";
            isTest = true;
        }
        
        //로컬 서버 관련 코드
-       if (usingLocalServer)
+       if (Database.Instance.isUsingLocalServer)
        {
            GameURL.NPCServer.Server_URL = GameURL.NPCServer.Local_URL;
           

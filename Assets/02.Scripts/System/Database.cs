@@ -11,6 +11,7 @@ public class Database : MonoBehaviour
     public int StartStep = 0;
     public string uuid;
     public string username;
+    public bool isUsingLocalServer;
     
     private void Awake()
     {
