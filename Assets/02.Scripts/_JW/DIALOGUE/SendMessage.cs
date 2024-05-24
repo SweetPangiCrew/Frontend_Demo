@@ -88,7 +88,6 @@ public class SendMessage : MonoBehaviour
 
     private void OnTextChanged(string text)
     {
-        Debug.Log(System.Text.Encoding.Default.GetBytes(text).Length / 2);
         remain.text = "(" + inputField.text.Length + "/" + max_length + ")";
         // 텍스트의 길이가 100자를 초과하는 경우
         if (inputField.text.Length > max_length)
