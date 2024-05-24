@@ -8,6 +8,9 @@ public class NPCrIndex : MonoBehaviour
     public TextMeshProUGUI rIndex_text;
     public GameObject[] rIndex_obj;
 
+    public bool set = false;
+    //private int curr_hour;
+    public int next_hour;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,8 +18,23 @@ public class NPCrIndex : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void LateUpdate()
     {
+        // 1시간 마다 종교 친화 지수 +3
+        if (!set)
+        {
+            Debug.Log(NPCServer.Clock.Instance.GetCurrentTime());
+            Debug.Log(NPCServer.Clock.Instance.GetCurrentTime().Hour);
+            next_hour = NPCServer.Clock.Instance.GetCurrentTime().Hour + 1;
+            set = true;
+        }
+
+        if(NPCServer.Clock.Instance.GetCurrentTime().Hour == next_hour && set == true)
+        {
+            Debug.Log("+3");
+            set = false;
+            ReligiousIndexNetworkManager.Instance.RIndexInfo[gameObject.name] += 3;
+        }
 
         if (ReligiousIndexNetworkManager.Instance.RIndexInfo == null) return;
         if(ReligiousIndexNetworkManager.Instance.RIndexInfo.Count == 0 ) return;
