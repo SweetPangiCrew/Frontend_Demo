@@ -15,6 +15,7 @@ public class Guide : MonoBehaviour
     private bool isSpaceChecked = false;
     private bool isHint1Checked = false;
     private bool isRChecked = false;
+    private bool isQChecked = false;
 
 
     private void Start()
@@ -30,6 +31,12 @@ public class Guide : MonoBehaviour
         {
             isRChecked = true;
             Rkey();
+        }
+        
+        if (Clock.Instance.GetCurrentTime().Hour == 11 && !isQChecked)
+        {
+            isQChecked = true;
+            Qkey();
         }
     }
 
@@ -76,6 +83,15 @@ public class Guide : MonoBehaviour
         
         panel.SetActive(true);
         panel.GetComponentInChildren<TextMeshProUGUI>().text = "R키를 누르면 대화내역을 볼 수 있습니다.";
+        panel.GetComponent<Panel>().Show_Panel();
+       
+    }
+    
+    public void Qkey()
+    {
+        
+        panel.SetActive(true);
+        panel.GetComponentInChildren<TextMeshProUGUI>().text = "NPC 옆에서 Q키를 누르면 퀴즈를 풀 수 있습니다.";
         panel.GetComponent<Panel>().Show_Panel();
        
     }
