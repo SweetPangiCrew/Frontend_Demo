@@ -7,13 +7,16 @@ public class StartChat : MonoBehaviour
     public GameObject chatPanel;
     public GameObject chatHistoryPanel;
     public GameObject NPCQuizPanel;
+    public GameObject NPCQuizBtn;
     
     public SendMessage sendMessage;
     public NPCQuizManager npcQuizManager;
 
     private bool isNPCInTrigger = false;
     private string currentNPCName;
+    private bool isChatting = false;
     
+    private List<string> nameList = new List<string>();
     private void Update()
     {
         if (isNPCInTrigger)
@@ -22,12 +25,13 @@ public class StartChat : MonoBehaviour
             {
                 chatPanel.SetActive(true);
                 Time.timeScale = 0;
-
+                isChatting = true;
                 sendMessage.targetPersonaName = currentNPCName;
                 npcQuizManager.NPCName = currentNPCName;
+                nameList.Add(currentNPCName);
             }
             
-            if (Input.GetKeyUp(KeyCode.Q))
+            if (Input.GetKeyUp(KeyCode.Q)&&!isChatting)
             {
             
                 Time.timeScale = 0;
@@ -36,8 +40,9 @@ public class StartChat : MonoBehaviour
             }
         }
         
-        if (Input.GetKeyUp(KeyCode.R))
+        if (Input.GetKeyUp(KeyCode.R)&&!isChatting)
         {
+          
             chatHistoryPanel.SetActive(true);
         }
         
@@ -48,7 +53,13 @@ public class StartChat : MonoBehaviour
     {
         if (collision.tag == "NPC")
         {
+        
             isNPCInTrigger = true;
+            sendMessage.targetPersonaName = currentNPCName;
+            npcQuizManager.NPCName = currentNPCName;
+            
+            if(nameList.Contains(currentNPCName))
+                NPCQuizBtn.SetActive(true);
             currentNPCName = collision.gameObject.name;
         }
     }
@@ -57,6 +68,7 @@ public class StartChat : MonoBehaviour
     {
         if (collision.tag == "NPC")
         {
+            isChatting = false;
             isNPCInTrigger = false;
             currentNPCName = null;
         }
