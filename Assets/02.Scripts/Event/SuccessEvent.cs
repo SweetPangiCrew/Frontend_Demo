@@ -126,7 +126,7 @@ public class SuccessEvent : MonoBehaviour
         // 자연신앙 만세
         yield return new WaitForSeconds(4.0f);
         player.transform.Find("Canvas").gameObject.SetActive(true);
-        player.transform.Find("Canvas/Image").gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "훗.. 자연신앙 만세다";
+        player.transform.Find("Canvas/Image").gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "자연신앙이\n마을을 지켜냈다!";
         yield return new WaitForSeconds(4.0f);
 
         //fade in
