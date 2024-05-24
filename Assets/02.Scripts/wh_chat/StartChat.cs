@@ -5,6 +5,8 @@ using UnityEngine;
 public class StartChat : MonoBehaviour
 {
     public GameObject chatPanel;
+    public GameObject chatHistoryPanel;
+    public GameObject NPCQuizPanel;
     
     public SendMessage sendMessage;
     public NPCQuizManager npcQuizManager;
@@ -24,7 +26,22 @@ public class StartChat : MonoBehaviour
                 sendMessage.targetPersonaName = currentNPCName;
                 npcQuizManager.NPCName = currentNPCName;
             }
+            
+            if (Input.GetKeyUp(KeyCode.Q))
+            {
+            
+                Time.timeScale = 0;
+                npcQuizManager.NPCName = currentNPCName;
+                NPCQuizPanel.SetActive(true);
+            }
         }
+        
+        if (Input.GetKeyUp(KeyCode.R))
+        {
+            chatHistoryPanel.SetActive(true);
+        }
+        
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -1,3 +1,4 @@
+using NPCServer;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ public class Guide : MonoBehaviour
     private bool isNPCChecked = false;
     private bool isSpaceChecked = false;
     private bool isHint1Checked = false;
+    private bool isRChecked = false;
 
 
     private void Start()
@@ -21,7 +23,16 @@ public class Guide : MonoBehaviour
         guideChurch.SetActive(true);
         
     }
-    
+
+    private void FixedUpdate()
+    {
+        if (Clock.Instance.GetCurrentTime().Hour == 12 && !isRChecked)
+        {
+            isRChecked = true;
+            Rkey();
+        }
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
@@ -60,6 +71,15 @@ public class Guide : MonoBehaviour
        
     }
     
+    public void Rkey()
+    {
+        
+        panel.SetActive(true);
+        panel.GetComponentInChildren<TextMeshProUGUI>().text = "R키를 누르면 대화내역을 볼 수 있습니다.";
+        panel.GetComponent<Panel>().Show_Panel();
+       
+    }
+    
     private void OnTriggerStay2D(Collider2D collision)
     {
        
@@ -79,6 +99,7 @@ public class Guide : MonoBehaviour
         {
             Hint();
         }
+        
     }
 
  

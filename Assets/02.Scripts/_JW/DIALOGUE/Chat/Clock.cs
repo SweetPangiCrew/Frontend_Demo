@@ -18,6 +18,7 @@ namespace NPCServer
         public float time;
         public float sec;
         public float min;
+        public float spareMin;
         public float hour;
         public string AmPm;
 
@@ -61,7 +62,7 @@ namespace NPCServer
             {
                 time += Time.deltaTime;
                 sec = ((int)time * 108) % 60; //second
-                min = ((int)time * 108) / 60 % 60; //minute
+                min = (((int)time * 108) / 60 + spareMin )% 60; //minute
                 hour = (8 + (((int)time * 108) / 3600)) % 24; //hour (8am ~ 2am)
                 curr_time =  new DateTime(DateTime.Now.Year, 8, date, (int)hour, (int)min, (int)sec); 
 
@@ -129,9 +130,10 @@ namespace NPCServer
         public DateTime AddTime(int minutes)
         {
 
-            // 20분 더하기
-            curr_time = curr_time.AddMinutes(20);
-            
+            Debug.Log("퀴즈 전"+curr_time);
+            // 20분 더하기 6 / 10분
+            spareMin += minutes ; //1200 60 *120 
+          
             return curr_time;
             // ex) 08/01/2024 17:20:14
             //Debug.Log(curr_time);
