@@ -23,7 +23,7 @@ public class GameStart : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ClickLocalURL();
+        //ClickLocalURL();
         baseInput.text = "agenti_15";
         Database.Instance.simCode =  "agenti_15";
         
@@ -51,7 +51,7 @@ public class GameStart : MonoBehaviour
     {
         errText.text = ""; 
         StartCoroutine( NPCServerManager.Instance.PostGameStartoroutineWithText(Database.Instance.simCode,Database.Instance.gameName,errText,back,tuto));
-       Invoke("onTutorial", 1f);
+        Invoke("onTutorial", 1f);
     }
     void onTutorial()
     {

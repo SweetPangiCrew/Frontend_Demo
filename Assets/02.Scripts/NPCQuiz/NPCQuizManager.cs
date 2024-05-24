@@ -23,6 +23,8 @@ public class NPCQuizManager : MonoBehaviour
     List<QuizData> quizList;
     int quizNum;
 
+    public bool isQuizing = false;
+
     //퀴즈 대상 NPC 이름
     public string NPCName;
 
@@ -30,6 +32,7 @@ public class NPCQuizManager : MonoBehaviour
     {
         Time.timeScale = 0;
 
+        isQuizing = true;
         quizPanel.SetActive(true);
         answerPanel.SetActive(true);
         submit.SetActive(true);
@@ -147,7 +150,7 @@ public class NPCQuizManager : MonoBehaviour
         }
 
         InfoPanel.SetActive(false);
-
+        isQuizing = false;
         //시간 원상태 후 창 사라짐
         Clock.Instance.AddTime(20);
         Time.timeScale = 1;
@@ -170,6 +173,7 @@ public class NPCQuizManager : MonoBehaviour
         InfoPanel.SetActive(false);
 
         //시간 원상태 후 창 사라짐
+        isQuizing = false;
         Clock.Instance.AddTime(20);
         Time.timeScale = 1;
         gameObject.SetActive(false);
