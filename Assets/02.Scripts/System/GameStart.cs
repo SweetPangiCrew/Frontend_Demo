@@ -23,7 +23,11 @@ public class GameStart : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ClickLocalURL();
+        if (Database.Instance.isUsingLocalServer)
+        {
+            ClickLocalURL();
+        }
+
         baseInput.text = "agenti_15";
         Database.Instance.simCode =  "agenti_15";
         

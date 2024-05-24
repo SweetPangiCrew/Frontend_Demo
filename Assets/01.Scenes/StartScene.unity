@@ -4283,6 +4283,7 @@ MonoBehaviour:
   StartStep: 0
   uuid: 
   username: 
+  isUsingLocalServer: 1
 --- !u!4 &931243869
 Transform:
   m_ObjectHideFlags: 0
