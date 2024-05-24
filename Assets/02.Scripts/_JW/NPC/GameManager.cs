@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
     public List<NPC> NPC;
     public List<Persona> personaList = new List<Persona>();
     
-    public bool usingLocalServer = false;
+    //public bool usingLocalServer = false;
     private string filePath;
 
     // timer
