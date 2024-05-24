@@ -88,9 +88,10 @@ public class SendMessage : MonoBehaviour
 
     private void OnTextChanged(string text)
     {
+        Debug.Log(System.Text.Encoding.Default.GetBytes(text).Length / 2);
         remain.text = "(" + inputField.text.Length + "/" + max_length + ")";
         // 텍스트의 길이가 100자를 초과하는 경우
-        if (text.Length > max_length)
+        if (inputField.text.Length > max_length)
         {
             // 텍스트를 100자로 제한합니다.
             inputField.text = text.Substring(0, max_length);
@@ -115,7 +116,7 @@ public class SendMessage : MonoBehaviour
             transferNum++; 
             gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "전송(" + (maxTransferNum - transferNum) + "/" + maxTransferNum + ")";
 
-            inputField.interactable = true;
+            //inputField.interactable = true;
         }
     }
     
@@ -138,7 +139,9 @@ public class SendMessage : MonoBehaviour
             //if (TestMode && transferNum == 0) transferNum = 1;
               
             inputField.interactable = false;
+            inputField.onValueChanged.RemoveListener(OnTextChanged);
             inputField.text = "답변을 기다리는 중입니다...";
+            inputField.onValueChanged.AddListener(OnTextChanged);
             sendBtn.interactable = false;
             scrollBar.value = 0;
     }
@@ -176,6 +179,7 @@ public class SendMessage : MonoBehaviour
             {
                 // NPc Message get
                 NPCMessage();
+                //inputField.onValueChanged.AddListener(OnTextChanged);
                 inputField.interactable = true;
                 sendBtn.interactable = true;
               
@@ -184,9 +188,11 @@ public class SendMessage : MonoBehaviour
             
                     inputField.interactable = false;
                     sendBtn.interactable = false;
+                    inputField.onValueChanged.RemoveListener(OnTextChanged);
                     inputField.text = "";
                     inputField.text = "더 이상 메세지를 전송할 수 없습니다.";
-                  
+                    inputField.onValueChanged.AddListener(OnTextChanged);
+
                     if (transferNum == maxTransferNum)
                     {
   
