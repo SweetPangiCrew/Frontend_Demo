@@ -71,7 +71,7 @@ public class SendMessage : MonoBehaviour
     {
         //대화시 시간 멈춤!
         Time.timeScale = 0f;
-        NPCname.text = targetPersonaName;
+        NPCname.text = targetPersonaName.Trim();
         
         float reliability = PlayerAction.getCurrentReliability(); // 유저 신뢰도 연결
         
