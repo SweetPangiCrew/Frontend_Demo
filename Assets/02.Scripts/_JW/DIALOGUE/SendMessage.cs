@@ -75,7 +75,7 @@ public class SendMessage : MonoBehaviour
         
         float reliability = PlayerAction.getCurrentReliability(); // 유저 신뢰도 연결
         
-        if (reliability <= 5)
+        if (reliability <= 7)
         {
             max_length = 10;
             maxTransferNum = 4;
@@ -83,7 +83,7 @@ public class SendMessage : MonoBehaviour
         }
         else if (reliability <= 10)
         {
-            max_length = 20;
+            max_length = 15;
             maxTransferNum = 5;
             gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "전송(" + (maxTransferNum - transferNum) + "/" + maxTransferNum + ")";
         }
@@ -95,7 +95,7 @@ public class SendMessage : MonoBehaviour
         }
         else
         {
-            maxTransferNum = 5; //이부분 이상한데?
+            maxTransferNum = 6; //이부분 이상한데?
             max_length = 100;
             gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "전송(" + (maxTransferNum - transferNum) + "/" + maxTransferNum + ")";
         }
