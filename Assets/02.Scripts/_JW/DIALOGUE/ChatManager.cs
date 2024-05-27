@@ -147,7 +147,7 @@ public class ChatManager : MonoBehaviour
             dialogueIndex++;
            // Debug.Log("npc Index"+npcIndex+":"+dialogueIndex);
             SetNextDialogue(npcIndex,dialogueIndex);
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(5);
         }
 
         
