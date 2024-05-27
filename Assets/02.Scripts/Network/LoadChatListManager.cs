@@ -77,12 +77,12 @@ public class LoadChatListManager :  HttpServerBase
             foreach (var chatList in existingInfo)
             {
                 // 불러온 프리팹을 동적으로 생성
-                GameObject prefab = Instantiate(prefabToLoad,transform);
+              //  GameObject prefab = Instantiate(prefabToLoad,transform);
               
-                prefab.GetComponentInChildren<TextMeshProUGUI>().text = chatList.Key;
+               // prefab.GetComponentInChildren<TextMeshProUGUI>().text = chatList.Key;
                 
                foreach (var chat in chatList.Value)
-               {     GameObject chatPrefab = Instantiate(prefabChat,prefab.transform);
+               {     GameObject chatPrefab = Instantiate(prefabChat,transform);
                    try
                    {
                        chatPrefab.transform.Find("Names").GetComponentInChildren<TextMeshProUGUI>().text = chat[0][0]+", "+chat[1][0];
