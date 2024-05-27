@@ -35,11 +35,13 @@ public class StartChat : MonoBehaviour
             
             if (Input.GetKeyUp(KeyCode.Q)&&!chatPanel.activeSelf)
             {
-
-               // isQuizing = true;
-                Time.timeScale = 0;
-                npcQuizManager.NPCName = currentNPCName;
-                NPCQuizPanel.SetActive(true);
+                if (currentNPCName != "나주교" && !GameObject.Find(currentNPCName).GetComponent<NPCQuiz>().quizEnd)
+                {
+                   // isQuizing = true;
+                    Time.timeScale = 0;
+                    npcQuizManager.NPCName = currentNPCName;
+                    NPCQuizPanel.SetActive(true);
+                }
             }
         }
         
@@ -87,9 +89,14 @@ public class StartChat : MonoBehaviour
             currentNPCName = collision.gameObject.name;
             sendMessage.targetPersonaName = currentNPCName;
             npcQuizManager.NPCName = currentNPCName;
-            
-            if(ContainsName(currentNPCName))
-                NPCQuizBtn.SetActive(true);
+
+            if (ContainsName(currentNPCName))
+            {
+                if (currentNPCName != "나주교" && !GameObject.Find(currentNPCName).GetComponent<NPCQuiz>().quizEnd)
+                {
+                    NPCQuizBtn.SetActive(true);
+                }
+            }
         }
     }
 

@@ -212,9 +212,10 @@ public class SendMessage : MonoBehaviour
 
                     if (transferNum == maxTransferNum)
                     {
-  
-                        StartCoroutine("StartNPCQuiz");
-
+                        if (targetPersonaName != "나주교" && !GameObject.Find(targetPersonaName).GetComponent<NPCQuiz>().quizEnd)
+                        {
+                            StartCoroutine("StartNPCQuiz");
+                        }
                     }
                 }
                 break;
