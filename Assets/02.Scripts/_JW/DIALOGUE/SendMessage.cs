@@ -22,6 +22,7 @@ public class SendMessage : MonoBehaviour
     private UnityEngine.UI.Button sendBtn;
     public string targetPersonaName = "이자식";
     public TextMeshProUGUI remain;
+    public TextMeshProUGUI NPCname;
 
     // npc quiz
     public GameObject NPCQuizPanel;
@@ -33,7 +34,10 @@ public class SendMessage : MonoBehaviour
         sendBtn = GetComponent<UnityEngine.UI.Button>();
         // 입력 필드의 onValueChanged 이벤트에 메서드를 추가합니다.
         inputField.onValueChanged.AddListener(OnTextChanged);
+
     }
+
+  
     
     void Update()
     {
@@ -67,6 +71,7 @@ public class SendMessage : MonoBehaviour
     {
         //대화시 시간 멈춤!
         Time.timeScale = 0f;
+        NPCname.text = targetPersonaName;
         
         float reliability = PlayerAction.getCurrentReliability(); // 유저 신뢰도 연결
         
@@ -137,8 +142,8 @@ public class SendMessage : MonoBehaviour
             Debug.Log(transferNum + 1 + "번째 메세지 발신");
             GameObject TextClone = Instantiate(_chatManager.textArea[0], ContentRect);
             AreaScript Area = TextClone.GetComponent<AreaScript>();
-            
-            
+
+
             Area.TextRect.GetComponent<TextMeshProUGUI>().text = inputField.text;
             Area.NameText.text = Database.Instance.username;
           
