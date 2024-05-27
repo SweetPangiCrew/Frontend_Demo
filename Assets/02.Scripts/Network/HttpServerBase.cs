@@ -36,7 +36,7 @@ public class HttpServerBase : MonoBehaviour
             
             // 전송
             yield return req.SendWebRequest();
-            Debug.LogError("전송 후 체크");
+            //Debug.LogError("전송 후 체크");
             // 성공인지 실패인지 확인
             var result = ResultCheck(req);
             // 네트워크 에러라면
@@ -55,7 +55,7 @@ public class HttpServerBase : MonoBehaviour
                 // 통신성공 이라면
                 if (result.IsSuccess)
                 {
-                    Debug.LogError("성공");
+                    //Debug.LogError("성공");
                     onSucceed?.Invoke(result);
                 }
                 // 서버측 실패라면(인풋이 잘못됐덨가 서버에서 연산오류가 났던가)
