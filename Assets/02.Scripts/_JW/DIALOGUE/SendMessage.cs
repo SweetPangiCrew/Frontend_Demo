@@ -35,6 +35,18 @@ public class SendMessage : MonoBehaviour
         inputField.onValueChanged.AddListener(OnTextChanged);
     }
     
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            // InputField에 포커스가 있는 경우에만 실행
+            if (inputField.isFocused)
+            { 
+                Transfer();
+            }
+        }
+    }
+    
     private void OnDisable()
     {
         inputField.text = "";
@@ -61,24 +73,24 @@ public class SendMessage : MonoBehaviour
         if (reliability <= 5)
         {
             max_length = 10;
-            maxTransferNum = 5;
+            maxTransferNum = 4;
             gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "전송(" + (maxTransferNum - transferNum) + "/" + maxTransferNum + ")";
         }
         else if (reliability <= 10)
         {
-            max_length = 30;
-            maxTransferNum = 7;
+            max_length = 20;
+            maxTransferNum = 5;
             gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "전송(" + (maxTransferNum - transferNum) + "/" + maxTransferNum + ")";
         }
         else if (reliability <= 20)
         {
-            max_length = 50;
-            maxTransferNum = 10;
+            max_length = 30;
+            maxTransferNum = 5;
             gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "전송(" + (maxTransferNum - transferNum) + "/" + maxTransferNum + ")";
         }
         else
         {
-            maxTransferNum = 4; //이부분 이상한데?
+            maxTransferNum = 5; //이부분 이상한데?
             max_length = 100;
             gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "전송(" + (maxTransferNum - transferNum) + "/" + maxTransferNum + ")";
         }
@@ -116,6 +128,7 @@ public class SendMessage : MonoBehaviour
             gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "전송(" + (maxTransferNum - transferNum) + "/" + maxTransferNum + ")";
 
             //inputField.interactable = true;
+            inputField.ActivateInputField(); // 포커스를 다시 InputField로 이동
         }
     }
     

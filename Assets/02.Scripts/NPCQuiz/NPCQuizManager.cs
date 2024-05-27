@@ -28,6 +28,18 @@ public class NPCQuizManager : MonoBehaviour
     //퀴즈 대상 NPC 이름
     public string NPCName;
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            //제출하기
+            if (quizPanel.activeSelf) 
+            {
+                CompareAnswer();
+            }
+        }
+    }
+    
     private void OnEnable()
     {
         Time.timeScale = 0;
