@@ -83,6 +83,8 @@ public class GameStart : MonoBehaviour
             tuto.SetActive(true);
           
         }
+
+        isClicked = false;
     }
 
     public void testStartButton()

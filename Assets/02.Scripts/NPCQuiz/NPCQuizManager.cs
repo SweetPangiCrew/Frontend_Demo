@@ -11,6 +11,7 @@ public class NPCQuizManager : MonoBehaviour
     public TMP_InputField answerText;
 
     //메인 퀴즈 창
+    public GameObject chatPanel;
     public GameObject quizPanel;
     public GameObject answerPanel;
     public GameObject submit;
@@ -163,6 +164,7 @@ public class NPCQuizManager : MonoBehaviour
 
         InfoPanel.SetActive(false);
         isQuizing = false;
+        chatPanel.SetActive(false);
         //시간 원상태 후 창 사라짐
         Clock.Instance.AddTime(20);
         Time.timeScale = 1;
@@ -183,7 +185,7 @@ public class NPCQuizManager : MonoBehaviour
         }
 
         InfoPanel.SetActive(false);
-
+        chatPanel.SetActive(false);
         //시간 원상태 후 창 사라짐
         isQuizing = false;
         Clock.Instance.AddTime(20);

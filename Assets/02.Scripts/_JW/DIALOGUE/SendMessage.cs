@@ -24,6 +24,7 @@ public class SendMessage : MonoBehaviour
     public TextMeshProUGUI remain;
     public TextMeshProUGUI NPCname;
 
+    public GameObject ChatPanel;
     // npc quiz
     public GameObject NPCQuizPanel;
     
@@ -34,13 +35,15 @@ public class SendMessage : MonoBehaviour
         sendBtn = GetComponent<UnityEngine.UI.Button>();
         // 입력 필드의 onValueChanged 이벤트에 메서드를 추가합니다.
         inputField.onValueChanged.AddListener(OnTextChanged);
-
+        
     }
 
   
     
     void Update()
     {
+        
+        
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
             // InputField에 포커스가 있는 경우에만 실행
@@ -73,6 +76,10 @@ public class SendMessage : MonoBehaviour
         Time.timeScale = 0f;
         NPCname.text = targetPersonaName.Trim();
         
+        StartCoroutine(ActivateInputFieldNextFrame());
+        // Invoke("focusInput",0.3f);
+        // inputField.ActivateInputField();
+        
         float reliability = PlayerAction.getCurrentReliability(); // 유저 신뢰도 연결
         
         if (reliability <= 7)
@@ -101,6 +108,20 @@ public class SendMessage : MonoBehaviour
         }
 
         remain.text = "(" + inputField.text.Length + "/" + max_length + ")";
+        
+                
+
+    }
+    
+    IEnumerator ActivateInputFieldNextFrame()
+    {
+        // 한 프레임을 기다립니다.
+        yield return null;
+
+        // InputField를 활성화하여 텍스트 입력 모드로 만듭니다.
+        inputField.interactable = true;
+        inputField.ActivateInputField();
+        Debug.Log("클릭 안해도");
     }
 
     private void OnTextChanged(string text)
@@ -133,7 +154,7 @@ public class SendMessage : MonoBehaviour
             gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "전송(" + (maxTransferNum - transferNum) + "/" + maxTransferNum + ")";
 
             //inputField.interactable = true;
-            inputField.ActivateInputField(); // 포커스를 다시 InputField로 이동
+        
         }
     }
     
@@ -163,19 +184,28 @@ public class SendMessage : MonoBehaviour
             scrollBar.value = 0;
     }
 
+    private void focusInput()
+    {
+        inputField.ActivateInputField();
+    }
+
     private void NPCMessage(){
+        
+        
         Debug.Log(transferNum + 1 + "번째 메세지 수신");
         GameObject TextClone = Instantiate(_chatManager.textArea[1], ContentRect);
         AreaScript Area = TextClone.GetComponent<AreaScript>();
         inputField.text = "";
         // NPC message -> text
         Area.TextRect.GetComponent<TextMeshProUGUI>().text = UserChatAPIManager.Instance.ResponseMessageInfo["response"];
+        
 
         // NPC message -> name
         Area.NameText.text = targetPersonaName;
         
         //scrollview
         scrollBar.value = 0;
+
 
         
     }
@@ -198,9 +228,10 @@ public class SendMessage : MonoBehaviour
                 NPCMessage();
                 //inputField.onValueChanged.AddListener(OnTextChanged);
                 inputField.interactable = true;
+                inputField.ActivateInputField();
                 sendBtn.interactable = true;
-              
-                if (transferNum == maxTransferNum)
+                Debug.Log(UserChatAPIManager.Instance.ResponseMessageInfo["end"]+"end");
+                if (transferNum == maxTransferNum || UserChatAPIManager.Instance.ResponseMessageInfo["end"] == "True")
                 {
             
                     inputField.interactable = false;
@@ -233,6 +264,8 @@ public class SendMessage : MonoBehaviour
         Debug.Log("대화 종료. 퀴즈 시작");
         // 대화 종료 후 퀴즈 시작
         NPCQuizPanel.SetActive(true);
+
+        
     }
     
 }
