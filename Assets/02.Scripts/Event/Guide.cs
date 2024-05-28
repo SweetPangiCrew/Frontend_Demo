@@ -8,7 +8,9 @@ using UnityEngine;
 public class Guide : MonoBehaviour
 {
     public GameObject panel;
+ 
     public GameObject guideChurch;
+    
     public TextMeshProUGUI nameTxt;
 
     private bool isNPCChecked = false;

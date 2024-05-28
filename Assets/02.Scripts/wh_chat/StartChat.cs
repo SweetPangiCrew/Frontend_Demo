@@ -45,7 +45,7 @@ public class StartChat : MonoBehaviour
             }
         }
         
-        if (Input.GetKeyUp(KeyCode.R)&&!isChatting)
+        if (Input.GetKeyUp(KeyCode.R)&&!chatPanel.activeSelf&&!NPCQuizPanel.activeSelf)
         {
           
             chatHistoryPanel.SetActive(true);
