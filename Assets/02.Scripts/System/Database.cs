@@ -23,6 +23,13 @@ public class Database : MonoBehaviour
             Debug.Log("User 정보 불러옴");
             uuid =  PlayerPrefs.GetString("uuid", "a45c234b-f6f8-4ba8-9fa3-0dac1ce521de");
             username = PlayerPrefs.GetString("username", "NULL");
+
+            if (isUsingLocalServer)
+            {
+                uuid = "5ba7a43d-ce45-4357-b34e-156b2c70fa58";
+                username = "로컬이";
+            }
+            
         }
         else
             Destroy(gameObject);

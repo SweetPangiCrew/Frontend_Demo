@@ -26,7 +26,7 @@ public class Ending : MonoBehaviour
     void Update()
     {
         //Debug.Log(NPCServer.Clock.Instance.GetCurrentTime());
-        DateTime dateTime = new DateTime(DateTime.Now.Year, 8, 1, 11, 0, 0);
+        DateTime dateTime = new DateTime(DateTime.Now.Year, 8, 1, 9, 0, 0);
         //Debug.Log(dateTime);
 
         // 종교 집회 시작
@@ -47,6 +47,7 @@ public class Ending : MonoBehaviour
                     {
                         npc.GetComponent<NPC>().locationTag = true;
                         npc.GetComponent<NPC>().isWaiting = false;
+                        npc.GetComponent<NPC>().isEnding = true;
                         npc.GetComponent<NPC>().AddWaypoint(GameManager.Instance.location[53], 1000);
 
                         Debug.Log(npc.name + "종교 집회로 이동");
@@ -67,11 +68,11 @@ public class Ending : MonoBehaviour
                 Debug.Log("종교 집회 시작");
                 if(assembled_num < 7)
                 {
-                    SceneManager.LoadScene("SuccessEvent");
+                    //SceneManager.LoadScene("SuccessEvent");
                 }
                 else
                 {
-                    SceneManager.LoadScene("FailEvent");
+                    //SceneManager.LoadScene("FailEvent");
                 }
                 
             }

@@ -20,6 +20,7 @@ public class NPC : MonoBehaviour
     public NavMeshAgent navMeshAgent;
     private float waitCounter = 0f;
     public bool isWaiting = false;
+    public bool isEnding = false;
 
     private bool isNPCChatAvailable = true;
     
@@ -67,6 +68,19 @@ public class NPC : MonoBehaviour
         }
     }
 
+    void SetDestination(Vector3 destination)
+    {
+        if (NavMesh.SamplePosition(destination, out NavMeshHit hit, 1.0f, NavMesh.AllAreas))
+        {
+            navMeshAgent.SetDestination(hit.position);
+            
+        }
+        else
+        {
+            Debug.LogWarning("NavMeshAgent: 목표 지점이 NavMesh 영역 외부에 있습니다.");
+        }
+    }
+
     void Update()
     {
         // Fix NPC Rotation
@@ -82,12 +96,30 @@ public class NPC : MonoBehaviour
 
                 if(locationTag)
                 {
-                    Transform nextWaypoint = locationTags[currentLocationTagIndex].wayPoint;
-                    Debug.Log(nextWaypoint.name);
-                    navMeshAgent.SetDestination(nextWaypoint.position);
+                    Transform nextWaypoint;
+                    if(isEnding)
+                        nextWaypoint = locationTags[locationTags.Count-1].wayPoint;
+                    else nextWaypoint= locationTags[currentLocationTagIndex].wayPoint;
+                   
+                    //navMeshAgent.SetDestination(nextWaypoint.position);
+                    SetDestination(nextWaypoint.position);
+                    
+                    if (!navMeshAgent.hasPath && isEnding)
+                    {   Debug.Log(nextWaypoint.name);
+                        Debug.Log(gameObject.name+"NavMeshAgent: 경로가 없어서 오서달의 집으로 워프합니다.");
+                        
+                        Vector3 position = GameManager.Instance.location[42].position;
 
-                    if(curr_address == nextWaypoint.name)
+                        navMeshAgent.Warp(position);
+                        SetDestination(nextWaypoint.position);
+                        isEnding = false;
+
+                    }
+
+                 
+                    if(navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance && !navMeshAgent.pathPending)
                     {
+                        Debug.Log(gameObject.name+nextWaypoint.position+"기다리는 중");
                         waitCounter += Time.deltaTime;
                         if (waitCounter >= locationTags[currentLocationTagIndex].waitTime)
                         {
@@ -99,7 +131,8 @@ public class NPC : MonoBehaviour
                             else
                                 locationTag = false;       
                         }
-                    }
+                    } 
+                    
                 }
             }
             else
@@ -183,9 +216,7 @@ public class NPC : MonoBehaviour
             //isWaiting =true;
             routineIndex = 0;
         }
-
         
-           
         navMeshAgent.isStopped = false;
         navMeshAgent.SetDestination(routines[routineIndex].wayPoint.position);
         
