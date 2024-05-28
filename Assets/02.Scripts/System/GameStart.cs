@@ -17,6 +17,8 @@ public class GameStart : MonoBehaviour
     public TMP_Text errText;
     private UnityEngine.UI.Button startBtn;
 
+    private bool isClicked = false;
+    public GameObject userNamePanel;
     public GameObject back, tuto;
     string nextSceneName = "MainTest";
     
@@ -38,6 +40,17 @@ public class GameStart : MonoBehaviour
        // startBtn.onSubmit.AddListener(gameStart);
     }
 
+    void Update()
+    {
+        
+        if (Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return) )
+        {
+            if (!userNamePanel.activeSelf)
+            {
+                gameStart();
+            }
+        }
+    }
     void OnBaseValueChanged(string newValue)
     {
         Database.Instance.simCode = newValue;
@@ -53,9 +66,14 @@ public class GameStart : MonoBehaviour
 
     void gameStart()
     {
-        errText.text = ""; 
-        StartCoroutine( NPCServerManager.Instance.PostGameStartoroutineWithText(Database.Instance.simCode,Database.Instance.gameName,errText,back,tuto));
-        Invoke("onTutorial", 1f);
+        if (!isClicked)
+        {
+            isClicked = true;
+            errText.text = "";
+            StartCoroutine(NPCServerManager.Instance.PostGameStartoroutineWithText(Database.Instance.simCode,
+                Database.Instance.gameName, errText, back, tuto));
+            Invoke("onTutorial", 1f);
+        }
     }
     void onTutorial()
     {
@@ -63,6 +81,7 @@ public class GameStart : MonoBehaviour
         {
             back.SetActive(false);
             tuto.SetActive(true);
+          
         }
     }
 

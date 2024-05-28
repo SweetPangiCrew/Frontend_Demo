@@ -867,6 +867,7 @@ MonoBehaviour:
   baseInput: {fileID: 726776806}
   nameInput: {fileID: 1772150288}
   errText: {fileID: 621114040}
+  userNamePanel: {fileID: 744573111}
   back: {fileID: 697837228}
   tuto: {fileID: 1207501620}
 --- !u!1 &200592256
@@ -5553,6 +5554,7 @@ MonoBehaviour:
   baseInput: {fileID: 726776806}
   nameInput: {fileID: 1772150288}
   errText: {fileID: 621114040}
+  userNamePanel: {fileID: 0}
   back: {fileID: 697837228}
   tuto: {fileID: 0}
 --- !u!114 &1247273090

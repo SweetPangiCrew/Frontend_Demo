@@ -56,6 +56,18 @@ public class UserNetworkManager : HttpServerBase
         inputField.onValueChanged.AddListener(ValidateInput);
     }
     
+    
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return) )
+        {
+            if (!string.IsNullOrEmpty(inputField.text))
+            {
+                ReadInputField();
+                uiPanel.SetActive(false);
+            }
+        }
+    }
     void ValidateInput(string text)
     {
         // 입력된 텍스트의 유효성을 검사하고, 텍스트가 비어있으면 버튼을 비활성화합니다.
