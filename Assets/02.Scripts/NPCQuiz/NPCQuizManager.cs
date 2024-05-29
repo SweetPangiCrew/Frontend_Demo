@@ -112,10 +112,11 @@ public class NPCQuizManager : MonoBehaviour
         InfoPanel.GetComponentInChildren<TextMeshProUGUI>().text = "정답입니다! (" + NPCName + "의 종교 친화 지수 - 5)";
 
         //NPC 종교 친화 지수 5 감소
-        Dictionary<string, int> updateInfo = new Dictionary<string, int>();
+/*        Dictionary<string, int> updateInfo = new Dictionary<string, int>();
         updateInfo[NPCName] = -5;
         StartCoroutine(ReligiousIndexNetworkManager.Instance.UpdateRIndexCoroutine(updateInfo));
-        Debug.Log(NPCName + ReligiousIndexNetworkManager.Instance.RIndexInfo[NPCName].ToString());
+        Debug.Log(NPCName + ReligiousIndexNetworkManager.Instance.RIndexInfo[NPCName].ToString());*/
+        ReligiousIndexNetworkManager.Instance.RIndexInfo[NPCName] -= 5;
 
         //2초 후 창 사라짐
         float timer = 0;

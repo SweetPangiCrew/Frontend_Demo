@@ -51,9 +51,9 @@ public class SuccessEvent : MonoBehaviour
             GameObject.Find(n).SetActive(false);
         }
 
-        yield return new WaitForSeconds(1.5f);
+        //yield return new WaitForSeconds(1.5f);
 
-        player.GetComponent<Animator>().enabled = true;
+        //player.GetComponent<Animator>().enabled = true;
         StartCoroutine(Moving(moving_npc[0], moving_npc[1], moving_npc[2], moving_npc[3]));
 
         yield return new WaitForSeconds(5.5f);
@@ -147,6 +147,8 @@ public class SuccessEvent : MonoBehaviour
         npc3.transform.position = new Vector3(24.5f, -32f, 0);
         npc4.transform.position = new Vector3(25.5f, -32f, 0);
 
+        yield return new WaitForSeconds(1.5f);
+        player.GetComponent<Animator>().enabled = true;
         npc1.GetComponent<Animator>().enabled = true;
         npc2.GetComponent<Animator>().enabled = true;
         npc3.GetComponent<Animator>().enabled = true;
