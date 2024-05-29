@@ -243,7 +243,7 @@ public class SendMessage : MonoBehaviour
 
                     if (UserChatAPIManager.Instance.ResponseMessageInfo["end"] == "True")
                     {
-                        ChatPanel.SetActive(false);
+                       // ChatPanel.SetActive(false);
                         UserChatAPIManager.Instance.ResponseMessageInfo["end"] = "False";
                     }
                     
