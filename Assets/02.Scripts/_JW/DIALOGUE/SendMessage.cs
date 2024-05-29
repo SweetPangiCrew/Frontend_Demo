@@ -142,7 +142,7 @@ public class SendMessage : MonoBehaviour
     }
     public void Transfer(){
         
-        if(transferNum < maxTransferNum){
+        if(transferNum <= maxTransferNum){
             
             if(inputField.text == "") return;
             transferNum++; 
