@@ -106,10 +106,10 @@ public class NPC : MonoBehaviour
                     
                     if (!navMeshAgent.hasPath && isEnding)
                     {   Debug.Log(nextWaypoint.name);
-                        Debug.Log(gameObject.name+"NavMeshAgent: 경로가 없어서 오서달의 집으로 워프합니다.");
-                        
-                        Vector3 position = GameManager.Instance.location[42].position;
+                        Debug.Log(gameObject.name + "NavMeshAgent: 경로가 없어서 오서달의 집으로 워프합니다.");
 
+                        Vector3 position = GameManager.Instance.location[42].position;
+                        isNPCChatAvailable = false;
                         navMeshAgent.Warp(position);
                         SetDestination(nextWaypoint.position);
                         isEnding = false;
