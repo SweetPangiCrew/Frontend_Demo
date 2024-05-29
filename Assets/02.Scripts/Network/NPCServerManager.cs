@@ -216,7 +216,10 @@ public class NPCServerManager : HttpServerBase
       // 'sim_code': 'agenti',
       // 'is_completed': False #필수 필드 아님
       // }
+
+  
       
+
          JObject jobj = new JObject();
 
          jobj["user"] = Database.Instance.uuid;

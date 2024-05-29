@@ -142,15 +142,15 @@ public class SendMessage : MonoBehaviour
     }
     public void Transfer(){
         
-        if(transferNum <= maxTransferNum){
+        if(transferNum < maxTransferNum){
             
             if(inputField.text == "") return;
-
+            transferNum++; 
             // player message send
             PCMessage();
             StartCoroutine(showNPCMessageCoroutine());
            
-            transferNum++; 
+       
             gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "전송(" + (maxTransferNum - transferNum) + "/" + maxTransferNum + ")";
 
             //inputField.interactable = true;
@@ -241,6 +241,13 @@ public class SendMessage : MonoBehaviour
                     inputField.text = "더 이상 메세지를 전송할 수 없습니다.";
                     inputField.onValueChanged.AddListener(OnTextChanged);
 
+                    if (UserChatAPIManager.Instance.ResponseMessageInfo["end"] == "True")
+                    {
+                        ChatPanel.SetActive(false);
+                        UserChatAPIManager.Instance.ResponseMessageInfo["end"] = "False";
+                    }
+                    
+                    
                     if (transferNum == maxTransferNum)
                     {
                         if (targetPersonaName != "나주교" && !GameObject.Find(targetPersonaName).GetComponent<NPCQuiz>().quizEnd)
@@ -248,6 +255,8 @@ public class SendMessage : MonoBehaviour
                             StartCoroutine("StartNPCQuiz");
                         }
                     }
+                    
+                    
                 }
                 break;
             } 

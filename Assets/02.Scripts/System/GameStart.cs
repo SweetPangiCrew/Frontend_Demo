@@ -68,8 +68,15 @@ public class GameStart : MonoBehaviour
     {
         if (!isClicked)
         {
+            if (Database.Instance.uuid == "")
+            {
+                errText.text = "잠시 후 다시 시도 하세요.";
+                return;
+            }
+            
             isClicked = true;
             errText.text = "";
+       
             StartCoroutine(NPCServerManager.Instance.PostGameStartoroutineWithText(Database.Instance.simCode,
                 Database.Instance.gameName, errText, back, tuto));
             Invoke("onTutorial", 1f);

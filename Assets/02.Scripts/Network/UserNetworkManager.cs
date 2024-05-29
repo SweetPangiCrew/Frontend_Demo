@@ -21,7 +21,7 @@ public class UserNetworkManager : HttpServerBase
     public TMP_InputField inputField;
     public UnityEngine.UI.Button submitButton;
     public GameObject uiPanel;
-    
+    private bool isClicked = false;
     public string ExistingInfo { get => uuid;
         set
         {
@@ -61,7 +61,7 @@ public class UserNetworkManager : HttpServerBase
     {
         if (Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return) )
         {
-            if (!string.IsNullOrEmpty(inputField.text))
+            if (!string.IsNullOrEmpty(inputField.text)&&!isClicked)
             {
                 ReadInputField();
                 uiPanel.SetActive(false);
@@ -76,10 +76,13 @@ public class UserNetworkManager : HttpServerBase
         
     public void ReadInputField()
     {
+        isClicked = true;
         string inputText = inputField.text; // InputField의 텍스트 값을 가져옵니다.
-        
+        Database.Instance.uuid = "";
         StartCoroutine(PostUserNameCoroutine(inputText));
         Debug.Log("Entered Text: " + inputText); // 콘솔에 텍스트 출력
+        
+        inputField.text = "";
     }
     
     public IEnumerator PostUserNameCoroutine(string name)
@@ -105,6 +108,7 @@ public class UserNetworkManager : HttpServerBase
             uuid = resultData["uuid"].Value<string>();
             Database.Instance.uuid = uuid;
             SaveString("uuid", uuid);
+            isClicked = false;
 
         };
 
