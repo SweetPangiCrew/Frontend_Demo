@@ -33,13 +33,19 @@ public class NPCrIndex : MonoBehaviour
         {
             Debug.Log("+3");
             set = false;
-            ReligiousIndexNetworkManager.Instance.RIndexInfo[gameObject.name] += 3;
+            ReligiousIndexNetworkManager.Instance.RIndexInfo[gameObject.name] += 1;
         }
 
         if (ReligiousIndexNetworkManager.Instance.RIndexInfo == null) return;
         if(ReligiousIndexNetworkManager.Instance.RIndexInfo.Count == 0 ) return;
         int rIndex = ReligiousIndexNetworkManager.Instance.RIndexInfo[gameObject.name];
         //Debug.Log(gameObject.name + rIndex.ToString());
+
+        if(rIndex > 40)
+        {
+            ReligiousIndexNetworkManager.Instance.RIndexInfo[gameObject.name] = 40;
+            rIndex = ReligiousIndexNetworkManager.Instance.RIndexInfo[gameObject.name];
+        }
 
         if (rIndex < 10) //0단계
         {
