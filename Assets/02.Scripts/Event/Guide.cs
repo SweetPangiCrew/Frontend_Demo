@@ -14,6 +14,7 @@ public class Guide : MonoBehaviour
     public TextMeshProUGUI nameTxt;
 
     private bool isNPCChecked = false;
+    private bool isNPCDoing = false;
     private bool isSpaceChecked = false;
     private bool isHint1Checked = false;
     private bool isRChecked = false;
@@ -52,14 +53,28 @@ public class Guide : MonoBehaviour
 
     public void NPCPanel()
     {
-      
-            //isNPCChecked = true;
             panel.SetActive(true);
-            panel.GetComponentInChildren<TextMeshProUGUI>().text = "F키로 NPC와 대화할 수 있습니다.";
+
+            isNPCDoing = true;
+            string[] messeges = {"F키로 NPC와 대화할 수 있습니다.","Q키로 퀴즈를 풀 수 있습니다.","NPC의 직업, 취향, 가족 등 다양한 질문을 하세요!","NPC는 가끔 거짓말을 하기도 합니다."}; 
+            int randomIndex = UnityEngine.Random.Range(0, messeges.Length);
+
+            if (!isNPCChecked) randomIndex = 0;
+            panel.GetComponentInChildren<TextMeshProUGUI>().text = messeges[randomIndex];
             panel.GetComponent<Panel>().Show_Panel();
-            
+            StartCoroutine(SetBoolFalseAfterDelay(3.0f));
+            isNPCChecked = true;            
     }
     
+    // 코루틴 함수
+    private IEnumerator SetBoolFalseAfterDelay(float delay)
+    {
+        // delay 시간만큼 대기
+        yield return new WaitForSecondsRealtime(delay);
+        // 불변수를 false로 설정
+        isNPCDoing = false;
+       
+    }
     public void SpacePanel()
     {
       
@@ -101,7 +116,7 @@ public class Guide : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
     {
        
-        if (collision.gameObject.tag == "NPC" && !isNPCChecked)
+        if (collision.gameObject.tag == "NPC"&&!isNPCDoing )
         {
          
             NPCPanel();

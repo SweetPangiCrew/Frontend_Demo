@@ -37,8 +37,7 @@ public class SendMessage : MonoBehaviour
         inputField.onValueChanged.AddListener(OnTextChanged);
         
     }
-
-  
+    
     
     void Update()
     {
@@ -76,9 +75,17 @@ public class SendMessage : MonoBehaviour
         Time.timeScale = 0f;
         NPCname.text = targetPersonaName.Trim();
         
+        //GPT 대화 시작. 같은 말 중복 에러 너무 심함,,,
+        //StartCoroutine(UserChatAPIManager.Instance.SendMessageCoroutine(Database.Instance.gameName,targetPersonaName,"안녕 대화를 위한 질문을 해줘",transferNum));
+        //StartCoroutine(showNPCMessageCoroutine());
+        
+        GameObject TextClone = Instantiate(_chatManager.textArea[1], ContentRect);
+        AreaScript Area = TextClone.GetComponent<AreaScript>();
+        Area.TextRect.GetComponent<TextMeshProUGUI>().text = "안녕! 나한테 궁금한게 있어?";
+        Area.NameText.text = targetPersonaName;
+        
         StartCoroutine(ActivateInputFieldNextFrame());
-        // Invoke("focusInput",0.3f);
-        // inputField.ActivateInputField();
+
         
         float reliability = PlayerAction.getCurrentReliability(); // 유저 신뢰도 연결
         
@@ -170,8 +177,12 @@ public class SendMessage : MonoBehaviour
           
             //테스트용 코드 : 다른 상대와 대화 초기화하고 대화 시작
             //if (TestMode && transferNum == 0) transferNum = -1;
+
+            string message = inputField.text;
+
+            //if (transferNum == 0) message = "안녕! 대화를 하자";
             
-            StartCoroutine(UserChatAPIManager.Instance.SendMessageCoroutine(Database.Instance.gameName,targetPersonaName,inputField.text,transferNum));
+            StartCoroutine(UserChatAPIManager.Instance.SendMessageCoroutine(Database.Instance.gameName,targetPersonaName,message,transferNum));
             
             
             //if (TestMode && transferNum == 0) transferNum = 1;
