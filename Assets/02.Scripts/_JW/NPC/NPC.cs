@@ -98,7 +98,7 @@ public class NPC : MonoBehaviour
                 {
                     Transform nextWaypoint;
                     if(isEnding)
-                        nextWaypoint = locationTags[locationTags.Count-1].wayPoint;
+                        nextWaypoint = GameManager.Instance.location[53];
                     else nextWaypoint= locationTags[currentLocationTagIndex].wayPoint;
                    
                     //navMeshAgent.SetDestination(nextWaypoint.position);
