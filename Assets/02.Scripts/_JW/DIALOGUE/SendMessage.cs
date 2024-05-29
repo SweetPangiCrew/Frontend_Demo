@@ -244,6 +244,7 @@ public class SendMessage : MonoBehaviour
                     if (UserChatAPIManager.Instance.ResponseMessageInfo["end"] == "True")
                     {
                        // ChatPanel.SetActive(false);
+                       StartCoroutine("EndChat");
                         UserChatAPIManager.Instance.ResponseMessageInfo["end"] = "False";
                     }
                     
@@ -277,5 +278,15 @@ public class SendMessage : MonoBehaviour
         
     }
     
+    IEnumerator EndChat()
+    {
+        yield return new WaitForSecondsRealtime(1f);
+        
+        Debug.Log("대화 종료. ");
+        // 대화 종료 후 퀴즈 시작
+        ChatPanel.SetActive(false);
+
+        
+    }
 }
     
