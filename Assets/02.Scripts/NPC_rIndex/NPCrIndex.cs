@@ -33,7 +33,7 @@ public class NPCrIndex : MonoBehaviour
         {
             //Debug.Log("+2");
             set = false;
-            ReligiousIndexNetworkManager.Instance.RIndexInfo[gameObject.name] += Random.Range(0, 3);;
+            ReligiousIndexNetworkManager.Instance.RIndexInfo[gameObject.name] += Random.Range(0, 4);;
         }
 
         if (ReligiousIndexNetworkManager.Instance.RIndexInfo == null) return;
