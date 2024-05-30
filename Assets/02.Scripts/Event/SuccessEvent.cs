@@ -86,7 +86,7 @@ public class SuccessEvent : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         speech.SetActive(false);
 
-        yield return new WaitForSeconds(2.0f);
+        //yield return new WaitForSeconds(2.0f);
         GameObject.Find("나주교").GetComponent<Animator>().SetBool("hit", true);
 
         // ...
