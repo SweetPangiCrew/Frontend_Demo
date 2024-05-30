@@ -22,7 +22,7 @@ public class StartChat : MonoBehaviour
     {
         if (isNPCInTrigger)
         {
-            if (Input.GetKeyUp(KeyCode.F)&&!NPCQuizPanel.activeSelf)
+            if (Input.GetKeyUp(KeyCode.F))
             {
                 chatPanel.SetActive(true);
                 Time.timeScale = 0;
