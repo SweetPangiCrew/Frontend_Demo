@@ -46,10 +46,20 @@ public class SendMessage : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
             // InputField에 포커스가 있는 경우에만 실행
-            if (inputField.isFocused)
-            { 
+            if (inputField.isFocused&&transferNum < maxTransferNum)
+            {
                 Transfer();
             }
+        }
+        
+        if (transferNum >= maxTransferNum)
+        {
+            inputField.DeactivateInputField();
+            inputField.interactable = false;
+            inputField.onValueChanged.RemoveListener(OnTextChanged);
+            inputField.text = "";
+            inputField.text = "더 이상 메세지를 전송할 수 없습니다.";
+          
         }
     }
     
@@ -242,7 +252,7 @@ public class SendMessage : MonoBehaviour
                 inputField.ActivateInputField();
                 sendBtn.interactable = true;
                 Debug.Log(UserChatAPIManager.Instance.ResponseMessageInfo["end"]+"end");
-                if (transferNum == maxTransferNum || UserChatAPIManager.Instance.ResponseMessageInfo["end"] == "True")
+                if (transferNum == maxTransferNum)
                 {
             
                     inputField.interactable = false;
@@ -252,12 +262,12 @@ public class SendMessage : MonoBehaviour
                     inputField.text = "더 이상 메세지를 전송할 수 없습니다.";
                     inputField.onValueChanged.AddListener(OnTextChanged);
 
-                    if (UserChatAPIManager.Instance.ResponseMessageInfo["end"] == "True")
-                    {
-                       // ChatPanel.SetActive(false);
-                       StartCoroutine("EndChat");
-                        UserChatAPIManager.Instance.ResponseMessageInfo["end"] = "False";
-                    }
+                    // if (UserChatAPIManager.Instance.ResponseMessageInfo["end"] == "True")
+                    // {
+                    //    // ChatPanel.SetActive(false);
+                    //    StartCoroutine("EndChat");
+                    //     UserChatAPIManager.Instance.ResponseMessageInfo["end"] = "False";
+                    // }
                     
                     
                     if (transferNum == maxTransferNum)
@@ -280,7 +290,7 @@ public class SendMessage : MonoBehaviour
 
     IEnumerator StartNPCQuiz()
     {
-        yield return new WaitForSecondsRealtime(3f);
+        yield return new WaitForSecondsRealtime(1f);
         
         Debug.Log("대화 종료. 퀴즈 시작");
         // 대화 종료 후 퀴즈 시작
@@ -291,7 +301,7 @@ public class SendMessage : MonoBehaviour
     
     IEnumerator EndChat()
     {
-        yield return new WaitForSecondsRealtime(1f);
+        yield return new WaitForSecondsRealtime(2f);
         
         Debug.Log("대화 종료. ");
         // 대화 종료 후 퀴즈 시작

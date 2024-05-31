@@ -49,6 +49,9 @@ public class NPCQuizManager : MonoBehaviour
         quizPanel.SetActive(true);
         answerPanel.SetActive(true);
         submit.SetActive(true);
+        
+        answerText.interactable = true;
+        answerText.ActivateInputField();
 
         //NPC 퀴즈 내용 불러오기
         //NPCName = "이자식";    //퀴즈 대상 불러오기
