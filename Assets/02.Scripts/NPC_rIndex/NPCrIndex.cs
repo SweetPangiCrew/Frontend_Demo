@@ -32,7 +32,8 @@ public class NPCrIndex : MonoBehaviour
         if(NPCServer.Clock.Instance.GetCurrentTime().Hour == next_hour && set == true)
         {
             //Debug.Log("+2");
-            set = false; ReligiousIndexNetworkManager.Instance.RIndexInfo[gameObject.name] += Random.Range(0, 3);;
+            int[] rindex = {0,1,1,1,2};
+            set = false; ReligiousIndexNetworkManager.Instance.RIndexInfo[gameObject.name] += rindex[Random.Range(0, rindex.Length)];
         }
 
         if (ReligiousIndexNetworkManager.Instance.RIndexInfo == null) return;
