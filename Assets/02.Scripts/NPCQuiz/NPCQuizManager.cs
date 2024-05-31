@@ -84,7 +84,7 @@ public class NPCQuizManager : MonoBehaviour
         Debug.Log("정답: " + quizList[quizNum].answer + quizList[quizNum].answer.GetType());
 
         //입력한 답과 정답 비교
-        if (answerText.text.Trim() == quizList[quizNum].answer.Trim())
+        if (answerText.text.Trim().Replace(" ", "") == quizList[quizNum].answer.Trim().Replace(" ", ""))
         {
             Debug.Log("정답!");
 
