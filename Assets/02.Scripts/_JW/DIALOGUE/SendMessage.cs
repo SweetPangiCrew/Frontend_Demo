@@ -46,7 +46,7 @@ public class SendMessage : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
             // InputField에 포커스가 있는 경우에만 실행
-            if (inputField.isFocused&&transferNum < maxTransferNum)
+            if (inputField.isFocused && transferNum < maxTransferNum )
             {
                 Transfer();
             }
@@ -54,9 +54,9 @@ public class SendMessage : MonoBehaviour
         
         if (transferNum >= maxTransferNum)
         {
+            inputField.interactable = false;
             inputField.text = "";
             inputField.DeactivateInputField();
-            inputField.interactable = false;
             inputField.onValueChanged.RemoveListener(OnTextChanged);
             inputField.text = "더 이상 메세지를 전송할 수 없습니다.";
           
@@ -66,7 +66,7 @@ public class SendMessage : MonoBehaviour
     private void OnDisable()
     {
         inputField.text = "";
-        inputField.interactable = true;
+        inputField.interactable = false;
         sendBtn.interactable = true;
         transferNum = 0;
         Time.timeScale = 1;
@@ -126,7 +126,9 @@ public class SendMessage : MonoBehaviour
 
         remain.text = "(" + inputField.text.Length + "/" + max_length + ")";
         
-                
+        inputField.text = "";
+        inputField.interactable = true;
+        sendBtn.interactable = true;
 
     }
     
@@ -161,7 +163,7 @@ public class SendMessage : MonoBehaviour
         
         if(transferNum <= maxTransferNum){
             
-            if(inputField.text == "") return;
+            if(inputField.text.Replace("\n","") == "") return;
             transferNum++; 
             // player message send
             PCMessage();
