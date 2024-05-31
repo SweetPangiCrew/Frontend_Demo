@@ -56,7 +56,7 @@ public class Guide : MonoBehaviour
             panel.SetActive(true);
 
             isNPCDoing = true;
-            string[] messeges = {"F키로 NPC와 대화할 수 있습니다.","Q키로 퀴즈를 풀 수 있습니다.","NPC의 직업, 취향, 가족 등 다양한 질문을 하세요!","NPC는 가끔 거짓말을 하기도 합니다."}; 
+            string[] messeges = {"F키로 NPC와 대화할 수 있습니다.","Q키로 퀴즈를 풀 수 있습니다.","NPC의 직업, 취향, 가족 등 다양한 질문을 하세요!","신뢰도를 늘리면 말을 더 많이 할 수 있습니다.","NPC는 가끔 거짓말을 하기도 합니다."}; 
             int randomIndex = UnityEngine.Random.Range(0, messeges.Length);
 
             if (!isNPCChecked) randomIndex = 0;

@@ -54,10 +54,10 @@ public class SendMessage : MonoBehaviour
         
         if (transferNum >= maxTransferNum)
         {
+            inputField.text = "";
             inputField.DeactivateInputField();
             inputField.interactable = false;
             inputField.onValueChanged.RemoveListener(OnTextChanged);
-            inputField.text = "";
             inputField.text = "더 이상 메세지를 전송할 수 없습니다.";
           
         }

@@ -8,6 +8,7 @@ public class StartChat : MonoBehaviour
     public GameObject chatHistoryPanel;
     public GameObject NPCQuizPanel;
     public GameObject NPCQuizBtn;
+    public GameObject NPCChatBtn;
     
     public SendMessage sendMessage;
     public NPCQuizManager npcQuizManager;
@@ -89,7 +90,7 @@ public class StartChat : MonoBehaviour
             currentNPCName = collision.gameObject.name;
             sendMessage.targetPersonaName = currentNPCName;
             npcQuizManager.NPCName = currentNPCName;
-
+            NPCChatBtn.SetActive(true);
             if (ContainsName(currentNPCName))
             {
                 if (currentNPCName != "나주교" && !GameObject.Find(currentNPCName).GetComponent<NPCQuiz>().quizEnd)
@@ -107,6 +108,7 @@ public class StartChat : MonoBehaviour
             isChatting = false;
             //isQuizing = false;
             NPCQuizBtn.SetActive(false);
+            NPCChatBtn.SetActive(false);
             isNPCInTrigger = false;
             currentNPCName = null;
             
